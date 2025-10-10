@@ -3,10 +3,6 @@
 #Include .\IORING_REGISTERED_BUFFER.ahk
 
 /**
- * IORING_BUFFER_REF represents a reference to a buffer used in an I/O ring operation.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_buffer_ref
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -42,7 +38,6 @@ class IORING_BUFFER_REF extends Win32Struct
     }
 
     /**
-     * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of buffer represented by the structure.
      * @type {Integer}
      */
     Kind {
@@ -51,7 +46,6 @@ class IORING_BUFFER_REF extends Win32Struct
     }
 
     /**
-     * 
      * @type {BufferUnion}
      */
     Buffer{

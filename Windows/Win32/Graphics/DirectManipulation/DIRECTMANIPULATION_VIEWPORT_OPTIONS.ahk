@@ -3,8 +3,11 @@
 /**
  * Defines the input behavior options for the viewport.
  * @remarks
- * <b>DIRECTMANIPULATION_VIEWPORT_OPTIONS</b> is used in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions">SetViewportOptions</a> method. These flags can be combined to set the input behavior for a viewport.
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_viewport_options
+ * 
+  * <b>DIRECTMANIPULATION_VIEWPORT_OPTIONS</b> is used in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions">SetViewportOptions</a> method. These flags can be combined to set the input behavior for a viewport.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_viewport_options
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

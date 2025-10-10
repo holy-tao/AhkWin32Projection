@@ -2,7 +2,7 @@
 
 /**
  * Specifies flags for the OfferResources1 method.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/ne-dxgi1_5-dxgi_offer_resource_flags
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/ne-dxgi1_5-dxgi_offer_resource_flags
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

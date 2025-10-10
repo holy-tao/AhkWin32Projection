@@ -3,7 +3,7 @@
 
 /**
  * Contains pointers to all Resource API version 4.0 entry points, except StartupEx.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_v4_functions
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-clres_v4_functions
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

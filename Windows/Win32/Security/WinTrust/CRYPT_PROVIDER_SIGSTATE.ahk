@@ -3,7 +3,7 @@
 
 /**
  * Is used to communicate between policy providers and Wintrust.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_sigstate
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_sigstate
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains the version of the RAW_SCSI_VIRTUAL_DISK_PARAMETERS structure to use in calls to virtual disk functions.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-raw_scsi_virtual_disk_version
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-raw_scsi_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

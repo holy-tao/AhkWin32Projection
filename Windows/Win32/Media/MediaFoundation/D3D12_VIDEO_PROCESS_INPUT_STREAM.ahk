@@ -6,7 +6,8 @@
  * Contains input information for the video processor blend functionality.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_input_stream
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -26,7 +27,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM extends Win32Struct
     }
 
     /**
-     * The subresource index to use of the *pTexture2D* argument.
+     * The subresource index to use of the *pInputTexture* argument.
      * @type {Integer}
      */
     Subresource {

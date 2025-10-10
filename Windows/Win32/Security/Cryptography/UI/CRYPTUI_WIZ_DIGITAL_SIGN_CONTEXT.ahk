@@ -3,7 +3,7 @@
 
 /**
  * Used with the CryptUIWizDigitalSign function to contain information about a BLOB.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_context
+ * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_context
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Line breakpoint characteristics of a character.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_breakpoint
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_line_breakpoint
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Indicates a spoofed device scale factor, as a percent. Used by IApplicationDesignModeSettings::SetApplicationViewState and IApplicationDesignModeSettings::IsApplicationViewStateSupported.
- * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-device_scale_factor
+ * @see https://docs.microsoft.com/windows/win32/api//shtypes/ne-shtypes-device_scale_factor
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

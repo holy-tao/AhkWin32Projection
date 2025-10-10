@@ -3,7 +3,7 @@
 
 /**
  * Contains the memory statistics for a process.
- * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-process_memory_counters
+ * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-process_memory_counters
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

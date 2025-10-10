@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies or receives the attributes of a tab. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEMHEADER structure. (ANSI)
+ * Specifies or receives the attributes of a tab. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEMHEADER structure.
  * @remarks
- * Typically, windows display text left-to-right (LTR). Windows can be 
+ * 
+  * Typically, windows display text left-to-right (LTR). Windows can be 
   * 				<i>mirrored</i> to display languages such as Hebrew or Arabic that read right-to-left (RTL). Ordinarily, 
   * 				<b>pszText</b> will be displayed in the same direction as the text in its parent window. If TCIF_RTLREADING is set, 
   * 				<b>pszText</b> will read in the opposite direction from the text in the parent window.
@@ -14,7 +15,8 @@
   * 
   * > [!NOTE]
   * > The commctrl.h header defines TCITEMHEADER as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tcitemheadera
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tcitemheadera
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI

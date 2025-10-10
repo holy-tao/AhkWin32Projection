@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The STATPROPSTG structure contains data about a single property in a property set. This data is the property ID and type tag, and the optional string name that may be associated with the property.
- * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropstg
+ * Contains data about a single property in a property set. This data is the property ID and type tag, and the optional string name that may be associated with the property.
+ * @see https://docs.microsoft.com/windows/win32/api//propidlbase/ns-propidlbase-statpropstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

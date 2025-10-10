@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DOC\_INFO\_2 structure describes a document that will be printed.
- * @see https://learn.microsoft.com/windows/win32/printdocs/doc-info-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode
@@ -15,7 +13,6 @@ class DOC_INFO_2W extends Win32Struct
     static packingSize => 8
 
     /**
-     * Pointer to a null-terminated string that specifies the name of the document.
      * @type {Pointer<Char>}
      */
     pDocName {
@@ -24,7 +21,6 @@ class DOC_INFO_2W extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies the name of an output file.
      * @type {Pointer<Char>}
      */
     pOutputFile {
@@ -33,7 +29,6 @@ class DOC_INFO_2W extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that identifies the type of data used to record the document.
      * @type {Pointer<Char>}
      */
     pDatatype {
@@ -42,7 +37,6 @@ class DOC_INFO_2W extends Win32Struct
     }
 
     /**
-     * Informs the print spooler of the nature of the data to follow. If this value is zero, the print spooler treats the data sent by subsequent calls to [**WritePrinter**](writeprinter.md) as a normal print job (whether or not it is spooled depends on the printer property). If this value is DI\_CHANNEL, only a communications channel is opened. In this case, the data passed into subsequent calls to **WritePrinter** is sent to the printer or subsequent calls to [**ReadPrinter**](readprinter.md) retrieve data from the printer. This mode remains effective until [**EndDoc**](/windows/desktop/api/Wingdi/nf-wingdi-enddoc) is called.
      * @type {Integer}
      */
     dwMode {
@@ -51,7 +45,6 @@ class DOC_INFO_2W extends Win32Struct
     }
 
     /**
-     * Reserved for internal use; should be zero.
      * @type {Integer}
      */
     JobId {

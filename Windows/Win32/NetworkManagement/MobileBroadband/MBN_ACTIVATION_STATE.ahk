@@ -2,7 +2,7 @@
 
 /**
  * The MBN_ACTIVATION_STATE enumerated type indicates the current data connection state.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_activation_state
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_activation_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

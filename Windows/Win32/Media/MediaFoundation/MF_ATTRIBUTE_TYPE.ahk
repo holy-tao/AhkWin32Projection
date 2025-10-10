@@ -2,7 +2,7 @@
 
 /**
  * Defines the data type for a key/value pair.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_attribute_type
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_attribute_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

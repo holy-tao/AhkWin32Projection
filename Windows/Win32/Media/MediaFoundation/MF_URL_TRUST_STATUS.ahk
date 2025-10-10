@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the URL is from a trusted source.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_url_trust_status
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_url_trust_status
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

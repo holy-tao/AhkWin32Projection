@@ -4,7 +4,7 @@
 
 /**
  * Used with the KP_CMS_DH_KEY_INFO parameter in the CryptSetKeyParam function to contain Diffie-Hellman key information.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cms_dh_key_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cms_dh_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

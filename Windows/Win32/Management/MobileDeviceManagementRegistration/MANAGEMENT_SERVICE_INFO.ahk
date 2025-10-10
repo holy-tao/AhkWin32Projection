@@ -3,7 +3,7 @@
 
 /**
  * Contains the endpoints and information about the management service.
- * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info
+ * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/ns-mdmregistration-management_service_info
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
  * @version v4.0.30319
  */

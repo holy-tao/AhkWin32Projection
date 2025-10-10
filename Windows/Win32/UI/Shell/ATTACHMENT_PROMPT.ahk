@@ -2,7 +2,7 @@
 
 /**
  * Provides a set of flags to be used with IAttachmentExecute::Prompt to indicate the type of prompt UI to display.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-attachment_prompt
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-attachment_prompt
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

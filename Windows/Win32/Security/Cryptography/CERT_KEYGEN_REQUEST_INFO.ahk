@@ -7,7 +7,7 @@
 
 /**
  * Contains information stored in the Netscape key generation request. The subject and subject public key BLOBs are encoded.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_keygen_request_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_keygen_request_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

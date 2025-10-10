@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of information returned by the MiniDumpCallback function.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_callback_type
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ne-minidumpapiset-minidump_callback_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

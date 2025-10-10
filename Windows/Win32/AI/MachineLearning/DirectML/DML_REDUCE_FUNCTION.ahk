@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify the specific reduction algorithm to use for the DirectML reduce operator (as described by the DML_REDUCE_OPERATOR_DESC structure).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_reduce_function
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_reduce_function
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

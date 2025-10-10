@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Identify a technique for resolving texture coordinates that are outside of the boundaries of a texture. (D3D10_TEXTURE_ADDRESS_MODE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_texture_address_mode
+ * Identify a technique for resolving texture coordinates that are outside of the boundaries of a texture.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_texture_address_mode
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

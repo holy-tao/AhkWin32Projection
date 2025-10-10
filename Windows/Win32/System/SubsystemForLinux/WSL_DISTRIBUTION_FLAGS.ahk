@@ -2,7 +2,7 @@
 
 /**
  * The WSL_DISTRIBUTION_FLAGS enumeration specifies the behavior of a distribution in the Windows Subsystem for Linux (WSL).
- * @see https://learn.microsoft.com/windows/win32/api/wslapi/ne-wslapi-wsl_distribution_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wslapi/ne-wslapi-wsl_distribution_flags
  * @namespace Windows.Win32.System.SubsystemForLinux
  * @version v4.0.30319
  */

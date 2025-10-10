@@ -2,7 +2,7 @@
 
 /**
  * Defines values for some of the constants used in this API.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpencomapi_constants
+ * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-rdpencomapi_constants
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

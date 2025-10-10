@@ -3,8 +3,12 @@
 /**
  * Represents the relationship between the processor set identified in the corresponding SYSTEM_LOGICAL_PROCESSOR_INFORMATION or SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX structure.
  * @remarks
- * The value specified by this enumeration indicates the relationship represented in the corresponding [SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX](./ns-winnt-system_logical_processor_information_ex.md)  structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-logical_processor_relationship
+ * 
+  * The value specified by this enumeration indicates the relationship represented in the corresponding [SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX](./ns-winnt-system_logical_processor_information_ex.md)  structure. 
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-logical_processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
@@ -17,13 +21,13 @@ class LOGICAL_PROCESSOR_RELATIONSHIP{
     static RelationProcessorCore => 0
 
     /**
-     * The specified logical processors are part of the same NUMA node.
+     * The specified logical processors  are part of the same NUMA node.
      * @type {Integer (Int32)}
      */
     static RelationNumaNode => 1
 
     /**
-     * The specified logical processors share a cache. 
+     * The specified logical processors  share a cache. 
  * 
  * <b>Windows Server 2003:  </b>This value is not supported until Windows Server 2003 with SP1 and Windows XP Professional x64 Edition.
      * @type {Integer (Int32)}
@@ -47,13 +51,12 @@ class LOGICAL_PROCESSOR_RELATIONSHIP{
     static RelationGroup => 4
 
     /**
-     * The specified logical processors share a single processor die.
      * @type {Integer (Int32)}
      */
     static RelationProcessorDie => 5
 
     /**
-     * **Introduced in Windows Server 2022 (21H2, build 20348).** Requests that the full affinity be returned. Unlike the other relation types, **RelationNumaNodeEx** is not used on input. It is simply a request for **RelationNumaNode** with full group information.
+     * Introduced in TBD - Release Iron.  Requests that the full affinity be returned. Unlike the other relation types, **RelationNumaNodeEx** is not used on input. It is simply a request for **RelationNumaNode** with full group information.
      * @type {Integer (Int32)}
      */
     static RelationNumaNodeEx => 6

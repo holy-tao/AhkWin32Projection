@@ -5,7 +5,7 @@
 
 /**
  * The CERT_GENERAL_SUBTREE structure is used in CERT_NAME_CONSTRAINTS_INFO structure. This structure provides the identity of a certificate that can be included or excluded.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_general_subtree
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_general_subtree
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

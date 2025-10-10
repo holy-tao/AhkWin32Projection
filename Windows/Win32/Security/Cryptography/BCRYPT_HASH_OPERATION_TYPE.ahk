@@ -2,7 +2,7 @@
 
 /**
  * The BCRYPT_HASH_OPERATION_TYPE enumeration specifies the hash operation type.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ne-bcrypt-bcrypt_hash_operation_type
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ne-bcrypt-bcrypt_hash_operation_type
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

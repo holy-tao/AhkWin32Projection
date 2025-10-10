@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The MFSampleAllocatorUsage enumeration specifies the allocator usage of components that implement the IMFSampleAllocatorControl interface.
+ * 
  * @remarks
- * Components should pass a value from the enumeration back from an implementation of [IMFSampleAllocatorControl::GetAllocatorUsage](nf-mfidl-imfsampleallocatorcontrol-getallocatorusage.md) to let the system know if they will use the system-provided allocator.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsampleallocatorusage
+ * 
+  * Components should pass a value from the enumeration back from an implementation of [IMFSampleAllocatorControl::GetAllocatorUsage](nf-mfidl-imfsampleallocatorcontrol-getallocatorusage.md) to let the system know if they will use the system-provided allocator.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsampleallocatorusage
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

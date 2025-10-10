@@ -3,7 +3,7 @@
 
 /**
  * The TF_LBBALLOONINFO structure contains information about a language bar balloon item.
- * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ns-ctfutb-tf_lbballooninfo
+ * @see https://docs.microsoft.com/windows/win32/api//ctfutb/ns-ctfutb-tf_lbballooninfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

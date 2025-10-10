@@ -3,7 +3,7 @@
 
 /**
  * The DNS_RECORD_FLAGS structure is used to set flags for use in the DNS_RECORD structure.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_record_flags
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_record_flags
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

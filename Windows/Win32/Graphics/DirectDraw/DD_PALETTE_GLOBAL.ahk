@@ -3,7 +3,7 @@
 
 /**
  * The DD_PALETTE_GLOBAL structure contains the global DirectDrawPalette data that can be shared between object instances.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_palette_global
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_palette_global
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

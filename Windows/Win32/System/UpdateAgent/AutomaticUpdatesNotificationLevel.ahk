@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible ways in which elevated users are notified about Automatic Updates events.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel
+ * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-automaticupdatesnotificationlevel
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

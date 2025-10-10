@@ -2,16 +2,19 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_MOUNT_POINT_NOTIFICATION structure (vdshwprv.h) represents data returned by the software provider because a drive letter or volume GUID path changed.
+ * Represents notification information that was returned by the basic or dynamic software provider because a drive letter or volume GUID path changed.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
   *     structure as a member.
   * 
   * An application can receive these event notifications by implementing the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsadvisesink">IVdsAdviseSink</a> interface and passing the interface 
   *     pointer as an argument to the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-advise">IVdsService::Advise</a> 
   *     method.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_mount_point_notification
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_mount_point_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

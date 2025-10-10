@@ -6,7 +6,7 @@
 
 /**
  * Defines the attributes of a wireless connection.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_attributes
+ * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_connection_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

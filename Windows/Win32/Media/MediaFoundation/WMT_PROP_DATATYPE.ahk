@@ -3,8 +3,11 @@
 /**
  * Defines the data types used for the codec and DSP properties that are accessed by using the methods of the IWMCodecProps interface.
  * @remarks
- * Most properties are accessed by using the methods of the <b>IPropertyBag</b> interface. The data types of those properties are defined as constants used with <b>VARIANTARG</b> values.
- * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-wmt_prop_datatype
+ * 
+  * Most properties are accessed by using the methods of the <b>IPropertyBag</b> interface. The data types of those properties are defined as constants used with <b>VARIANTARG</b> values.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ne-wmcodecdsp-wmt_prop_datatype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

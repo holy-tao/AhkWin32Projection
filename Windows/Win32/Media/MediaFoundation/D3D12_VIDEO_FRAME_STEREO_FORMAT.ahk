@@ -4,7 +4,8 @@
  * Defines the layout in memory of a stereo 3D video frame.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_frame_stereo_format
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_frame_stereo_format
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

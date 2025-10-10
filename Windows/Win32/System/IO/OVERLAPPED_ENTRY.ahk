@@ -3,7 +3,7 @@
 
 /**
  * Contains the information returned by a call to the GetQueuedCompletionStatusEx function.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped_entry
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-overlapped_entry
  * @namespace Windows.Win32.System.IO
  * @version v4.0.30319
  */

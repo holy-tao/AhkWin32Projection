@@ -3,11 +3,14 @@
 /**
  * Specifies unique, system-independent values that identify special folders.
  * @remarks
- * The values in this enumeration are equivalent to their corresponding <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> or <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> values, used in C++ applications. They supersede the use of environment variables for this purpose. Note that not all <b>CSIDL</b> or <b>KNOWNFOLDERID</b> values have an equivalent value in <b>ShellSpecialFolderConstants</b>.
+ * 
+  * The values in this enumeration are equivalent to their corresponding <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> or <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> values, used in C++ applications. They supersede the use of environment variables for this purpose. Note that not all <b>CSIDL</b> or <b>KNOWNFOLDERID</b> values have an equivalent value in <b>ShellSpecialFolderConstants</b>.
   * 
   * > [!NOTE]
   * > Where a constant identifies a file system folder, a commonly used path is given as an example. However, there is no guarantee that this path will be used on any particular system.
- * @see https://learn.microsoft.com/windows/win32/api/shldisp/ne-shldisp-shellspecialfolderconstants
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shldisp/ne-shldisp-shellspecialfolderconstants
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

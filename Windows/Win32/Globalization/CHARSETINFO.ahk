@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a character set.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-charsetinfo
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-charsetinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

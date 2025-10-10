@@ -4,12 +4,15 @@
 /**
  * Indicates the properties of a storage device or adapter to retrieve as the input buffer passed to the IOCTL_STORAGE_QUERY_PROPERTY control code.
  * @remarks
- * The optional output buffer returned through the <i>lpOutBuffer</i> parameter of the 
+ * 
+  * The optional output buffer returned through the <i>lpOutBuffer</i> parameter of the 
   *      <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_query_property">IOCTL_STORAGE_QUERY_PROPERTY</a> control code can 
   *      be one of several structures depending on the value of the <b>PropertyId</b> member.  If the 
   *      <b>QueryType</b> member is set to <b>PropertyExistsQuery</b>, then no 
   *      structure is returned.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_property_query
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_property_query
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Describes a packet property that is reported by the tablet driver.
- * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-packet_property
+ * @see https://docs.microsoft.com/windows/win32/api//tpcshrd/ns-tpcshrd-packet_property
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

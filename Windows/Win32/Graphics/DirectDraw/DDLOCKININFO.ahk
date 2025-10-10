@@ -3,7 +3,7 @@
 
 /**
  * The DDLOCKININFO structure contains the surface information.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddlockininfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddlockininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

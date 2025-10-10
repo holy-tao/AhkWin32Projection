@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The GROUP_FAILURE_INFO structure represents information about the Failover attempts for a group failure. (GROUP_FAILURE_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-group_failure_info
+ * Represents information about the Failover attempts for a group failure.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-group_failure_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * The WINHTTP_REQUEST_TIMES structure contains a variety of timing information for an HTTP request.
  * @remarks
- * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve timing information for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_TIMES** flag.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_request_times
+ * 
+  * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve timing information for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_TIMES** flag.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_request_times
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

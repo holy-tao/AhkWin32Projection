@@ -4,9 +4,10 @@
 /**
  * Contains read-only dynamic information for extended TCP statistics on network path measurement for a TCP connection.
  * @remarks
- * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
+ * 
+  * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
   * 
-  * The <b>TCP_ESTATS_PATH_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information on network path measurement for a TCP connection.  This information is available after the connection has been established.
+  * The <b>TCP_ESTATS_PATH_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information on network path measurementfor a TCP connection.  This information is available after the connection has been established.
   * 
   * The <b>TCP_ESTATS_PATH_ROD_v0</b> structure is retrieved by calls to  the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats">GetPerTcp6ConnectionEStats</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats">GetPerTcpConnectionEStats</a> functions when <b>TcpConnectionEstatsPath</b> is passed in the <i>EstatsType</i> parameter. Extended TCP statistics need to be enabled to retrieve this structure.
   * 
@@ -14,7 +15,7 @@
   * 
   * TCP congestion control and congestion control algorithms are discussed in detail in the IETF RFC 2581 on TCP Congestion Control. For more information, see <a href="http://tools.ietf.org/html/rfc2581">http://www.ietf.org/rfc/rfc2581.txt</a>.
   * 
-  * SACK and an extension to the SACK option are discussed in detail in the IETF RFC 2883 on An Extension to the Selective Acknowledgment
+  * SACK and an extension to the SACK option are discussed in detail in the IETF RFC 2883 on An Extension to the Selective Acknowledgement
   *            (SACK) Option for TCP. For more information, see <a href="http://tools.ietf.org/html/rfc2883">http://www.ietf.org/rfc/rfc2883.txt</a>.
   * 
   * The TCP retransmission timer (RTO) and the smoothed round-trip-time (RTT) are discussed in detail in the IETF RFC 2988 on Computing TCP's Retransmission Timer. For more information, see <a href="http://tools.ietf.org/html/rfc2988">http://www.ietf.org/rfc/rfc2988.txt</a>.
@@ -444,7 +445,9 @@
   * 
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0">TCP_ESTATS_FINE_RTT_ROD_v0</a> structure has members that provide similar data to the <b>RttVar</b>, <b>MaxRtt</b>, <b>MinRtt</b>, and <b>SumRtt</b> members of the <b>TCP_ESTATS_PATH_ROD_v0</b> structure. However, the time is reported in microseconds for the similar members of the <b>TCP_ESTATS_FINE_RTT_ROD_v0</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
@@ -564,7 +567,7 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct
     /**
      * Type: <b>ULONG</b>
      * 
-     * The number of Selective Acknowledgment (SACK)  options received.
+     * The number of Selective Acknowledgement (SACK)  options received.
      * @type {Integer}
      */
     SacksRcvd {

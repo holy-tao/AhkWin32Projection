@@ -4,8 +4,11 @@
 /**
  * Contains a row in a MIB_IPMCAST_BOUNDARY_TABLE structure that lists a router's scoped IPv4 multicast address boundaries.
  * @remarks
- * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ipmcast_boundary
+ * 
+  * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header file should never be used directly.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_ipmcast_boundary
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

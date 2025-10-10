@@ -2,7 +2,7 @@
 
 /**
  * Represents the internal structure of a device pixel (that is, the physical arrangement of red, green, and blue color components) that is assumed for purposes of rendering text.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_pixel_geometry
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -3,7 +3,8 @@
 /**
  * The values of the IASCOMPONENTPROPERTIES enumeration type enumerate identifiers for an SDO object.
  * @remarks
- * The following code snippet demonstrates obtaining the component ID of an SDO object. The variable pSdo points to an 
+ * 
+  * The following code snippet demonstrates obtaining the component ID of an SDO object. The variable pSdo points to an 
   * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nn-sdoias-isdo">ISdo</a> interface.
   * 
   * 
@@ -13,7 +14,9 @@
   * hr = pSdo->GetProperty(PROPERTY_COMPONENT_ID, &vtProperty);
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iascomponentproperties
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-iascomponentproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Specifies information about source schema registration.
- * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_source_schema_registration
+ * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_source_schema_registration
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

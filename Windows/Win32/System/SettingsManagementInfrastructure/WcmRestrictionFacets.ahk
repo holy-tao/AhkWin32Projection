@@ -2,7 +2,7 @@
 
 /**
  * Enumerates the facet values that may be returned by the ISettingsItem::GetRestrictionFacets method.
- * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets
+ * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/ne-wcmconfig-wcmrestrictionfacets
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */

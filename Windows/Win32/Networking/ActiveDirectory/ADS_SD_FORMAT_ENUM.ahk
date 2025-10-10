@@ -2,7 +2,7 @@
 
 /**
  * The ADS_SD_FORMAT_ENUM enumeration specifies the format that the security descriptor of an object will be converted to by the IADsSecurityUtility interface.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_format_enum
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_sd_format_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

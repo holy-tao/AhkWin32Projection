@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The structure containing the COSE credential parameter information.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cose_credential_parameter
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -25,7 +20,6 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
     }
 
     /**
-     * Well-known credential type specifying a credential to create.
      * @type {Pointer<Char>}
      */
     pwszCredentialType {
@@ -34,7 +28,6 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
     }
 
     /**
-     * Well-known COSE algorithm specifying the algorithm to use for the credential.
      * @type {Integer}
      */
     lAlg {

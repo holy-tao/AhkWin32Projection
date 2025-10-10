@@ -3,7 +3,7 @@
 
 /**
  * This structure is used as an input buffer when using the pass-through mechanism to issue a vendor-specific command to a storage device (via IOCTL_STORAGE_PROTOCOL_COMMAND).
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_command
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_protocol_command
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

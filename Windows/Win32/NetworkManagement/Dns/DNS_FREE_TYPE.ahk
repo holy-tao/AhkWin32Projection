@@ -2,7 +2,7 @@
 
 /**
  * The DNS_FREE_TYPE enumeration specifies the type of data to free.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ne-windns-dns_free_type
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the degree of compression used to store the file in the package.
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_compression_option
+ * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_compression_option
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

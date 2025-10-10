@@ -2,7 +2,7 @@
 
 /**
  * The CREATE_ASM_NAME_OBJ_FLAGS enumeration is used by the CreateAssemblyNameObject function.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-create_asm_name_obj_flags
+ * @see https://docs.microsoft.com/windows/win32/api//winsxs/ne-winsxs-create_asm_name_obj_flags
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

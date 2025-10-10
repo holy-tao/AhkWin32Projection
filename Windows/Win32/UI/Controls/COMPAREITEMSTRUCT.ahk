@@ -3,7 +3,7 @@
 
 /**
  * Supplies the identifiers and application-supplied data for two items in a sorted, owner-drawn list box or combo box.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-compareitemstruct
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-compareitemstruct
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,9 +4,12 @@
 /**
  * Stores an Internet Protocol (IP) address for a computer that is participating in a Windows Sockets communication.
  * @remarks
- * This data structure is designed to be used as a 
+ * 
+  * This data structure is designed to be used as a 
   *     <b>SOCKADDR</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-diag_sockaddr
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ns-ndattrib-diag_sockaddr
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

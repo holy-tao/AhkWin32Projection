@@ -3,7 +3,7 @@
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.
- * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-dsreg_join_info
+ * @see https://docs.microsoft.com/windows/win32/api//lmjoin/ns-lmjoin-dsreg_join_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

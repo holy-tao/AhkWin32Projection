@@ -3,8 +3,8 @@
 #Include .\D3D11_ENCRYPTED_BLOCK_INFO.ahk
 
 /**
- * Describes a compressed buffer for decoding. (D3D11_VIDEO_DECODER_BUFFER_DESC)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_buffer_desc
+ * Describes a compressed buffer for decoding.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_decoder_buffer_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

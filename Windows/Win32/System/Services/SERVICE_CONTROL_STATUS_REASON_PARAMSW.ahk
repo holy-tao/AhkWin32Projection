@@ -3,11 +3,13 @@
 #Include .\SERVICE_STATUS_PROCESS.ahk
 
 /**
- * Contains service control parameters. (Unicode)
+ * Contains service control parameters.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The winsvc.h header defines SERVICE_CONTROL_STATUS_REASON_PARAMS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_control_status_reason_paramsw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_control_status_reason_paramsw
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset Unicode

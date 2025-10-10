@@ -2,7 +2,7 @@
 
 /**
  * Indicates the effective power mode the system is running.
- * @see https://learn.microsoft.com/windows/win32/api/powersetting/ne-powersetting-effective_power_mode
+ * @see https://docs.microsoft.com/windows/win32/api//powersetting/ne-powersetting-effective_power_mode
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

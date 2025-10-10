@@ -3,7 +3,7 @@
 
 /**
  * The abstract base type for all URL schemes used with WsDecodeUrl and WsEncodeUrl APIs.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_url
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,8 +3,10 @@
 /**
  * A set of flags to be used with IQueryParser::SetOption and IQueryParser::GetOption to indicate individual options.
  * @remarks
- * Windows 7 adds new constants that help refine query condition trees parsed by the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iqueryparser">IQueryParser</a> interface.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option
+ * 
+  * Windows 7 adds new constants that help refine query condition trees parsed by the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iqueryparser">IQueryParser</a> interface.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-structured_query_single_option
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

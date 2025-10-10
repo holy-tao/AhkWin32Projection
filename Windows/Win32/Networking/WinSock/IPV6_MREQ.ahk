@@ -5,7 +5,8 @@
 /**
  * The ipv6_mreq structure provides multicast group information for IPv6 addresses.
  * @remarks
- * The <b>ipv6_mreq</b> structure is used with IPv6 addresses. The <b>ipv6_mreq</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/ipproto-ipv6-socket-options">IPV6_ADD_MEMBERSHIP</a>,  <b>IPV6_DROP_MEMBERSHIP</b>,  <b>IPV6_JOIN_GROUP</b>, and <b>IPV6_LEAVE_GROUP</b> socket options. The <b>IPV6_JOIN_GROUP</b> and <b>IPV6_ADD_MEMBERSHIP</b> socket options are defined to be the same. The <b>IPV6_LEAVE_GROUP</b> and <b>IPV6_DROP_MEMBERSHIP</b> socket options are defined to be the same. 
+ * 
+  * The <b>ipv6_mreq</b> structure is used with IPv6 addresses. The <b>ipv6_mreq</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/ipproto-ipv6-socket-options">IPV6_ADD_MEMBERSHIP</a>,  <b>IPV6_DROP_MEMBERSHIP</b>,  <b>IPV6_JOIN_GROUP</b>, and <b>IPV6_LEAVE_GROUP</b> socket options. The <b>IPV6_JOIN_GROUP</b> and <b>IPV6_ADD_MEMBERSHIP</b> socket options are defined to be the same. The <b>IPV6_LEAVE_GROUP</b> and <b>IPV6_DROP_MEMBERSHIP</b> socket options are defined to be the same. 
   * 
   * On Windows Vista and later, a set of socket options are available for multicast programming that support IPv6 and IPv4 addresses. These socket options are IP agnostic and can be used on both IPv6 and IPv4. These IP agnostic options use the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_req">GROUP_REQ</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_source_req">GROUP_SOURCE_REQ</a> structures and are the preferred socket options for multicast programming on Windows Vista and later.
   * 
@@ -30,7 +31,9 @@
   * 
   * <div class="alert"><b>Note</b>  The <b>PIP6_MREQ</b> derived structure is only defined on the Windows SDK released with Windows Vista and later. The <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_req">GROUP_REQ</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_source_req">GROUP_SOURCE_REQ</a> structures and are the preferred socket options for multicast programming on Windows Vista and later.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ipv6_mreq
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-ipv6_mreq
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

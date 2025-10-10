@@ -4,7 +4,7 @@
 
 /**
  * The LINEAGENTSESSIONINFO structure contains information about the ACD agent session. The lineGetAgentSessionInfo function returns the LINEAGENTSESSIONINFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentsessioninfo
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentsessioninfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

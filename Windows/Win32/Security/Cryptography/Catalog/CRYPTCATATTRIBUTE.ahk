@@ -3,7 +3,7 @@
 
 /**
  * The CRYPTCATATTRIBUTE structure defines a catalog attribute. This structure is used by the CryptCATEnumerateAttr and CryptCATEnumerateCatAttr functions.
- * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatattribute
+ * @see https://docs.microsoft.com/windows/win32/api//mscat/ns-mscat-cryptcatattribute
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  * @version v4.0.30319
  */

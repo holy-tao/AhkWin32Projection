@@ -4,10 +4,13 @@
 /**
  * An SP_DEVINFO_DATA structure defines a device instance that is a member of a device information set.
  * @remarks
- * An SP_DEVINFO_DATA structure identifies a device in a device information set. For example, when Windows sends a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/dif-installdevice">DIF_INSTALLDEVICE</a> request to a class installer and co-installers, it includes a handle to a device information set and a pointer to an SP_DEVINFO_DATA that specifies the particular device. In addition to DIF requests, this structure is also used in some <b>SetupDi</b><i>Xxx</i> functions.
+ * 
+  * An SP_DEVINFO_DATA structure identifies a device in a device information set. For example, when Windows sends a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/dif-installdevice">DIF_INSTALLDEVICE</a> request to a class installer and co-installers, it includes a handle to a device information set and a pointer to an SP_DEVINFO_DATA that specifies the particular device. In addition to DIF requests, this structure is also used in some <b>SetupDi</b><i>Xxx</i> functions.
   * 
   * <b>SetupDi</b><i>Xxx</i> functions that take an SP_DEVINFO_DATA structure as a parameter verify that the <b>cbSize</b> member of the supplied structure is equal to the size, in bytes, of the structure. If the <b>cbSize</b> member is not set correctly for an input parameter, the function will fail and set an error code of ERROR_INVALID_PARAMETER. If the <b>cbSize</b> member is not set correctly for an output parameter, the function will fail and set an error code of ERROR_INVALID_USER_BUFFER.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_devinfo_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_devinfo_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

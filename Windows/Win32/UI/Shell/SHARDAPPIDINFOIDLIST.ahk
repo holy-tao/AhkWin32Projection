@@ -3,7 +3,7 @@
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item�in this case by an absolute pointer to an item identifier list (PIDL)�and the process that it is associated with.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shardappidinfoidlist
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-shardappidinfoidlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the orientation of a control.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-orientationtype
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-orientationtype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

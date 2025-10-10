@@ -3,9 +3,10 @@
 #Include .\IMAGE_LOAD_CONFIG_CODE_INTEGRITY.ahk
 
 /**
- * Contains the load configuration data of an image. (64 bit)
+ * Contains the load configuration data of an image.
  * @remarks
- * If <b>_WIN64</b> is defined, then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY64</b>. However, if <b>_WIN64</b> is not defined,  then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY32</b>. 
+ * 
+  * If <b>_WIN64</b> is defined, then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY64</b>. However, if <b>_WIN64</b> is not defined,  then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY32</b>. 
   * 
   * 
   * ```cpp
@@ -32,7 +33,9 @@
   *     DWORD   SEHandlerCount;
   * } IMAGE_LOAD_CONFIG_DIRECTORY32, *PIMAGE_LOAD_CONFIG_DIRECTORY32;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory64
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_load_config_directory64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

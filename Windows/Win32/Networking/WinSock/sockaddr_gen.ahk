@@ -9,8 +9,11 @@
 /**
  * Provides generic socket address information, and is used with the INTERFACE_INFO structure.
  * @remarks
- * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>sockaddr_gen</b> union is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_gen
+ * 
+  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>sockaddr_gen</b> union is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-sockaddr_gen
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

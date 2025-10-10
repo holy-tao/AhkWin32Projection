@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Sent with the CLUSCTL_RESOURCE_STATE_CHANGE_REASON control code to provide the reason for a resource state change.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusctl_resource_state_change_reason_struct
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT extends Win32Struct
     static packingSize => 4
 
     /**
-     * The size of the structure in bytes.
      * @type {Integer}
      */
     dwSize {
@@ -23,8 +20,6 @@ class CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT extends Win32Struct
     }
 
     /**
-     * The version of the structure. Set to 
-     *        <b>CLUSCTL_RESOURCE_STATE_CHANGE_REASON_VERSION_1</b> (1).
      * @type {Integer}
      */
     dwVersion {
@@ -33,9 +28,6 @@ class CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT extends Win32Struct
     }
 
     /**
-     * A value of the 
-     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state_change_reason">CLUSTER_RESOURCE_STATE_CHANGE_REASON</a> 
-     *       enumeration that describes the reason for the state change. The following list lists the possible values.
      * @type {Integer}
      */
     eReason {

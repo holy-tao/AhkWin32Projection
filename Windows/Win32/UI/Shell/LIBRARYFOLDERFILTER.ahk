@@ -3,7 +3,8 @@
 /**
  * Defines options for filtering folder items.
  * @remarks
- * <h3><a id="Used_By"></a><a id="used_by"></a><a id="USED_BY"></a>Used By</h3>
+ * 
+  * <h3><a id="Used_By"></a><a id="used_by"></a><a id="USED_BY"></a>Used By</h3>
   * The <b>LIBRARYFOLDERFILTER</b> enumeration is used by the following methods and functions.
   *          
   * 
@@ -12,7 +13,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders">IShellLibrary::GetFolders</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-libraryfolderfilter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

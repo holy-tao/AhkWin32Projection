@@ -3,7 +3,7 @@
 
 /**
  * Contains header information for the minidump file.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_header
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

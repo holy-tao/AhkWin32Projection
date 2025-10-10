@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Windows XP or later. The VMRVIDEOSTREAMINFO structure is used in the VMR-7 filter's call to IVMRImageCompositor::CompositeImage on the image compositor.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrvideostreaminfo
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrvideostreaminfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

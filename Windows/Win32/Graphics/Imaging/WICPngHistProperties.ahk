@@ -2,7 +2,7 @@
 
 /**
  * Specifies the Portable Network Graphics (PNG) hIST chunk metadata properties.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpnghistproperties
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpnghistproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

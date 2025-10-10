@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the app is enlightened for Windows Information Protection (WIP) and whether the app is managed by policy.
- * @see https://learn.microsoft.com/windows/win32/api/srpapi/ne-srpapi-enterprise_data_policies
+ * @see https://docs.microsoft.com/windows/win32/api//srpapi/ne-srpapi-enterprise_data_policies
  * @namespace Windows.Win32.Security.EnterpriseData
  * @version v4.0.30319
  */

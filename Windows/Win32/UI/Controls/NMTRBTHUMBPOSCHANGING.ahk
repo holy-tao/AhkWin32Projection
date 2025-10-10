@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a trackbar change notification. This message is sent with the TRBN_THUMBPOSCHANGING notification.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtrbthumbposchanging
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtrbthumbposchanging
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

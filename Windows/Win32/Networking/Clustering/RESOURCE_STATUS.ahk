@@ -4,7 +4,8 @@
 /**
  * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatus.
  * @remarks
- * Resource DLLs typically set the <b>ResourceState</b> member to 
+ * 
+  * Resource DLLs typically set the <b>ResourceState</b> member to 
   *      <b>ClusterResourceOnline</b> or <b>ClusterResourceOffline</b>. However, 
   *      if <b>ResourceState</b> is set to <b>ClusterResourceOnlinePending</b> or 
   *      <b>ClusterResourceOfflinePending</b>, the <b>CheckPoint</b> member 
@@ -25,7 +26,9 @@
   * 
   * For more information, see 
   *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resource_status
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resource_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

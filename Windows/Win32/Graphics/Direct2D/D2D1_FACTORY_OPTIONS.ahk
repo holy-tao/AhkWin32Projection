@@ -4,8 +4,11 @@
 /**
  * Contains the debugging level of an ID2D1Factory object.
  * @remarks
- * To enable debugging, you must install the <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2ddebuglayer-overview">Direct2D Debug Layer</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_factory_options
+ * 
+  * To enable debugging, you must install the <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2ddebuglayer-overview">Direct2D Debug Layer</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_factory_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

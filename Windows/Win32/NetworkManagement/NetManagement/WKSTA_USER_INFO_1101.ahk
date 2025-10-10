@@ -3,7 +3,7 @@
 
 /**
  * The WKSTA_USER_INFO_1101 structure contains information about the domains accessed by a workstation.
- * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_user_info_1101
+ * @see https://docs.microsoft.com/windows/win32/api//lmwksta/ns-lmwksta-wksta_user_info_1101
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

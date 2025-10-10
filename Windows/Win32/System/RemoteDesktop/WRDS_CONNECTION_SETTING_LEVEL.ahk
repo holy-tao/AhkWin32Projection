@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of structure contained in the WRdsConnectionSetting member of the WRDS_CONNECTION_SETTINGS structure.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_connection_setting_level
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wrds_connection_setting_level
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

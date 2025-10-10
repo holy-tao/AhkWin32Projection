@@ -2,7 +2,7 @@
 
 /**
  * The MBN_REGISTRATION_CONSTANTS enumerated type contains specific values used by IMbnRegistration interface operations.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_registration_constants
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_registration_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

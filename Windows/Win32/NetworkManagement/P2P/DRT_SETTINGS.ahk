@@ -3,7 +3,7 @@
 
 /**
  * DRT_SETTINGS structure contains the settings utilized by the local Distributed Routing Table.
- * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_settings
+ * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_settings
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

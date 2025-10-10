@@ -3,7 +3,8 @@
 /**
  * Defines the set of valid flags for the service object.
  * @remarks
- * This enumeration provides the values for the <i>ulFlags</i> member of the 
+ * 
+  * This enumeration provides the values for the <i>ulFlags</i> member of the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_service_prop">VDS_SERVICE_PROP</a> structure. The 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-setflags">IVdsService::SetFlags</a> method passes the value as an 
   *     argument to set the <b>VDS_SVF_AUTO_MOUNT_OFF</b> flag.
@@ -13,7 +14,9 @@
   * 
   * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_SERVICE_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_SERVICE_FLAG</b> enumeration constant.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_service_flag
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_service_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

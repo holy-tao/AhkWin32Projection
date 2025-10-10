@@ -3,7 +3,7 @@
 
 /**
  * The GROUP_INFO_3 structure contains information about a global group, including name, security identifier (SID), and resource attributes.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-group_info_3
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-group_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

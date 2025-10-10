@@ -4,14 +4,17 @@
 /**
  * Describes an instance of a performance object.
  * @remarks
- * The object contains instances if the <b>NumInstances</b>  member of <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_object_type">PERF_OBJECT_TYPE</a> is greater than zero. Use the <b>DefinitionLength</b> member of <b>PERF_OBJECT_TYPE</b> to find the first instance of the object. For details, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-data-format">Performance Data Format</a>.
+ * 
+  * The object contains instances if the <b>NumInstances</b>  member of <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_object_type">PERF_OBJECT_TYPE</a> is greater than zero. Use the <b>DefinitionLength</b> member of <b>PERF_OBJECT_TYPE</b> to find the first instance of the object. For details, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-data-format">Performance Data Format</a>.
   * 
   * Consumers should use the parent instance name, if specified, to create a full instance name that is used for display. The convention is to form the name as parent/child.
   * 
   * Providers should use unique instance names. If you do not, it makes it difficult for consumers to calculate and display performance values because they cannot tell if the current instance refers to the same instance that was queried previously (instances can come and go). 
   * 
   * Providers must allocate enough space for the instance name to ensure that <b>ByteLength</b> is aligned to an 8-byte boundary.
- * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_instance_definition
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winperf/ns-winperf-perf_instance_definition
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

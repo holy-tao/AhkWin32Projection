@@ -2,7 +2,7 @@
 
 /**
  * Used by ISearchManager to state proxy use.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-proxy_access
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-proxy_access
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

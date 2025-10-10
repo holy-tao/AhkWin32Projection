@@ -3,7 +3,7 @@
 
 /**
  * Contains the process identifier list for a job object.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_process_id_list
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_basic_process_id_list
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a system appbar message.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-appbardata
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-appbardata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -109,13 +109,13 @@ class APPBARDATA extends Win32Struct
      *                         
      * <ul>
      * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/abm-setautohidebar">ABM_SETAUTOHIDEBAR</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/shell/dialogs-bumper">ABM_SETAUTOHIDEBAR</a>
      * </li>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/shell/abm-setautohidebarex">ABM_SETAUTOHIDEBAREX</a>
      * </li>
      * <li>
-     * <a href="windows/desktop/shell/abm-setstate">ABM_SETSTATE</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/shell/drag-and-drop-handlers-and-custom-clipboard-format-bumper">ABM_SETSTATE</a>
      * </li>
      * </ul>
      * 

@@ -4,8 +4,11 @@
 /**
  * The WINHTTP_PROXY_RESULT_ENTRY structure contains a result entry from a call to WinHttpGetProxyResult.
  * @remarks
- * This structure is stored in an array inside of a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_proxy_result">WINHTTP_PROXY_RESULT</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_result_entry
+ * 
+  * This structure is stored in an array inside of a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_proxy_result">WINHTTP_PROXY_RESULT</a> structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_proxy_result_entry
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

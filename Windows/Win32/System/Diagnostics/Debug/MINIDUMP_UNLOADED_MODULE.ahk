@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a module that has been unloaded. This information can help diagnose problems calling code that is no longer loaded.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_unloaded_module
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_unloaded_module
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

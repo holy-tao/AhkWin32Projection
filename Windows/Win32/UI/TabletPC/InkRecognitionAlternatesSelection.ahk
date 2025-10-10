@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Not implemented. (InkRecognitionAlternatesSelection)
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionalternatesselection
+ * Not implemented.
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognitionalternatesselection
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -3,10 +3,13 @@
 /**
  * Specifies the available path value types used by the IADsPathname::Retrieve method.
  * @remarks
- * The WinNT provider does not support any of the X.500 format specifiers.
+ * 
+  * The WinNT provider does not support any of the X.500 format specifiers.
   * 
   * Because Visual Basic Scripting Edition  cannot read data from a type library, VBScript applications cannot recognize the symbolic constants as defined above. You should use the numeric constants instead to set the appropriate flags in your VBScript applications. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_format_enum
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_format_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

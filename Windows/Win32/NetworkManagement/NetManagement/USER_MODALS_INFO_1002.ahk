@@ -3,7 +3,7 @@
 
 /**
  * The USER_MODALS_INFO_1002 structure contains the maximum duration for passwords in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_modals_info_1002
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_modals_info_1002
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

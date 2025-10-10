@@ -3,7 +3,7 @@
 
 /**
  * Contains information about one or more revoked components.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfrr_components
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfrr_components
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

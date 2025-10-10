@@ -3,7 +3,7 @@
 
 /**
  * The PPP_IPCP_INFO structure contains the result of a PPP Internet Protocol (IP) negotiation.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipcp_info
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_ipcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

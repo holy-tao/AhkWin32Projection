@@ -3,16 +3,6 @@
 #Include .\MIB_IPMCAST_OIF_STATS_LH.ahk
 
 /**
- * Stores the extended statistics associated with a Multicast Forwarding Entry (MFE).
- * @remarks
- * The <b>MIB_IPMCAST_MFE_STATS_EX</b> structure extends the functionality of <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> by including additional information on MFE packets.
-  * 
-  * This structure does not have a fixed size. Use the <b>SIZEOF_MIB_MFE_STATS_EX(X)</b> macro to determine the size of this structure. This macro is defined in the Iprtrmib.h header file.
-  * 
-  * The <b>dwRouteProtocol</b>, <b>dwRouteNetwork</b>, and <b>dwRouteMask</b> members uniquely identify the route to which this MFE is related.
-  * 
-  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Ipmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ipmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ipmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
@@ -23,9 +13,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The multicast group for this MFE. A value of zero indicates a wildcard group.
      * @type {Integer}
      */
     dwGroup {
@@ -34,9 +21,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The range of source addresses for this MFE. A value of zero indicates a wildcard source.
      * @type {Integer}
      */
     dwSource {
@@ -45,9 +29,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The IPv4 subnet mask that corresponds to <b>dwSourceAddr</b>. The <b>dwSourceAddr</b> and <b>dwSourceMask</b> members are used together to define a range of sources.
      * @type {Integer}
      */
     dwSrcMask {
@@ -56,9 +37,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The upstream neighbor that is related to this MFE.
      * @type {Integer}
      */
     dwUpStrmNgbr {
@@ -67,9 +45,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The index of the incoming interface to which this MFE is related.
      * @type {Integer}
      */
     dwInIfIndex {
@@ -78,9 +53,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The routing protocol that owns the incoming interface to which this MFE is related.
      * @type {Integer}
      */
     dwInIfProtocol {
@@ -89,9 +61,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The client that created the route.
      * @type {Integer}
      */
     dwRouteProtocol {
@@ -100,9 +69,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The address associated with the route referred to by <b>dwRouteProtocol</b>.
      * @type {Integer}
      */
     dwRouteNetwork {
@@ -111,9 +77,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The mask associated with the route referred to by <b>dwRouteProtocol</b>.
      * @type {Integer}
      */
     dwRouteMask {
@@ -122,9 +85,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The time, in 100ths of a seconds, since the MFE was created.
      * @type {Integer}
      */
     ulUpTime {
@@ -133,9 +93,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The time, in 100ths of a seconds, until the MFE will be deleted. Zero is specified if the MFE is not subject to aging requirements.
      * @type {Integer}
      */
     ulExpiryTime {
@@ -144,9 +101,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of interfaces in the outgoing interface list for this MFE.
      * @type {Integer}
      */
     ulNumOutIf {
@@ -155,9 +109,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of packets that have been forwarded that matched this MFE.
      * @type {Integer}
      */
     ulInPkts {
@@ -166,9 +117,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of octets of data forwarded that match this MFE.
      * @type {Integer}
      */
     ulInOctets {
@@ -177,9 +125,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of packets matching this MFE that were dropped due to an incoming interface check.
      * @type {Integer}
      */
     ulPktsDifferentIf {
@@ -188,9 +133,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of packets matching this MFE that were dropped due to a queue overflow. There is one queue per MFE.
      * @type {Integer}
      */
     ulQueueOverflow {
@@ -199,9 +141,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of uninitialized packets that matched this MFE.
      * @type {Integer}
      */
     ulUninitMfe {
@@ -210,9 +149,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of packets matching this MFE discarded due to a negative error value.
      * @type {Integer}
      */
     ulNegativeMfe {
@@ -221,9 +157,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of discarded forwarded packets that matched this MFE.
      * @type {Integer}
      */
     ulInDiscards {
@@ -232,9 +165,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The number of packets matching this MFE discarded due to bad or malformed header values (such as a bad Time-to-Live value).
      * @type {Integer}
      */
     ulInHdrErrors {
@@ -243,9 +173,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * The total number of MFE packets  transmitted across all associated interfaces. Note that one packet sent over N interfaces will count as N packets within this value.
      * @type {Integer}
      */
     ulTotalOutPackets {
@@ -254,7 +181,6 @@ class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<MIB_IPMCAST_OIF_STATS_LH>}
      */
     rgmiosOutStats{

@@ -2,7 +2,7 @@
 
 /**
  * Used by members of the IColumnManager interface to specify which set of columns are being requested, either all or only those currently visible.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-cm_enum_flags
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-cm_enum_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

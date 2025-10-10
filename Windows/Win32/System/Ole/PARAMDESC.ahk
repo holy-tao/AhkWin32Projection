@@ -3,7 +3,7 @@
 
 /**
  * Contains information needed for transferring a structure element, parameter, or function return value between processes.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-paramdesc
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-paramdesc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

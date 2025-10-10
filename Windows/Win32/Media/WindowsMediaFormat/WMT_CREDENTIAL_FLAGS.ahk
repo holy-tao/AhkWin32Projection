@@ -2,7 +2,7 @@
 
 /**
  * The WMT_CREDENTIAL_FLAGS enumeration type contains values used in the IWMCredentialCallback::AcquireCredentials method.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_credential_flags
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_credential_flags
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

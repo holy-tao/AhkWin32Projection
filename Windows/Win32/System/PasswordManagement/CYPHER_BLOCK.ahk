@@ -3,7 +3,7 @@
 
 /**
  * The CYPHER_BLOCK is the basic unit of storage for the one-way function (OWF) password hashes.
- * @see https://learn.microsoft.com/windows/win32/api/mschapp/ns-mschapp-cypher_block
+ * @see https://docs.microsoft.com/windows/win32/api//mschapp/ns-mschapp-cypher_block
  * @namespace Windows.Win32.System.PasswordManagement
  * @version v4.0.30319
  */

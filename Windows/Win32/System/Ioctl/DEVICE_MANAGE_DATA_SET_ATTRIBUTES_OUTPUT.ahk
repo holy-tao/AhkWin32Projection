@@ -3,7 +3,7 @@
 
 /**
  * Output structure for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes_output
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_manage_data_set_attributes_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

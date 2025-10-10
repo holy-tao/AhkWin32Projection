@@ -3,7 +3,7 @@
 
 /**
  * Defines a default value for a field. This is used in a WS_FIELD_DESCRIPTION.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_default_value
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_default_value
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

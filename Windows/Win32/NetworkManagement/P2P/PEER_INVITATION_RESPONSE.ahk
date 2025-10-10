@@ -3,7 +3,7 @@
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_response
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_invitation_response
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

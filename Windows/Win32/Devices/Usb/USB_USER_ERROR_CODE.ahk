@@ -2,7 +2,7 @@
 
 /**
  * The USB_USER_ERROR_CODE enumeration lists the error codes that a USB user-mode request reports when it fails.
- * @see https://learn.microsoft.com/windows/win32/api/usbuser/ne-usbuser-usb_user_error_code
+ * @see https://docs.microsoft.com/windows/win32/api//usbuser/ne-usbuser-usb_user_error_code
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

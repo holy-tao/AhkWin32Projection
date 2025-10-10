@@ -2,7 +2,7 @@
 
 /**
  * Represents mathematical alphanumeric codes.
- * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-mancode
+ * @see https://docs.microsoft.com/windows/win32/api//tom/ne-tom-mancode
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

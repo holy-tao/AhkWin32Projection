@@ -4,7 +4,7 @@
 
 /**
  * The INSTALLDATA structure specifies a group-policy application to be installed by InstallApplication.
- * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-installdata
+ * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-installdata
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines a buffer that points to an encoded certificate.
- * @see https://learn.microsoft.com/windows/win32/api/msxml6/ns-msxml6-xhr_cert
+ * @see https://docs.microsoft.com/windows/win32/api//msxml6/ns-msxml6-xhr_cert
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

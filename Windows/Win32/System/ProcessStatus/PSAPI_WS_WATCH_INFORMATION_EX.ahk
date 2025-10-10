@@ -4,7 +4,7 @@
 
 /**
  * Contains extended information about a page added to a process working set.
- * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_ws_watch_information_ex
+ * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-psapi_ws_watch_information_ex
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

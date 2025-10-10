@@ -4,8 +4,11 @@
 /**
  * Describes the size of an object.
  * @remarks
- * The measurement units are not specified in the structure.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size
+ * 
+  * The measurement units are not specified in the structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_size
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

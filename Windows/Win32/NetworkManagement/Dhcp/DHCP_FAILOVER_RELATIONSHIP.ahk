@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP structure defines information about a DHCPv4 server failover relationship.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

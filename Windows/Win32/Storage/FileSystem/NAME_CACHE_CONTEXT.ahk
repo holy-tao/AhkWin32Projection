@@ -3,7 +3,7 @@
 
 /**
  * Represents a name cache.
- * @see https://learn.microsoft.com/windows/win32/api/filehc/ns-filehc-name_cache_context
+ * @see https://docs.microsoft.com/windows/win32/api//filehc/ns-filehc-name_cache_context
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

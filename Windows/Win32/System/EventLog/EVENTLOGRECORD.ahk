@@ -4,19 +4,16 @@
 /**
  * Contains information about an event record returned by the ReadEventLog function.
  * @remarks
- * The defined members are followed by the replacement strings for the message identified by the event identifier, the binary information, some pad bytes to make sure the full entry is on a <b>DWORD</b> boundary, and finally the length of the log entry again. Because the strings and the binary information can be of any length, no structure members are defined to reference them. The declaration of this structure in Winnt.h describes these members as follows:
+ * 
+  * The defined members are followed by the replacement strings for the message identified by the event identifier, the binary information, some pad bytes to make sure the full entry is on a <b>DWORD</b> boundary, and finally the length of the log entry again. Because the strings and the binary information can be of any length, no structure members are defined to reference them. The declaration of this structure in Winnt.h describes these members as follows:
   * 
-  * 
-  * ``` syntax
-  *     // WCHAR SourceName[]
+  * <pre class="syntax" xml:space="preserve"><code>    // WCHAR SourceName[]
   *     // WCHAR Computername[]
   *     // SID   UserSid
   *     // WCHAR Strings[]
   *     // BYTE  Data[]
   *     // CHAR  Pad[]
-  *     // DWORD Length;
-  * ```
-  * 
+  *     // DWORD Length;</code></pre>
   * The source name is a variable-length string that specifies the name of the event source. The computer name is the name of the computer that generated the event. It may be followed with some padding bytes so that the user SID is aligned on a <b>DWORD</b> boundary. The user SID identifies the active user at the time this event was logged. If <b>UserSidLength</b> is zero, this field may be empty.
   * 
   * The event identifier together with source name and a language identifier identify a string that describes the event in more detail. The strings are used as replacement strings and are merged into the message string to make a complete message. The message strings are contained in a message file specified in the source entry in the registry. To obtain the appropriate message string from the message file, load the message file with the 
@@ -24,7 +21,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function.
   * 
   * The binary information is information that is specific to the event. It could be the contents of the processor registers when a device driver got an error, a dump of an invalid packet that was received from the network, a dump of all the structures in a program (when the data area was detected to be corrupt), and so on. This information should be useful to the writer of the device driver or the application in tracking down bugs or unauthorized breaks into the application.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-eventlogrecord
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-eventlogrecord
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

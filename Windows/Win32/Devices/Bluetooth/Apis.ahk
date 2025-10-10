@@ -4169,9 +4169,9 @@ class Bluetooth {
      * The BluetoothFindFirstRadio function begins the enumeration of local Bluetooth radios.
      * @param {Pointer<UInt32>} pbtfrp Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_find_radio_params">BLUETOOTH_FIND_RADIO_PARAMS</a> structure. The <b>dwSize</b> member of the <b>BLUETOOTH_FIND_RADIO_PARAMS</b> structure pointed to by <i>pbtfrp</i> must match the size of the structure.
      * @param {Pointer<Void>} phRadio Pointer to where the first enumerated radio handle will be returned. When no longer needed, this handle must be closed via <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
-     * @returns {Pointer<Void>} In addition to the handle indicated by <i>phRadio</i>, calling this function will also create a HBLUETOOTH_RADIO_FIND handle for use with the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindnextradio">BluetoothFindNextRadio</a> function. When this handle is no longer needed, it must be closed via the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindradioclose">BluetoothFindRadioClose</a>.
+     * @returns {Pointer<Void>} In addition to the handle indicated by <i>phRadio</i>, calling this function will also create a HBLUETOOTH_RADIO_FIND handle for use with the <a href="/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindnextradio">BluetoothFindNextRadio</a> function. When this handle is no longer needed, it must be closed via the <a href="/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindradioclose">BluetoothFindRadioClose</a>.
      * 
-     * Returns <b>NULL</b> upon failure. Call the  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
+     * Returns <b>NULL</b> upon failure. Call the  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
      * 
      * <table>
      * <tr>
@@ -4223,7 +4223,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstradio
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfindfirstradio
      * @since windows6.0.6000
      */
     static BluetoothFindFirstRadio(pbtfrp, phRadio) {
@@ -4242,7 +4242,7 @@ class Bluetooth {
      * @param {Pointer<Void>} phRadio Pointer to where the next enumerated radio handle will be returned.  When no longer needed, this handle must be released via <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
      * @returns {Integer} Returns <b>TRUE</b> when the next available radio is found.
      * 
-     * Returns <b>FALSE</b> when no new radios are found.  Call the  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
+     * Returns <b>FALSE</b> when no new radios are found.  Call the  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
      * 
      * <table>
      * <tr>
@@ -4283,7 +4283,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfindnextradio
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfindnextradio
      * @since windows6.0.6000
      */
     static BluetoothFindNextRadio(hFind, phRadio) {
@@ -4299,8 +4299,8 @@ class Bluetooth {
     /**
      * The BluetoothFindRadioClose function closes the enumeration handle associated with finding Bluetooth radios.
      * @param {Pointer<Void>} hFind Enumeration handle to close, obtained with a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstradio">BluetoothFindFirstRadio</a> function.
-     * @returns {Integer} Returns <b>TRUE</b> when the handle is successfully closed. Returns <b>FALSE</b> if the attempt fails to close the enumeration handle. For additional information on possible errors associated with closing the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfindradioclose
+     * @returns {Integer} Returns <b>TRUE</b> when the handle is successfully closed. Returns <b>FALSE</b> if the attempt fails to close the enumeration handle. For additional information on possible errors associated with closing the handle, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfindradioclose
      * @since windows6.0.6000
      */
     static BluetoothFindRadioClose(hFind) {
@@ -4353,12 +4353,12 @@ class Bluetooth {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/ns-bluetoothapis-bluetooth_radio_info">BLUETOOTH_RADIO_INFO</a> structure pointed to by <i>pRadioInfo</i> is not valid.
+     * The <b>dwSize</b> member of the <a href="/windows/desktop/api/bluetoothapis/ns-bluetoothapis-bluetooth_radio_info">BLUETOOTH_RADIO_INFO</a> structure pointed to by <i>pRadioInfo</i> is not valid.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothgetradioinfo
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothgetradioinfo
      * @since windows6.0.6000
      */
     static BluetoothGetRadioInfo(hRadio, pRadioInfo) {
@@ -4373,16 +4373,11 @@ class Bluetooth {
 
     /**
      * The BluetoothFindFirstDevice function begins the enumeration Bluetooth devices.
-     * @remarks
-     * The BluetoothFindFirstDevice function does not find Bluetooth Low Energy (LE) devices.
-     * To access Bluetooth LE devices, use the
-     * <a href="https://docs.microsoft.com/windows/uwp/devices-sensors/bluetooth-low-energy-overview">Windows Runtime Bluetooth Low Energy APIs</a>.
-     * The Windows Runtime APIs for Bluetooth work in both UWP and classic desktop apps.
      * @param {Pointer<BLUETOOTH_DEVICE_SEARCH_PARAMS>} pbtsp Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_search_params">BLUETOOTH_DEVICE_SEARCH_PARAMS</a> structure. The <b>dwSize</b> member of the <b>BLUETOOTH_DEVICE_SEARCH_PARAMS</b> structure pointed to by <i>pbtsp</i> must match the size of the structure.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure into which information about the first Bluetooth device found is placed. The <b>dwSize</b> member of the <b>BLUETOOTH_DEVICE_INFO</b> structure pointed to by <i>pbtdi</i> must match the size of the structure, or the call to the <b>BluetoothFindFirstDevice</b> function fails.
-     * @returns {Pointer<Void>} Returns a valid handle to the first Bluetooth device upon successful completion, and the <i>pbtdi</i> parameter points to information about the device. When this handle is no longer needed, it must be closed via the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfinddeviceclose">BluetoothFindDeviceClose</a>.
+     * @returns {Pointer<Void>} Returns a valid handle to the first Bluetooth device upon successful completion, and the <i>pbtdi</i> parameter points to information about the device. When this handle is no longer needed, it must be closed via the <a href="/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfinddeviceclose">BluetoothFindDeviceClose</a>.
      * 
-     * Returns <b>NULL</b> upon failure. Call the  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
+     * Returns <b>NULL</b> upon failure. Call the  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
      * 
      * <table>
      * <tr>
@@ -4412,7 +4407,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstdevice
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfindfirstdevice
      * @since windows6.0.6000
      */
     static BluetoothFindFirstDevice(pbtsp, pbtdi) {
@@ -4429,7 +4424,7 @@ class Bluetooth {
      * The BluetoothFindNextDevice function finds the next Bluetooth device.
      * @param {Pointer<Void>} hFind Handle for the query obtained in a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstdevice">BluetoothFindFirstDevice</a> function.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure into which information about the next Bluetooth device found is placed. The <b>dwSize</b> member of the <b>BLUETOOTH_DEVICE_INFO</b> structure pointed to by <i>pbtdi</i> must match the size of the structure, or the call to <b>BluetoothFindNextDevice</b> fails.
-     * @returns {Integer} Returns <b>TRUE</b> when the next device is successfully found, and the <i>pbtdi</i> parameter points to information about the device. Returns <b>FALSE</b> upon error. Call the  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
+     * @returns {Integer} Returns <b>TRUE</b> when the next device is successfully found, and the <i>pbtdi</i> parameter points to information about the device. Returns <b>FALSE</b> upon error. Call the  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the error. The following table  describe common errors:
      * 
      * <table>
      * <tr>
@@ -4470,7 +4465,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfindnextdevice
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfindnextdevice
      * @since windows6.0.6000
      */
     static BluetoothFindNextDevice(hFind, pbtdi) {
@@ -4486,8 +4481,8 @@ class Bluetooth {
     /**
      * The BluetoothFindDeviceClose function closes an enumeration handle associated with a device query.
      * @param {Pointer<Void>} hFind Handle for the query to be closed. Obtained in a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstdevice">BluetoothFindFirstDevice</a> function.
-     * @returns {Integer} Returns <b>TRUE</b> when the handle is successfully closed. Returns <b>FALSE</b> upon error. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothfinddeviceclose
+     * @returns {Integer} Returns <b>TRUE</b> when the handle is successfully closed. Returns <b>FALSE</b> upon error. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information on the failure.
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothfinddeviceclose
      * @since windows6.0.6000
      */
     static BluetoothFindDeviceClose(hFind) {
@@ -4502,11 +4497,6 @@ class Bluetooth {
 
     /**
      * Retrieves information about a remote Bluetooth device.
-     * @remarks
-     * The Bluetooth device for which data is obtained must have been previously identified through a successful device inquiry function call.
-     * 
-     * In the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure pointed to by <i>pbtdi</i>, the  <b>dwSize</b> member must be equivalent to the size, in bytes, of the structure. The <b>Address</b>          member of the <b>BLUETOOTH_DEVICE_INFO</b> structure must contain the Bluetooth address of the remote
-     * device.
      * @param {Pointer<Void>} hRadio A handle to a local radio, obtained from a call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothfindfirstradio">BluetoothFindFirstRadio</a> or similar functions, or from a call to the <b>SetupDiEnumerateDeviceInterfaces</b> function.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure into which data about the first Bluetooth device will be placed. For more information, see Remarks.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> upon success, indicating that data about the remote Bluetooth device was retrieved. Returns error codes upon failure. The following table lists common error codes associated with the <b>BluetoothGetDeviceInfo</b> function.
@@ -4524,7 +4514,7 @@ class Bluetooth {
      * </td>
      * <td width="60%">
      * The size of the BLUETOOTH_DEVICE_INFO is not compatible. Check
-     * the <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure.
+     * the <b>dwSize</b> member of the <a href="/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure.
      * 
      * </td>
      * </tr>
@@ -4535,7 +4525,7 @@ class Bluetooth {
      * </dl>
      * </td>
      * <td width="60%">
-     * The radio is not known by the system, or the <b>Address</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure is all zeros.
+     * The radio is not known by the system, or the <b>Address</b> member of the <a href="/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure is all zeros.
      * 
      * </td>
      * </tr>
@@ -4551,7 +4541,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothgetdeviceinfo
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothgetdeviceinfo
      * @since windows6.0.6000
      */
     static BluetoothGetDeviceInfo(hRadio, pbtdi) {
@@ -4561,25 +4551,6 @@ class Bluetooth {
 
     /**
      * Updates the local computer cache about a Bluetooth device.
-     * @remarks
-     * When updating a Bluetooth device record, the requirements for members of the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure, listed in the following table, must be observed.<table>
-     * <tr>
-     * <th>Member</th>
-     * <th>Requirement</th>
-     * </tr>
-     * <tr>
-     * <td><b>dwSize</b></td>
-     * <td>Must match the structure size.</td>
-     * </tr>
-     * <tr>
-     * <td><b>Address</b></td>
-     * <td>Must be a previously found radio address.</td>
-     * </tr>
-     * <tr>
-     * <td><b>szName</b></td>
-     * <td>Must contain the new name to be stored.</td>
-     * </tr>
-     * </table>
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure to update. For more information, see the Remarks section.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> upon success. The following table  lists common errors.
      * 
@@ -4611,7 +4582,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothupdatedevicerecord
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothupdatedevicerecord
      * @since windows6.0.6000
      */
     static BluetoothUpdateDeviceRecord(pbtdi) {
@@ -4621,11 +4592,9 @@ class Bluetooth {
 
     /**
      * Removes authentication between a Bluetooth device and the computer and clears cached service information for the device.
-     * @remarks
-     * The <b>BluetoothRemoveDevice</b> function fails if the device indicated by <i>pAddress</i> is not a remembered device.
      * @param {Pointer<BLUETOOTH_ADDRESS>} pAddress A pointer to the address of the Bluetooth device to be removed.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> upon successful removal of the Bluetooth device. Returns <b>ERROR_NOT_FOUND</b> if the device was not found.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothremovedevice
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothremovedevice
      * @since windows6.0.6000
      */
     static BluetoothRemoveDevice(pAddress) {
@@ -4635,20 +4604,11 @@ class Bluetooth {
 
     /**
      * Enables Bluetooth device selection.
-     * @remarks
-     * The <b>BluetoothSelectDevices</b> function opens a common dialog box for selecting Bluetooth devices. The list of devices displayed to the user is determined by the flags and settings the caller specifies in the <i>pbtsdp</i> parameter.
-     * 
-     * If 
-     * <b>BluetoothSelectDevices</b> returns <b>TRUE</b>, the <b>pDevices</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params">BLUETOOTH_SELECT_DEVICE_PARAMS</a> structure points to valid data. The caller should verify that  the <b>fAuthenticated</b> and <b>fRemembered</b> flags in the 
-     * <b>BLUETOOTH_SELECT_DEVICE_PARAMS</b> structure to determine which devices were successfully authenticated, and which devices are valid selections for the user. Call the 
-     * <b>BluetoothSelectDevicesFree</b> function to free resources only if the 
-     * <b>BluetoothSelectDevices</b> function returns <b>TRUE</b>.
      * @param {Pointer<BLUETOOTH_SELECT_DEVICE_PARAMS>} pbtsdp A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params">BLUETOOTH_SELECT_DEVICE_PARAMS</a> structure that identifies Bluetooth devices.
      * @returns {Integer} Returns <b>TRUE</b> if a user selected a device.
      * 
-     * Returns <b>FALSE</b> if no valid data was returned. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to retrieve error information. The following conditions apply to returned error information.
+     * Returns <b>FALSE</b> if no valid data was returned. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to retrieve error information. The following conditions apply to returned error information.
      * 
      * <table>
      * <tr>
@@ -4689,7 +4649,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothselectdevices
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothselectdevices
      * @since windows6.0.6000
      */
     static BluetoothSelectDevices(pbtsdp) {
@@ -4704,12 +4664,10 @@ class Bluetooth {
 
     /**
      * Frees resources associated with a previous call to BluetoothSelectDevices.
-     * @remarks
-     * Only call the <b>BluetoothSelectDevicesFree</b> function if a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothselectdevices">BluetoothSelectDevices</a> function returned <b>TRUE</b>.
      * @param {Pointer<BLUETOOTH_SELECT_DEVICE_PARAMS>} pbtsdp A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params">BLUETOOTH_SELECT_DEVICE_PARAMS</a> structure that identifies the Bluetooth device resources to free.
      * @returns {Integer} Returns <b>TRUE</b> upon success. Returns <b>FALSE</b> if there are no resources to free.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothselectdevicesfree
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothselectdevicesfree
      * @since windows6.0.6000
      */
     static BluetoothSelectDevicesFree(pbtsdp) {
@@ -4721,8 +4679,8 @@ class Bluetooth {
      * Starts Control Panel device information property sheet.
      * @param {Pointer<Void>} hwndParent A handle to the parent window of the property sheet.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure that contains information about the Bluetooth device.
-     * @returns {Integer} Returns <b>TRUE</b> if the property sheet is successfully displayed. Returns <b>FALSE</b> if the property sheet was not displayed successfully; call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for additional error information.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothdisplaydeviceproperties
+     * @returns {Integer} Returns <b>TRUE</b> if the property sheet is successfully displayed. Returns <b>FALSE</b> if the property sheet was not displayed successfully; call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for additional error information.
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothdisplaydeviceproperties
      * @since windows6.0.6000
      */
     static BluetoothDisplayDeviceProperties(hwndParent, pbtdi) {
@@ -4737,67 +4695,6 @@ class Bluetooth {
 
     /**
      * Sends an authentication request to a remote Bluetooth device.
-     * @remarks
-     * Some remote Bluetooth devices can only accept numeric passkeys. There is no way to identify which devices only accept numeric passkeys in advance.
-     * 
-     * The Bluetooth authentication process has two modes: Wizard mode and Transparent mode.
-     * 
-     * Wizard mode is started when <i>pszPasskey</i> is set to <b>NULL</b>, and      the Bluetooth Connection Wizard is  started. The user is prompted to enter a passkey as a step in the wizard, after which the      authentication request is sent. The user interface displays whether the authentication attempt succeeds or fails, and provides the user with an opportunity to reattempt a failed authentication.
-     * 
-     * Transparent mode is started when <i>pszPasskey</i> is not <b>NULL</b>. In Transparent mode the authentication request is sent to the remote Bluetooth device without displaying any user interface. In Transparent mode, the Bluetooth status code is mapped to a Win32 error code; the following table lists this mapping information.<table>
-     * <tr>
-     * <th>Bluetooth status code</th>
-     * <th>Win32 error code</th>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_SUCCESS</td>
-     * <td>ERROR_SUCCESS</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_NO_CONNECTION</td>
-     * <td>ERROR_DEVICE_NOT_CONNECTED</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_PAGE_TIMEOUT</td>
-     * <td>WAIT_TIMEOUT</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_HARDWARE_FAILURE</td>
-     * <td>ERROR_GEN_FAILURE</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_AUTHENTICATION_FAILURE</td>
-     * <td>ERROR_NOT_AUTHENTICATED</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_MEMORY_FULL</td>
-     * <td>ERROR_NOT_ENOUGH_MEMORY</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_CONNECTION_TIMEOUT</td>
-     * <td>WAIT_TIMEOUT</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_LMP_RESPONSE_TIMEOUT</td>
-     * <td>WAIT_TIMEOUT</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_MAX_NUMBER_OF_CONNECTIONS</td>
-     * <td>ERROR_REQ_NOT_ACCEP</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_PAIRING_NOT_ALLOWED</td>
-     * <td>ERROR_ACCESS_DENIED</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_UNSPECIFIED_ERROR</td>
-     * <td>ERROR_NOT_READY</td>
-     * </tr>
-     * <tr>
-     * <td>BTH_ERROR_LOCAL_HOST_TERMINATED_CONNECTION</td>
-     * <td>ERROR_VC_DISCONNECTED</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} hwndParent A window to be the parent of the Authentication wizard. If set to <b>NULL</b>, the wizard is removed from the desktop.
      * @param {Pointer<Void>} hRadio A valid local radio handle, or <b>NULL</b>. If <b>NULL</b>, authentication is attempted on all local radios; if any radio succeeds, the function call succeeds.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtbi A structure of type <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> that contains the record of the Bluetooth device to be authenticated.
@@ -4846,7 +4743,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothauthenticatedevice
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothauthenticatedevice
      * @since windows6.0.6000
      */
     static BluetoothAuthenticateDevice(hwndParent, hRadio, pbtbi, pszPasskey, ulPasskeyLength) {
@@ -4858,10 +4755,6 @@ class Bluetooth {
 
     /**
      * The BluetoothAuthenticateDeviceEx function sends an authentication request to a remote Bluetooth device.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure specified by <i>pbtdilInOut</i> must contain the address of a device to authenticate.  If the value of <i>pbtOobData</i> is not <b>NULL</b>, an attempt  will be made to authenticate the remote device with the provided out-of-band data.
-     * 
-     * For all other types of  authentication, the caller should register an authentication callback using <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthenticationex">BluetoothRegisterForAuthenticationEx</a> and then respond to the relevant authentication method using <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothsendauthenticationresponseex">BluetoothSendAuthenticationResponseEx</a>.
      * @param {Pointer<Void>} hwndParentIn The window to parent the authentication wizard. If <b>NULL</b>, the 
      * wizard will be parented off the desktop.
      * @param {Pointer<Void>} hRadioIn A valid local radio handle or <b>NULL</b>. If <b>NULL</b>, then all radios will
@@ -4874,7 +4767,7 @@ class Bluetooth {
      * 
      * <div class="alert"><b>Note</b>  If a callback is registered using <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthenticationex">BluetoothRegisterForAuthenticationEx</a>, then a UI will not be displayed.</div>
      * <div> </div>
-     * @param {Integer} authenticationRequirement An <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements">BLUETOOTH_AUTHENTICATION_REQUIREMENTS</a> value that specifies the protection required for authentication.
+     * @param {Integer} authenticationRequirement An <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements">BLUETOOTH_AUTHENTICATION_REQUIREMENTS</a>value that specifies the protection required for authentication.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion; returns the following error codes upon failure:
      * 
      * <table>
@@ -4916,7 +4809,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothauthenticatedeviceex
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothauthenticatedeviceex
      * @since windows5.1.2600
      */
     static BluetoothAuthenticateDeviceEx(hwndParentIn, hRadioIn, pbtdiInout, pbtOobData, authenticationRequirement) {
@@ -4973,7 +4866,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothauthenticatemultipledevices
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothauthenticatemultipledevices
      * @since windows6.0.6000
      */
     static BluetoothAuthenticateMultipleDevices(hwndParent, hRadio, cDevices, rgbtdi) {
@@ -4983,11 +4876,6 @@ class Bluetooth {
 
     /**
      * Enables or disables services for a Bluetooth device.
-     * @remarks
-     * Windows maintains a mapping of  service Globally Unique Identifiers (GUIDs) to supported drivers for
-     * Bluetooth-enabled devices. Enabling a service installs the corresponding
-     * device driver and disabling a service removes the corresponding device driver.
-     * If a non-supported service is enabled, a driver is not installed.
      * @param {Pointer<Void>} hRadio A handle of the local Bluetooth radio.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure. Must be a previously found radio address.
      * @param {Pointer<Guid>} pGuidService A pointer to the service GUID on the remote device.
@@ -5033,7 +4921,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsetservicestate
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsetservicestate
      * @since windows6.0.6000
      */
     static BluetoothSetServiceState(hRadio, pbtdi, pGuidService, dwServiceFlags) {
@@ -5068,7 +4956,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothenumerateinstalledservices
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothenumerateinstalledservices
      * @since windows6.0.6000
      */
     static BluetoothEnumerateInstalledServices(hRadio, pbtdi, pcServiceInout, pGuidServices) {
@@ -5078,16 +4966,10 @@ class Bluetooth {
 
     /**
      * The BluetoothEnableDiscovery function changes the discovery state of a local Bluetooth radio or radios.
-     * @remarks
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothisdiscoverable">BluetoothIsDiscoverable</a> function  to determine the current state of a Bluetooth radio.
-     * Windows ensures that a discoverable system is connectable, and as such, the radio must allow incoming connections prior to making a radio 
-     * discoverable. Failure to allow incoming connections results in the <b>BluetoothEnableDiscovery</b> function call failing.
-     * 
-     * When <b>BluetoothEnableDiscovery</b> changes the discovery state, the new state is valid for the lifetime of the calling application. Additionally, if a Bluetooth radio previously made discoverable with this function is disabled and re-enabled via the application, discoverability will not persist. Once the calling application terminates, the discovery  state of the specified Bluetooth radio reverts to the state it was in before <b>BluetoothEnableDiscovery</b> was called.
      * @param {Pointer<Void>} hRadio Valid local radio handle, or <b>NULL</b>. If <b>NULL</b>, discovery is modified on all local radios; if any radio is modified by the call, the function call succeeds.
      * @param {Integer} fEnabled Flag specifying whether discovery is to be enabled or disabled. Set to <b>TRUE</b> to enable discovery, set to <b>FALSE</b> to disable discovery.
      * @returns {Integer} Returns <b>TRUE</b> if the discovery state was successfully changed. If <i>hRadio</i> is <b>NULL</b>, a return value of <b>TRUE</b> indicates that at least one local radio state was successfully changed. Returns <b>FALSE</b> if discovery state was not changed; if <i>hRadio</i> was <b>NULL</b>, no radio accepted the state change.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothenablediscovery
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothenablediscovery
      * @since windows6.0.6000
      */
     static BluetoothEnableDiscovery(hRadio, fEnabled) {
@@ -5099,7 +4981,7 @@ class Bluetooth {
      * The BluetoothIsDiscoverable function determines whether a Bluetooth radio or radios is discoverable.
      * @param {Pointer<Void>} hRadio Valid local radio handle, or <b>NULL</b>. If <b>NULL</b>, discovery is determined for all local radios; if any radio is discoverable, the function call succeeds.
      * @returns {Integer} Returns <b>TRUE</b> if at least one Bluetooth radio is discoverable. Returns <b>FALSE</b> if no Bluetooth radios are discoverable.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothisdiscoverable
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothisdiscoverable
      * @since windows6.0.6000
      */
     static BluetoothIsDiscoverable(hRadio) {
@@ -5109,12 +4991,10 @@ class Bluetooth {
 
     /**
      * The BluetoothEnableIncomingConnections function modifies whether a local Bluetooth radio accepts incoming connections.
-     * @remarks
-     * A  radio that is non-connectable is non-discoverable. The radio must be made non-discoverable  prior to making a radio non-connectable. Failure to make a radio non-discoverable prior to making it non-connectable will result in failure of the <b>BluetoothEnableIncomingConnections</b> function call.
      * @param {Pointer<Void>} hRadio Valid local radio handle for which to change whether incoming connections are enabled, or <b>NULL</b>. If <b>NULL</b>, the attempt to modify incoming connection acceptance iterates through all local radios; if any radio is modified by the call, the function call succeeds.
      * @param {Integer} fEnabled Flag specifying whether incoming connection acceptance is to be enabled or disabled. Set to <b>TRUE</b> to enable incoming connections, set to <b>FALSE</b> to disable incoming connections.
      * @returns {Integer} Returns <b>TRUE</b> if the incoming connection  state was successfully changed. If <i>hRadio</i> is <b>NULL</b>, a return value of <b>TRUE</b> indicates that at least one local radio state was successfully changed. Returns <b>FALSE</b> if incoming connection  state was not changed; if <i>hRadio</i> was <b>NULL</b>, no radio accepted the state change.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothenableincomingconnections
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothenableincomingconnections
      * @since windows6.0.6000
      */
     static BluetoothEnableIncomingConnections(hRadio, fEnabled) {
@@ -5124,11 +5004,9 @@ class Bluetooth {
 
     /**
      * The BluetoothIsConnectable function determines whether a Bluetooth radio or radios is connectable.
-     * @remarks
-     * If multiple Bluetooth radios exist, the first radio to return that it is connectable causes the <b>BluetoothIsConnectable</b> function to succeed.
      * @param {Pointer<Void>} hRadio Valid local radio handle, or <b>NULL</b>. If <b>NULL</b>, all local radios are checked for connectability; if any radio is connectable, the function call succeeds.
      * @returns {Integer} Returns <b>TRUE</b> if at least one Bluetooth radio is accepting incoming connections. Returns <b>FALSE</b> if no radios are accepting incoming connections.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothisconnectable
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothisconnectable
      * @since windows6.0.6000
      */
     static BluetoothIsConnectable(hRadio) {
@@ -5144,7 +5022,7 @@ class Bluetooth {
      * @param {Pointer<Void>} pvParam Optional parameter to be passed through the callback function.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion, and a valid registration handle was returned in <i>phRegHandle</i>. Any other return value indicates failure.
      * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain more information about the error. The following table  describes a common error:
+     * Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain more information about the error. The following table  describes a common error:
      * 
      * <table>
      * <tr>
@@ -5163,7 +5041,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication
      * @since windows6.0.6000
      */
     static BluetoothRegisterForAuthentication(pbtdi, phRegHandle, pfnCallback, pvParam) {
@@ -5178,10 +5056,6 @@ class Bluetooth {
 
     /**
      * The BluetoothRegisterForAuthenticationEx function registers an application for a pin request, numeric comparison and callback function.
-     * @remarks
-     * The caller must provide a valid callback address and must unregister the callback once notification is no longer required.  The deregistration of an authenticated device can be accomplished by calling <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a>.
-     * 
-     * In scenarios where an application registers for authentication more than once, only the first callback function registered via this function will be called in the application while authentication is in progress.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdiIn A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure that specifies the bluetooth address to be utilized for comparison.
      * @param {Pointer<IntPtr>} phRegHandleOut A pointer to a <b>HBLUETOOTH_AUTHENTICATION_REGISTRATION</b> handle associated with the registered application. Call <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close
      * the handle.
@@ -5217,7 +5091,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthenticationex
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthenticationex
      * @since windows6.0.6000
      */
     static BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallbackIn, pvParam) {
@@ -5230,7 +5104,7 @@ class Bluetooth {
      * @param {Pointer} hRegHandle Handle returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication">BluetoothRegisterForAuthentication</a> function.
      * @returns {Integer} Returns <b>TRUE</b> when the authentication registration is successfully removed. Returns <b>FALSE</b> if the specified handle is not successfully closed.
      * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain more information about the error. The following table  describes a common error:
+     * Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain more information about the error. The following table  describes a common error:
      * 
      * <table>
      * <tr>
@@ -5249,7 +5123,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication
      * @since windows6.0.6000
      */
     static BluetoothUnregisterAuthentication(hRegHandle) {
@@ -5298,7 +5172,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsendauthenticationresponse
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsendauthenticationresponse
      * @since windows6.0.6000
      */
     static BluetoothSendAuthenticationResponse(hRadio, pbtdi, pszPasskey) {
@@ -5310,10 +5184,6 @@ class Bluetooth {
 
     /**
      * The BluetoothSendAuthenticationResponseEx function is called when an authentication request to send the passkey or a Numeric Comparison response is made.
-     * @remarks
-     * Callers can only use this function to respond to a pending authentication request.  Applications should register with <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication">BluetoothRegisterForAuthenticationEx</a> in order to be notified of incoming authentication requests.  
-     * 
-     * Only the <b>BLUETOOTH_AUTHENTICATION_METHOD_LEGACY</b>, <b>BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON</b> and <b>BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION</b> response types are valid.
      * @param {Pointer<Void>} hRadioIn A handle of the Bluetooth radio device to specify local service information for.
      * @param {Pointer<BLUETOOTH_AUTHENTICATE_RESPONSE>} pauthResponse Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_authenticate_response">BLUETOOTH_AUTHENTICATE_RESPONSE</a> structure containing the response to the <b>BTH_REMOTE_AUTHENTICATE_REQUEST</b> event.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion; returns the following error codes upon failure:
@@ -5346,7 +5216,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsendauthenticationresponseex
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsendauthenticationresponseex
      * @since windows6.0.6000
      */
     static BluetoothSendAuthenticationResponseEx(hRadioIn, pauthResponse) {
@@ -5360,7 +5230,7 @@ class Bluetooth {
      * @param {Integer} cbSdpStreamLength The length, in bytes, of <i>pSdpStream</i>.
      * @param {Pointer<SDP_ELEMENT_DATA>} pData A pointer to a buffer to be filled with the data of the SDP element found at the beginning of the <i>pSdpStream</i> SDP stream.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> when the SDP element is parsed correctly. Returns <b>ERROR_INVALID_PARAMETER</b> if one of the required parameters is <b>NULL</b>, or if the SDP stream pointed to by <i>pSdpStream</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetelementdata
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsdpgetelementdata
      * @since windows6.0.6000
      */
     static BluetoothSdpGetElementData(pSdpStream, cbSdpStreamLength, pData) {
@@ -5374,7 +5244,7 @@ class Bluetooth {
      * or an alternative.
      * @param {Integer} cbContainerLength The size, in bytes, of the <i>pContainerStream</i> parameter.
      * @param {Pointer<IntPtr>} pElement A value used to track the  location in the stream.  The first
-     *           time the <b>BluetoothSdpGetContainerElementData</b> function is called for a  container, *<i>pElement</i> should be <b>NULL</b>.  For subsequent calls, the value should be
+     *           time the <b>BluetoothSdpGetContainerElementData</b> function is called for a  container, *<i>pElement</i>should be <b>NULL</b>.  For subsequent calls, the value should be
      * unmodified.
      * @param {Pointer<SDP_ELEMENT_DATA>} pData A pointer to a buffer filled with data from  the
      * current SDP element of <i>pContainerStream</i>.
@@ -5393,7 +5263,7 @@ class Bluetooth {
      * </td>
      * <td width="60%">
      * There are no more items in the list. The caller should stop calling
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetcontainerelementdata">BluetoothSdpGetContainerElementData</a> function for this container.
+     * the <a href="/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetcontainerelementdata">BluetoothSdpGetContainerElementData</a> function for this container.
      * 
      * </td>
      * </tr>
@@ -5410,7 +5280,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetcontainerelementdata
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsdpgetcontainerelementdata
      * @since windows6.0.6000
      */
     static BluetoothSdpGetContainerElementData(pContainerStream, cbContainerLength, pElement, pData) {
@@ -5420,11 +5290,6 @@ class Bluetooth {
 
     /**
      * The BluetoothSdpGetAttributeValue function retrieves the attribute value for an attribute identifier.
-     * @remarks
-     * The record stream in <i>pRecordStream</i> must be an SDP stream formatted as an SDP record, a SEQUENCE
-     * containing attribute ID (UINT16) plus attribute value (any SDP element type) pairs.
-     * 
-     * The attribute identifier provided in the <i>usAttributeId</i> parameter can be one of the many SDP_ATTRIB_Xxx universal attribute identifiers provided in the bthdef.h file, or a custom attribute value defined by a Bluetooth profile. All values greater than or equal to 0x200 are profile-specific attribute identifiers, and are specific to the profile. See the bthdef.h header file for a list of universal SDP attribute identifiers.
      * @param {Pointer} pRecordStream Pointer to a valid record stream that is formatted as a single SDP record.
      * @param {Integer} cbRecordLength Length of <i>pRecordStream</i>, in bytes.
      * @param {Integer} usAttributeId Attribute identifier to search for. See Remarks.
@@ -5459,7 +5324,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetattributevalue
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsdpgetattributevalue
      * @since windows6.0.6000
      */
     static BluetoothSdpGetAttributeValue(pRecordStream, cbRecordLength, usAttributeId, pAttributeData) {
@@ -5535,7 +5400,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetstring
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsdpgetstring
      * @since windows6.0.6000
      */
     static BluetoothSdpGetString(pRecordStream, cbRecordLength, pStringData, usStringOffset, pszString, pcchStringLength) {
@@ -5547,17 +5412,11 @@ class Bluetooth {
 
     /**
      * The BluetoothSdpEnumAttributes function enumerates through the SDP record stream, and calls the callback function for each attribute in the record.
-     * @remarks
-     * If the callback function returns
-     * <b>FALSE</b>, the enumeration initiated by the <b>BluetoothSdpEnumAttributes</b> function is stopped.
-     * 
-     * The record stream in <i>pSDPStream</i> must be an SDP stream formatted as an SDP record, a SEQUENCE
-     * containing attribute ID (UINT16) plus attribute value (any SDP element type) pairs.
      * @param {Pointer} pSDPStream Pointer to a valid record stream that is formatted as a single SDP record.
      * @param {Integer} cbStreamSize Size of the stream pointed to by <i>pSDPStream</i>, in bytes.
      * @param {Pointer<PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK>} pfnCallback Pointer to the callback routine. See <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_bluetooth_enum_attributes_callback">PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK</a> for more information about the callback.
      * @param {Pointer<Void>} pvParam Optional parameter to be passed to the callback routine.
-     * @returns {Integer} Returns <b>TRUE</b> if an enumeration occurred. Returns <b>FALSE</b> upon failure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information. The following table describes common error codes associated with the <b>BluetoothSdpEnumAttributes</b> function:
+     * @returns {Integer} Returns <b>TRUE</b> if an enumeration occurred. Returns <b>FALSE</b> upon failure. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information. The following table describes common error codes associated with the <b>BluetoothSdpEnumAttributes</b> function:
      * 
      * <table>
      * <tr>
@@ -5587,7 +5446,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpenumattributes
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsdpenumattributes
      * @since windows6.0.6000
      */
     static BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, pfnCallback, pvParam) {
@@ -5602,30 +5461,6 @@ class Bluetooth {
 
     /**
      * Sets local service information for a specific Bluetooth radio.
-     * @remarks
-     * <b>BluetoothSetLocalServiceInfo</b> is a user-mode API that is used only by profile driver developers to
-     *     trigger the installation of a local service that is described by the service <b>GUID</b> in 
-     *     <i>pClassGuid</i>.
-     * 
-     * <b>BluetoothSetLocalServiceInfo</b> generates a Plug and Play (PnP) device ID in the form of "BTHENUM\{<i>ClassGuid</i>}". For example, "BTHENUM\{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}". User-mode applications
-     *     can call 
-     *     <b>BluetoothSetLocalServiceInfo</b> subsequent times with the same service GUID but with a different
-     *     instance ID to create multiple instances of the specified server-side profile.
-     * 
-     * To use Bluetooth APIs like 
-     *     <b>BluetoothSetLocalServiceInfo</b>, user-mode applications should link with 
-     *     BthProps.lib.
-     * 
-     * <div class="alert"><b>Warning</b>  The process that calls 
-     *     <b>BluetoothSetLocalServiceInfo</b> must have the <b>SE_LOAD_DRIVER_NAME</b> privilege. A process running in the
-     *     system or an administrator context can elevate its privilege by using the SDK 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupprivilegevaluea">LookupPrivilegeValue</a> and 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> functions. For more information about this see 
-     *     <a href="https://docs.microsoft.com/previous-versions/ff536681(v=vs.85)">Installing a Bluetooth
-     *     Device</a>.</div>
-     * <div> </div>
-     * The <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_local_service_info_struct">BLUETOOTH_LOCAL_SERVICE_INFO</a> structure is defined in the SDK 
-     *     BluetoothApis.h header file.
      * @param {Pointer<Void>} hRadioIn A handle of the Bluetooth radio device to specify local service information for. If <b>NULL</b>, 
      *      <b>BluetoothSetLocalServiceInfo</b> searches for the first available local Bluetooth radio.
      * @param {Pointer<Guid>} pClassGuid The GUID of the service to expose. This should match the <b>GUID</b> in the server-side INF file.
@@ -5687,7 +5522,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothsetlocalserviceinfo
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothsetlocalserviceinfo
      * @since windows6.0.6000
      */
     static BluetoothSetLocalServiceInfo(hRadioIn, pClassGuid, ulInstance, pServiceInfoIn) {
@@ -5697,12 +5532,10 @@ class Bluetooth {
 
     /**
      * BluetoothIsVersionAvailable function indicates if the installed Bluetooth binary set supports the requested version.
-     * @remarks
-     * This functionality is only exported in Bluetooth for Windows version 2.1 and later.
      * @param {Integer} MajorVersion The major version number.
      * @param {Integer} MinorVersion The minor version number.
      * @returns {Integer} <b>TRUE</b> if the installed bluetooth binaries support the specified <i>MajorVersion</i> and <i>MinorVersion</i>; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/nf-bluetoothapis-bluetoothisversionavailable
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/nf-bluetoothapis-bluetoothisversionavailable
      * @since windows6.0.6000
      */
     static BluetoothIsVersionAvailable(MajorVersion, MinorVersion) {
@@ -5712,65 +5545,6 @@ class Bluetooth {
 
     /**
      * The BluetoothGATTGetServices function gets all the primary services available for a server.
-     * @remarks
-     * Returned services are cached upon successful retrieval of services from the device directly.  Unless a service-change event is received, the list of returned services is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     primary services to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>ServicesBufferActual</i> and <b>NULL</b> in <i>ServicesBuffer</i>.
-     * 
-     * Do not modify the returned service structure,
-     *     and then use the modified structure in subsequent function calls.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Services Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     * 
-     *     hr = BluetoothGATTGetServices(
-     *             hLEDevice,
-     *             0,
-     *             NULL,
-     *             &serviceBufferCount,
-     *             BLUETOOTH_GATT_FLAG_NONE);
-     *     
-     *     if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *         PrintHr("BluetoothGATTGetServices - Buffer Size", hr);
-     *         goto Done;
-     *     }
-     * 
-     *     pServiceBuffer = (PBTH_LE_GATT_SERVICE)
-     *             malloc(sizeof(BTH_LE_GATT_SERVICE) * serviceBufferCount);
-     *     
-     *     if (NULL == pServiceBuffer) {
-     *         printf("pServiceBuffer out of memory\r\n");
-     *         goto Done;
-     *     } else {
-     *         RtlZeroMemory(pServiceBuffer, 
-     *                 sizeof(BTH_LE_GATT_SERVICE) * serviceBufferCount);
-     *     }
-     *     
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Retrieve Services
-     * ////////////////////////////////////////////////////////////////////////////
-     *     
-     *     hr = BluetoothGATTGetServices(
-     *             hLEDevice,
-     *             serviceBufferCount,
-     *             pServiceBuffer,
-     *             &numServices,
-     *             BLUETOOTH_GATT_FLAG_NONE);
-     *     
-     *     if (S_OK != hr) {
-     *         PrintHr("BluetoothGATTGetServices - Actual Data", hr);
-     *         goto Done;
-     *     }
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the Bluetooth device from which to obtain the list of primary services.
      * @param {Integer} ServicesBufferCount The number of elements allocated for the <i>ServicesBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ServicesBuffer Pointer to buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure into which to return services.
@@ -5897,7 +5671,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices
      * @since windows8.0
      */
     static BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, ServicesBufferActual, Flags) {
@@ -5910,67 +5684,6 @@ class Bluetooth {
 
     /**
      * Gets all the included services available for a given service.
-     * @remarks
-     * Returned services are cached upon successful retrieval of services from the device directly.  Unless a service-change event is received, the list of returned services is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     primary services to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>IncludedServicesBufferActual</i> and <b>NULL</b> in <i>IncludedServicesBuffer</i>.
-     * 
-     * Do not modify the returned service structure,
-     *     and then use the modified structure in subsequent function calls.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Included Services Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     * hr = BluetoothGATTGetIncludedServices(
-     *      hLEDevice,
-     *      gattService,
-     *      0,
-     *      NULL,
-     *      &inclServicesBufferSize,
-     *      BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *      if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *          PrintHr("BluetoothGATTGetIncludedServices - Buffer Size", hr);
-     *          goto Done;
-     *      }
-     * 
-     *      if (inclServicesBufferSize > 0) {
-     *          pInclServicesBuffer = (PBTH_LE_GATT_ PBTH_LE_GATT_SERVICE)
-     *                     malloc(inclServicesBufferSize * sizeof(BTH_LE_GATT_SERVICE));
-     * 
-     *          if (NULL == pInclServicesBuffer) {
-     *              printf("pInclServicesBuffer out of memory\r\n");
-     *              goto Done;
-     *          } else {
-     *              RtlZeroMemory(pInclServicesBuffer, 
-     *                     inclServicesBufferSize * sizeof(BTH_LE_GATT_SERVICE));
-     *          }
-     * 
-     *          ////////////////////////////////////////////////////////////////////////////
-     *          // Retrieve Included Services
-     *          ////////////////////////////////////////////////////////////////////////////
-     * 
-     *          hr = BluetoothGATTGetIncludedServices (
-     *               hLEDevice,
-     *               gattService,
-     *               inclServicesBufferSize,
-     *               pInclServicesBuffer,
-     *               &numIncludedServices
-     *               BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *          if (S_OK != hr) {
-     *              PrintHr("BluetoothGATTGetIncludedServices - Actual Data", hr);
-     *              goto Done;
-     *          }
-     *      }
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the Bluetooth device or parent service.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ParentService Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure that contains the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} IncludedServicesBufferCount The number of elements allocated for the <i>IncludedServicesBuffer</i> parameter.
@@ -6098,7 +5811,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices
      * @since windows8.0
      */
     static BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, IncludedServicesBufferActual, Flags) {
@@ -6111,81 +5824,11 @@ class Bluetooth {
 
     /**
      * Gets all the characteristics available for the specified service.
-     * @remarks
-     * Returned characteristics are cached upon successful retrieval of characteristics from the device directly.  Unless a service-change event is received, the list of returned characteristics is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     characteristics to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>CharacteristicsBufferActual</i> and <b>NULL</b> in <i>CharacteristicsBuffer</i>.
-     * 
-     * Do not modify the returned characteristic structure,
-     *     and then use the modified  structure in subsequent function calls.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * The parent service must be present in the
-     *     cache, otherwise the function will fail.  The parent service must be a service returned by either <a href="https://docs.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices">BluetoothGATTGetServices</a> or
-     *     <a href="https://docs.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices">BluetoothGATTGetIncludedServices</a>.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Characteristic Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     * 
-     *         hr = BluetoothGATTGetCharacteristics(
-     *                 hCurrService,
-     *                 currGattService,
-     *                 0,
-     *                 NULL,
-     *                 &charBufferSize,
-     *                 BLUETOOTH_GATT_FLAG_NONE);
-     *         
-     *         if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *             PrintHr("BluetoothGATTGetCharacteristics - Buffer Size", hr);
-     *             goto Done;
-     *         }
-     *         
-     *         if (charBufferSize > 0) {
-     *             pCharBuffer = (PBTH_LE_GATT_CHARACTERISTIC)
-     *                     malloc(charBufferSize * sizeof(BTH_LE_GATT_CHARACTERISTIC));
-     *         
-     *             if (NULL == pCharBuffer) {
-     *                 printf("pCharBuffer out of memory\r\n");
-     *                 goto Done;
-     *             } else {
-     *                 RtlZeroMemory(pCharBuffer, 
-     *                         charBufferSize * sizeof(BTH_LE_GATT_CHARACTERISTIC));
-     *             }
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Retrieve Characteristics
-     * ////////////////////////////////////////////////////////////////////////////
-     *     
-     *             hr = BluetoothGATTGetCharacteristics(
-     *                     hCurrService,
-     *                     currGattService,
-     *                     charBufferSize,
-     *                     pCharBuffer,
-     *                     &numChars,
-     *                     BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *             if (S_OK != hr) {
-     *                 PrintHr("BluetoothGATTGetCharacteristics - Actual Data", hr);
-     *                 goto Done; // Allow continuation
-     *             }
-     * 
-     *             if (numChars != charBufferSize) {
-     *                 printf("buffer size and buffer size actual size mismatch\r\n");
-     *                 goto Done;
-     *             }
-     *         }
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the Bluetooth device or service.
-     * @param {Pointer<BTH_LE_GATT_SERVICE>} Service Address of a <a href="https://docs.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure containing the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
+     * @param {Pointer<BTH_LE_GATT_SERVICE>} Service Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure containing the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} CharacteristicsBufferCount The number of elements allocated for the <i>CharacteristicsBuffer</i> parameter.
-     * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} CharacteristicsBuffer Pointer to a buffer into which to return characteristics as an array of [BTH_LE_GATT_CHARACTERISTIC](/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_characteristic) structures.
-     * @param {Pointer<UInt16>} CharacteristicsBufferActual Pointer to buffer into which is returned the actual number of characteristics that were returned in the <i>CharacteristicsBuffer</i> parameter.
+     * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} CharacteristicsBuffer Pointer to buffer into which to return characteristics in a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure.
+     * @param {Pointer<UInt16>} CharacteristicsBufferActual Pointer to buffer into which the actual number of characteristics were returned in the <i>CharacteristicsBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetCharacteristics</b>:
      * 
      * <table>
@@ -6296,7 +5939,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristics
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristics
      * @since windows8.0
      */
     static BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, CharacteristicsBufferActual, Flags) {
@@ -6309,78 +5952,6 @@ class Bluetooth {
 
     /**
      * Gets all the descriptors available for the specified characteristic.
-     * @remarks
-     * Returned characteristics are cached upon successful retrieval of characteristics from the device directly.  Unless a service-change event is received, the list of returned characteristics is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     characteristics to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>DescriptorsBufferActual</i> and <b>NULL</b> in <i>DescriptorsBuffer</i>.
-     * 
-     * Do not modify the returned characteristic structure,
-     *     and then use the modified  structure in subsequent function calls.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * The parent characteristic must be present in the
-     *     cache, otherwise the function will fail.  The parent service must be a service returned by either <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices">BluetoothGATTGetServices</a> or
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices">BluetoothGATTGetIncludedServices</a>.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Descriptor Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     * GetDescriptors:
-     *             hr = BluetoothGATTGetDescriptors(
-     *                     hCurrService,
-     *                     currGattChar,
-     *                     0,
-     *                     NULL,
-     *                     &descriptorBufferSize,
-     *                     BLUETOOTH_GATT_FLAG_NONE);
-     *             
-     *             if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *                 PrintHr("BluetoothGATTGetDescriptors - Buffer Size", hr);
-     *                 goto Done; // Allow continuation
-     *             }
-     *             
-     *             if (descriptorBufferSize > 0) {
-     *                 pDescriptorBuffer = (PBTH_LE_GATT_DESCRIPTOR)
-     *                         malloc(descriptorBufferSize 
-     *                             * sizeof(BTH_LE_GATT_DESCRIPTOR));
-     *             
-     *                 if (NULL == pDescriptorBuffer) {
-     *                     printf("pDescriptorBuffer out of memory\r\n");
-     *                     goto Done;
-     *                 } else {
-     *                     RtlZeroMemory(pDescriptorBuffer, descriptorBufferSize);
-     *                 }
-     *             
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Retrieve Descriptors
-     * ////////////////////////////////////////////////////////////////////////////
-     *     
-     *                 hr = BluetoothGATTGetDescriptors(
-     *                         hCurrService,
-     *                         currGattChar,
-     *                         descriptorBufferSize,
-     *                         pDescriptorBuffer,
-     *                         &numDescriptors,
-     *                         BLUETOOTH_GATT_FLAG_NONE);
-     *             
-     *                 if (S_OK != hr) {
-     *                     PrintHr("BluetoothGATTGetDescriptors - Actual Data", hr);
-     *                     goto Done;
-     *                 }
-     * 
-     *                 if (numDescriptors != descriptorBufferSize) {
-     *                     printf("buffer size and buffer size actual size mismatch\r\n");
-     *                     goto Done;
-     *                 }
-     *             }
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the Bluetooth device or service.  If a service handle is passed, then the service must be the grandparent of the descriptor.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_characteristic">BTH_LE_GATT_CHARACTERISTIC</a> structure containing the parent characteristic of the descriptors to be retrieved.
      * @param {Integer} DescriptorsBufferCount The number of elements allocated for the <i>DescriptorsBuffer</i> parameter.
@@ -6496,7 +6067,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptors
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptors
      * @since windows8.0
      */
     static BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, DescriptorsBufferActual, Flags) {
@@ -6509,75 +6080,6 @@ class Bluetooth {
 
     /**
      * Gets the value of the specified characteristic.
-     * @remarks
-     * The characteristic value is returned from the cache if one is already present. This would be the case most of the time, as all the device attributes are cached at the time of pairing or association.  However, if it is not present, the characteristic value is read directly from the device, and will be cached upon successfully reading it from the device.  If <b>BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE</b> or <b>BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE</b> is present, the characteristic value is read using the specified method.
-     * 
-     * Returned characteristics are cached upon successful retrieval of characteristics from the device directly.  Unless a service-change event is received, the list of returned characteristics is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     characteristics to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>CharacteristicValueSizeRequired</i> and <b>NULL</b> in <i>CharacteristicValue</i>.
-     * 
-     * The parent service must be present in the
-     *     cache, otherwise the function will fail.  The parent service must be a service returned by either <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices">BluetoothGATTGetServices</a> or
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices">BluetoothGATTGetIncludedServices</a>.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     *             if (currGattChar->IsReadable) {
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Characteristic Value Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     * 
-     *                 hr = BluetoothGATTGetCharacteristicValue(
-     *                         hCurrService,
-     *                         currGattChar,
-     *                         0,
-     *                         NULL,
-     *                         &charValueDataSize,
-     *                         BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *                 if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *                     PrintHr("BluetoothGATTGetCharacteristicValue - Buffer Size", hr);
-     *                     goto GetDescriptors; // Proceed to retrieving descriptors
-     *                 }
-     * 
-     *                 pCharValueBuffer = (PBTH_LE_GATT_CHARACTERISTIC_VALUE)malloc(charValueDataSize);
-     * 
-     *                 if (NULL == pCharValueBuffer) {
-     *                     printf("pCharValueBuffer out of memory\r\n");
-     *                     goto Done;
-     *                 } else {
-     *                     RtlZeroMemory(pCharValueBuffer, charValueDataSize);
-     *                 }
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Retrieve the Characteristic Value
-     * ////////////////////////////////////////////////////////////////////////////
-     * 
-     *                 hr = BluetoothGATTGetCharacteristicValue(
-     *                         hCurrService,
-     *                         currGattChar,
-     *                         (ULONG)charValueDataSize,
-     *                         pCharValueBuffer,
-     *                         NULL,
-     *                         BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *                 if (S_OK != hr) {
-     *                     PrintHr("BluetoothGATTGetCharacteristicValue - Actual Data", hr);
-     *                     goto GetDescriptors; // Proceed to retrieving descriptors
-     *                 }
-     * 
-     *                 PrintCharacteristicValue(pCharValueBuffer, 2, currGattChar->CharacteristicUuid);
-     * 
-     *                 // Free before going to next iteration, or memory leak.
-     *                 free(pCharValueBuffer);
-     *                 pCharValueBuffer = NULL;
-     *             }
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the service.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to the parent characteristic of the characteristic value to be retrieved.
      * @param {Integer} CharacteristicValueDataSize The number of bytes allocated for the <i>CharacteristicValue</i> parameter.
@@ -6960,7 +6462,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristicvalue
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristicvalue
      * @since windows8.0
      */
     static BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, CharacteristicValueSizeRequired, Flags) {
@@ -6973,66 +6475,6 @@ class Bluetooth {
 
     /**
      * Gets the value of the specified descriptor.
-     * @remarks
-     * The descriptor value is returned from the cache if one is already present. This would be the case most of the time, as all the device attributes are cached at the time of pairing or association.  However, if it is not present, the descriptor value is read directly from the device, and will be cached upon successfully reading it from the device.  If <b>BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_CACHE</b> or <b>BLUETOOTH_GATT_FLAG_FORCE_READ_FROM_DEVICE</b> is present, the descriptor value is read using the specified method.
-     * 
-     * Returned descriptor values are cached upon successful retrieval of descriptor values from the device directly.  Unless a service-change event is received, the descriptor values is not expected to change.
-     * 
-     * Profile drivers should pre-allocate  a sufficiently large buffer for the array of
-     *     descriptor values to be returned in.  Callers can determine the necessary buffer size by passing a non-<b>NULL</b> value in <i>DescriptorValueSizeRequired</i> and <b>NULL</b> in <i>DescriptorValue</i>.
-     * 
-     * The parent service must be present in the
-     *     cache, otherwise the function will fail.  The parent service must be a service returned by either <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices">BluetoothGATTGetServices</a> or
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices">BluetoothGATTGetIncludedServices</a>.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Determine Descriptor Value Buffer Size
-     * ////////////////////////////////////////////////////////////////////////////
-     *                 hr = BluetoothGATTGetDescriptorValue(
-     *                         hCurrService,
-     *                         currGattDescriptor,
-     *                         0,
-     *                         NULL,
-     *                         &descValueDataSize,
-     *                         BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *                 if (HRESULT_FROM_WIN32(ERROR_MORE_DATA) != hr) {
-     *                     PrintHr("BluetoothGATTGetDescriptorValue - Buffer Size", hr);
-     *                     goto Done; // allow continuation
-     *                 }
-     * 
-     *                 pDescValueBuffer = (PBTH_LE_GATT_DESCRIPTOR_VALUE)malloc(descValueDataSize);
-     * 
-     *                 if (NULL == pDescValueBuffer) {
-     *                     printf("pDescValueBuffer out of memory\r\n");
-     *                     goto Done;
-     *                 } else {
-     *                     RtlZeroMemory(pDescValueBuffer, descValueDataSize);
-     *                 }
-     * 
-     * ////////////////////////////////////////////////////////////////////////////
-     * // Retrieve the Descriptor Value
-     * ////////////////////////////////////////////////////////////////////////////
-     * 
-     *                 hr = BluetoothGATTGetDescriptorValue(
-     *                         hCurrService,
-     *                         currGattDescriptor,
-     *                         (ULONG)descValueDataSize,
-     *                         pDescValueBuffer,
-     *                         NULL,
-     *                         BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     *                 if (S_OK != hr) {
-     *                     PrintHr("BluetoothGATTGetDescriptorValue - Actual Data", hr);
-     *                     goto Done; // allow continuation
-     *                 }
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the service.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} Descriptor Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor">BTH_LE_GATT_DESCRIPTOR</a> structure containing the parent descriptor of the descriptor value to be retrieved.
      * @param {Integer} DescriptorValueDataSize The number of bytes allocated for the <i>DescriptorValue</i> parameter.
@@ -7416,7 +6858,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptorvalue
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptorvalue
      * @since windows8.0
      */
     static BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, DescriptorValueSizeRequired, Flags) {
@@ -7429,20 +6871,6 @@ class Bluetooth {
 
     /**
      * The BluetoothGATTBeginReliableWrite function specifies that reliable writes are about to begin.
-     * @remarks
-     * The <b>BluetoothGATTBeginReliableWrite</b> function notifies the Bluetooth stack that procedures that are to be called after the function returns are reliable write operations.  Any operations that do not support reliable writes will return an <b>ERROR_INVALID_FUNCTION</b> error. Only the following functions support reliable write operations:
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattsetcharacteristicvalue">BluetoothGATTSetCharacteristicValue</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattendreliablewrite">BluetoothGATTEndReliableWrite</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattabortreliablewrite">BluetoothGATTAbortReliableWrite</a>
-     * </li>
-     * </ul>
      * @param {Pointer<Void>} hDevice Handle to the service.
      * @param {Pointer<UInt64>} ReliableWriteContext Address of a <b>BTH_LE_GATT_RELIABLE_WRITE_CONTEXT</b> structure containing the context describing the reliable write operation.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTBeginReliableWrite</b>:
@@ -7504,7 +6932,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite
      * @since windows8.0
      */
     static BluetoothGATTBeginReliableWrite(hDevice, ReliableWriteContext, Flags) {
@@ -7517,38 +6945,10 @@ class Bluetooth {
 
     /**
      * Writes the specified characteristic value to the Bluetooth device.
-     * @remarks
-     * Calling <b>BluetoothGATTSetCharacteristicValue</b> after <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite">BluetoothGATTBeginReliableWrite</a>, notifies the remote Bluetooth device to store this request into a prepare queue on the device.
-     * 
-     * If signing is required, then the operation must not require a response, and must not occur over a secure channel.
-     * 
-     * The parent characteristic is returned from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristics">BluetoothGATTGetCharacteristics</a>, and must not be altered.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * BTH_LE_GATT_CHARACTERISTIC_VALUE newValue;
-     * 
-     * RtlZeroMemory(&newValue,(sizeof(newValue)));
-     * 
-     * newValue.DataSize = sizeof(valueData);
-     * newValue.Data = (UCHAR*)&valueData;
-     * 
-     * // Set the new characteristic value
-     * hr = BluetoothGATTSetCharacteristicValue(hDevice,
-     *                                     parentCharacteristic,
-     *                                     &newValue,
-     *                                     NULL,
-     *                                     BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the service.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_characteristic">BTH_LE_GATT_CHARACTERISTIC</a> structure containing the parent characteristic.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC_VALUE>} CharacteristicValue Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_characteristic_value">BTH_LE_GATT_CHARACTERISTIC_VALUE</a> structure containing the characteristic value.
-     * @param {Integer} ReliableWriteContext BTH_LE_GATT_RELIABLE_WRITE_CONTEXT structure containing the context describing the reliable write operation returned from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite">BluetoothGATTBeginReliableWrite</a>.
+     * @param {Integer} ReliableWriteContext BTH_LE_GATT_RELIABLE_WRITE_CONTEXT structure containint the context describing the reliable write operation returned from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite">BluetoothGATTBeginReliableWrite</a>.
      * @param {Integer} Flags Flags to modify the behavior of BluetoothGATTSetCharacteristicValue:
      * 
      * <table>
@@ -7891,7 +7291,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattsetcharacteristicvalue
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattsetcharacteristicvalue
      * @since windows8.0
      */
     static BluetoothGATTSetCharacteristicValue(hDevice, Characteristic, CharacteristicValue, ReliableWriteContext, Flags) {
@@ -8197,7 +7597,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattendreliablewrite
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattendreliablewrite
      * @since windows8.0
      */
     static BluetoothGATTEndReliableWrite(hDevice, ReliableWriteContext, Flags) {
@@ -8503,7 +7903,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattabortreliablewrite
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattabortreliablewrite
      * @since windows8.0
      */
     static BluetoothGATTAbortReliableWrite(hDevice, ReliableWriteContext, Flags) {
@@ -8516,29 +7916,6 @@ class Bluetooth {
 
     /**
      * Writes the specified descriptor value to the Bluetooth device.
-     * @remarks
-     * The parent descriptor must be returned from a previous call to BluetoothGATTGetDescriptors, and must not be altered.  Behavior is undefined
-     *     if the caller does this.
-     * 
-     * <b>Example</b>
-     * 
-     * 
-     * ```cpp
-     * 
-     * BTH_LE_GATT_DESCRIPTOR_VALUE newValue;
-     * 
-     * RtlZeroMemory(&newValue, sizeof(newValue));
-     * 
-     * newValue.DescriptorType = ClientCharacteristicConfiguration;
-     * newValue.ClientCharacteristicConfiguration.IsSubscribeToNotification = TRUE;
-     * 
-     * // Subscribe to an event.
-     * hr = BluetoothGATTSetDescriptorValue(hDevice, 
-     *                                 parentDescriptor, 
-     *                                 &newValue,
-     *                                 BLUETOOTH_GATT_FLAG_NONE);
-     * 
-     * ```
      * @param {Pointer<Void>} hDevice Handle to the service.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} Descriptor Pointer to the parent descriptor.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR_VALUE>} DescriptorValue Pointer to the descriptor's value.
@@ -8853,7 +8230,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattsetdescriptorvalue
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattsetdescriptorvalue
      * @since windows8.0
      */
     static BluetoothGATTSetDescriptorValue(hDevice, Descriptor, DescriptorValue, Flags) {
@@ -8931,7 +8308,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattregisterevent
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattregisterevent
      * @since windows8.0
      */
     static BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callback, CallbackContext, pEventHandle, Flags) {
@@ -9004,7 +8381,7 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent
+     * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent
      * @since windows8.0
      */
     static BluetoothGATTUnregisterEvent(EventHandle, Flags) {

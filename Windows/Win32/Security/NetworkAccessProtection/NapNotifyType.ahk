@@ -2,7 +2,7 @@
 
 /**
  * Enumerates the types of service notifications sent by the NapAgent service.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-napnotifytype
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-napnotifytype
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains certificate attributes to be added to a certificate.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_add_attributes_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmc_add_attributes_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

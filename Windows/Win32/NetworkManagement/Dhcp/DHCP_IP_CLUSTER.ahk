@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_IP_CLUSTER structure defines the address and mast for a network cluster.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_cluster
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_ip_cluster
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

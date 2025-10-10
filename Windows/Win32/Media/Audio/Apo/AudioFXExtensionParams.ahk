@@ -3,7 +3,7 @@
 
 /**
  * The AudioFXExtensionParams structure is passed to the system effects ControlPanel Extension PropertyPage via IShellPropSheetExt::AddPages.
- * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-audiofxextensionparams
+ * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ns-audioenginebaseapo-audiofxextensionparams
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

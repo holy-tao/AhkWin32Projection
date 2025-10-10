@@ -3,7 +3,7 @@
 
 /**
  * The DMO_PARTIAL_MEDIATYPE structure partially describes a media type used by a Microsoft DirectX Media Object (DMO). The DMO registration functions use this structure to specify supported media types.
- * @see https://learn.microsoft.com/windows/win32/api/dmoreg/ns-dmoreg-dmo_partial_mediatype
+ * @see https://docs.microsoft.com/windows/win32/api//dmoreg/ns-dmoreg-dmo_partial_mediatype
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

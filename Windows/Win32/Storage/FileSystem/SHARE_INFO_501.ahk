@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the shared resource including the name and type of the resource, and a comment associated with the resource.
- * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_501
+ * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-share_info_501
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

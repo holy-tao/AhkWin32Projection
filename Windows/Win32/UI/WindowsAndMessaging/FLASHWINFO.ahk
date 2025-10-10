@@ -3,7 +3,7 @@
 
 /**
  * Contains the flash status for a window and the number of times the system should flash the window.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-flashwinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-flashwinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

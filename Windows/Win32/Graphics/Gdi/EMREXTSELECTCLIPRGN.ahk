@@ -4,7 +4,7 @@
 
 /**
  * The EMREXTSELECTCLIPRGN structure contains members for the ExtSelectClipRgn enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextselectcliprgn
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextselectcliprgn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

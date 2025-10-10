@@ -4,7 +4,7 @@
 
 /**
  * Contains an explanation of why the draw of an icon or overlay tree item failed.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvasyncdraw
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtvasyncdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_OPW_BLOB structure describes a replication task currently executing or pending execution.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_opw_blob
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_opw_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

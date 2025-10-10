@@ -5,7 +5,8 @@
 /**
  * Provides multicast filtering parameters for multicast IPv6 or IPv4 addresses.
  * @remarks
- * The <b>GROUP_FILTER</b> structure is used with either IPv6 or IPv4 multicast addresses. The <b>GROUP_FILTER</b> structure is passed as an argument  for the <b>SIOCGMSFILTER</b> and <b>SIOCSMSFILTER</b> IOCTLs.  
+ * 
+  * The <b>GROUP_FILTER</b> structure is used with either IPv6 or IPv4 multicast addresses. The <b>GROUP_FILTER</b> structure is passed as an argument  for the <b>SIOCGMSFILTER</b> and <b>SIOCSMSFILTER</b> IOCTLs.  
   * 
   * The <b>GROUP_FILTER</b> structure and related structures used for multicast programming are based on IETF recommendations in sections 5 and 8.2  of RFC 3768. For more information, see <a href="http://tools.ietf.org/html/rfc3678">http://www.ietf.org/rfc/rfc3678.txt</a>.
   * 
@@ -16,7 +17,9 @@
   * The <b>GROUP_FILTER</b> structure and the Ioctls that use this structure are only valid on datagram and raw sockets (the socket type must be <b>SOCK_DGRAM</b> or <b>SOCK_RAW</b>).
   * 
   * The <b>GROUP_FILTER</b> structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-group_filter
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-group_filter
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

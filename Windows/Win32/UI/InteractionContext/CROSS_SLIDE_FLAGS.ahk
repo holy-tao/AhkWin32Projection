@@ -2,7 +2,7 @@
 
 /**
  * Specifies the state of the cross-slide interaction.
- * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-cross_slide_flags
+ * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-cross_slide_flags
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

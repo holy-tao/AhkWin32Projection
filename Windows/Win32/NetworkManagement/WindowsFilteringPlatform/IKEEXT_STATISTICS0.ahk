@@ -7,7 +7,7 @@
 
 /**
  * Stores various IKE/AuthIP statistics.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_statistics0
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

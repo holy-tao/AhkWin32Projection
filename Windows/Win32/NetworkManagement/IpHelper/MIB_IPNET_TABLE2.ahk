@@ -12,7 +12,8 @@
 /**
  * Contains a table of neighbor IP address entries.
  * @remarks
- * The <b>MIB_IPNET_TABLE2</b> structure is defined on Windows Vista and later. 
+ * 
+  * The <b>MIB_IPNET_TABLE2</b> structure is defined on Windows Vista and later. 
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnettable2">GetIpNetTable2</a> function enumerates the neighbor IP addresses on a local system and returns this information in an <b>MIB_IPNET_TABLE2</b> structure. 
   * 
@@ -23,7 +24,9 @@
   * 
   * 
   * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipnet_table2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipnet_table2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Datetime types.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_datetimea
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_datetimea
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

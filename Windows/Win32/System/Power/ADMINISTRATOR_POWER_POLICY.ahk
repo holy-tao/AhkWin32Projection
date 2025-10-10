@@ -4,14 +4,17 @@
 /**
  * Represents the administrator override power policy settings.
  * @remarks
- * The <b>ADMINISTRATOR_POWER_POLICY</b> 
+ * 
+  * The <b>ADMINISTRATOR_POWER_POLICY</b> 
   *     structure defines limits to certain power policy values that are applied globally to all users' power schemes. The 
   *     values in the <b>ADMINISTRATOR_POWER_POLICY</b> 
   *     structure override any settings selected by the user in the Power Options control panel program.
   * 
   * To set an administrator override policy, call the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-administrator_power_policy
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-administrator_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

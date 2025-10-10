@@ -2,7 +2,7 @@
 
 /**
  * The PNRP_CLOUD_FLAGS enumeration specifies the validity of a cloud name.
- * @see https://learn.microsoft.com/windows/win32/api/pnrpdef/ne-pnrpdef-pnrp_cloud_flags
+ * @see https://docs.microsoft.com/windows/win32/api//pnrpdef/ne-pnrpdef-pnrp_cloud_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

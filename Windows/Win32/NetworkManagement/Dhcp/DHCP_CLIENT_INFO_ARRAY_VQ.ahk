@@ -3,7 +3,7 @@
 
 /**
  * Specifies an array of DHCP_CLIENT_INFO_VQ structures.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_vq
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_vq
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

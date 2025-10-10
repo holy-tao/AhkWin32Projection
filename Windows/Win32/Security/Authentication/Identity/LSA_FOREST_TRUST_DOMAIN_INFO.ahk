@@ -4,7 +4,7 @@
 
 /**
  * Contains identifying information for a domain.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_domain_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_forest_trust_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

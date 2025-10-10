@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_IP_RESERVATION structure defines a client IP reservation.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

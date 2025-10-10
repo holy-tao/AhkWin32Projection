@@ -3,7 +3,7 @@
 
 /**
  * Contains information on the insertion mark in a toolbar control.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbinsertmark
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbinsertmark
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines an array of DHCP_CLIENT_INFO_V5 structures for use with enumeration functions.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_v5
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

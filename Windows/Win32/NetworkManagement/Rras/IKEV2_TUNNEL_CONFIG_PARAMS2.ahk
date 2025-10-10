@@ -4,7 +4,7 @@
 
 /**
  * Gets or sets tunnel parameters for Internet Key Exchange version 2 (IKEv2) devices.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_tunnel_config_params2
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ikev2_tunnel_config_params2
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

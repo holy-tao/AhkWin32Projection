@@ -3,8 +3,11 @@
 /**
  * Describes the attributes of a specified verb for an object.
  * @remarks
- * Values are used in the enumerator (which supports the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ienumoleverb">IEnumOLEVERB</a> interface) that is created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumverbs">IOleObject::EnumVerbs</a>.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-oleverbattrib
+ * 
+  * Values are used in the enumerator (which supports the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ienumoleverb">IEnumOLEVERB</a> interface) that is created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumverbs">IOleObject::EnumVerbs</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-oleverbattrib
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

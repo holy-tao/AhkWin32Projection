@@ -2,6 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The Font class encapsulates the characteristics, such as family, height, size, and style (or combination of styles), of a specific font. A Font object is used when drawing strings.
+ * @remarks
+ * 
+  * When using GDI+ API, you must never allow your application to download arbitrary fonts from untrusted sources. 
+  * The operating system requires elevated privileges to assure that all installed fonts are trusted.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-font
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

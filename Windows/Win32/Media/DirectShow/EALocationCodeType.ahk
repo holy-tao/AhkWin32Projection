@@ -3,7 +3,7 @@
 
 /**
  * The EALocationCodeType structure defines an Emergency Alert (EA) location code, as defined in ANSI/SCTE 28.
- * @see https://learn.microsoft.com/windows/win32/api/bdaiface_enums/ns-bdaiface_enums-ealocationcodetype
+ * @see https://docs.microsoft.com/windows/win32/api//bdaiface_enums/ns-bdaiface_enums-ealocationcodetype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

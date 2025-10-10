@@ -2,7 +2,7 @@
 
 /**
  * Specifies the format of session information.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_sessioninfo_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ne-ntsecpkg-secpkg_sessioninfo_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

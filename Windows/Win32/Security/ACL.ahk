@@ -4,7 +4,8 @@
 /**
  * Header of an access control list (ACL).
  * @remarks
- * An ACL includes a sequential list of zero or more ACEs. The individual ACEs in an ACL are numbered from 0 to <i>n</i>, where <i>n</i>+1 is the number of ACEs in the ACL. When editing an ACL, an application refers to an ACE within the ACL by the ACE's index.
+ * 
+  * An ACL includes a sequential list of zero or more ACEs. The individual ACEs in an ACL are numbered from 0 to <i>n</i>, where <i>n</i>+1 is the number of ACEs in the ACL. When editing an ACL, an application refers to an ACE within the ACL by the ACE's index.
   * 
   * There are two types of ACL: discretionary and system.
   * 
@@ -21,7 +22,9 @@
   * Each <b>ACL</b> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure begins on a <b>DWORD</b> boundary.
   * 
   * The maximum size for an ACL, including its ACEs, is 64 KB.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-acl
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

@@ -6,8 +6,11 @@
 /**
  * The DVD_MultichannelAudioAttributes structure describes the multichannel attributes of one audio stream within a specified title.
  * @remarks
- * The [DVD_TitleAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_titleattributes) structure contains an array of up to eight <b>DVD_MultichannelAudioAttributes</b> structures. When <c>DVD_TitleAttributes</c> is filled by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-gettitleattributes">IDvdInfo2::GetTitleAttributes</a> method, the array will be populated with one <b>DVD_MultichannelAudioAttributes</b> structure for each available audio stream in the title.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_multichannelaudioattributes
+ * 
+  * The [DVD_TitleAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_titleattributes) structure contains an array of up to eight <b>DVD_MultichannelAudioAttributes</b> structures. When <c>DVD_TitleAttributes</c> is filled by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-gettitleattributes">IDvdInfo2::GetTitleAttributes</a> method, the array will be populated with one <b>DVD_MultichannelAudioAttributes</b> structure for each available audio stream in the title.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_multichannelaudioattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

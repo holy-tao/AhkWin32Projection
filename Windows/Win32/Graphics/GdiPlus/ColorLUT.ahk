@@ -3,6 +3,8 @@
 #Include .\Effect.ahk
 
 /**
+ * A ColorLUTParams structure has four members, each being a lookup table for a particular color channel:\_alpha, red, green, or blue.
+ * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-colorlut
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

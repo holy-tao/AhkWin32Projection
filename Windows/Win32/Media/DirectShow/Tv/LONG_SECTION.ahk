@@ -4,7 +4,8 @@
 /**
  * The LONG_SECTION structure represents a long MPEG-2 section header. If a section contains a long header, you can cast a SECTION pointer to a LONG_SECTION pointer. For more information, see the Remarks section in the SECTION reference.
  * @remarks
- * The following code shows how to access the bit fields within the <b>Version</b> member:
+ * 
+  * The following code shows how to access the bit fields within the <b>Version</b> member:
   * 
   * 
   * ```cpp
@@ -19,7 +20,9 @@
   * BYTE VersionNumber = pSection->VersionNumber;
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-long_section
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-long_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

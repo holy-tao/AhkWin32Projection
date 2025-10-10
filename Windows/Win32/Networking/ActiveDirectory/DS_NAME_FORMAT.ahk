@@ -2,7 +2,7 @@
 
 /**
  * The DS_NAME_FORMAT enumeration provides formats to use for input and output names for the DsCrackNames function.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_format
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_name_format
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

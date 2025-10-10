@@ -2,7 +2,7 @@
 
 /**
  * Defines status conditions for the IMFASFSplitter::GetNextSample method.
- * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-asf_statusflags
+ * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ne-wmcontainer-asf_statusflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

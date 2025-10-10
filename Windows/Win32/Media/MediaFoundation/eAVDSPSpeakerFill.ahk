@@ -3,8 +3,11 @@
 /**
  * Specifies whether speaker fill is enabled in an audio decoder or digital signal processor (DSP).
  * @remarks
- * Speaker fill is a DSP process that converts mono or stereo audio into multichannel audio.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdspspeakerfill
+ * 
+  * Speaker fill is a DSP process that converts mono or stereo audio into multichannel audio.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdspspeakerfill
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

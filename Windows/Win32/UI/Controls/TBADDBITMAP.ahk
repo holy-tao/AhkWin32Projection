@@ -4,13 +4,15 @@
 /**
  * Adds a bitmap that contains button images to a toolbar.
  * @remarks
- * If 
+ * 
+  * If 
   * 				<b>nID</b> holds a bitmap handle, rather than a resource ID, do not destroy the bitmap until it has been replaced with <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-replacebitmap">TB_REPLACEBITMAP</a>. Otherwise, the toolbar is destroyed.
   * 
   * Defined values can be used as indexes to the standard bitmaps. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-standard-button-image-index-values">Toolbar Standard Button Image Index Values</a>.
   * 
   * The <b>TBADDBITMAP</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-addbitmap">TB_ADDBITMAP</a> message.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbaddbitmap
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tbaddbitmap
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

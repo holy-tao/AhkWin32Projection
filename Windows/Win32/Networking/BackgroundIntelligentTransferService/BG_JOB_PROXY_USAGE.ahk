@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify which proxy to use for file transfers. You can define different proxy settings for each job.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_proxy_usage
+ * @see https://docs.microsoft.com/windows/win32/api//bits/ne-bits-bg_job_proxy_usage
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

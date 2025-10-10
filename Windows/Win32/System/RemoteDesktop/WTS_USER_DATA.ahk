@@ -6,8 +6,10 @@
 /**
  * Contains select client property values.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-getuserdata">GetUserData</a> method and is both sent to and returned by the protocol. This structure is initialized with client data by the Remote Desktop Services service. If a value does not exist for a member, the protocol should not provide one.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_user_data
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-getuserdata">GetUserData</a> method and is both sent to and returned by the protocol. This structure is initialized with client data by the Remote Desktop Services service. If a value does not exist for a member, the protocol should not provide one.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_user_data
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

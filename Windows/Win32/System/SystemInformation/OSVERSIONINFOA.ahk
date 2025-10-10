@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains operating system version information. (ANSI)
+ * Contains operating system version information.
  * @remarks
- * Relying on version information is not the best way to test for a feature. Instead, refer to the documentation for the feature of interest. For more information on common techniques for feature detection, see 
+ * 
+  * Relying on version information is not the best way to test for a feature. Instead, refer to the documentation for the feature of interest. For more information on common techniques for feature detection, see 
   * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/operating-system-version">Operating System Version</a>.
   * 
   * If you must require a particular operating system, be sure to use it as a minimum supported version, rather than design the test for the one operating system. This way, your detection code will continue to work on future versions of Windows.
@@ -124,7 +125,11 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfoa
+  *  
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-osversioninfoa
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  * @charset ANSI

@@ -4,7 +4,8 @@
 /**
  * Contains information about a print job.
  * @remarks
- * Additional variable-length data follows the 
+ * 
+  * Additional variable-length data follows the 
   * <b>PRINT_OTHER_INFO</b> structure in the alert message buffer. The information is in the form of contiguous null-terminated character strings, as follows.
   * 
   * 
@@ -42,7 +43,9 @@
   * 
   * See 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraiseex">NetAlertRaiseEx</a> for a code sample that demonstrates how to raise a print alert.
- * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-print_other_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmalert/ns-lmalert-print_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

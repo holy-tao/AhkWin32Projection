@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes timing and composition information.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -16,9 +12,6 @@ class COMPOSITION_STATS extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
-     * 
-     * The running total count of times that a frame was presented to the target.
      * @type {Integer}
      */
     presentCount {
@@ -27,9 +20,6 @@ class COMPOSITION_STATS extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
-     * 
-     * The running total count of v-blanks at which the last frame was presented to the target.
      * @type {Integer}
      */
     refreshCount {
@@ -38,7 +28,6 @@ class COMPOSITION_STATS extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * @type {Integer}
      */
     virtualRefreshCount {
@@ -47,7 +36,6 @@ class COMPOSITION_STATS extends Win32Struct
     }
 
     /**
-     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
      * @type {Integer}
      */
     time {

@@ -3,7 +3,7 @@
 
 /**
  * The MPE_ELEMENT structure contains information from a multi-protocol encapsulation (MPE) element.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpe_element
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpe_element
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

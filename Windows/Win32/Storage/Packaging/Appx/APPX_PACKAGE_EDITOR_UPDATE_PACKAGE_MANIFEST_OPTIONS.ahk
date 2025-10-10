@@ -2,7 +2,7 @@
 
 /**
  * Options for app manifest validation when updating the manifest.
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_editor_update_package_manifest_options
+ * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_package_editor_update_package_manifest_options
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

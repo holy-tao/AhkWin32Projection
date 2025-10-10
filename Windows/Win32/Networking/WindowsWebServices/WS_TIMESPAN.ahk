@@ -3,7 +3,7 @@
 
 /**
  * Represents a signed 64-bit time interval in 100 nanosecond units.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_timespan
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_timespan
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

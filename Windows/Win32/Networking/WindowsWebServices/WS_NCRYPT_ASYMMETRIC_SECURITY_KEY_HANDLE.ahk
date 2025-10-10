@@ -4,7 +4,7 @@
 
 /**
  * The type for specifying asymmetric cryptographic keys as a CryptoNG NCRYPT_KEY_HANDLE.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ncrypt_asymmetric_security_key_handle
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_ncrypt_asymmetric_security_key_handle
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

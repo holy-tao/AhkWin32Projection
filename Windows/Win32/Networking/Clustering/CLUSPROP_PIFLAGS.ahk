@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSPROP_PIFLAGS enumeration (msclus.h) represents disk partition information.
+ * Represents disk partition information. The enumeration flags identify certain properties of a disk partition, which is a storage class resource.
  * @remarks
- * For <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/physical-disk">Physical Disk</a> resources, the smallest NTFS partition 
+ * 
+  * For <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/physical-disk">Physical Disk</a> resources, the smallest NTFS partition 
   *      larger than 50 MB automatically receives the <b>CLUSPROP_PIFLAG_DEFAULT_QUORUM</b> flag.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusprop_piflags
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusprop_piflags
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

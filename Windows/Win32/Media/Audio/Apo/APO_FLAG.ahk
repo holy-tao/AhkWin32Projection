@@ -2,7 +2,7 @@
 
 /**
  * The APO_FLAG enumeration defines constants that are used as flags by an audio processing object (APO).
- * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ne-audioenginebaseapo-apo_flag
+ * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ne-audioenginebaseapo-apo_flag
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

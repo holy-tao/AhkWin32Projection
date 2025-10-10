@@ -3,7 +3,7 @@
 
 /**
  * The RAS_PORT_1 structure contains detailed information regarding a specific RAS port, such as line speed or errors. For more general information about a port, such as port condition or port name, see RAS_PORT_0.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_port_1
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_port_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

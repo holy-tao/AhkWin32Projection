@@ -4,7 +4,7 @@
 
 /**
  * Represents a central access policy entry containing a list of security descriptors and staged security descriptors.
- * @see https://learn.microsoft.com/windows/win32/api/ntlsa/ns-ntlsa-central_access_policy_entry
+ * @see https://docs.microsoft.com/windows/win32/api//ntlsa/ns-ntlsa-central_access_policy_entry
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

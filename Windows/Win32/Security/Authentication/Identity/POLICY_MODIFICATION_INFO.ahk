@@ -3,7 +3,7 @@
 
 /**
  * The POLICY_MODIFICATION_INFO structure is used to query information about the creation time and last modification of the LSA database.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_modification_info
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-policy_modification_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

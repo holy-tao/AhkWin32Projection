@@ -2,7 +2,7 @@
 
 /**
  * Contains values used to specify the direction of navigation within the Microsoft UI Automation tree.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-navigatedirection
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-navigatedirection
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

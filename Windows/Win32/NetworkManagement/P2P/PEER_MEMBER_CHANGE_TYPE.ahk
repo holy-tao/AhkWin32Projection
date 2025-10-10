@@ -2,7 +2,7 @@
 
 /**
  * The PEER_MEMBER_CHANGE_TYPE enumeration defines the set of possible peer group membership and presence states for a peer.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_member_change_type
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_member_change_type
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

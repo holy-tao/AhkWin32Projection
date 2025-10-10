@@ -2,7 +2,7 @@
 
 /**
  * Specifies the result of a call to ID3D12Device5::CheckDriverMatchingIdentifier which queries whether serialized data is compatible with the current device and driver version.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_driver_matching_identifier_status
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_driver_matching_identifier_status
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

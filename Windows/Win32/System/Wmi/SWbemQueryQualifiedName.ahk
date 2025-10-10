@@ -3,7 +3,7 @@
 
 /**
  * The SWbemQueryQualifiedName structure stores property names for the IWbemQuery::GetAnalysis method.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemqueryqualifiedname
+ * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ns-wmiutils-swbemqueryqualifiedname
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

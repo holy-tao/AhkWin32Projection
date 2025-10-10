@@ -2,7 +2,7 @@
 
 /**
  * Identifies the gesture type specified in DwmRenderGesture.
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-gesture_type
+ * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ne-dwmapi-gesture_type
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

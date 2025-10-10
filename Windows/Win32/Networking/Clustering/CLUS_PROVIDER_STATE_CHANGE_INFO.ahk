@@ -3,7 +3,7 @@
 
 /**
  * Contains data about the state of a provider resource.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_provider_state_change_info
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_provider_state_change_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

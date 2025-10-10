@@ -2,7 +2,7 @@
 
 /**
  * The CALL_MEDIA_EVENT_CAUSE enum is used by ITCallMediaEvent::get_Cause method to return a description of what caused a media event, such as a device timeout.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_media_event_cause
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_media_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

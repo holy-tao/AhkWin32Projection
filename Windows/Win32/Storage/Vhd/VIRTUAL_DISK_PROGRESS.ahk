@@ -4,7 +4,8 @@
 /**
  * Contains the progress and result data for the current virtual hard disk (VHD) operation, used by the GetVirtualDiskOperationProgress function.
  * @remarks
- * The <b>CurrentValue</b> and <b>CompletionValue</b> members are 
+ * 
+  * The <b>CurrentValue</b> and <b>CompletionValue</b> members are 
   *     intended to be used for calculating a percentage value, and the specific numeric values of each are not 
   *     significant in any way. Only the result of the following calculation is meaningful: 
   *     <b>CurrentValue</b> divided by <b>CompletionValue</b> multiplied by 100 
@@ -26,7 +27,9 @@
   * The <b>OperationStatus</b> member is the indicator of completion, not the percent-complete 
   *     calculation described previously. As long as this data member is returning with an 
   *     <b>ERROR_IO_PENDING</b> status code, the I/O operation is not yet complete.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_disk_progress
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-virtual_disk_progress
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

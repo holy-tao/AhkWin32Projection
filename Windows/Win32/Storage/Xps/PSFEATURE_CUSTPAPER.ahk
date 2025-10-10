@@ -4,8 +4,11 @@
 /**
  * The PSFEATURE_CUSTPAPER structure contains information about a custom paper size for a PostScript driver. This structure is used with the GET_PS_FEATURESETTING printer escape function.
  * @remarks
- * For the semantics of the <b>lOrientation</b>, <b>lWidth</b>, <b>lHeight</b>, <b>lWidthOffset</b>, and <b>lHeightOffset</b> members, please refer to "Custom Page Size Parameters" in "PostScript Printer Description File Format Specification" v.4.3.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-psfeature_custpaper
+ * 
+  * For the semantics of the <b>lOrientation</b>, <b>lWidth</b>, <b>lHeight</b>, <b>lWidthOffset</b>, and <b>lHeightOffset</b> members, please refer to "Custom Page Size Parameters" in "PostScript Printer Description File Format Specification" v.4.3.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-psfeature_custpaper
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

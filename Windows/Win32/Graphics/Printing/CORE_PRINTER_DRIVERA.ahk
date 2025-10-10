@@ -3,10 +3,6 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Represents a printer driver on which other printer drivers depend.
- * @remarks
- * This structure can represent a manufacturer's base driver on which the drivers for various printer models are dependent.
- * @see https://learn.microsoft.com/windows/win32/printdocs/core-printer-driver
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI
@@ -18,7 +14,6 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
     static packingSize => 8
 
     /**
-     * The GUID of the core printer driver.
      * @type {Pointer<Guid>}
      */
     CoreDriverGUID {
@@ -27,7 +22,6 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
     }
 
     /**
-     * The date and time of the latest version of the core printer driver.
      * @type {FILETIME}
      */
     ftDriverDate{
@@ -39,12 +33,6 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
     }
 
     /**
-     * The version ID of the latest version of the core printer driver.
-     * 
-     * 
-     * **szPackageID\[MAX\_PATH\]**
-     * 
-     * The path to the driver package that contains the core printer driver.
      * @type {Integer}
      */
     dwlDriverVersion {

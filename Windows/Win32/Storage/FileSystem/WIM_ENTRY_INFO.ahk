@@ -3,7 +3,7 @@
 
 /**
  * Defines metadata specific to each WIM data source hosted on a volume.
- * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wim_entry_info
+ * @see https://docs.microsoft.com/windows/win32/api//wofapi/ns-wofapi-wim_entry_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

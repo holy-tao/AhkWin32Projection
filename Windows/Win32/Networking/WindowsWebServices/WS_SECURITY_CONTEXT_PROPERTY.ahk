@@ -3,7 +3,7 @@
 
 /**
  * Defines a property of a WS_SECURITY_CONTEXT
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_property
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_context_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -76,20 +76,7 @@ class Shutdown {
 
 ;@region Methods
     /**
-     * Initiates a shutdown and optional restart of the specified computer. (ANSI)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the <b>SE_SHUTDOWN_NAME</b> privilege. To shut down a remote computer, the calling thread must have the <b>SE_REMOTE_SHUTDOWN_NAME</b> privilege on the remote computer. By default, users can enable the <b>SE_SHUTDOWN_NAME</b> privilege on the computer they are logged onto, and administrators can enable the <b>SE_REMOTE_SHUTDOWN_NAME</b> privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error <b>ERROR_SHUTDOWN_IN_PROGRESS</b> is returned if a shutdown is already in progress on the specified computer. The error <b>ERROR_NOT_READY</b> can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * When this function is called, the caller must specify whether or not applications with unsaved changes should be forcibly closed.  If the caller chooses not to force these applications closed, and an application with unsaved changes is running on the console session, the shutdown will remain in progress until the user logged into the console session aborts the shutdown, saves changes, closes the application, or forces the application to close.  During this period, the shutdown may not be aborted except by the console user, and another shutdown may not be initiated.
-     * 
-     * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is <b>ERROR_MACHINE_LOCKED</b>. If the system is not ready to handle the request, the last error code is <b>ERROR_NOT_READY</b>. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return <b>ERROR_NOT_READY</b>,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
+     * Initiates a shutdown and optional restart of the specified computer.
      * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
      * @param {Pointer<Byte>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
@@ -115,8 +102,8 @@ class Shutdown {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdowna
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiatesystemshutdowna
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
@@ -133,20 +120,7 @@ class Shutdown {
     }
 
     /**
-     * Initiates a shutdown and optional restart of the specified computer. (Unicode)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the <b>SE_SHUTDOWN_NAME</b> privilege. To shut down a remote computer, the calling thread must have the <b>SE_REMOTE_SHUTDOWN_NAME</b> privilege on the remote computer. By default, users can enable the <b>SE_SHUTDOWN_NAME</b> privilege on the computer they are logged onto, and administrators can enable the <b>SE_REMOTE_SHUTDOWN_NAME</b> privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error <b>ERROR_SHUTDOWN_IN_PROGRESS</b> is returned if a shutdown is already in progress on the specified computer. The error <b>ERROR_NOT_READY</b> can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * When this function is called, the caller must specify whether or not applications with unsaved changes should be forcibly closed.  If the caller chooses not to force these applications closed, and an application with unsaved changes is running on the console session, the shutdown will remain in progress until the user logged into the console session aborts the shutdown, saves changes, closes the application, or forces the application to close.  During this period, the shutdown may not be aborted except by the console user, and another shutdown may not be initiated.
-     * 
-     * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is <b>ERROR_MACHINE_LOCKED</b>. If the system is not ready to handle the request, the last error code is <b>ERROR_NOT_READY</b>. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return <b>ERROR_NOT_READY</b>,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
+     * Initiates a shutdown and optional restart of the specified computer.
      * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
      * @param {Pointer<Char>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
@@ -172,8 +146,8 @@ class Shutdown {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiatesystemshutdownw
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
@@ -190,26 +164,13 @@ class Shutdown {
     }
 
     /**
-     * Stops a system shutdown that has been initiated. (ANSI)
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdowna">InitiateSystemShutdown</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdownexa">InitiateSystemShutdownEx</a> functions display a dialog box that notifies the user that the system is shutting down. During the shutdown time-out period, the 
-     * <b>AbortSystemShutdown</b> function can prevent the system from shutting down.
-     * 
-     * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. If shutdown is prevented by 
-     * <b>AbortSystemShutdown</b>, the system displays dialog box to the users informing them that the server is no longer shutting down.
-     * 
-     * To stop the local computer from shutting down, the calling process must have the SE_SHUTDOWN_NAME privilege. To stop a remote computer from shutting down, the calling process must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid computer name, an inaccessible computer, or insufficient privilege.
+     * Stops a system shutdown that has been initiated.
      * @param {Pointer<Byte>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-abortsystemshutdowna
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-abortsystemshutdowna
      * @since windows5.1.2600
      */
     static AbortSystemShutdownA(lpMachineName) {
@@ -225,26 +186,13 @@ class Shutdown {
     }
 
     /**
-     * Stops a system shutdown that has been initiated. (Unicode)
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdowna">InitiateSystemShutdown</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdownexa">InitiateSystemShutdownEx</a> functions display a dialog box that notifies the user that the system is shutting down. During the shutdown time-out period, the 
-     * <b>AbortSystemShutdown</b> function can prevent the system from shutting down.
-     * 
-     * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. If shutdown is prevented by 
-     * <b>AbortSystemShutdown</b>, the system displays dialog box to the users informing them that the server is no longer shutting down.
-     * 
-     * To stop the local computer from shutting down, the calling process must have the SE_SHUTDOWN_NAME privilege. To stop a remote computer from shutting down, the calling process must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid computer name, an inaccessible computer, or insufficient privilege.
+     * Stops a system shutdown that has been initiated.
      * @param {Pointer<Char>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-abortsystemshutdownw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-abortsystemshutdownw
      * @since windows5.1.2600
      */
     static AbortSystemShutdownW(lpMachineName) {
@@ -260,27 +208,7 @@ class Shutdown {
     }
 
     /**
-     * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown. (ANSI)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the SE_SHUTDOWN_NAME privilege. To shut down a remote computer, the calling thread must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error ERROR_SHUTDOWN_IN_PROGRESS is returned if a shutdown is already in progress on the specified computer. The error ERROR_NOT_READY can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services, or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * When this function is called, the caller must specify whether or not applications with unsaved changes should be forcibly closed.  If the caller chooses not to force these applications to close and an application with unsaved changes is running on the console session, the shutdown will remain in progress until the user logged into the console session aborts the shutdown, saves changes, closes the application, or forces the application to close.  During this period the shutdown may not be aborted except by the console user, and another shutdown may not be initiated.
-     * 
-     * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is ERROR_MACHINE_LOCKED. If the system is not ready to handle the request, the last error code is ERROR_NOT_READY. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return ERROR_NOT_READY,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines InitiateSystemShutdownEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown.
      * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
      * @param {Pointer<Byte>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
@@ -319,8 +247,8 @@ class Shutdown {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownexa
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiatesystemshutdownexa
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
@@ -337,27 +265,7 @@ class Shutdown {
     }
 
     /**
-     * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown. (Unicode)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the SE_SHUTDOWN_NAME privilege. To shut down a remote computer, the calling thread must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error ERROR_SHUTDOWN_IN_PROGRESS is returned if a shutdown is already in progress on the specified computer. The error ERROR_NOT_READY can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services, or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * When this function is called, the caller must specify whether or not applications with unsaved changes should be forcibly closed.  If the caller chooses not to force these applications to close and an application with unsaved changes is running on the console session, the shutdown will remain in progress until the user logged into the console session aborts the shutdown, saves changes, closes the application, or forces the application to close.  During this period the shutdown may not be aborted except by the console user, and another shutdown may not be initiated.
-     * 
-     * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is ERROR_MACHINE_LOCKED. If the system is not ready to handle the request, the last error code is ERROR_NOT_READY. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return ERROR_NOT_READY,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines InitiateSystemShutdownEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown.
      * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
      * @param {Pointer<Char>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
@@ -396,8 +304,8 @@ class Shutdown {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownexw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiatesystemshutdownexw
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
@@ -414,21 +322,7 @@ class Shutdown {
     }
 
     /**
-     * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart. (ANSI)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the SE_SHUTDOWN_NAME privilege. To shut down a remote computer, the calling thread must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error ERROR_SHUTDOWN_IN_PROGRESS is returned if a shutdown is already in progress on the specified computer. The error ERROR_NOT_READY can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services, or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines InitiateShutdown as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart.
      * @param {Pointer<Byte>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
      * @param {Pointer<Byte>} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
@@ -648,7 +542,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiateshutdowna
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiateshutdowna
      * @since windows6.0.6000
      */
     static InitiateShutdownA(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
@@ -660,21 +554,7 @@ class Shutdown {
     }
 
     /**
-     * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart. (Unicode)
-     * @remarks
-     * To shut down the local computer, the calling thread must have the SE_SHUTDOWN_NAME privilege. To shut down a remote computer, the calling thread must have the SE_REMOTE_SHUTDOWN_NAME privilege on the remote computer. By default, users can enable the SE_SHUTDOWN_NAME privilege on the computer they are logged onto, and administrators can enable the SE_REMOTE_SHUTDOWN_NAME privilege on remote computers. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * Common reasons for failure include an invalid or inaccessible computer name or insufficient privilege. The error ERROR_SHUTDOWN_IN_PROGRESS is returned if a shutdown is already in progress on the specified computer. The error ERROR_NOT_READY can be returned if fast-user switching is enabled but no user is logged on.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services, or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines InitiateShutdown as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart.
      * @param {Pointer<Char>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
      * @param {Pointer<Char>} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
@@ -894,7 +774,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiateshutdownw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-initiateshutdownw
      * @since windows6.0.6000
      */
     static InitiateShutdownW(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
@@ -918,33 +798,6 @@ class Shutdown {
 
     /**
      * Logs off the interactive user, shuts down the system, or shuts down and restarts the system.
-     * @remarks
-     * The 
-     * <b>ExitWindowsEx</b> function returns as soon as it has initiated the shutdown process. The shutdown or logoff then proceeds asynchronously. The function is designed to stop all processes in the caller's logon session. Therefore, if you are not the interactive user, the function can succeed without actually shutting down the computer. If you are not the interactive user, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdowna">InitiateSystemShutdown</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-initiatesystemshutdownexa">InitiateSystemShutdownEx</a> function.
-     * 
-     * A non-zero return value does not mean the logoff was or will be successful. The shutdown is an asynchronous process, and it can occur long  after the API call has returned, or not  at all. Even if the timeout value is zero,  the shutdown can still be aborted by applications, services, or even the system. The non-zero return value indicates that the validation of the rights and parameters was  successful and that the system accepted the shutdown request.
-     * 
-     * When this function is called, the caller must specify whether or not applications with unsaved changes should be forcibly closed.  If the caller chooses not to force these applications to close and an application with unsaved changes is running on the console session, the shutdown will remain in progress until the user logged into the console session aborts the shutdown, saves changes, closes the application, or forces the application to close.  During this period, the shutdown may not be aborted except by the console user, and another shutdown may not be initiated.
-     * 
-     * Calling this function with the value of the <i>uFlags</i> parameter set to EWX_FORCE avoids this situation. Remember that doing this  may result in loss of data.
-     * 
-     * To set a shutdown priority for an application relative to other applications in the system, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setprocessshutdownparameters">SetProcessShutdownParameters</a> function.
-     * 
-     * During a shutdown or log-off operation, running applications are allowed a specific amount of time to respond to the shutdown request. If this time expires before all applications have stopped, the system displays a user interface that allows the user to forcibly shut down the system or to cancel the shutdown request. If the EWX_FORCE value is specified, the system forces running applications to stop when the time expires.
-     * 
-     * If the EWX_FORCEIFHUNG value is specified, the system forces hung applications to close and does not display the dialog box.
-     * 
-     * Console processes receive a separate notification message, CTRL_SHUTDOWN_EVENT or CTRL_LOGOFF_EVENT, as the situation warrants. A console process routes these messages to its 
-     * <a href="https://docs.microsoft.com/windows/console/handlerroutine">HandlerRoutine</a> function. 
-     * <b>ExitWindowsEx</b> sends these notification messages asynchronously; thus, an application cannot assume that the console notification messages have been handled when a call to 
-     * <b>ExitWindowsEx</b> returns.
-     * 
-     * To shut down or restart the system, the calling process must use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function to enable the SE_SHUTDOWN_NAME privilege. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
      * @param {Integer} uFlags 
      * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>.
@@ -953,8 +806,8 @@ class Shutdown {
      * @returns {Integer} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the shutdown has been initiated. It does not indicate whether the shutdown will succeed. It is possible that the system, the user, or another application will abort the shutdown.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-exitwindowsex
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-exitwindowsex
      * @since windows5.1.2600
      */
     static ExitWindowsEx(uFlags, dwReason) {
@@ -969,18 +822,11 @@ class Shutdown {
 
     /**
      * Locks the workstation's display.
-     * @remarks
-     * The 
-     * <b>LockWorkStation</b> function is callable only by processes running on the interactive desktop. In addition, the user must be logged on, and the workstation cannot already be locked.
-     * 
-     * Common reasons the workstation might not be locked even if the function succeeds include the following: no user is logged on, the workstation is already locked, the process is not running on the interactive desktop, or the request is denied by the Graphical Identification and Authentication (GINA) DLL.
-     * 
-     * This function has the same result as pressing Ctrl+Alt+Del and clicking <b>Lock</b>. To unlock the workstation, the user must log in. There is no function you can call to determine whether the workstation is locked. To receive a notification when the user locks the workstation or logs in, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> function to receive <a href="https://docs.microsoft.com/windows/desktop/TermServ/wm-wtssession-change">WM_WTSSESSION_CHANGE</a> messages. You can use session notifications to track the desktop state so you know whether it is possible to interact with the user.
      * @returns {Integer} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the operation has been initiated. It does not indicate whether the workstation has been successfully locked.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-lockworkstation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-lockworkstation
      * @since windows5.1.2600
      */
     static LockWorkStation() {
@@ -995,19 +841,13 @@ class Shutdown {
 
     /**
      * Indicates that the system cannot be shut down and sets a reason string to be displayed to the user if system shutdown is initiated.
-     * @remarks
-     * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * 
-     * Applications should call this function as they begin an operation that cannot be interrupted, such as burning a CD or DVD. When the operation has completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasondestroy">ShutdownBlockReasonDestroy</a> function to indicate that the system can be shut down.
-     * 
-     * Because users are typically in a hurry when shutting down the system, they may spend only  a few seconds looking at the shutdown reasons that are displayed by the system. Therefore, it is important that your reason strings are short and clear. For example "A CD burn is in progress." is better than "This application is blocking system shutdown because a CD burn is in progress. Do not shut down."
      * @param {Pointer<Void>} hWnd A handle to the main window of the application.
      * @param {Pointer<Char>} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasoncreate
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-shutdownblockreasoncreate
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonCreate(hWnd, pwszReason) {
@@ -1024,16 +864,14 @@ class Shutdown {
 
     /**
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
-     * @remarks
-     * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
      * @param {Pointer<Void>} hWnd A handle to the main window of the application.
      * @param {Pointer<Char>} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<UInt32>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasonquery
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-shutdownblockreasonquery
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
@@ -1050,16 +888,12 @@ class Shutdown {
 
     /**
      * Indicates that the system can be shut down and frees the reason string.
-     * @remarks
-     * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * 
-     * If system shutdown has been previously blocked by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasoncreate">ShutdownBlockReasonCreate</a> function, this function frees the reason string. Otherwise, this function is a no-op.
      * @param {Pointer<Void>} hWnd A handle to the main window of the application.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasondestroy
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-shutdownblockreasondestroy
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonDestroy(hWnd) {

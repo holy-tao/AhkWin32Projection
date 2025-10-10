@@ -4,8 +4,11 @@
 /**
  * Is used for enumerating filters.
  * @remarks
- * **FWPM_FILTER_ENUM_TEMPLATE0** is a specific implementation of FWPM_FILTER_ENUM_TEMPLATE. See <a href="https://docs.microsoft.com/windows/win32/fwp/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0
+ * 
+  * <b>FWPM_FILTER_ENUM_TEMPLATE0</b> is a specific implementation of FWPM_FILTER_ENUM_TEMPLATE. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -34,7 +37,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
     }
 
     /**
-     * A [FWP_FILTER_ENUM_TYPE](/windows/win32/api/fwptypes/ne-fwptypes-fwp_filter_enum_type) value that determines how the filter conditions are interpreted.
+     * A [FWP_FILTER_ENUM_TYPE](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_filter_enum_type) value that determines how the filter conditions are interpreted.
      * @type {Integer}
      */
     enumType {
@@ -50,7 +53,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
      * </tr>
      * <tr>
      * <td width="40%"><a id="FWP_FILTER_ENUM_FLAG_BEST_TERMINATING_MATCH_"></a><a id="fwp_filter_enum_flag_best_terminating_match_"></a><dl>
-     * <dt>**FWP_FILTER_ENUM_FLAG_BEST_TERMINATING_MATCH **</dt>
+     * <dt><b>FWP_FILTER_ENUM_FLAG_BEST_TERMINATING_MATCH </b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -60,7 +63,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
      * </tr>
      * <tr>
      * <td width="40%"><a id="FWP_FILTER_ENUM_FLAG_SORTED"></a><a id="fwp_filter_enum_flag_sorted"></a><dl>
-     * <dt>**FWP_FILTER_ENUM_FLAG_SORTED**</dt>
+     * <dt><b>FWP_FILTER_ENUM_FLAG_SORTED</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -70,7 +73,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
      * </tr>
      * <tr>
      * <td width="40%"><a id="FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY"></a><a id="fwp_filter_enum_flag_boottime_only"></a><dl>
-     * <dt>**FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY**</dt>
+     * <dt><b>FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -80,21 +83,21 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
      * </tr>
      * <tr>
      * <td width="40%"><a id="FWP_FILTER_ENUM_FLAG_INCLUDE_BOOTTIME"></a><a id="fwp_filter_enum_flag_include_boottime"></a><dl>
-     * <dt>**FWP_FILTER_ENUM_FLAG_INCLUDE_BOOTTIME**</dt>
+     * <dt><b>FWP_FILTER_ENUM_FLAG_INCLUDE_BOOTTIME</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Include boot-time filters; ignored if the **FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY** flag is set.
+     * Include boot-time filters; ignored if the <b>FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY</b> flag is set.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%"><a id="FWP_FILTER_ENUM_FLAG_INCLUDE_DISABLED"></a><a id="fwp_filter_enum_flag_include_disabled"></a><dl>
-     * <dt>**FWP_FILTER_ENUM_FLAG_INCLUDE_DISABLED**</dt>
+     * <dt><b>FWP_FILTER_ENUM_FLAG_INCLUDE_DISABLED</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Include disabled filters; ignored if the **FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY** flag is set.
+     * Include disabled filters; ignored if the <b>FWP_FILTER_ENUM_FLAG_BOOTTIME_ONLY</b> flag is set.
      * 
      * </td>
      * </tr>
@@ -107,7 +110,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0">FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0</a> structure that is used to limit the number of filters enumerated. If non-**NULL**, only enumerate filters whose provider context matches the template.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0">FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0</a> structure that is used to limit the number of filters enumerated. If non-<b>NULL</b>, only enumerate filters whose provider context matches the
+     *    template.
      * @type {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0>}
      */
     providerContextTemplate {
@@ -125,7 +129,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
     }
 
     /**
-     * An array of [FWPM_FILTER_CONDITION0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0) structures that contain distinct filter conditions (duplicated filter conditions will generate an error).
+     * An array of [FWPM_FILTER_CONDITION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0) structures that contain distinct filter conditions (duplicated filter conditions will generate an error).
      * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
     filterCondition {
@@ -134,48 +138,14 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
     }
 
     /**
-     * Only filters whose action type contains at least one of the bits in **actionMask** will be returned. Using the **FWP_ACTION_** constants directly may not work as intended since they contain multiple bits. Some common examples are in the table below (**^** represents the logical XOR operator).
+     * Only filters whose action type contains at least one of the bits in
+     *    <b>actionMask</b> will be returned.
      * 
      * <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
      * </tr>
-     *  
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>FWP_ACTION_BLOCK ^ FWP_ACTION_FLAG_TERMINATING</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     *  Enumerate filters that have an **FWP_ACTION_BLOCK** action.
-     *  </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>FWP_ACTION_PERMIT ^ FWP_ACTION_FLAG_TERMINATING</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     *  Enumerate filters that have an **FWP_ACTION_PERMIT** action.
-     *  </td>
-     * </tr>
-     *  
-     * <tr>
-     * <td width="40%"><a id="FWP_ACTION_FLAG_CALLOUT"></a><a id="fwp_action_flag_callout"></a><dl>
-     * <dt>**FWP_ACTION_FLAG_CALLOUT**</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Enumerate filters that reference callout drivers.
-     * <div class="alert">**Note**  **calloutKey** must not be **NULL**.</div>
-     * <div> </div>
-     * </td>
-     * </tr>
-     *  
      * <tr>
      * <td width="40%">
      * <dl>
@@ -183,10 +153,23 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * Ignore the filter's action type when enumerating.
+     * Ignore the filter's action type when
+     *    enumerating.
+     * 
      * </td>
      * </tr>
+     * <tr>
+     * <td width="40%"><a id="FWP_ACTION_FLAG_CALLOUT"></a><a id="fwp_action_flag_callout"></a><dl>
+     * <dt><b>FWP_ACTION_FLAG_CALLOUT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Enumerate callouts only.
      * 
+     * <div class="alert"><b>Note</b>  <b>calloutKey</b> must not be <b>NULL</b>.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
      * </table>
      * @type {Integer}
      */

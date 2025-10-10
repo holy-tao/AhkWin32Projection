@@ -4,7 +4,7 @@
 
 /**
  * Represents the sizing data used in IViewObjectEx::GetNaturalExtent.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvextentinfo
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-dvextentinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_OP structure describes a replication task currently executing or pending execution, as returned by the DsReplicaGetInfo or DsReplicaGetInfo2 function.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_opw
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_opw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

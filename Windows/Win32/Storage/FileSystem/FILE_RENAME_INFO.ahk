@@ -3,7 +3,7 @@
 
 /**
  * Contains the name to which the file should be renamed.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_rename_info
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_rename_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -30,7 +30,7 @@ class FILE_RENAME_INFO extends Win32Struct
     }
 
     /**
-     * This field should be set to NULL.
+     * A handle to the root directory in which the file to be renamed is located.
      * @type {Pointer<Void>}
      */
     RootDirectory {
@@ -39,7 +39,7 @@ class FILE_RENAME_INFO extends Win32Struct
     }
 
     /**
-     * The size of **FileName** in bytes, not including the NUL-termination.
+     * The size of <b>FileName</b> in bytes.
      * @type {Integer}
      */
     FileNameLength {
@@ -48,11 +48,7 @@ class FILE_RENAME_INFO extends Win32Struct
     }
 
     /**
-     * A NUL-terminated wide-character string containing the new path to the file. The value can be one of the following:
-     * 
-     * - An absolute path (drive, directory, and filename).
-     * - A path relative to the process's current directory.
-     * - The new name of an NTFS file stream, starting with `:`.
+     * The new file name.
      * @type {String}
      */
     FileName {

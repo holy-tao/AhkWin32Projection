@@ -5,7 +5,8 @@
 /**
  * Stores interface management information for a particular IP address family on a network interface.
  * @remarks
- * The <b>MIB_IPINTERFACE_ROW</b> structure is defined on Windows Vista and later. 
+ * 
+  * The <b>MIB_IPINTERFACE_ROW</b> structure is defined on Windows Vista and later. 
   * 
   * The <b>Family</b>, <b>InterfaceLuid</b>, and <b>InterfaceIndex</b> members uniquely identify a <b>MIB_IPINTERFACE_ROW</b> entry.
   * 
@@ -32,7 +33,10 @@
   * On Windows Vista and later, a strong host model is used by default. If a source IP address is specified in the route lookup using <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getbestroute2">GetBestRoute2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestroute">GetBestRoute</a>, the route lookup is restricted to the interface of the source IP address. The route metric modification by RAS has no effect as the list of potential routes does not even have the route for the VPN interface thereby allowing traffic to the internet. The <b>DisableDefaultRoutes</b> member of the <b>MIB_IPINTERFACE_ROW</b> structure can be used to disable using the default route on an interface. This member can be used as a security measure by VPN clients to restrict split tunneling when split tunneling is not required by the VPN client. A VPN client can call the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-setipinterfaceentry">SetIpInterfaceEntry</a> function to set the <b>DisableDefaultRoutes</b> member to <b>TRUE</b> when required. A VPN client can query the current state of the <b>DisableDefaultRoutes</b> member by calling  the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function. 
   * 
   * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_row
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipinterface_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

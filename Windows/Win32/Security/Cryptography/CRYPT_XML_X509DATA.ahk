@@ -3,7 +3,7 @@
 
 /**
  * Represents the sequence of choices in the X509Data element.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_x509data
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

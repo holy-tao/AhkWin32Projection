@@ -4,7 +4,7 @@
 
 /**
  * The APOInitSystemEffects structure gets passed to the system effects APO for initialization.
- * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects
+ * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

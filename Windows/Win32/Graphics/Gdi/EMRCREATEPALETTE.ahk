@@ -6,7 +6,7 @@
 
 /**
  * The EMRCREATEPALETTE structure contains members for the CreatePalette enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatepalette
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatepalette
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

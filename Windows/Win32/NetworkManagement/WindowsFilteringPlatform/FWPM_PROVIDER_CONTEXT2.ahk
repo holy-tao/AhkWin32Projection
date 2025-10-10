@@ -4,12 +4,15 @@
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
- * Stores the state associated with a provider context. (FWPM_PROVIDER_CONTEXT2)
+ * Stores the state associated with a provider context.
  * @remarks
- * The first seven elements of the union are information supplied when adding objects.
+ * 
+  * The first seven elements of the union are information supplied when adding objects.
   * 
   * The last element is additional information returned when getting/enumerating objects.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_provider_context2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines information used by AssocCreateForClasses to retrieve an IQueryAssociations interface for a given file association.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-associationelement
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-associationelement
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

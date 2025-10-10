@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information that defines the profile enumeration constraints. (ANSI)
+ * Contains information that defines the profile enumeration constraints.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-enumtypea
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-enumtypea
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset ANSI

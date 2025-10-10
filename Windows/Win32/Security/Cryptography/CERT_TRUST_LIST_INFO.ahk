@@ -3,7 +3,7 @@
 
 /**
  * The CERT_TRUST_LIST_INFO structure that indicates valid usage of a CTL.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_trust_list_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_trust_list_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

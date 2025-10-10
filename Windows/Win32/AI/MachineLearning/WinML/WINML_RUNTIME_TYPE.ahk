@@ -2,7 +2,7 @@
 
 /**
  * Specifies the different types of WinML runtimes.
- * @see https://learn.microsoft.com/windows/win32/api/winml/ne-winml-winml_runtime_type
+ * @see https://docs.microsoft.com/windows/win32/api//winml/ne-winml-winml_runtime_type
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */

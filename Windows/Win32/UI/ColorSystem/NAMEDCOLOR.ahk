@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * TBD (NAMEDCOLOR)
+ * TBD
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-namedcolor
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-namedcolor
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

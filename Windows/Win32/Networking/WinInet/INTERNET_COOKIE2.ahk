@@ -5,9 +5,12 @@
 /**
  * The INTERNET_COOKIE2 structure contains the constituent parts of a cookie. This structure is used with the InternetGetCookieEx2 and InternetSetCookieEx2 functions.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
- * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cookie2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-internet_cookie2
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

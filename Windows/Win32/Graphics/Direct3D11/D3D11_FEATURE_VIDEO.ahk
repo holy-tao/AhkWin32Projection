@@ -4,7 +4,8 @@
  * Specifies a Direct3D 11 video feature or feature set to query about.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ne-d3d11_4-d3d11_feature_video
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/ne-d3d11_4-d3d11_feature_video
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

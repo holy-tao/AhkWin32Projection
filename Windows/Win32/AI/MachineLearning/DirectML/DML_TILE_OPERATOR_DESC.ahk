@@ -3,7 +3,7 @@
 
 /**
  * Constructs an output tensor by tiling the input tensor. The elements in each dimension of the input tensor are repeated by a multiple in the *Repeats* array.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_tile_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_tile_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

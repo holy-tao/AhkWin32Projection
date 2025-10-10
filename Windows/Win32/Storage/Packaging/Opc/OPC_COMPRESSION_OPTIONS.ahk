@@ -2,7 +2,7 @@
 
 /**
  * Describes ways to compress part content.
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_compression_options
+ * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_compression_options
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

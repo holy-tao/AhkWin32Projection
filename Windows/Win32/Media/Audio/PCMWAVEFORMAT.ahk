@@ -4,7 +4,7 @@
 
 /**
  * The PCMWAVEFORMAT structure describes the data format for PCM waveform-audio data. This structure has been superseded by the WAVEFORMATEX structure.
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-pcmwaveformat
+ * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-pcmwaveformat
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

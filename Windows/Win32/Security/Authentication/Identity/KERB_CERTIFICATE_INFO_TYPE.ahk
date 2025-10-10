@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of certificate information that is provided.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_certificate_info_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-kerb_certificate_info_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

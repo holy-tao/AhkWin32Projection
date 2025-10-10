@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Query types. (D3D10_QUERY)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_query
+ * Query types.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_query
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

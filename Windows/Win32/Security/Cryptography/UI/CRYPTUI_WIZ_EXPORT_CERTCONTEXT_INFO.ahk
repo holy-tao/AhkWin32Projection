@@ -3,7 +3,7 @@
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_certcontext_info
+ * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_certcontext_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

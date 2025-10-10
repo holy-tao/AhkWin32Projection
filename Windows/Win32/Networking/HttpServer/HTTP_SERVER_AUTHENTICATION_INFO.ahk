@@ -6,8 +6,11 @@
 /**
  * Used to enable server-side authentication on a URL group or server session.
  * @remarks
- * The <b>HTTP_SERVER_AUTHENTICATION_INFO</b> structure is included in the HTTP request if authentication has been configured on the associated URL group. The original HTTP authentication header received from the client is always included in the HTTP request, regardless of the authentication status.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_info
+ * 
+  * The <b>HTTP_SERVER_AUTHENTICATION_INFO</b> structure is included in the HTTP request if authentication has been configured on the associated URL group. The original HTTP authentication header received from the client is always included in the HTTP request, regardless of the authentication status.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_server_authentication_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

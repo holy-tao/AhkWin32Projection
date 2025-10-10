@@ -3,7 +3,7 @@
 
 /**
  * Contains a packet of opaque data sent during an EAP authentication session.
- * @see https://learn.microsoft.com/windows/win32/api/eapmethodtypes/ns-eapmethodtypes-eappacket
+ * @see https://docs.microsoft.com/windows/win32/api//eapmethodtypes/ns-eapmethodtypes-eappacket
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

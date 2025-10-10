@@ -2,7 +2,7 @@
 
 /**
  * The values of the VENDORPROPERTIES enumeration type specify properties of objects in the vendors collection.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-vendorproperties
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-vendorproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

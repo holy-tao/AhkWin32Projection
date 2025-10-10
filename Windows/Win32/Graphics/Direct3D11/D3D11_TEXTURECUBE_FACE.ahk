@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The different faces of a cube texture. (D3D11_TEXTURECUBE_FACE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_texturecube_face
+ * The different faces of a cube texture.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_texturecube_face
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

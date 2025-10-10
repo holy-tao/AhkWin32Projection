@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A description of a single element for the input-assembler stage. (D3D10_INPUT_ELEMENT_DESC)
+ * A description of a single element for the input-assembler stage.
  * @remarks
- * An input-layout object contains an array of structures, each structure defines one element being read from an input slot. Create an input-layout object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createinputlayout">ID3D10Device::CreateInputLayout</a>. For an example, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Create an input-layout object</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_input_element_desc
+ * 
+  * An input-layout object contains an array of structures, each structure defines one element being read from an input slot. Create an input-layout object by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createinputlayout">ID3D10Device::CreateInputLayout</a>. For an example, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Create an input-layout object</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

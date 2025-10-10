@@ -5,7 +5,8 @@
 /**
  * Used to indicate that the writer should emit bytes from decoded base64 characters.
  * @remarks
- * This encoding can be useful when it is desirable to write an arbitrary, perhaps, non-xml document
+ * 
+  * This encoding can be useful when it is desirable to write an arbitrary, perhaps, non-xml document
   *         while still using the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-writer">WS_XML_WRITER</a> abstraction.  In this encoding, only characters
   *         representing base64 encoded bytes may be written, and only at the root of the document.  No
   *         elements or comments may be written.  The writer will emit the bytes represented by the base64 encoded 
@@ -20,7 +21,8 @@
   *         decoded to their corresponding bytes.  In general writing the document using anything other than 
   *         <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadbytes">WsReadBytes</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspullbytes">WsPullBytes</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspushbytes">WsPushBytes</a> will incur the 
   *         base64 conversion.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_raw_encoding
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_writer_raw_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies parameters to IDMLDevice::CreateBindingTable and IDMLBindingTable::Reset.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_binding_table_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_binding_table_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -4,8 +4,11 @@
 /**
  * Defines the raw input data coming from the specified mouse.
  * @remarks
- * For the mouse, the Usage Page is 1 and the Usage is 2.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_mouse
+ * 
+  * For the mouse, the Usage Page is 1 and the Usage is 2.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rid_device_info_mouse
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

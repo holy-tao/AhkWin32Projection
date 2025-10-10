@@ -4,7 +4,8 @@
 /**
  * Provides access to subresource data.
  * @remarks
- * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map">ID3D11DeviceContext::Map</a>.
+ * 
+  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map">ID3D11DeviceContext::Map</a>.
   * 
   * The values in these members tell you how much data you can view:
   * 
@@ -21,7 +22,9 @@
   * </ul>
   * <div class="alert"><b>Note</b>  The runtime might assign values to <b>RowPitch</b> and <b>DepthPitch</b> that are larger than anticipated because there might be padding between rows and depth.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_mapped_subresource
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_mapped_subresource
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

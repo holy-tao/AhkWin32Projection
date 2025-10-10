@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains a Message Authentication Code (MAC).
- * @see https://learn.microsoft.com/windows/win32/medfound/d3d-omac
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class D3D_OMAC extends Win32Struct
     static packingSize => 1
 
     /**
-     * A byte array that contains the cryptographic MAC value of the message.
      * @type {Array<Byte>}
      */
     Omac{

@@ -3,7 +3,7 @@
 
 /**
  * Defines the attributes of cells in a table row.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-tablecellparms
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-tablecellparms
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

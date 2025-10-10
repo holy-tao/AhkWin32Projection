@@ -5,7 +5,7 @@
 
 /**
  * Describes the baseline and the midline height.
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-lattice_metrics
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-lattice_metrics
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the output alpha values are calculated for blit operations when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_alpha_fill_data
+ * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_blt_state_alpha_fill_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

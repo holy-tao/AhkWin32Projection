@@ -3,7 +3,7 @@
 
 /**
  * An object tied to a specific serialization technique.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_serializer
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_serializer
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

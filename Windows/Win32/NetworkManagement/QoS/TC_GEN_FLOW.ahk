@@ -5,7 +5,7 @@
 
 /**
  * The TC_GEN_FLOW structure creates a generic flow for use with the traffic control interface. The flow is customized through the members of this structure.
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_gen_flow
+ * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-tc_gen_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

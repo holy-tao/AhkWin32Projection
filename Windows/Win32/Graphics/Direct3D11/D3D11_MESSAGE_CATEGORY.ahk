@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Categories of debug messages. (D3D11_MESSAGE_CATEGORY)
+ * Categories of debug messages.
  * @remarks
- * This is part of the Information Queue feature. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11infoqueue">ID3D11InfoQueue Interface</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category
+ * 
+  * This is part of the Information Queue feature. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11infoqueue">ID3D11InfoQueue Interface</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_category
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

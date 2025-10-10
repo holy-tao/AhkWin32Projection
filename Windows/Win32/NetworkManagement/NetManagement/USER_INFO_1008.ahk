@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1008 structure contains a set of bit flags defining several user network account parameters. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1008
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1008
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

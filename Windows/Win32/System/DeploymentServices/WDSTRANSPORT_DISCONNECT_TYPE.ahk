@@ -2,7 +2,7 @@
 
 /**
  * Indicates what action a WDS client should take when it is disconnected from the session.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type
+ * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

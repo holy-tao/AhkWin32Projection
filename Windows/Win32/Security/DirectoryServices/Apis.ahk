@@ -140,8 +140,8 @@ class DirectoryServices {
      * @param {Pointer} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobject
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dssec/nf-dssec-dscreateisecurityinfoobject
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObject(pwszObjectPath, pwszObjectClass, dwFlags, ppSI, pfnReadSD, pfnWriteSD, lpContext) {
@@ -253,8 +253,8 @@ class DirectoryServices {
      * @param {Pointer} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobjectex
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dssec/nf-dssec-dscreateisecurityinfoobjectex
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObjectEx(pwszObjectPath, pwszObjectClass, pwszServer, pwszUserName, pwszPassword, dwFlags, ppSI, pfnReadSD, pfnWriteSD, lpContext) {
@@ -273,11 +273,6 @@ class DirectoryServices {
 
     /**
      * Creates a security property page for an Active Directory object.
-     * @remarks
-     * The function pointed to by <i>pfnReadSD</i> is defined as follows.
-     * 
-     * 
-     * ```cpp
      * @param {Pointer<Char>} pwszObjectPath A pointer to a <b>null</b>-terminated wide character string that represents the full Active Directory path for the object.
      * @param {Pointer<Char>} pwszObjectClass A pointer to a <b>null</b>-terminated wide character string that represents the object class. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Flags used for the security property page. This parameter can be none or any combination of the following flags.
@@ -371,8 +366,8 @@ class DirectoryServices {
      * @param {Pointer} lpContext Context to pass to the functions identified by <i>pfnReadSD</i> or <i>pfnWriteSD</i>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreatesecuritypage
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dssec/nf-dssec-dscreatesecuritypage
      * @since windowsserver2003
      */
     static DSCreateSecurityPage(pwszObjectPath, pwszObjectClass, dwFlags, phPage, pfnReadSD, pfnWriteSD, lpContext) {
@@ -398,8 +393,8 @@ class DirectoryServices {
      * @param {Pointer} lpContext The context passed into the read or write functions in the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dseditsecurity
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dssec/nf-dssec-dseditsecurity
      * @since windowsserver2008
      */
     static DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszCaption, pfnReadSD, pfnWriteSD, lpContext) {

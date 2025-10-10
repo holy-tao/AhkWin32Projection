@@ -3,8 +3,11 @@
 /**
  * The AMExtendedSeekingCapabilities enumeration contains flags that describe the extended seeking capabilities of a filter.
  * @remarks
- * See <a href="https://docs.microsoft.com/windows/desktop/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities">IAMExtendedSeeking::get_ExSeekCapabilities</a> for descriptions of how the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/windows-media-source-filter">Windows Media Source</a> filter sets these flags.
- * @see https://learn.microsoft.com/windows/win32/api/qnetwork/ne-qnetwork-amextendedseekingcapabilities
+ * 
+  * See <a href="https://docs.microsoft.com/windows/desktop/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities">IAMExtendedSeeking::get_ExSeekCapabilities</a> for descriptions of how the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/windows-media-source-filter">Windows Media Source</a> filter sets these flags.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//qnetwork/ne-qnetwork-amextendedseekingcapabilities
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

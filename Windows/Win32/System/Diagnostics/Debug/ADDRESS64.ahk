@@ -2,14 +2,16 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an address. It is used in the STACKFRAME64 structure. (ADDRESS64)
+ * Represents an address. It is used in the STACKFRAME64 structure.
  * @remarks
- * This structure supersedes the <b>ADDRESS</b> structure. For more information, see 
+ * 
+  * This structure supersedes the <b>ADDRESS</b> structure. For more information, see 
   * <a href="https://docs.microsoft.com/windows/desktop/Debug/updated-platform-support">Updated Platform Support</a>. <b>ADDRESS</b> is defined as follows in DbgHelp.h. 
   * 
   * 
   * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-address64
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-address64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

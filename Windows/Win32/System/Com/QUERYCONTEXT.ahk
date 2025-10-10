@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of attributes used to look up a class implementation.
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-querycontext
+ * @see https://docs.microsoft.com/windows/win32/api//wtypes/ns-wtypes-querycontext
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

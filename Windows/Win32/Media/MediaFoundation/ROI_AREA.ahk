@@ -4,7 +4,7 @@
 
 /**
  * Defines a regions of interest.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-roi_area
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-roi_area
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the name and value for a header in an HTTP request or response whose name does not appear in the enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_unknown_header
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_unknown_header
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

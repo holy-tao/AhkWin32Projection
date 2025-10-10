@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains an array of unsigned integer values that are used to describe a property of type PT_MV_SHORT.
- * @remarks
- * For more information about PT_MV_SHORT and other property types, see [Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sshortarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SShortArray extends Win32Struct
     static packingSize => 8
 
     /**
-     * > Count of values in the array pointed to by the **lpi** member.
      * @type {Integer}
      */
     cValues {
@@ -25,7 +20,6 @@ class SShortArray extends Win32Struct
     }
 
     /**
-     * > Pointer to an array of unsigned integer values.
      * @type {Pointer<Int16>}
      */
     lpi {

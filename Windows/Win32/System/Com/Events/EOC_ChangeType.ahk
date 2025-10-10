@@ -2,7 +2,7 @@
 
 /**
  * Indicates the nature of the change to an event object.
- * @see https://learn.microsoft.com/windows/win32/api/eventsys/ne-eventsys-eoc_changetype
+ * @see https://docs.microsoft.com/windows/win32/api//eventsys/ne-eventsys-eoc_changetype
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */

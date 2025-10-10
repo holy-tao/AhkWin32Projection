@@ -4,8 +4,10 @@
 /**
  * Note  This structure is deprecated.  Contains information about an event that is raised when one or more windows closes.
  * @remarks
- * This event is raised for any window (HWND) that closes, not just top-level windows.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiawindowclosedeventargs
+ * 
+  * This event is raised for any window (HWND) that closes, not just top-level windows.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiawindowclosedeventargs
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

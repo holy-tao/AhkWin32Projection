@@ -3,7 +3,8 @@
 /**
  * Specifies how the intersecting areas of geometries or figures are combined to form the area of the composite geometry.
  * @remarks
- * Use the <b>D2D1_FILL_MODE</b> enumeration when creating an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a> with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup">CreateGeometryGroup</a> method, or when modifying the fill mode of an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1simplifiedgeometrysink">ID2D1SimplifiedGeometrySink</a> with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode">ID2D1SimplifiedGeometrySink::SetFillMode</a>  method.
+ * 
+  * Use the <b>D2D1_FILL_MODE</b> enumeration when creating an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a> with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup">CreateGeometryGroup</a> method, or when modifying the fill mode of an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1simplifiedgeometrysink">ID2D1SimplifiedGeometrySink</a> with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode">ID2D1SimplifiedGeometrySink::SetFillMode</a>  method.
   * 
   * Direct2D fills the interior of a path by using one of the two fill modes specified by this enumeration: <b>D2D1_FILL_MODE_ALTERNATE</b> (alternate) or <b>D2D1_FILL_MODE_WINDING</b> (winding). Because the modes determine how to fill the interior of a closed shape, all shapes are treated as closed when they are filled.  If there is a gap in a segment in a shape, draw an imaginary line to close it. 
   * 
@@ -24,7 +25,9 @@
   * The following illustration explains this process. The red arrows represent the direction in which the segments are drawn and the black arrow represents an arbitrary ray that runs from a point in the innermost ring. Starting with a value of zero, for each segment that the ray crosses, a value of one is added for every clockwise intersection. All points lie in the fill region in this illustration, because the count does not equal zero. 
   * 
   * <img alt="Illustration of concentric circles with a ray from within the first ring that crosses all four rings" src="./images/fillmode_04.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_fill_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the behavior of the CoWaitForMultipleHandles function.
- * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-cowait_flags
+ * @see https://docs.microsoft.com/windows/win32/api//combaseapi/ne-combaseapi-cowait_flags
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

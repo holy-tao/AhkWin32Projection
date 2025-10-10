@@ -2,7 +2,7 @@
 
 /**
  * Optional flags that control the behavior of ID3D11DeviceContext::GetData.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_async_getdata_flag
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_async_getdata_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

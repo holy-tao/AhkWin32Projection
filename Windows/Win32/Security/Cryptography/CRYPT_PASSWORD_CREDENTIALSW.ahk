@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the user name and password credentials to be used in the CRYPT_CREDENTIALS structure as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject. (Unicode)
+ * Contains the user name and password credentials to be used in the CRYPT_CREDENTIALS structure as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The wincrypt.h header defines CRYPT_PASSWORD_CREDENTIALS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_password_credentialsw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_password_credentialsw
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  * @charset Unicode

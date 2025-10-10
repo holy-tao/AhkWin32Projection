@@ -2,7 +2,7 @@
 
 /**
  * The LOCKTYPE enumeration values indicate the type of locking requested for the specified range of bytes. The values are used in the ILockBytes::LockRegion and IStream::LockRegion methods.
- * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-locktype
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-locktype
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

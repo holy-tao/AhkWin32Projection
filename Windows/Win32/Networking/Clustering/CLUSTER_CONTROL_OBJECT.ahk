@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_CONTROL_OBJECT (msclus.h) is the 8-bit object component of a control code that indicates the cluster object type to which the control code applies.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_control_object
+ * The 8-bit object component of a control code that indicates the type of cluster object to which the control code applies. For more information, see Control Code Architecture.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_control_object
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

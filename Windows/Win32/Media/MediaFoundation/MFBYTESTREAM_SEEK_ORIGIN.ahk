@@ -2,7 +2,7 @@
 
 /**
  * Specifies the origin for a seek request.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfbytestream_seek_origin
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfbytestream_seek_origin
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

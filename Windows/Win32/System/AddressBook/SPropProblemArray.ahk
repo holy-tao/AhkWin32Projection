@@ -3,10 +3,8 @@
 #Include .\SPropProblem.ahk
 
 /**
- * Contains an array of one or more SPropProblem structures for Outlook 2013 and Outlook 2016.
- * @remarks
- * For more information about how the **SPropProblem** and **SPropProblemArray** structures work with errors related to properties, see [MAPI Named Properties](mapi-named-properties.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropproblemarray
+ * Do not use. Contains an array of one or more SPropProblem structures.
+ * @see https://docs.microsoft.com/windows/win32/api//wabdefs/ns-wabdefs-spropproblemarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -17,7 +15,9 @@ class SPropProblemArray extends Win32Struct
     static packingSize => 8
 
     /**
-     * > Count of [SPropProblem](spropproblem.md) structures in the array indicated by the **aProblem** member.
+     * Type: <b>ULONG</b>
+     * 
+     * Variable of type <b>ULONG</b> that specifies the count of <a href="https://docs.microsoft.com/windows/desktop/api/wabdefs/ns-wabdefs-spropproblem">SPropProblem</a> structures in the array indicated by the <b>aProblem</b> member.
      * @type {Integer}
      */
     cProblem {
@@ -26,7 +26,9 @@ class SPropProblemArray extends Win32Struct
     }
 
     /**
-     * > Array of **SPropProblem** structures, each describing a property error.
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wabdefs/ns-wabdefs-spropproblem">SPropProblem</a>[MAPI_DIM]</b>
+     * 
+     * Array of variables of type <a href="https://docs.microsoft.com/windows/desktop/api/wabdefs/ns-wabdefs-spropproblem">SPropProblem</a> that specify information about a property error.
      * @type {Array<SPropProblem>}
      */
     aProblem{

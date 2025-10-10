@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of all option values defined on a DHCP server, organized according to class/vendor pairing.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_all_option_values
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_all_option_values
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

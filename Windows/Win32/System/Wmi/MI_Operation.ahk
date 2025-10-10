@@ -3,7 +3,7 @@
 
 /**
  * Represents a single operations execution. This object holds the internal function tables for carrying out actions on the operation.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_operation
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_operation
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

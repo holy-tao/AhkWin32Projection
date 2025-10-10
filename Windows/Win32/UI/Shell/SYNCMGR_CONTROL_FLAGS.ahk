@@ -2,7 +2,7 @@
 
 /**
  * Specifies how an operation requested on certain methods of ISyncMgrControl should be performed.
- * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_control_flags
+ * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_control_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

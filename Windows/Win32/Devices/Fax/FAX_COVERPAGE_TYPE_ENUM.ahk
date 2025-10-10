@@ -2,7 +2,7 @@
 
 /**
  * The FAX_COVERPAGE_TYPE_ENUM enumeration defines whether a cover page template file is a local computer cover page or a server-based cover page. It can also specify that no file is used.
- * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum
+ * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_coverpage_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

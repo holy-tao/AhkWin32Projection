@@ -5,7 +5,7 @@
 
 /**
  * Describes an elliptical arc between two points.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_arc_segment
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_arc_segment
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

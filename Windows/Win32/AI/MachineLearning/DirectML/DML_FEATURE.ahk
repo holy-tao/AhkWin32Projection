@@ -2,7 +2,7 @@
 
 /**
  * Defines a set of optional features and capabilities that can be queried from the DirectML device.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_feature
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_feature
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

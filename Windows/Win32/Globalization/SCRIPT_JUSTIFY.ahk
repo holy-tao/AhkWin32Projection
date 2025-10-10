@@ -2,7 +2,7 @@
 
 /**
  * Defines glyph characteristic information that an application needs to implement justification.
- * @see https://learn.microsoft.com/windows/win32/api/usp10/ne-usp10-script_justify
+ * @see https://docs.microsoft.com/windows/win32/api//usp10/ne-usp10-script_justify
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

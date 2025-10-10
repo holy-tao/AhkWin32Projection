@@ -3,7 +3,7 @@
 
 /**
  * The video miniport driver receives a pointer to a VIDEOPARAMETERS structure in the InputBuffer member of a VIDEO_REQUEST_PACKET when the IOCTL request is IOCTL_VIDEO_HANDLE_VIDEOPARAMETERS.
- * @see https://learn.microsoft.com/windows/win32/api/tvout/ns-tvout-videoparameters
+ * @see https://docs.microsoft.com/windows/win32/api//tvout/ns-tvout-videoparameters
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains event collector data (subscription data) or property values.
- * @see https://learn.microsoft.com/windows/win32/api/evcoll/ns-evcoll-ec_variant
+ * @see https://docs.microsoft.com/windows/win32/api//evcoll/ns-evcoll-ec_variant
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

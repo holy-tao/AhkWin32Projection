@@ -2,7 +2,7 @@
 
 /**
  * Indicates the different variants of the display name associated with a class of objects.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-userclasstype
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-userclasstype
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

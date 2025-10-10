@@ -5,7 +5,8 @@
  * Contains the information necessary to advertise a service using [DnsServiceRegister](../windns/nf-windns-dnsserviceregister.md), or to stop advertising it using [DnsServiceDeRegister](../windns/nf-windns-dnsservicederegister.md).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_register_request
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_service_register_request
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

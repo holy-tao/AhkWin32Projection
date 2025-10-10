@@ -3,7 +3,7 @@
 
 /**
  * Specifies the per user audit policy for a token.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_audit_policy
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_audit_policy
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

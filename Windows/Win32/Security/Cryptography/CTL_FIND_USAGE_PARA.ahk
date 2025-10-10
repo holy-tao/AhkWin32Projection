@@ -5,7 +5,7 @@
 
 /**
  * A member of the CTL_FIND_SUBJECT_PARA structure and it is used by CertFindCTLInStore.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_usage_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_find_usage_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

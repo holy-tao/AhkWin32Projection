@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of service.
- * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_service_type
+ * @see https://docs.microsoft.com/windows/win32/api//icftypes/ne-icftypes-net_fw_service_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

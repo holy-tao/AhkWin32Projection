@@ -5,7 +5,8 @@
  * Contains the necessary information to perform an mDNS query.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-mdns_query_request
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-mdns_query_request
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

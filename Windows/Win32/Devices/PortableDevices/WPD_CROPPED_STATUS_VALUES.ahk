@@ -1,10 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The WPD\_CROPPED\_STATUS\_VALUES enumeration type describes the cropping status of an image.
- * @remarks
- * Indicates the cropped status of an image. This enumeration is used by the [WPD\_IMAGE\_CROPPED\_STATUS](image-properties.md) property.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-cropped-status-values
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The DS_REPL_CURSORS_2 structure is used with the DsReplicaGetInfo2 function to provide replication state data with respect to all replicas of a given naming context.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursors_2
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_cursors_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

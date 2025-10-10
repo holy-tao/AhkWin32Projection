@@ -3,7 +3,7 @@
 
 /**
  * Contains information identifying whether the display aspect of a pasted object should be based on the content of the object or the icon that represent the object.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-repastespecial
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-repastespecial
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

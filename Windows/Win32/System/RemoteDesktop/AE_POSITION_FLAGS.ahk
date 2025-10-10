@@ -3,8 +3,10 @@
 /**
  * Defines constants for the AE_CURRENT_POSITION structure. These constants describe the degree of validity of the current position.
  * @remarks
- * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
- * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/ne-audioengineendpoint-ae_position_flags
+ * 
+  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/ne-audioengineendpoint-ae_position_flags
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

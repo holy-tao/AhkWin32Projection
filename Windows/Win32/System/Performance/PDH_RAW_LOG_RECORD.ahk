@@ -3,7 +3,7 @@
 
 /**
  * The PDH_RAW_LOG_RECORD structure contains information about a binary trace log file record.
- * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_raw_log_record
+ * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_raw_log_record
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

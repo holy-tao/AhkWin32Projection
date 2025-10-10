@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about the credential name of the security context.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_credentialnamew
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  * @charset Unicode
@@ -17,7 +13,6 @@ class SecPkgContext_CredentialNameW extends Win32Struct
     static packingSize => 8
 
     /**
-     * The credential type.
      * @type {Integer}
      */
     CredentialType {
@@ -26,7 +21,6 @@ class SecPkgContext_CredentialNameW extends Win32Struct
     }
 
     /**
-     * The credential name.
      * @type {Pointer<UInt16>}
      */
     sCredentialName {

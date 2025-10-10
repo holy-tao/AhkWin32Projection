@@ -4,7 +4,8 @@
 /**
  * Defines the dimensions and style of a control in a dialog box. One or more of these structures are combined with a DLGTEMPLATE structure to form a standard template for a dialog box.
  * @remarks
- * In a standard template for a dialog box, the <b>DLGITEMTEMPLATE</b> structure is always immediately followed by three variable-length arrays specifying the class, title, and creation data for the control. Each array consists of one or more 16-bit elements. 
+ * 
+  * In a standard template for a dialog box, the <b>DLGITEMTEMPLATE</b> structure is always immediately followed by three variable-length arrays specifying the class, title, and creation data for the control. Each array consists of one or more 16-bit elements. 
   * 
   * Each <b>DLGITEMTEMPLATE</b> structure in the template must be aligned on a 
   * 				<b>DWORD</b> boundary. The class and title arrays must be aligned on 
@@ -59,7 +60,9 @@
   * 				<b>y</b>, 
   * 				<b>cx</b>, and 
   * 				<b>cy</b> members specify values in dialog box units. You can convert these values to screen units (pixels) by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapdialogrect">MapDialogRect</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgitemtemplate
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-dlgitemtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

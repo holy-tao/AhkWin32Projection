@@ -4,7 +4,8 @@
 /**
  * Used to set up the search parameters for a virtual list view (VLV) request control (LDAP_CONTROL_VLVREQUEST).
  * @remarks
- * There are two methods for calculating the target of a VLV search: using an attribute value or using an offset. Different elements of this structure will be used depending on which type of search you choose. Both methods require that values be entered for the <b>ldvlv_before_count</b> and <b>ldvlv_after_count</b> members. Specify a list content count in <b>ldvlv_count</b>, or if you do not know this value, then use zero (0), so that the server will calculate it.
+ * 
+  * There are two methods for calculating the target of a VLV search: using an attribute value or using an offset. Different elements of this structure will be used depending on which type of search you choose. Both methods require that values be entered for the <b>ldvlv_before_count</b> and <b>ldvlv_after_count</b> members. Specify a list content count in <b>ldvlv_count</b>, or if you do not know this value, then use zero (0), so that the server will calculate it.
   * 
   * <ul>
   * <li>
@@ -25,7 +26,9 @@
   * </li>
   * </ul>
   * Be aware that a sort control must accompany a VLV search request to specify the ordered list of entries against which the VLV search is performed. Servers can reject VLV searches performed against lists for which they do not have indexes.
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapvlvinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapvlvinfo
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

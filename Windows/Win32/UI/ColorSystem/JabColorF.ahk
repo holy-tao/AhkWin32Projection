@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * TBD.
+ * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/ns-wcsplugin-jabcolorf
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
@@ -12,6 +14,7 @@ class JabColorF extends Win32Struct
     static packingSize => 4
 
     /**
+     * TBD
      * @type {Float}
      */
     J {
@@ -20,6 +23,7 @@ class JabColorF extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Float}
      */
     a {
@@ -28,6 +32,7 @@ class JabColorF extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Float}
      */
     b {

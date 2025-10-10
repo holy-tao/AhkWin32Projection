@@ -3,8 +3,11 @@
 /**
  * The NLM_CONNECTION_COST enumeration specifies a set of cost levels and cost flags supported in Windows 8 Cost APIs.
  * @remarks
- * The value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nf-netlistmgr-inetworkconnectioncost-getcost">INetworkConnectionCost::GetCost</a> method can have multiple bits set with the values specified by this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_connection_cost
+ * 
+  * The value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nf-netlistmgr-inetworkconnectioncost-getcost">INetworkConnectionCost::GetCost</a> method can have multiple bits set with the values specified by this enumeration.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ne-netlistmgr-nlm_connection_cost
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

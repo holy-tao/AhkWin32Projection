@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the state of a UI element that can be expanded and collapsed.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-expandcollapsestate
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-expandcollapsestate
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Output structure for the DeviceDsmAction_OffloadRead action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_read_output
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_offload_read_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,9 +3,7 @@
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
- * @remarks
- * The field value type indicates that the value can be an octet string or a SID. However, the [Directory Services documentation for claims entries](/openspecs/windows_protocols/ms-adts/252d7e10-eaf8-44e9-8b8d-205b384f5782) specifies that effective possible data types for claims are limited to Int64, UInt64, UnicodeString, and Boolean.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_v1
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attribute_v1
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

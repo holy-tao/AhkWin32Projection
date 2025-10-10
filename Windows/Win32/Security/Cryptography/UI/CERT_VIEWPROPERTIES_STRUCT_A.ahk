@@ -2,11 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (ANSI)
- * @remarks
- * > [!NOTE]
-  * > The cryptdlg.h header defines CERT_VIEWPROPERTIES_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_viewproperties_struct_a
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  * @charset ANSI
@@ -18,7 +13,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size, in bytes, of this structure.
      * @type {Integer}
      */
     dwSize {
@@ -27,7 +21,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A handle to the parent window.
      * @type {Pointer<Void>}
      */
     hwndParent {
@@ -36,7 +29,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A handle to the module instance.
      * @type {Pointer<Void>}
      */
     hInstance {
@@ -45,7 +37,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -54,7 +45,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A pointer to a null-terminated string for the title of the user interface.
      * @type {Pointer<Byte>}
      */
     szTitle {
@@ -63,7 +53,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Certificate context for the certificate to be shown.
      * @type {Pointer<CERT_CONTEXT>}
      */
     pCertContext {
@@ -72,7 +61,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A pointer to an array of null-terminated strings that specify the certificate purposes.
      * @type {Pointer<Byte>}
      */
     arrayPurposes {
@@ -81,7 +69,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of elements in the <b>arrayPurposes</b> array. If this value is zero, then no trust status is displayed.
      * @type {Integer}
      */
     cArrayPurposes {
@@ -90,7 +77,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of elements in the <b>rghstoreRoots</b> array.
      * @type {Integer}
      */
     cRootStores {
@@ -99,7 +85,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Array of Root certificate store handles.
      * @type {Pointer<Void>}
      */
     rghstoreRoots {
@@ -108,7 +93,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of elements in the <b>rghstoreCAs</b> array.
      * @type {Integer}
      */
     cStores {
@@ -117,7 +101,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Array of other certificate store handles.
      * @type {Pointer<Void>}
      */
     rghstoreCAs {
@@ -126,7 +109,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of elements in the <b>rghstoreTrust</b> array.
      * @type {Integer}
      */
     cTrustStores {
@@ -135,7 +117,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Array of trust certificate store handles.
      * @type {Pointer<Void>}
      */
     rghstoreTrust {
@@ -144,7 +125,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use for verification.
      * @type {Pointer}
      */
     hprov {
@@ -153,7 +133,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Value used for custom data.
      * @type {Pointer}
      */
     lCustData {
@@ -162,7 +141,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Padding location.
      * @type {Integer}
      */
     dwPad {
@@ -171,7 +149,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A pointer to a null-terminated string for the Help file name.
      * @type {Pointer<Byte>}
      */
     szHelpFileName {
@@ -180,7 +157,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * ID for the Help file topic.
      * @type {Integer}
      */
     dwHelpId {
@@ -189,7 +165,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of the first property page.
      * @type {Integer}
      */
     nStartPage {
@@ -198,7 +173,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * Number of elements in the <b>arrayPropSheetPages</b> array.
      * @type {Integer}
      */
     cArrayPropSheetPages {
@@ -207,7 +181,6 @@ class CERT_VIEWPROPERTIES_STRUCT_A extends Win32Struct
     }
 
     /**
-     * A pointer to an array of <b>PROPSHEETPAGE</b> structures that specify the property pages.
      * @type {Pointer<PROPSHEETPAGEA>}
      */
     arrayPropSheetPages {

@@ -2,7 +2,7 @@
 
 /**
  * The type of a state subobject. Use with D3D12_STATE_SUBOBJECT.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_state_subobject_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_state_subobject_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -168,8 +168,23 @@ class D3D12_STATE_SUBOBJECT_TYPE{
     static D3D12_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL2 => 30
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_STATE_SUBOBJECT_TYPE_GLOBAL_SERIALIZED_ROOT_SIGNATURE => 31
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_STATE_SUBOBJECT_TYPE_LOCAL_SERIALIZED_ROOT_SIGNATURE => 32
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISITING_COLLECTION => 33
+
+    /**
      * The maximum valid subobject type value.
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID => 31
+    static D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID => 34
 }

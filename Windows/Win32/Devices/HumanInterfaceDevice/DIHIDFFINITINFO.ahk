@@ -3,7 +3,7 @@
 
 /**
  * The DIHIDFFINITINFO structure is used by DirectInput to provide information to a HID force-feedback driver about the device it is being asked to control.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dihidffinitinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-dihidffinitinfo
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

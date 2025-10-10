@@ -4,7 +4,7 @@
 
 /**
  * Provides information about items being enumerated by the ISyncMgrEnumItems interface.
- * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgritem
+ * @see https://docs.microsoft.com/windows/win32/api//mobsync/ns-mobsync-syncmgritem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

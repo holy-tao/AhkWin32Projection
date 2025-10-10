@@ -2,7 +2,7 @@
 
 /**
  * Defines the update services that Windows Update can operate against.
- * @see https://learn.microsoft.com/windows/win32/api/wuapicommon/ne-wuapicommon-serverselection
+ * @see https://docs.microsoft.com/windows/win32/api//wuapicommon/ne-wuapicommon-serverselection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

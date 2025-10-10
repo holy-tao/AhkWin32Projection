@@ -3,8 +3,6 @@
 #Include .\WINBIO_REGISTERED_FORMAT.ahk
 
 /**
- * Specifies information about a series of fingerprint or palm samples.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bdb-ansi-381-header
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size, in bytes, of this structure plus the size of all [**WINBIO\_BDB\_ANSI\_381\_RECORD**](winbio-bdb-ansi-381-record.md) structures for the fingerprint or palm samples captured from an end user. Only the low six bytes are valid.
      * @type {Integer}
      */
     RecordLength {
@@ -24,7 +21,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the format. Currently, this must be 0x46495200.
      * @type {Integer}
      */
     FormatIdentifier {
@@ -33,7 +29,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the version number. Currently this must be 0x30313000 which corresponds internally to 0.1.0.0.
      * @type {Integer}
      */
     VersionNumber {
@@ -42,7 +37,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * A [**WINBIO\_REGISTERED\_FORMAT**](winbio-registered-format.md) structure that contains the registered data format as an owner/type pair.
      * @type {WINBIO_REGISTERED_FORMAT}
      */
     ProductId{
@@ -54,7 +48,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Contains the unit ID of the device used to capture the sample.
      * @type {Integer}
      */
     CaptureDeviceId {
@@ -63,7 +56,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the resolution level at which the sample is captured.
      * @type {Integer}
      */
     ImageAcquisitionLevel {
@@ -72,7 +64,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the horizontal resolution of the scan.
      * @type {Integer}
      */
     HorizontalScanResolution {
@@ -81,7 +72,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the vertical resolution of the scan.
      * @type {Integer}
      */
     VerticalScanResolution {
@@ -90,7 +80,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the horizontal resolution of the captured fingerprint or palm image.
      * @type {Integer}
      */
     HorizontalImageResolution {
@@ -99,7 +88,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the vertical resolution of the captured fingerprint or palm image.
      * @type {Integer}
      */
     VerticalImageResolution {
@@ -108,7 +96,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Number of finger or palm records in this structure.
      * @type {Integer}
      */
     ElementCount {
@@ -117,7 +104,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Contains the unit of measure, 1 for inches and 2 for centimeters.
      * @type {Integer}
      */
     ScaleUnits {
@@ -126,7 +112,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the number of bits in a pixel. This can be 1 to 16 bits per pixel for color.
      * @type {Integer}
      */
     PixelDepth {
@@ -135,7 +120,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * Specifies the algorithm used to compress the finger or palm image.
      * @type {Integer}
      */
     ImageCompressionAlg {
@@ -144,7 +128,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved {

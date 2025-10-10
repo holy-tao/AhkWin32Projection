@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the processor architectures supported by a package. (APPX_PACKAGE_ARCHITECTURE)
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_architecture
+ * Specifies the processor architectures supported by a package.
+ * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_package_architecture
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

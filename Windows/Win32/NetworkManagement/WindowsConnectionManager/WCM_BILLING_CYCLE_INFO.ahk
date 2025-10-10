@@ -5,7 +5,7 @@
 
 /**
  * Specifies information about the billing cycle.
- * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_billing_cycle_info
+ * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_billing_cycle_info
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

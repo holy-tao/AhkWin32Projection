@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the session is a reconnection and retrieves a value that identifies the session.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_sessioninfo
+ * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_sessioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

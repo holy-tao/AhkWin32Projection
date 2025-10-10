@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a communications device.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-comstat
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-comstat
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

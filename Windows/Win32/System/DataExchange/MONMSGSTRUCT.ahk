@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) message. A DDE monitoring application can use this structure to obtain information about a DDE message that was sent or posted.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monmsgstruct
+ * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-monmsgstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

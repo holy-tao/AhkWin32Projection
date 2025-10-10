@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the current state of the system battery.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_battery_state
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_battery_state
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

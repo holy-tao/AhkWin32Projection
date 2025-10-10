@@ -4,7 +4,8 @@
 /**
  * The STD_ALERT structure contains the time and date when a significant event occurred.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>STD_ALERT</b> structure must be followed by one 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-admin_other_info">ADMIN_OTHER_INFO</a>, 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-errlog_other_info">ERRLOG_OTHER_INFO</a>, 
@@ -15,7 +16,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraise">NetAlertRaise</a> for a code sample that raises an administrative alert using a 
   * <b>STD_ALERT</b> structure and an 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-admin_other_info">ADMIN_OTHER_INFO</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-std_alert
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmalert/ns-lmalert-std_alert
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

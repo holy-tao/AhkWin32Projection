@@ -2,7 +2,7 @@
 
 /**
  * Specifies a dialog box that might exist in a Video for Windows compression (codec) driver.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vfwcompressdialogs
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vfwcompressdialogs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

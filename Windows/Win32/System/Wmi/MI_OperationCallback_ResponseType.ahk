@@ -2,7 +2,7 @@
 
 /**
  * If the MI_CallbackMode is MI_CALLBACKMODE_INQUIRE, one of these values can be used in the callback.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_operationcallback_responsetype
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_operationcallback_responsetype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

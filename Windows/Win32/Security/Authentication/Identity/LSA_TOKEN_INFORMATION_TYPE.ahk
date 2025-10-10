@@ -2,7 +2,7 @@
 
 /**
  * Specifies the levels of information that can be included in a logon token.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ne-ntsecpkg-lsa_token_information_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -1,13 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Includes possible settings for the Automatic Logon Policy.
- * @remarks
- * To set the automatic logon policy, call the [**SetAutoLogonPolicy**](iwinhttprequest-setautologonpolicy.md) method and specify one of the preceding constants.
-  * 
-  * > [!Note]  
-  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP start page.
- * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequestautologonpolicy
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

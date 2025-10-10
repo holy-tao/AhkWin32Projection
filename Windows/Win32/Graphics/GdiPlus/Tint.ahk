@@ -3,6 +3,8 @@
 #Include .\Effect.ahk
 
 /**
+ * The Tint class enables you to apply a tint to a bitmap.
+ * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-tint
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

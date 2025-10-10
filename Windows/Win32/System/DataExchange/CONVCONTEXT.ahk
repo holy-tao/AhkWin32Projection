@@ -5,9 +5,12 @@
 /**
  * Contains information supplied by a Dynamic Data Exchange (DDE) client application. The information is useful for specialized or cross-language DDE conversations.
  * @remarks
- * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
+ * 
+  * <h3><a id="Security_Warning"></a><a id="security_warning"></a><a id="SECURITY_WARNING"></a>Security Warning</h3>
   * For added security, your application can specify a security code with the <b>dwSecurity</b> member. The application could then examine this value in the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> function to check the identity of the client application. However, a value that is hard-coded into an application might be discovered. Thus, you may want to provide the security code in some other way, such as through user input.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-convcontext
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-convcontext
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

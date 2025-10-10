@@ -4,7 +4,8 @@
 /**
  * The LINECARDENTRY structure describes a calling card. The LINETRANSLATECAPS structure can contain an array of LINECARDENTRY structures.
  * @remarks
- * Older applications are compiled without knowledge of these new fields, and using a SIZEOF(LINECARDENTRY) smaller than the new size. Because this is an array in the variable portion of a 
+ * 
+  * Older applications are compiled without knowledge of these new fields, and using a SIZEOF(LINECARDENTRY) smaller than the new size. Because this is an array in the variable portion of a 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure, it is imperative that older applications receive 
   * <b>LINECARDENTRY</b> structures in the format they previously expected, or they are not able to index properly through the array. The application passes in a <i>dwAPIVersion</i> parameter with the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">lineGetTranslateCaps</a> function, which can be used for guidance by TAPI in handling this situation. The 
@@ -13,7 +14,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
   * 
   * This structure may not be extended.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecardentry
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecardentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

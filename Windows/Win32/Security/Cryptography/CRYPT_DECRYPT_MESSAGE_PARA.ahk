@@ -3,7 +3,7 @@
 
 /**
  * The CRYPT_DECRYPT_MESSAGE_PARA structure contains information for decrypting messages.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_decrypt_message_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_decrypt_message_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

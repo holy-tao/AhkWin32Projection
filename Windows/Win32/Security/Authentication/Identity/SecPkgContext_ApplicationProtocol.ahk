@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about the application protocol of the security context.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_applicationprotocol
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SecPkgContext_ApplicationProtocol extends Win32Struct
     static packingSize => 4
 
     /**
-     * The application protocol negotiation status.
      * @type {Integer}
      */
     ProtoNegoStatus {
@@ -25,7 +20,6 @@ class SecPkgContext_ApplicationProtocol extends Win32Struct
     }
 
     /**
-     * The protocol negotiation extension type corresponding to this protocol ID.
      * @type {Integer}
      */
     ProtoNegoExt {
@@ -34,7 +28,6 @@ class SecPkgContext_ApplicationProtocol extends Win32Struct
     }
 
     /**
-     * The size (in bytes) of the application protocol ID.
      * @type {Integer}
      */
     ProtocolIdSize {
@@ -43,7 +36,6 @@ class SecPkgContext_ApplicationProtocol extends Win32Struct
     }
 
     /**
-     * A byte string representing the negotiated application protocol ID.
      * @type {Array<Byte>}
      */
     ProtocolId{

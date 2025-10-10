@@ -4,7 +4,7 @@
 
 /**
  * Specifies parameters for the offload write operation.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_dsm_offload_write_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_dsm_offload_write_parameters
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

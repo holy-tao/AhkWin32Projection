@@ -3,7 +3,7 @@
 
 /**
  * Stores the dimensions of the two possible sizes of icon spacing that are available for display:\_small and large. Used by IShellFolderView::GetItemSpacing.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-itemspacing
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-itemspacing
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

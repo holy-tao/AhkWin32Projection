@@ -29,9 +29,10 @@
 #Include .\DNS_UNKNOWN_DATA.ahk
 
 /**
- * Stores a DNS resource record (RR). (Unicode)
+ * Stores a DNS resource record (RR).
  * @remarks
- * When building a 
+ * 
+  * When building a 
   * <b>DNS_RECORD</b> list as an input argument for the various DNS update routines found in the DNS API, all flags in the 
   * <b>DNS_RECORD</b> structure should be set to zero.
   * 
@@ -41,14 +42,16 @@
   * 
   * > [!NOTE]
   * > The windns.h header defines DNS_RECORD as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_recordw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_recordw
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  * @charset Unicode
  */
 class DNS_RECORDW extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -87,7 +90,7 @@ class DNS_RECORDW extends Win32Struct
      * 
      * 					
      * 
-     * <div class="code"><span><table>
+     * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
      * <tr>
      * <th>C++</th>
      * </tr>

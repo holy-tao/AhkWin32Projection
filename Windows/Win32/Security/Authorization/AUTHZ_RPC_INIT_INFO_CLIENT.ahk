@@ -4,8 +4,10 @@
 /**
  * Initializes a remote resource manager for a client.
  * @remarks
- * For a sample that uses this structure, see the [Effective access rights for files sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Security/EffectiveAccessRights).
- * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_rpc_init_info_client
+ * 
+  * For a sample that uses this structure, see the [Effective access rights for files sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Security/EffectiveAccessRights).
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_rpc_init_info_client
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The PSFEATURE_OUTPUT structure contains information about PostScript driver output options. This structure is used with the GET_PS_FEATURESETTING printer escape function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-psfeature_output
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-psfeature_output
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

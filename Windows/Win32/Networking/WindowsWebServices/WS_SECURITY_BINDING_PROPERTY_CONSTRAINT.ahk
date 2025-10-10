@@ -4,7 +4,7 @@
 
 /**
  * This structure is used to specify a set of constraints for a particular security binding property. Any property constraints that are not specified will use the default constraints.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding_property_constraint
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_binding_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_binding_property_id">WS_SECURITY_BINDING_PROPERTY_HTTP_HEADER_AUTH_SCHEME</a>
      * This property constraint may be specified when the
-     *                       <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_binding_constraint_type">WS_HTTP_HEADER_AUTH_SECURITY_BINDING_CONSTRAINT_TYPE</a> security binding is specified.
+     *                       <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_security_binding_constraint_type">WS_HTTP_HEADER_AUTH_SECURITY_BINDING_CONSTRAINT_TYPE</a>security binding is specified.
      *                     
      * 
      * <ul>

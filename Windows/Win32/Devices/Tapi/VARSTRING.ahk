@@ -4,7 +4,8 @@
 /**
  * The VARSTRING structure is used for returning variably sized strings. It is used both by the line device class and the phone device class.
  * @remarks
- * No extensibility.
+ * 
+  * No extensibility.
   * 
   * If a string cannot be returned in a variable structure, the <b>dwStringSize</b> and <b>dwStringOffset</b> members are set in one of the following ways:
   * 
@@ -13,7 +14,8 @@
   * <li><b>dwStringOffset</b> is nonzero and <b>dwStringSize</b> is zero.</li>
   * <li><b>dwStringOffset</b> is nonzero, <b>dwStringSize</b> is 1, and the byte at the given offset is zero.</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-varstring
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-varstring
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

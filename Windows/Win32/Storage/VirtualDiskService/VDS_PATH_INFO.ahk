@@ -3,8 +3,8 @@
 #Include .\VDS_PATH_ID.ahk
 
 /**
- * The VDS_PATH_INFO structure (vdshwprv.h) defines the information for a LUN path and is returned in the ppPaths parameter of the IVdsLunMpio::GetPathInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_path_info
+ * Defines the information for a LUN path. This structure is returned in the ppPaths parameter of the IVdsLunMpio::GetPathInfo method.
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_path_info
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

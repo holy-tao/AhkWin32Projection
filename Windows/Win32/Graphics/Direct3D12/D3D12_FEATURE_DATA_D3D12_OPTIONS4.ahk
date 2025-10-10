@@ -5,7 +5,8 @@
  * Indicates the level of support for 64KB-aligned MSAA textures, cross-API sharing, and native 16-bit shader operations.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options4
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_d3d12_options4
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

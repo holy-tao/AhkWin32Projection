@@ -3,7 +3,7 @@
 
 /**
  * Contains private data to be used by a provider.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_privdata
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_privdata
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

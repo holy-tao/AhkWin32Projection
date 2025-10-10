@@ -3,7 +3,7 @@
 
 /**
  * Basic sync root information.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_basic_info
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_root_basic_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

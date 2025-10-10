@@ -6,8 +6,11 @@
 /**
  * Defines the information about the event.
  * @remarks
- * The value of an offset is zero if the member is not defined.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-trace_event_info
+ * 
+  * The value of an offset is zero if the member is not defined.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-trace_event_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -48,7 +51,7 @@ class TRACE_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-decoding_source">DECODING_SOURCE</a> enumeration value that identifies the source used to parse the event's data (for example, an instrumentation manifest of WMI MOF class).
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-decoding_source">DECODING_SOURCE</a> enumeration value that identifies the source used to parse the event's data (for example, an instrumenation manifest of WMI MOF class).
      * @type {Integer}
      */
     DecodingSource {

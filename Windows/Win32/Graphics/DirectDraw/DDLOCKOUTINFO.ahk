@@ -3,7 +3,7 @@
 
 /**
  * The DDLOCKOUTINFO structure contains the surface information output from the DxLock function.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddlockoutinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddlockoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

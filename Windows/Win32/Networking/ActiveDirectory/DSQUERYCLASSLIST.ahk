@@ -4,8 +4,11 @@
 /**
  * The DSQUERYCLASSLIST structure describes a list of classes against which a directory service query is made.
  * @remarks
- * The class list is retrieved by the form pages upon receiving a DSQPM_GETCLASSLIST page message.
- * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryclasslist
+ * 
+  * The class list is retrieved by the form pages upon receiving a DSQPM_GETCLASSLIST page message.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dsquery/ns-dsquery-dsqueryclasslist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

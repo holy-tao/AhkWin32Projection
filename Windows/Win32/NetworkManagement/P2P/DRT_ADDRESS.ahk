@@ -4,7 +4,7 @@
 
 /**
  * DRT_ADDRESS structure contains endpoint information about a DRT node that participated in a search. This information is intended for use in debugging connectivity problems.
- * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_address
+ * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_address
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

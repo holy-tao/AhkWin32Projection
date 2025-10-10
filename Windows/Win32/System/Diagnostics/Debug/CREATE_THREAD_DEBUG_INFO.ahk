@@ -3,7 +3,7 @@
 
 /**
  * Contains thread-creation information that can be used by a debugger.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-create_thread_debug_info
+ * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-create_thread_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The ADS_PATHTYPE_ENUM enumeration specifies the type of object on which the IADsSecurityUtility interface is going to add or modify a security descriptor.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_pathtype_enum
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_pathtype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

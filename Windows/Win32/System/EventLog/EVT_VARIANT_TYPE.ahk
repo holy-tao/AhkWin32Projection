@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible data types of a variant data item.
- * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_variant_type
+ * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_variant_type
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

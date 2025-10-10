@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Sampler states define texture sampling operations such as texture addressing and texture filtering.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dsamplerstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

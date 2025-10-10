@@ -3,7 +3,7 @@
 
 /**
  * Defines a resource texture when the original resource texture is created.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_resource_texture_properties
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_resource_texture_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

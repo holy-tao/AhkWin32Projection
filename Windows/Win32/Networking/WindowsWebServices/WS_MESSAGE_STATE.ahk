@@ -3,7 +3,8 @@
 /**
  * The different states that a message can be in.
  * @remarks
- * A message object transitions through a set of states as it
+ * 
+  * A message object transitions through a set of states as it
   *                 is being received or sent (or read or written).
   *             
   * 
@@ -19,7 +20,8 @@
   * 
   * Note that in the above diagrams, only valid transitions are
   *                 shown.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_message_state
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_message_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * An array of XML prefixes that should be treated as inclusive prefixes during exclusive XML canonicalization. The treatment of inclusive prefixes is defined in RFC 3741.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_canonicalization_inclusive_prefixes
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_canonicalization_inclusive_prefixes
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

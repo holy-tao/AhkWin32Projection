@@ -3,7 +3,7 @@
 
 /**
  * The RAS_USER_0 structure contains information for a particular Remote Access Service user.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_user_0
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_user_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

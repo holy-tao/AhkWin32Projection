@@ -6,7 +6,7 @@
 
 /**
  * The DISPLAYCONFIG_TARGET_MODE structure describes a display path target mode.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_mode
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_target_mode
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

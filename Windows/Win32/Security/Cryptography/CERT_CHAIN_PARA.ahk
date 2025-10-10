@@ -6,7 +6,8 @@
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.
  * @remarks
- * The following remarks apply when checking for strong signatures.
+ * 
+  * The following remarks apply when checking for strong signatures.
   * 
   * <ul>
   * <li>
@@ -26,7 +27,9 @@
   * 
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_para
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_chain_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

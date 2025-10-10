@@ -2,7 +2,7 @@
 
 /**
  * Specifies the error code portion of the HRESULT returned after an asynchronous notification failure.
- * @see https://learn.microsoft.com/windows/win32/api/prnasnot/ne-prnasnot-printasyncnotifyerror
+ * @see https://docs.microsoft.com/windows/win32/api//prnasnot/ne-prnasnot-printasyncnotifyerror
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

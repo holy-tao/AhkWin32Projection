@@ -3,7 +3,7 @@
 
 /**
  * Performs a matrix multiplication function on quantized data. This operator is mathematically equivalent to dequantizing the inputs, then performing matrix multiply, and then quantizing the output.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_quantized_linear_matrix_multiply_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_quantized_linear_matrix_multiply_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to set a disk partition's type.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_partition_information
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-set_partition_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

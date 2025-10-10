@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about an email message that has been received.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_emailreceievedevent
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_emailreceievedevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

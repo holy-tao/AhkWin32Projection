@@ -2,7 +2,7 @@
 
 /**
  * Contains information about the device registration.
- * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/ne-mdmregistration-registration_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/ne-mdmregistration-registration_information_class
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
  * @version v4.0.30319
  */

@@ -4,9 +4,12 @@
 /**
  * The MMC_EXPANDSYNC_STRUCT structure is introduced in MMC 1.1.
  * @remarks
- * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expandsync">MMCN_EXPANDSYNC</a> notification is sent by MMC when it requires a scope item to be synchronously expanded. Normally, this occurs when a console file is reloaded with a scope item expanded. For more information about handling this notification, see 
+ * 
+  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expandsync">MMCN_EXPANDSYNC</a> notification is sent by MMC when it requires a scope item to be synchronously expanded. Normally, this occurs when a console file is reloaded with a scope item expanded. For more information about handling this notification, see 
   * <b>MMCN_EXPANDSYNC</b>.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_expandsync_struct
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_expandsync_struct
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

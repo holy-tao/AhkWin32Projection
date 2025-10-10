@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Describes flags that influence how the renderer interacts with a custom vertex shader. (D2D1_VERTEX_OPTIONS)
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options
+ * Describes flags that influence how the renderer interacts with a custom vertex shader.
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

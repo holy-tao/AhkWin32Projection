@@ -4,8 +4,11 @@
 /**
  * The PDH_FMT_COUNTERVALUE structure contains the computed value of the counter and its status.
  * @remarks
- * You specify the data type of the computed counter value when you call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcalculatecounterfromrawvalue">PdhCalculateCounterFromRawValue</a> to compute the counter's value.
- * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_fmt_countervalue
+ * 
+  * You specify the data type of the computed counter value when you call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetformattedcountervalue">PdhGetFormattedCounterValue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcalculatecounterfromrawvalue">PdhCalculateCounterFromRawValue</a> to compute the counter's value.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_fmt_countervalue
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

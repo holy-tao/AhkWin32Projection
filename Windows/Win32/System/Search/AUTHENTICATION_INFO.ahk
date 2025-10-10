@@ -3,7 +3,7 @@
 
 /**
  * Describes security authentication information for content access.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-authentication_info
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-authentication_info
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

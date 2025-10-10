@@ -3,7 +3,7 @@
 
 /**
  * Basic information about an item.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_file_basic_info
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_file_basic_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

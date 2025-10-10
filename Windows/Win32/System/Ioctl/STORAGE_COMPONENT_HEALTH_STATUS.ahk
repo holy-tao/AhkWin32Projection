@@ -2,7 +2,7 @@
 
 /**
  * Specifies the health status of a storage component.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_component_health_status
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_component_health_status
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

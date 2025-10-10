@@ -2,7 +2,7 @@
 
 /**
  * Specifies how to render gradient mesh edges.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ne-d2d1_3-d2d1_patch_edge_mode
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ne-d2d1_3-d2d1_patch_edge_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

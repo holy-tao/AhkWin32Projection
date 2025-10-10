@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether a location is within the image of an object.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-hitresult
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-hitresult
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

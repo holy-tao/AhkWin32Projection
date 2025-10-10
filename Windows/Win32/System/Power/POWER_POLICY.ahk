@@ -6,7 +6,7 @@
 
 /**
  * Contains power policy settings that are unique to each power scheme.
- * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-power_policy
+ * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

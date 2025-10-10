@@ -4,7 +4,7 @@
 
 /**
  * Describes a stream captured by a tuner.
- * @see https://learn.microsoft.com/windows/win32/api/sbe/ns-sbe-dvr_stream_desc
+ * @see https://docs.microsoft.com/windows/win32/api//sbe/ns-sbe-dvr_stream_desc
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

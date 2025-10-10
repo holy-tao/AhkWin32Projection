@@ -3,7 +3,7 @@
 
 /**
  * Specifies a range of bytes.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_byte_stream_cache_range
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mf_byte_stream_cache_range
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

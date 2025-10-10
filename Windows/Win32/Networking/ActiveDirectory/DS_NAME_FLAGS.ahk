@@ -2,7 +2,7 @@
 
 /**
  * The DS_NAME_FLAGS enumeration is used to define how the name syntax will be cracked. These flags are used by the DsCrackNames function.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_flags
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_name_flags
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

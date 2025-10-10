@@ -3,7 +3,7 @@
 
 /**
  * Contains data used by CertFindCTLInStore with a dwFindType parameter of CTL_FIND_SUBJECT to find a Certificate Trust List (CTL).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_subject_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_find_subject_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

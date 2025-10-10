@@ -6,7 +6,7 @@
 
 /**
  * The DRM_PLAY_OPL structure holds information about the output protection levels (OPL) specified in a license for play actions.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_play_opl
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-drm_play_opl
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

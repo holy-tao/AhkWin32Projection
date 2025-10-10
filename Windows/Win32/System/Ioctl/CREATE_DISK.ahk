@@ -4,7 +4,7 @@
 
 /**
  * Contains information that the IOCTL_DISK_CREATE_DISK control code uses to initialize GUID partition table (GPT), master boot record (MBR), or raw disks.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-create_disk
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

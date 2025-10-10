@@ -5,7 +5,7 @@
 
 /**
  * The EMRANGLEARC structure contains members for the AngleArc enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emranglearc
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emranglearc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

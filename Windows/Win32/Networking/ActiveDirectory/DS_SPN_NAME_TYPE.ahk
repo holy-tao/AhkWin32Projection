@@ -2,7 +2,7 @@
 
 /**
  * The DS_SPN_NAME_TYPE enumeration is used by the DsGetSPN function to identify the format for composing SPNs.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_spn_name_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_spn_name_type
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

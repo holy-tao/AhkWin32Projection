@@ -3,7 +3,7 @@
 
 /**
  * The BTH_LE_GATT_CHARACTERISTIC_VALUE structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile characteristic value.
- * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_characteristic_value
+ * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bth_le_gatt_characteristic_value
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

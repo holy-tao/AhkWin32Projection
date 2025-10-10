@@ -3,7 +3,7 @@
 
 /**
  * Contains alignment information for a file.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_alignment_info
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_alignment_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

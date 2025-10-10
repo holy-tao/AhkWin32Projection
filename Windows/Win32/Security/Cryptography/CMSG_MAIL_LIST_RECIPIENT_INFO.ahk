@@ -6,7 +6,7 @@
 
 /**
  * Contains information used for previously distributed symmetric key-encryption keys (KEK).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_mail_list_recipient_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_mail_list_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

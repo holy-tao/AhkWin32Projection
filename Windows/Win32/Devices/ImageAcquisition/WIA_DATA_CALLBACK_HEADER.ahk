@@ -3,7 +3,7 @@
 
 /**
  * The WIA_DATA_CALLBACK_HEADER is transmitted to an application during a series of calls by the Windows Image Acquisition (WIA) run-time system to the IWiaDataCallback::BandedDataCallback method.
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_data_callback_header
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_data_callback_header
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

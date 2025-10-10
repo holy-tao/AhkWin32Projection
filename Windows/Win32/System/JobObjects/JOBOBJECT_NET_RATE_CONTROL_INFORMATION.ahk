@@ -4,8 +4,11 @@
 /**
  * Contains information used to control the network traffic for a job. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectNetRateControlInformation information class.
  * @remarks
- * You can only set the control of the network traffic on one job in a hierarchy of nested jobs. The settings that you specify apply to that job and the child jobs in the hierarchy for that job.  The settings do not apply to the chain of jobs from the parent job up to the top of the hierarchy. You can change the settings on the original job in the hierarchy on which you set rate control. However, attempts to set values for the control of the network rate for any other jobs in the hierarchy, including the parent jobs, fail.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_net_rate_control_information
+ * 
+  * You can only set the control of the network traffic on one job in a hierarchy of nested jobs. The settings that you specify apply to that job and the child jobs in the hierarchy for that job.  The settings do not apply to the chain of jobs from the parent job up to the top of the hierarchy. You can change the settings on the original job in the hierarchy on which you set rate control. However, attempts to set values for the control of the network rate for any other jobs in the hierarchy, including the parent jobs, fail.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_net_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

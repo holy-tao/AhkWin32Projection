@@ -3,7 +3,7 @@
 
 /**
  * DDHAL_DESTROYDDLOCALDATA contains the information required for the driver to destroy a set of surfaces associated to a given local DirectDraw object.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddhal_destroyddlocaldata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawi/ns-ddrawi-ddhal_destroyddlocaldata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

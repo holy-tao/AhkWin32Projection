@@ -2,7 +2,7 @@
 
 /**
  * Used to specified the usage type for the socket.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-socket_usage_type
+ * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ne-mstcpip-socket_usage_type
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains information about an event that is raised when the structure of the Microsoft UI Automation tree changes.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiastructurechangedeventargs
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiastructurechangedeventargs
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

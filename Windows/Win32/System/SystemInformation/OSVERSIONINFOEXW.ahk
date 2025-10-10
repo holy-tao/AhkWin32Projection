@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains operating system version information. The information includes major and minor version numbers, a build number, a platform identifier, and information about product suites and the latest Service Pack installed on the system. (Unicode)
+ * Contains operating system version information. The information includes major and minor version numbers, a build number, a platform identifier, and information about product suites and the latest Service Pack installed on the system.
  * @remarks
- * Relying on version information is not the best way to test for a feature. Instead, refer to the documentation 
+ * 
+  * Relying on version information is not the best way to test for a feature. Instead, refer to the documentation 
   *     for the feature of interest. For more information on common techniques for feature detection, see 
   *     <a href="https://docs.microsoft.com/windows/desktop/SysInfo/operating-system-version">Operating System Version</a>.
   * 
@@ -182,7 +183,11 @@
   * <td><b>SM_TABLETPC</b></td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfoexw
+  *  
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-osversioninfoexw
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  * @charset Unicode

@@ -3,8 +3,11 @@
 /**
  * Specifies the attributes of a recognizer. You also use this enumeration to determine which attributes to use when you search for an installed recognizer.
  * @remarks
- * This enumeration is a flag.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognizercapabilities
+ * 
+  * This enumeration is a flag.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognizercapabilities
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

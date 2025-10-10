@@ -2,7 +2,7 @@
 
 /**
  * The SmartCardStatusType enumeration type specifies the status of a smart card.
- * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-smartcardstatustype
+ * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-smartcardstatustype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

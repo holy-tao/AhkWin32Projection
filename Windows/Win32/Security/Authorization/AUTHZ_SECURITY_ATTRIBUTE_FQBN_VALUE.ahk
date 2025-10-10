@@ -3,7 +3,7 @@
 
 /**
  * Specifies a fully qualified binary name value associated with a security attribute.
- * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_fqbn_value
+ * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_security_attribute_fqbn_value
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

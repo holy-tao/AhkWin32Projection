@@ -3,7 +3,7 @@
 
 /**
  * The VMR9ProcAmpControlRange structure specifies the valid range for an image adjustment property. The range depends on the graphics device driver. This structure is used with the Video Mixing Renderer 9 Filter (VMR-9).
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9procampcontrolrange
+ * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9procampcontrolrange
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

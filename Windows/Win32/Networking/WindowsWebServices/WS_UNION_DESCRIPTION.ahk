@@ -4,15 +4,14 @@
 /**
  * Information about the choices within a union type. This is used with WS_UNION_TYPE.
  * @remarks
- * This description assumes a structure which contains both the 
+ * 
+  * This description assumes a structure which contains both the 
   *                 selector value (an integer enumerated value) and a union which
   *                 contains a field which corresponds to each of the possible
   *                 choices, for example:
   *             
   * 
-  * 
-  * ``` syntax
-  * // Enumeration of choices of different values
+  * <pre class="syntax" xml:space="preserve"><code>// Enumeration of choices of different values
   * enum Choice
   * {
   *     ChoiceA = 20,
@@ -29,17 +28,13 @@
   *         int a;
   *         WS_STRING b;
   *     } value;
-  * };
-  * ```
-  * 
+  * };</code></pre>
   * The following examples illustrates initializing a union description
   *                 for the previous example.  This example fills out the nameIndices 
   *                 field, but this field could be <b>NULL</b> instead.
   *             
   * 
-  * 
-  * ``` syntax
-  * WS_XML_STRING choiceAString = WS_XML_STRING_VALUE("choiceA");
+  * <pre class="syntax" xml:space="preserve"><code>WS_XML_STRING choiceAString = WS_XML_STRING_VALUE("choiceA");
   * WS_XML_STRING choiceANs = WS_XML_STRING_VALUE("http://examples.org/a");
   * 
   * WS_UNION_FIELD_DESCRIPTION fieldA = { };
@@ -81,27 +76,19 @@
   * unionDescription.enumOffset = WsOffsetOf(StructType, choice);
   * unionDescription.noneEnumValue = None;
   * unionDescription.valueIndices = valueIndices;
-  * 
-  * ```
-  * 
+  * </code></pre>
   * The above would allow either of the following elements to
   *                 appear:
   *             
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * &lt;choiceA xmlns="http://example.com/a"&gt;123&lt;/choiceA&gt;
   * &lt;choiceB xmlns="http://example.com/b"&gt;hello&lt;/choiceB&gt;
-  * 
-  * ```
-  * 
+  * </code></pre>
   * The following is an example of setting values:
   *             
   * 
-  * 
-  * ``` syntax
-  * StructType structType;
+  * <pre class="syntax" xml:space="preserve"><code>StructType structType;
   * 
   * // Set ChoiceA
   * structType.choice = ChoiceA;
@@ -114,24 +101,18 @@
   * 
   * // Set "none" choice
   * structType.choice = None;
-  * 
-  * ```
-  * 
-  * The following is the grammar describing the order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a> that make up a <b>WS_UNION_DESCRIPTION</b>.  The order is defined based on the
+  * </code></pre>
+  * The following is the grammar describing the order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>that make up a <b>WS_UNION_DESCRIPTION</b>.  The order is defined based on the
   *                 mapping field of the <b>WS_FIELD_DESCRIPTION</b>.
   *             
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * Fields := ElementContentFields AnyElementField?
   * ElementContentFields := (ElementField | RepeatingElementField)*
   * ElementField := WS_ELEMENT_FIELD_MAPPING
   * RepeatingElementField := WS_REPEATING_ELEMENT_FIELD_MAPPING
-  * AnyElementField := WS_ANY_ELEMENT_FIELD_MAPPING
-  * ```
-  * 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ELEMENT_FIELD_MAPPING</a> and <b>WS_REPEATING_ELEMENT_FIELD_MAPPING</b> represent the element choices and their corresponding fields in the union.
+  * AnyElementField := WS_ANY_ELEMENT_FIELD_MAPPING</code></pre>
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ELEMENT_FIELD_MAPPING</a> and <b>WS_REPEATING_ELEMENT_FIELD_MAPPING</b>represent the element choices and their corresponding fields in the union.
   *             
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ANY_ELEMENT_FIELD_MAPPING</a> is the field used when none of the
@@ -150,7 +131,8 @@
   * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a> may not be used.
   *             </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_description
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_union_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

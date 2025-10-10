@@ -3,7 +3,7 @@
 
 /**
  * The MSV1_0_SUPPLEMENTAL_CREDENTIAL structure is used to pass credentials into MSV1_0 from Kerberos or custom authentication package.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_supplemental_credential
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-msv1_0_supplemental_credential
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

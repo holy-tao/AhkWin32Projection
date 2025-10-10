@@ -292,6 +292,11 @@ class Direct3D {
      * @type {String}
      */
     static D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE => "{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}"
+
+    /**
+     * @type {String}
+     */
+    static CLSID_D3DShaderCacheInstallerFactory => "{16195a0b-607c-41f1-bf03-c7694d60a8d4}"
 ;@endregion Constants
 
 ;@region Methods

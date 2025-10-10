@@ -2,7 +2,7 @@
 
 /**
  * Represents the Pulse Width Modulation (PWM) signal level polarity with respect to the duty cycle.
- * @see https://learn.microsoft.com/windows/win32/api/pwm/ne-pwm-pwm_polarity
+ * @see https://docs.microsoft.com/windows/win32/api//pwm/ne-pwm-pwm_polarity
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

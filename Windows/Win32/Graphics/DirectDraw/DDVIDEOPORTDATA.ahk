@@ -3,7 +3,7 @@
 
 /**
  * The DDVIDEOPORTDATA structure is used by DirectDraw to represent a video port extensions (VPE) object to the kernel-mode video miniport driver.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddvideoportdata
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddvideoportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

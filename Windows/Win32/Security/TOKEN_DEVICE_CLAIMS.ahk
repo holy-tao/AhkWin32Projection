@@ -3,7 +3,7 @@
 
 /**
  * Defines the device claims for the token.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_device_claims
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_device_claims
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

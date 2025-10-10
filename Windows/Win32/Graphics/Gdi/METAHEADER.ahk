@@ -3,7 +3,7 @@
 
 /**
  * The METAHEADER structure contains information about a Windows-format metafile.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metaheader
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-metaheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

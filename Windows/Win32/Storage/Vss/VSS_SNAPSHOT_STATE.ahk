@@ -3,7 +3,8 @@
 /**
  * Specify the state of a given shadow copy operation.
  * @remarks
- * The shadow copy state is contained in the <b>m_eStatus</b> member of a 
+ * 
+  * The shadow copy state is contained in the <b>m_eStatus</b> member of a 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> object, which can be obtained for a 
   *     single shadow copy by calling 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a>.
@@ -24,7 +25,9 @@
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a>, 
   *     the <b>IVssBackupComponents::Query</b> method can 
   *     return only a shadow copy state of <b>VSS_SS_CREATED</b>.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_state
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_snapshot_state
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

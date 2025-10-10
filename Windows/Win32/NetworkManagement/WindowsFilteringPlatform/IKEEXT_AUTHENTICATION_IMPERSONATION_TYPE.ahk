@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of impersonation to perform when Authenticated Internet Protocol (AuthIP) is used for authentication.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_impersonation_type
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_authentication_impersonation_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

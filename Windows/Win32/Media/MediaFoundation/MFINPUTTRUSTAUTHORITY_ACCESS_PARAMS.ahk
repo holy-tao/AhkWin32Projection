@@ -4,7 +4,7 @@
 
 /**
  * Contains parameters for the IMFInputTrustAuthority::BindAccess or IMFInputTrustAuthority::UpdateAccess method.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfinputtrustauthority_access_params
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfinputtrustauthority_access_params
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

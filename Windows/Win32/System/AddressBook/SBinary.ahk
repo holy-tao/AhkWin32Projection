@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Outlines SBinary, including a description of property type PT_BINARY. This applies to Outlook 2013 and Outlook 2016.
- * @remarks
- * For information about property types, see [MAPI Property Type Overview](mapi-property-type-overview.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinary
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SBinary extends Win32Struct
     static packingSize => 8
 
     /**
-     * > Count of bytes in the **lpb** member.
      * @type {Integer}
      */
     cb {
@@ -25,7 +20,6 @@ class SBinary extends Win32Struct
     }
 
     /**
-     * > Pointer to the PT_BINARY property value.
      * @type {Pointer<Byte>}
      */
     lpb {

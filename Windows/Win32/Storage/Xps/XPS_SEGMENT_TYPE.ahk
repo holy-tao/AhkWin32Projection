@@ -3,7 +3,8 @@
 /**
  * Describes a line segment.
  * @remarks
- * A geometry segment is described by the start point, the segment type, and additional parameters whose values are determined by the segment type. The coordinates for the start point of the first segment are a property of the geometry figure. The start point of each subsequent segment is the end point of the preceding segment.
+ * 
+  * A geometry segment is described by the start point, the segment type, and additional parameters whose values are determined by the segment type. The coordinates for the start point of the first segment are a property of the geometry figure. The start point of each subsequent segment is the end point of the preceding segment.
   * 
   * The table that follows shows an example of each segment type.
   * 
@@ -13,11 +14,11 @@
   * </tr>
   * <tr>
   * <td>
-  * XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE <img alt="Diagram of an XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE figure segment." src="./images/segment_type_arc_lc.png"/>
+  * XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE <img alt="A diagram that shows an example of an XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE figure segment" src="./images/segment_type_arc_lc.png"/>
   * 
   * </td>
   * <td>
-  * XPS_SEGMENT_TYPE_ARC_LARGE_COUNTERCLOCKWISE <img alt="Diagram of an XPS_SEGMENT_TYPE_ARC_LARGE_COUNTERCLOCKWISE figure segment." src="./images/segment_type_arc_lcc.png"/> 
+  * XPS_SEGMENT_TYPE_ARC_LARGE_COUNTERCLOCKWISE <img alt="A diagram that shows an example of an XPS_SEGMENT_TYPE_ARC_LARGE_CLOCKWISE figure segment" src="./images/segment_type_arc_lcc.png"/> 
   * 
   * </td>
   * </tr>
@@ -49,7 +50,9 @@
   * <td></td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_segment_type
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

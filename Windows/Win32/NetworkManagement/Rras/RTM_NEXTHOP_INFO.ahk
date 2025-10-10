@@ -4,7 +4,7 @@
 
 /**
  * The RTM_NEXTHOP_INFO structure is used to exchange next-hop information with the routing table manager.
- * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_nexthop_info
+ * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_nexthop_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

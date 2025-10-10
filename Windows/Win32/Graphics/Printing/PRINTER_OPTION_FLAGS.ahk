@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the caching of a handle for a printer opened with OpenPrinter2.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-option-flags
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

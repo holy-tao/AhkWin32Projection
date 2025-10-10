@@ -3,7 +3,7 @@
 
 /**
  * Represents the decay model that is applied over distance from the position of an ISpatialAudioObjectForHrtf to the position of the listener.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdistancedecay
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdistancedecay
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

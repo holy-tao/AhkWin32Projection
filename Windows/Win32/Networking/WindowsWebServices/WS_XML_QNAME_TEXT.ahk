@@ -4,7 +4,7 @@
 
 /**
  * Represents a qname formatted as the text &quot;prefix:localName&quot;
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_qname_text
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_qname_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

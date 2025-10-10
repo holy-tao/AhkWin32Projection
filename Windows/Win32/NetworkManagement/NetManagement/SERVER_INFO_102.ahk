@@ -4,9 +4,12 @@
 /**
  * Contains information about the specified server, including name, platform, type of server, attributes, and associated software.
  * @remarks
- * To retrieve a value that indicates whether a share is the root volume in a Dfs tree structure, you must call the 
+ * 
+  * To retrieve a value that indicates whether a share is the root volume in a Dfs tree structure, you must call the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> function and specify information level 1005.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_102
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_102
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

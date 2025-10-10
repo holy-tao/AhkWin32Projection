@@ -3,7 +3,7 @@
 
 /**
  * Provides error information for use in the ISyncMgrSynchronizeCallback::LogError method.
- * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrlogerrorinfo
+ * @see https://docs.microsoft.com/windows/win32/api//mobsync/ns-mobsync-syncmgrlogerrorinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

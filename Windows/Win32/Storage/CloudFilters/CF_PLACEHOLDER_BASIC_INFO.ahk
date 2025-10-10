@@ -3,7 +3,7 @@
 
 /**
  * Basic placeholder information.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_basic_info
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_placeholder_basic_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class CF_PLACEHOLDER_BASIC_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The [CF_PIN_STATE](ne-cfapi-cf_pin_state.md) of the placeholder, which is used to represent a user’s intent. See [CfSetPinState](nf-cfapi-cfsetpinstate.md) for more details.
+     * The pin state of the placeholder. See <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetpinstate">CfSetPinState</a> for more details.
      * @type {Integer}
      */
     PinState {
@@ -23,7 +23,7 @@ class CF_PLACEHOLDER_BASIC_INFO extends Win32Struct
     }
 
     /**
-     * The [CF_IN_SYNC_STATE](ne-cfapi-cf_in_sync_state.md) of the placeholder. See [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) for more details.
+     * The in-sync state of the placeholder. see <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetinsyncstate">CfSetInSyncState</a> for more details.
      * @type {Integer}
      */
     InSyncState {
@@ -50,7 +50,7 @@ class CF_PLACEHOLDER_BASIC_INFO extends Win32Struct
     }
 
     /**
-     * Length, in bytes, of the *FileIdentity*.
+     * Length, in bytes, of the FileIdentity.
      * @type {Integer}
      */
     FileIdentityLength {

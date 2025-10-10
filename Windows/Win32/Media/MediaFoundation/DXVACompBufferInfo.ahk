@@ -4,8 +4,11 @@
 /**
  * Specifies the requirements for compressed surfaces for DirectX Video Acceleration (DXVA).
  * @remarks
- * To create the compressed surfaces, call <a href="https://docs.microsoft.com/windows/desktop/medfound/idirect3dvideodevice9-createsurface">IDirect3DVideoDevice9::CreateSurface</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxvacompbufferinfo
+ * 
+  * To create the compressed surfaces, call <a href="https://docs.microsoft.com/windows/desktop/medfound/idirect3dvideodevice9-createsurface">IDirect3DVideoDevice9::CreateSurface</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxvacompbufferinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

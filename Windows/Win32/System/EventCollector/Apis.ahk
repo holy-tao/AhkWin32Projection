@@ -48,8 +48,8 @@ class EventCollector {
     /**
      * Creates a subscription enumerator to enumerate all registered subscriptions on the local machine.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @returns {Pointer} If the function succeeds, it returns a handle (<a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-data-types">EC_HANDLE</a>) to a new subscription enumerator object. Returns <b>NULL</b> otherwise, in which case use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecopensubscriptionenum
+     * @returns {Pointer} If the function succeeds, it returns an handle (<a href="/windows/desktop/WEC/windows-event-collector-data-types">EC_HANDLE</a>) to a new subscription enumerator object. Returns <b>NULL</b> otherwise, in which case use the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecopensubscriptionenum
      * @since windows6.0.6000
      */
     static EcOpenSubscriptionEnum(Flags) {
@@ -69,7 +69,7 @@ class EventCollector {
      * @param {Pointer<Char>} SubscriptionNameBuffer The user-supplied buffer to store the subscription name.
      * @param {Pointer<UInt32>} SubscriptionNameBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the subscription name when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecenumnextsubscription
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecenumnextsubscription
      * @since windows6.0.6000
      */
     static EcEnumNextSubscription(SubscriptionEnum, SubscriptionNameBufferSize, SubscriptionNameBuffer, SubscriptionNameBufferUsed) {
@@ -84,8 +84,8 @@ class EventCollector {
      * @param {Pointer<Char>} SubscriptionName Specifies the name of the subscription. The value provided for this parameter should be unique within the computer's scope.
      * @param {Integer} AccessMask An access mask that specifies the desired access rights to the subscription. Use the <a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-constants">EC_READ_ACCESS</a> or <a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-constants">EC_WRITE_ACCESS</a> constants to specify the access rights. The function fails if the security descriptor of the subscription does not permit the requested access for the calling process.
      * @param {Integer} Flags A value specifying whether a new or existing subscription will be opened. Use the <b>EC_CREATE_NEW</b>, <b>EC_OPEN_ALWAYS</b>, or <b>EC_OPEN_EXISTING</b> constants.
-     * @returns {Pointer} If the function succeeds, it returns a handle (<a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-data-types">EC_HANDLE</a>) to a new subscription object. Returns <b>NULL</b> otherwise, in which case use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecopensubscription
+     * @returns {Pointer} If the function succeeds, it returns an handle (<a href="/windows/desktop/WEC/windows-event-collector-data-types">EC_HANDLE</a>) to a new subscription object. Returns <b>NULL</b> otherwise, in which case use the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecopensubscription
      * @since windows6.0.6000
      */
     static EcOpenSubscription(SubscriptionName, AccessMask, Flags) {
@@ -107,7 +107,7 @@ class EventCollector {
      * @param {Integer} Flags Reserved. Must be 0.
      * @param {Pointer<EC_VARIANT>} PropertyValue The value of the property to set for the indicated subscription property.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetsubscriptionproperty
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecsetsubscriptionproperty
      * @since windows6.0.6000
      */
     static EcSetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValue) {
@@ -124,7 +124,7 @@ class EventCollector {
      * @param {Pointer<EC_VARIANT>} PropertyValueBuffer The user-supplied buffer to store property value into.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecgetsubscriptionproperty
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetsubscriptionproperty
      * @since windows6.0.6000
      */
     static EcGetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -134,14 +134,10 @@ class EventCollector {
 
     /**
      * Saves subscription configuration information.
-     * @remarks
-     * To retry a subscription for all the event sources of a subscription, use the <b>EcSaveSubscription</b> function instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecretrysubscription">EcRetrySubscription</a> on each event source individually.
-     * 
-     * The subscription will be active only if the collector service is running. The service must be set to automatically start and run after the computer is booted.
      * @param {Pointer} Subscription The handle to the subscription object.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsavesubscription
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecsavesubscription
      * @since windows6.0.6000
      */
     static EcSaveSubscription(Subscription, Flags) {
@@ -154,7 +150,7 @@ class EventCollector {
      * @param {Pointer<Char>} SubscriptionName The subscription to be deleted.
      * @param {Integer} Flags Reserved, must be 0.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecdeletesubscription
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecdeletesubscription
      * @since windows6.0.6000
      */
     static EcDeleteSubscription(SubscriptionName, Flags) {
@@ -166,12 +162,10 @@ class EventCollector {
 
     /**
      * Retrieves the number of indexes of the array of property values for the event sources of a subscription.
-     * @remarks
-     * Arrays are zero-based, so the index for the first item in the array is 0.
      * @param {Pointer} ObjectArray A handle to the array from which to get the size. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>PropertyId</i> parameter.
      * @param {Pointer<UInt32>} ObjectArraySize The size of the array (the number of indexes).
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecgetobjectarraysize
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetobjectarraysize
      * @since windows6.0.6000
      */
     static EcGetObjectArraySize(ObjectArray, ObjectArraySize) {
@@ -181,15 +175,13 @@ class EventCollector {
 
     /**
      * Sets a property value in an array of property values for the event sources of a subscription.
-     * @remarks
-     * Arrays are zero-based, so the index for the first item in the array is 0.
      * @param {Pointer} ObjectArray A handle to the array that contains the property value to set. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>Subscription</i> parameter.
      * @param {Integer} PropertyId An identifier that specifies which property to set. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Set  the Address, Enabled, UserName, and Password properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
      * @param {Integer} ArrayIndex The index of the  object in the array to set a property value on.
      * @param {Integer} Flags Reserved. Must be 0.
      * @param {Pointer<EC_VARIANT>} PropertyValue The value of the property.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecsetobjectarrayproperty
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecsetobjectarrayproperty
      * @since windows6.0.6000
      */
     static EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValue) {
@@ -199,12 +191,6 @@ class EventCollector {
 
     /**
      * Retrieves property values for the event sources of a subscription.
-     * @remarks
-     * Arrays are zero-based, so the index for the first item in the array is 0.
-     * 
-     * The Password property for an event source or the subscription cannot be retrieved. For security reasons, an empty string is returned for the property value and the last error will be set to <b>ERROR_ACCESS_DENIED</b>.
-     * 
-     * A subscription can have multiple event sources, and each source can have an <b>Address</b>, <b>Enabled</b>, <b>UserName</b>, and <b>Password</b> property.
      * @param {Pointer} ObjectArray A handle to an array of properties for the event sources for a subscription. An  array handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>PropertyId</i> parameter.
      * @param {Integer} PropertyId The property identifier for properties in the array. Specify a value from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a> enumeration. Get  the <b>Address</b>, <b>Enabled</b>, <b>UserName</b>, and <b>Password</b> properties in the array by specifying the <b>EcSubscriptionEventSourceAddress</b>, <b>EcSubscriptionEventSourceEnabled</b>, <b>EcSubscriptionEventSourceUserName</b>, or <b>EcSubscriptionEventSourcePassword</b> values.
      * @param {Integer} ArrayIndex The index of the array that specifies which event source to get the property from.
@@ -213,7 +199,7 @@ class EventCollector {
      * @param {Pointer<EC_VARIANT>} PropertyValueBuffer The user-supplied buffer to store property value into.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecgetobjectarrayproperty
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetobjectarrayproperty
      * @since windows6.0.6000
      */
     static EcGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -223,14 +209,10 @@ class EventCollector {
 
     /**
      * Inserts an empty object into an array of property values for the event sources of a subscription.
-     * @remarks
-     * Arrays are zero-based, so the index for the first item in the array is 0.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecsetobjectarrayproperty">EcSetObjectArrayProperty</a> to set individual properties of an empty object inserted into the array specified in the <i>ObjectArray</i> parameter.
      * @param {Pointer} ObjectArray A  handle to the array in which the object is inserted into. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>Subscription</i> parameter.
      * @param {Integer} ArrayIndex An array index indicating where to insert the object.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecinsertobjectarrayelement
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecinsertobjectarrayelement
      * @since windows6.0.6000
      */
     static EcInsertObjectArrayElement(ObjectArray, ArrayIndex) {
@@ -240,12 +222,10 @@ class EventCollector {
 
     /**
      * Removes an element from an array of objects that contain property values for the event sources of a subscription.
-     * @remarks
-     * Arrays are zero-based, so the index for the first item in the array is 0.
      * @param {Pointer} ObjectArray A  handle to the array in which to remove the element. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>Subscription</i> parameter.
      * @param {Integer} ArrayIndex The index of the element to remove from the array.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecremoveobjectarrayelement
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecremoveobjectarrayelement
      * @since windows6.0.6000
      */
     static EcRemoveObjectArrayElement(ObjectArray, ArrayIndex) {
@@ -263,7 +243,7 @@ class EventCollector {
      * @param {Pointer<EC_VARIANT>} StatusValueBuffer The user-supplied buffer that will hold the run time status information. The buffer will hold the appropriate value depending on the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> value passed into the <i>StatusInfoId</i> parameter.
      * @param {Pointer<UInt32>} StatusValueBufferUsed The size of the user supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecgetsubscriptionruntimestatus
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetsubscriptionruntimestatus
      * @since windows6.0.6000
      */
     static EcGetSubscriptionRunTimeStatus(SubscriptionName, StatusInfoId, EventSourceName, Flags, StatusValueBufferSize, StatusValueBuffer, StatusValueBufferUsed) {
@@ -276,13 +256,11 @@ class EventCollector {
 
     /**
      * Retries connecting to the event source of a subscription that is not connected.
-     * @remarks
-     * To retry a subscription for all the event sources of a subscription, use the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecsavesubscription">EcSaveSubscription</a> function instead of calling <b>EcRetrySubscription</b> on each event source individually.
      * @param {Pointer<Char>} SubscriptionName The name of the subscription to which to connect.
      * @param {Pointer<Char>} EventSourceName The name of the event source of the subscription. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> when the subscription is source initiated.  If this parameter is <b>NULL</b>, the entire subscription will be retried.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecretrysubscription
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecretrysubscription
      * @since windows6.0.6000
      */
     static EcRetrySubscription(SubscriptionName, EventSourceName, Flags) {
@@ -297,7 +275,7 @@ class EventCollector {
      * Closes a handle received from other Event Collector functions.
      * @param {Pointer} Object A valid open handle returned from an event collector management API call.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecclose
+     * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecclose
      * @since windows6.0.6000
      */
     static EcClose(Object) {

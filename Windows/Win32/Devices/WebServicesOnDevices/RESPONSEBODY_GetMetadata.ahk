@@ -3,7 +3,7 @@
 
 /**
  * Represents a WS-MetadataExchange GetMetadata response message.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-responsebody_getmetadata
+ * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-responsebody_getmetadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

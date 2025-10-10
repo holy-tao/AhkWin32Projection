@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTBANDWIDTHDATA structure contains the bandwidth information for any specified format.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportbandwidthdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportbandwidthdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

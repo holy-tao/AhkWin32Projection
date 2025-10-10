@@ -3,7 +3,7 @@
 
 /**
  * Represents a 4x4 affine transformation matrix.
- * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milmatrixf
+ * @see https://docs.microsoft.com/windows/win32/api//mileffects/ns-mileffects-milmatrixf
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -170,7 +170,7 @@ class MILMatrixF extends Win32Struct
     /**
      * Type: <b>DOUBLE</b>
      * 
-     * The value of the forth row and third column of the matrix.
+     * The value of the forth row and thrid column of the matrix.
      * @type {Float}
      */
     _43 {

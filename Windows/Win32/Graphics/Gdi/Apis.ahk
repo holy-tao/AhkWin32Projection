@@ -4126,26 +4126,111 @@ class Gdi {
 
 ;@region Methods
     /**
-     * The GetObject function retrieves information for the specified graphics object. (GetObjectA)
-     * @remarks
-     * The buffer pointed to by the <i>lpvObject</i> parameter must be sufficiently large to receive the information about the graphics object. Depending on the graphics object, the function uses a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpen">LOGPEN</a> structure, or a count of table entries (for a logical palette).
+     * The GetObject function retrieves information for the specified graphics object.
+     * @param {Pointer<Void>} h A handle to the graphics object of interest. This can be a handle to one of the following: a logical bitmap, a brush, a font, a palette, a pen, or a device independent bitmap created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function.
+     * @param {Integer} c The number of bytes of information to be written to the buffer.
+     * @param {Pointer} pv A pointer to a buffer that receives the information about the specified graphics object.
      * 
-     * If <i>hgdiobj</i> is a handle to a bitmap created by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a>, and the specified buffer is large enough, the <b>GetObject</b> function returns a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a> structure. In addition, the <b>bmBits</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a> structure contained within the <b>DIBSECTION</b> will contain a pointer to the bitmap's bit values.
+     * The following table shows the type of information the buffer receives for each type of graphics object you can specify with <i>hgdiobj</i>.
      * 
-     * If <i>hgdiobj</i> is a handle to a bitmap created by any other means, <b>GetObject</b> returns only the width, height, and color format information of the bitmap. You can obtain the bitmap's bit values by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbitmapbits">GetBitmapBits</a> function.
+     * <table>
+     * <tr>
+     * <th>Object type</th>
+     * <th>Data written to buffer</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBITMAP"></a><a id="hbitmap"></a><dl>
+     * <dt><b><b>HBITMAP</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
      * 
-     * If <i>hgdiobj</i> is a handle to a logical palette, <b>GetObject</b> retrieves a 2-byte integer that specifies the number of entries in the palette. The function does not retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpalette">LOGPALETTE</a> structure defining the palette. To retrieve information about palette entries, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getpaletteentries">GetPaletteEntries</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>
      * 
-     * If <i>hgdiobj</i> is a handle to a font, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> that is returned is the <b>LOGFONT</b> used to create the font. If Windows had to make some interpolation of the font because the precise <b>LOGFONT</b> could not be represented, the interpolation will not be reflected in the <b>LOGFONT</b>. For example, if you ask for a vertical version of a font that doesn't support vertical painting, the <b>LOGFONT</b> indicates the font is vertical, but Windows will paint it horizontally.
-     * @param {Pointer<Void>} h 
-     * @param {Integer} c 
-     * @param {Pointer} pv 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBITMAP_returned_from_a_call_to_CreateDIBSection"></a><a id="hbitmap_returned_from_a_call_to_createdibsection"></a><a id="HBITMAP_RETURNED_FROM_A_CALL_TO_CREATEDIBSECTION"></a><dl>
+     * <dt><b><b>HBITMAP</b> returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a>, if <i>cbBuffer</i> is set to<c> sizeof (DIBSECTION)</code>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>, if <i>cbBuffer</i> is set to <code>sizeof (BITMAP)</c>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPALETTE"></a><a id="hpalette"></a><dl>
+     * <dt><b><b>HPALETTE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A <b>WORD</b> count of the number of entries in the logical palette
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPEN_returned_from_a_call_to_ExtCreatePen"></a><a id="hpen_returned_from_a_call_to_extcreatepen"></a><a id="HPEN_RETURNED_FROM_A_CALL_TO_EXTCREATEPEN"></a><dl>
+     * <dt><b><b>HPEN</b> returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPEN"></a><a id="hpen"></a><dl>
+     * <dt><b><b>HPEN</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpen">LOGPEN</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBRUSH"></a><a id="hbrush"></a><dl>
+     * <dt><b><b>HBRUSH</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HFONT"></a><a id="hfont"></a><dl>
+     * <dt><b><b>HFONT</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If the <i>lpvObject</i> parameter is <b>NULL</b>, the function return value is the number of bytes required to store the information it writes to the buffer for the specified graphics object.
+     * 
+     * The address of <i>lpvObject</i> must be on a 4-byte boundary; otherwise, <b>GetObject</b> fails.
      * @returns {Integer} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
      * 
      * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjecta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobjecta
      */
     static GetObjectA(h, c, pv) {
         result := DllCall("GDI32.dll\GetObjectA", "ptr", h, "int", c, "ptr", pv, "int")
@@ -4153,27 +4238,12 @@ class Gdi {
     }
 
     /**
-     * The AddFontResource function adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application. (ANSI)
-     * @remarks
-     * Any application that adds or removes fonts from the system font table should notify other windows of the change by sending a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-fontchange">WM_FONTCHANGE</a> message to all top-level windows in the operating system. The application should send this message by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a> function and setting the <i>hwnd</i> parameter to HWND_BROADCAST.
-     * 
-     * When an application no longer needs a font resource that it loaded by calling the <b>AddFontResource</b> function, it must remove that resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a> function.
-     * 
-     * This function installs the font only for the current session. When the system restarts, the font will not be present. To have the font installed even after restarting the system, the font must be listed in the registry.
-     * 
-     * A font listed in the registry and installed to a location other than the %windir%\fonts\ folder cannot be modified, deleted, or replaced as long as it is loaded in any session. In order to change one of these fonts, it must first be removed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a>, removed from the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>), and the system restarted. After restarting the system, the font will no longer be loaded and can be changed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines AddFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AddFontResource function adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application.
      * @param {Pointer<Byte>} param0 
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourcea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontresourcea
      * @since windows5.0
      */
     static AddFontResourceA(param0) {
@@ -4184,27 +4254,12 @@ class Gdi {
     }
 
     /**
-     * The AddFontResource function adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application. (Unicode)
-     * @remarks
-     * Any application that adds or removes fonts from the system font table should notify other windows of the change by sending a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-fontchange">WM_FONTCHANGE</a> message to all top-level windows in the operating system. The application should send this message by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a> function and setting the <i>hwnd</i> parameter to HWND_BROADCAST.
-     * 
-     * When an application no longer needs a font resource that it loaded by calling the <b>AddFontResource</b> function, it must remove that resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a> function.
-     * 
-     * This function installs the font only for the current session. When the system restarts, the font will not be present. To have the font installed even after restarting the system, the font must be listed in the registry.
-     * 
-     * A font listed in the registry and installed to a location other than the %windir%\fonts\ folder cannot be modified, deleted, or replaced as long as it is loaded in any session. In order to change one of these fonts, it must first be removed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a>, removed from the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>), and the system restarted. After restarting the system, the font will no longer be loaded and can be changed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines AddFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AddFontResource function adds the font resource from the specified file to the system font table. The font can subsequently be used for text output by any application.
      * @param {Pointer<Char>} param0 
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourcew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontresourcew
      * @since windows5.0
      */
     static AddFontResourceW(param0) {
@@ -4216,12 +4271,6 @@ class Gdi {
 
     /**
      * The AnimatePalette function replaces entries in the specified logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * The <b>AnimatePalette</b> function only changes entries with the PC_RESERVED flag set in the corresponding <b>palPalEntry</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpalette">LOGPALETTE</a> structure.
-     * 
-     * If the given palette is associated with the active window, the colors in the palette are replaced immediately.
      * @param {Pointer<Void>} hPal A handle to the logical palette.
      * @param {Integer} iStartIndex The first logical palette entry to be replaced.
      * @param {Integer} cEntries The number of entries to be replaced.
@@ -4229,7 +4278,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-animatepalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-animatepalette
      * @since windows5.0
      */
     static AnimatePalette(hPal, iStartIndex, cEntries, ppe) {
@@ -4239,14 +4288,6 @@ class Gdi {
 
     /**
      * The Arc function draws an elliptical arc.
-     * @remarks
-     * The points (<i>nLeftRect</i>, <i>nTopRect</i>) and (<i>nRightRect</i>, <i>nBottomRect</i>) specify the bounding rectangle. An ellipse formed by the specified bounding rectangle defines the curve of the arc. The arc extends in the current drawing direction from the point where it intersects the radial from the center of the bounding rectangle to the (<i>nXStartArc</i>, <i>nYStartArc</i>) point. The arc ends where it intersects the radial from the center of the bounding rectangle to the (<i>nXEndArc</i>, <i>nYEndArc</i>) point. If the starting point and ending point are the same, a complete ellipse is drawn.
-     * 
-     * The arc is drawn using the current pen; it is not filled.
-     * 
-     * The current position is neither used nor updated by <b>Arc</b>.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getarcdirection">GetArcDirection</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setarcdirection">SetArcDirection</a> functions to get and set the current drawing direction for a device context. The default drawing direction is counterclockwise.
      * @param {Pointer<Void>} hdc A handle to the device context where drawing takes place.
      * @param {Integer} x1 The x-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} y1 The y-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
@@ -4259,7 +4300,7 @@ class Gdi {
      * @returns {Integer} If the arc is drawn, the return value is nonzero.
      * 
      * If the arc is not drawn, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-arc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-arc
      * @since windows5.0
      */
     static Arc(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -4269,20 +4310,6 @@ class Gdi {
 
     /**
      * The BitBlt function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.
-     * @remarks
-     * <b>BitBlt</b> only does clipping on the destination DC.
-     * 
-     * If a rotation or shear transformation is in effect in the source device context, <b>BitBlt</b> returns an error. If other transformations exist in the source device context (and a matching transformation is not in effect in the destination device context), the rectangle in the destination device context is stretched, compressed, or rotated, as necessary.
-     * 
-     * If the color formats of the source and destination device contexts do not match, the <b>BitBlt</b> function converts the source color format to match the destination format.
-     * 
-     * When an enhanced metafile is being recorded, an error occurs if the source device context identifies an enhanced-metafile device context.
-     * 
-     * Not all devices support the <b>BitBlt</b> function. For more information, see the RC_BITBLT raster capability entry in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function as well as the following functions: <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-maskblt">MaskBlt</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-plgblt">PlgBlt</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a>.
-     * 
-     * <b>BitBlt</b> returns an error if the source and destination device contexts represent different devices. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
-     * 
-     * <b>ICM:</b> No color management is performed when blits occur.
      * @param {Pointer<Void>} hdc A handle to the destination device context.
      * @param {Integer} x The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} y The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -4473,8 +4500,8 @@ class Gdi {
      * </table>
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-bitblt
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-bitblt
      * @since windows5.0
      */
     static BitBlt(hdc, x, y, cx, cy, hdcSrc, x1, y1, rop) {
@@ -4489,15 +4516,11 @@ class Gdi {
 
     /**
      * The CancelDC function cancels any pending operation on the specified device context (DC).
-     * @remarks
-     * The <b>CancelDC</b> function is used by multithreaded applications to cancel lengthy drawing operations. If thread A initiates a lengthy drawing operation, thread B may cancel that operation by calling this function.
-     * 
-     * If an operation is canceled, the affected thread returns an error and the result of its drawing operation is undefined. The results are also undefined if no drawing operation was in progress when the function was called.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-canceldc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-canceldc
      * @since windows5.0
      */
     static CancelDC(hdc) {
@@ -4507,12 +4530,6 @@ class Gdi {
 
     /**
      * The Chord function draws a chord (a region bounded by the intersection of an ellipse and a line segment, called a secant). The chord is outlined by using the current pen and filled by using the current brush.
-     * @remarks
-     * The curve of the chord is defined by an ellipse that fits the specified bounding rectangle. The curve begins at the point where the ellipse intersects the first radial and extends counterclockwise to the point where the ellipse intersects the second radial. The chord is closed by drawing a line from the intersection of the first radial and the curve to the intersection of the second radial and the curve.
-     * 
-     * If the starting point and ending point of the curve are the same, a complete ellipse is drawn.
-     * 
-     * The current position is neither used nor updated by <b>Chord</b>.
      * @param {Pointer<Void>} hdc A handle to the device context in which the chord appears.
      * @param {Integer} x1 The x-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} y1 The y-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
@@ -4525,7 +4542,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-chord
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-chord
      * @since windows5.0
      */
     static Chord(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -4535,15 +4552,11 @@ class Gdi {
 
     /**
      * The CloseMetaFile function closes a metafile device context and returns a handle that identifies a Windows-format metafile.
-     * @remarks
-     * To convert a Windows-format metafile into a new enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * When an application no longer needs the Windows-format metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
      * @param {Pointer<Void>} hdc Handle to a metafile device context used to create a Windows-format metafile.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closemetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-closemetafile
      * @since windows5.0
      */
     static CloseMetaFile(hdc) {
@@ -4553,8 +4566,6 @@ class Gdi {
 
     /**
      * The CombineRgn function combines two regions and stores the result in a third region. The two regions are combined according to the specified mode.
-     * @remarks
-     * The three regions need not be distinct. For example, the <i>hrgnSrc1</i> parameter can equal the <i>hrgnDest</i> parameter.
      * @param {Pointer<Void>} hrgnDst A handle to a new region with dimensions defined by combining two other regions. (This region must exist before <b>CombineRgn</b> is called.)
      * @param {Pointer<Void>} hrgnSrc1 A handle to the first of two regions to be combined.
      * @param {Pointer<Void>} hrgnSrc2 A handle to the second of two regions to be combined.
@@ -4611,7 +4622,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-combinergn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-combinergn
      * @since windows5.0
      */
     static CombineRgn(hrgnDst, hrgnSrc1, hrgnSrc2, iMode) {
@@ -4620,24 +4631,13 @@ class Gdi {
     }
 
     /**
-     * The CopyMetaFile function copies the content of a Windows-format metafile to the specified file. (ANSI)
-     * @remarks
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * When the application no longer needs the Windows-format metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CopyMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CopyMetaFile function copies the content of a Windows-format metafile to the specified file.
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Byte>} param1 
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copymetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-copymetafilea
      * @since windows5.0
      */
     static CopyMetaFileA(param0, param1) {
@@ -4648,24 +4648,13 @@ class Gdi {
     }
 
     /**
-     * The CopyMetaFile function copies the content of a Windows-format metafile to the specified file. (Unicode)
-     * @remarks
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * When the application no longer needs the Windows-format metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CopyMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CopyMetaFile function copies the content of a Windows-format metafile to the specified file.
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Char>} param1 
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copymetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-copymetafilew
      * @since windows5.0
      */
     static CopyMetaFileW(param0, param1) {
@@ -4677,29 +4666,11 @@ class Gdi {
 
     /**
      * The CreateBitmap function creates a bitmap with the specified width, height, and color format (color planes and bits-per-pixel).
-     * @remarks
-     * The <b>CreateBitmap</b> function creates a device-dependent bitmap.
-     * 
-     * After a bitmap is created, it can be selected into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. However, the bitmap can only be selected into a device context if the bitmap and the DC have the same format.
-     * 
-     * The <b>CreateBitmap</b> function can be used to create color bitmaps. However, for performance reasons applications should use <b>CreateBitmap</b> to create monochrome bitmaps and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap">CreateCompatibleBitmap</a> to create color bitmaps. Whenever a color bitmap returned from <b>CreateBitmap</b> is selected into a device context, the system checks that the bitmap matches the format of the device context it is being selected into. Because <b>CreateCompatibleBitmap</b> takes a device context, it returns a bitmap that has the same format as the specified device context. Thus, subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> are faster with a color bitmap from <b>CreateCompatibleBitmap</b> than with a color bitmap returned from <b>CreateBitmap</b>.
-     * 
-     * If the bitmap is monochrome, zeros represent the foreground color and ones represent the background color for the destination device context.
-     * 
-     * If an application sets the <i>nWidth</i> or <i>nHeight</i> parameters to zero, <b>CreateBitmap</b> returns the handle to a 1-by-1 pixel, monochrome bitmap.
-     * 
-     * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Integer} nWidth The bitmap width, in pixels.
      * @param {Integer} nHeight The bitmap height, in pixels.
      * @param {Integer} nPlanes The number of color planes used by the device.
      * @param {Integer} nBitCount The number of bits required to identify the color of a single pixel.
-     * @param {Pointer<Void>} lpBits A pointer to an array of color data used to set the colors in a rectangle of pixels. Each scan line in the rectangle must be word aligned (scan lines that are not word aligned must be padded with zeros). The buffer size expected, *cj*, can be calculated using the formula:
-     * 
-     * ```cpp
-     * cj = (((nWidth * nPlanes * nBitCount + 15) >> 4) << 1) * nHeight;
-     * ```
-     * 
-     * If this parameter is <b>NULL</b>, then the contents of the new bitmap are undefined.
+     * @param {Pointer<Void>} lpBits A pointer to an array of color data used to set the colors in a rectangle of pixels. Each scan line in the rectangle must be word aligned (scan lines that are not word aligned must be padded with zeros). If this parameter is <b>NULL</b>, the contents of the new bitmap is undefined.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
@@ -4723,7 +4694,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbitmap
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      * @since windows5.0
      */
     static CreateBitmap(nWidth, nHeight, nPlanes, nBitCount, lpBits) {
@@ -4733,16 +4704,6 @@ class Gdi {
 
     /**
      * The CreateBitmapIndirect function creates a bitmap with the specified width, height, and color format (color planes and bits-per-pixel).
-     * @remarks
-     * The <b>CreateBitmapIndirect</b> function creates a device-dependent bitmap.
-     * 
-     * After a bitmap is created, it can be selected into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. However, the bitmap can only be selected into a device context if the bitmap and the DC have the same format.
-     * 
-     * While the <b>CreateBitmapIndirect</b> function can be used to create color bitmaps, for performance reasons applications should use <b>CreateBitmapIndirect</b> to create monochrome bitmaps and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap">CreateCompatibleBitmap</a> to create color bitmaps. Whenever a color bitmap from <b>CreateBitmapIndirect</b> is selected into a device context, the system must ensure that the bitmap matches the format of the device context it is being selected into. Because <b>CreateCompatibleBitmap</b> takes a device context, it returns a bitmap that has the same format as the specified device context. Thus, subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> are faster with a color bitmap from <b>CreateCompatibleBitmap</b> than with a color bitmap returned from <b>CreateBitmapIndirect</b>.
-     * 
-     * If the bitmap is monochrome, zeros represent the foreground color and ones represent the background color for the destination device context.
-     * 
-     * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<BITMAP>} pbm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a> structure that contains information about the bitmap. If an application sets the <b>bmWidth</b> or <b>bmHeight</b> members to zero, <b>CreateBitmapIndirect</b> returns the handle to a 1-by-1 pixel, monochrome bitmap.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the bitmap.
      * 
@@ -4778,7 +4739,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbitmapindirect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmapindirect
      * @since windows5.0
      */
     static CreateBitmapIndirect(pbm) {
@@ -4788,21 +4749,11 @@ class Gdi {
 
     /**
      * The CreateBrushIndirect function creates a logical brush that has the specified style, color, and pattern.
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * After an application creates a brush by calling <b>CreateBrushIndirect</b>, it can select it into any device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function.
-     * 
-     * A brush created by using a monochrome bitmap (one color plane, one bit per pixel) is drawn using the current text and background colors. Pixels represented by a bit set to 0 are drawn with the current text color; pixels represented by a bit set to 1 are drawn with the current background color.
-     * 
-     * When you no longer need the brush, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Pointer<LOGBRUSH>} plbrush A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a> structure that contains information about the brush.
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbrushindirect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbrushindirect
      * @since windows5.0
      */
     static CreateBrushIndirect(plbrush) {
@@ -4812,35 +4763,13 @@ class Gdi {
 
     /**
      * The CreateCompatibleBitmap function creates a bitmap compatible with the device that is associated with the specified device context.
-     * @remarks
-     * The color format of the bitmap created by the <b>CreateCompatibleBitmap</b> function matches the color format of the device identified by the <i>hdc</i> parameter. This bitmap can be selected into any memory device context that is compatible with the original device.
-     * 
-     * Because memory device contexts allow both color and monochrome bitmaps, the format of the bitmap returned by the <b>CreateCompatibleBitmap</b> function differs when the specified device context is a memory device context. However, a compatible bitmap that was created for a nonmemory device context always possesses the same color format and uses the same color palette as the specified device context.
-     * 
-     * Note: When a memory device context is created, it initially has a 1-by-1 monochrome bitmap selected into it. If this memory device context is used in <b>CreateCompatibleBitmap</b>, the bitmap that is created is a <i>monochrome</i> bitmap. To create a color bitmap, use the <b>HDC</b> that was used to create the memory device context, as shown in the following code:
-     * 
-     * 
-     * ```cpp
-     * 
-     *     HDC memDC = CreateCompatibleDC ( hDC );
-     *     HBITMAP memBM = CreateCompatibleBitmap ( hDC, nWidth, nHeight );
-     *     SelectObject ( memDC, memBM );
-     * 
-     * ```
-     * 
-     * 
-     * If an application sets the <i>nWidth</i> or <i>nHeight</i> parameters to zero, <b>CreateCompatibleBitmap</b> returns the handle to a 1-by-1 pixel, monochrome bitmap.
-     * 
-     * If a DIB section, which is a bitmap created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function, is selected into the device context identified by the <i>hdc</i> parameter, <b>CreateCompatibleBitmap</b> creates a DIB section.
-     * 
-     * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Integer} cx The bitmap width, in pixels.
      * @param {Integer} cy The bitmap height, in pixels.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the compatible bitmap (DDB).
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcompatiblebitmap
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createcompatiblebitmap
      * @since windows5.0
      */
     static CreateCompatibleBitmap(hdc, cx, cy) {
@@ -4850,15 +4779,13 @@ class Gdi {
 
     /**
      * The CreateDiscardableBitmap function creates a discardable bitmap that is compatible with the specified device.
-     * @remarks
-     * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Integer} cx The width, in pixels, of the bitmap.
      * @param {Integer} cy The height, in pixels, of the bitmap.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the compatible bitmap (DDB).
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-creatediscardablebitmap
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-creatediscardablebitmap
      * @since windows5.0
      */
     static CreateDiscardableBitmap(hdc, cx, cy) {
@@ -4868,23 +4795,11 @@ class Gdi {
 
     /**
      * The CreateCompatibleDC function creates a memory device context (DC) compatible with the specified device.
-     * @remarks
-     * A memory DC exists only in memory. When the memory DC is created, its display surface is exactly one monochrome pixel wide and one monochrome pixel high. Before an application can use a memory DC for drawing operations, it must select a bitmap of the correct width and height into the DC. To select a bitmap into a DC, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap">CreateCompatibleBitmap</a> function, specifying the height, width, and color organization required.
-     * 
-     * When a memory DC is created, all attributes are set to normal default values. The memory DC can be used as a normal DC. You can set the attributes; obtain the current settings of its attributes; and select pens, brushes, and regions.
-     * 
-     * The <b>CreateCompatibleDC</b> function can only be used with devices that support raster operations. An application can determine whether a device supports these operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
-     * 
-     * When you no longer need the memory DC, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function. We recommend that you call <b>DeleteDC</b> to delete the DC.  However, you can also call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> with the HDC to delete the DC.
-     * 
-     * If <i>hdc</i> is <b>NULL</b>, the thread that calls <b>CreateCompatibleDC</b> owns the HDC that is created. When this thread is destroyed, the HDC is no longer valid. Thus, if you create the HDC and pass it to another thread, then exit the first thread, the second thread will not be able to use the HDC.
-     * 
-     * <b>ICM:</b> If the DC that is passed to this function is enabled for Image Color Management (ICM), the DC created by the function is ICM-enabled. The source and destination color spaces are specified in the DC.
      * @param {Pointer<Void>} hdc A handle to an existing DC. If this handle is <b>NULL</b>, the function creates a memory DC compatible with the application's current screen.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to a memory DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcompatibledc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createcompatibledc
      * @since windows5.0
      */
     static CreateCompatibleDC(hdc) {
@@ -4893,21 +4808,7 @@ class Gdi {
     }
 
     /**
-     * The CreateDC function creates a device context (DC) for a device using the specified name. (ANSI)
-     * @remarks
-     * Note that the handle to the DC can only be used by a single thread at any one time.
-     * 
-     * For parameters <i>lpszDriver</i> and <i>lpszDevice</i>, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a> to obtain valid names for displays.
-     * 
-     * When you no longer need the DC, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function.
-     * 
-     * If <i>lpszDriver</i> or <i>lpszDevice</i> is DISPLAY, the thread that calls <b>CreateDC</b> owns the <b>HDC</b> that is created. When this thread is destroyed, the <b>HDC</b> is no longer valid. Thus, if you create the <b>HDC</b> and pass it to another thread, then exit the first thread, the second thread will not be able to use the <b>HDC</b>.
-     * 
-     * When you call <b>CreateDC</b> to create the <b>HDC</b> for a display device, you must pass to <i>pdm</i> either <b>NULL</b> or a pointer to <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> that matches the current <b>DEVMODE</b> of the display device that <i>lpszDevice</i> specifies. We recommend to pass <b>NULL</b> and not to try to exactly match the <b>DEVMODE</b> for the current display device.
-     * 
-     * When you call <b>CreateDC</b> to create the <b>HDC</b> for a printer device, the printer driver validates the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>. If the printer driver determines that the <b>DEVMODE</b> is invalid (that is, printer driver can’t convert or consume the DEVMODE), the printer driver provides a default <b>DEVMODE</b> to create the HDC for the printer device.
-     * 
-     * <b>ICM:</b> To enable ICM, set the <b>dmICMMethod</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure (pointed to by the <i>pInitData</i> parameter) to the appropriate value.
+     * The CreateDC function creates a device context (DC) for a device using the specified name.
      * @param {Pointer<Byte>} pwszDriver A pointer to a null-terminated character string that specifies either DISPLAY or the name of a specific display device. For printing, we recommend that you pass <b>NULL</b> to <i>lpszDriver</i> because GDI ignores <i>lpszDriver</i> for printer devices.
      * @param {Pointer<Byte>} pwszDevice A pointer to a null-terminated character string that specifies the name of the specific output device being used, as shown by the Print Manager (for example, Epson FX-80). It is not the printer model name. The <i>lpszDevice</i> parameter must be used.
      * 
@@ -4923,7 +4824,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to a DC for the specified device.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdca
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdca
      * @since windows5.0
      */
     static CreateDCA(pwszDriver, pwszDevice, pszPort, pdm) {
@@ -4936,37 +4837,23 @@ class Gdi {
     }
 
     /**
-     * The CreateDC function creates a device context (DC) for a device using the specified name. (Unicode)
-     * @remarks
-     * Note that the handle to the DC can only be used by a single thread at any one time.
-     * 
-     * For parameters <i>lpszDriver</i> and <i>lpszDevice</i>, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesw">EnumDisplayDevices</a> to obtain valid names for displays.
-     * 
-     * When you no longer need the DC, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function.
-     * 
-     * If <i>lpszDriver</i> or <i>lpszDevice</i> is DISPLAY, the thread that calls <b>CreateDC</b> owns the <b>HDC</b> that is created. When this thread is destroyed, the <b>HDC</b> is no longer valid. Thus, if you create the <b>HDC</b> and pass it to another thread, then exit the first thread, the second thread will not be able to use the <b>HDC</b>.
-     * 
-     * When you call <b>CreateDC</b> to create the <b>HDC</b> for a display device, you must pass to <i>pdm</i> either <b>NULL</b> or a pointer to <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew">DEVMODE</a> that matches the current <b>DEVMODE</b> of the display device that <i>lpszDevice</i> specifies. We recommend to pass <b>NULL</b> and not to try to exactly match the <b>DEVMODE</b> for the current display device.
-     * 
-     * When you call <b>CreateDC</b> to create the <b>HDC</b> for a printer device, the printer driver validates the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew">DEVMODE</a>. If the printer driver determines that the <b>DEVMODE</b> is invalid (that is, printer driver can’t convert or consume the DEVMODE), the printer driver provides a default <b>DEVMODE</b> to create the HDC for the printer device.
-     * 
-     * <b>ICM:</b> To enable ICM, set the <b>dmICMMethod</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew">DEVMODE</a> structure (pointed to by the <i>pInitData</i> parameter) to the appropriate value.
+     * The CreateDC function creates a device context (DC) for a device using the specified name.
      * @param {Pointer<Char>} pwszDriver A pointer to a null-terminated character string that specifies either DISPLAY or the name of a specific display device. For printing, we recommend that you pass <b>NULL</b> to <i>lpszDriver</i> because GDI ignores <i>lpszDriver</i> for printer devices.
      * @param {Pointer<Char>} pwszDevice A pointer to a null-terminated character string that specifies the name of the specific output device being used, as shown by the Print Manager (for example, Epson FX-80). It is not the printer model name. The <i>lpszDevice</i> parameter must be used.
      * 
-     * To obtain valid names for displays, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesw">EnumDisplayDevices</a>.
+     * To obtain valid names for displays, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>.
      * 
      * If <i>lpszDriver</i> is DISPLAY or the device name of a specific display device, then <i>lpszDevice</i> must be <b>NULL</b> or that same device name. If <i>lpszDevice</i> is <b>NULL</b>, then a DC is created for the primary display device.
      * 
      * If there are multiple monitors on the system, calling <c>CreateDC(TEXT("DISPLAY"),NULL,NULL,NULL)</c> will create a DC covering all the monitors.
      * @param {Pointer<Char>} pszPort This parameter is ignored and should be set to <b>NULL</b>. It is provided only for compatibility with 16-bit Windows.
-     * @param {Pointer<DEVMODEW>} pdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew">DEVMODE</a> structure containing device-specific initialization data for the device driver. The <a href="https://docs.microsoft.com/windows/desktop/printdocs/documentproperties">DocumentProperties</a> function retrieves this structure filled in for a specified device. The <i>pdm</i> parameter must be <b>NULL</b> if the device driver is to use the default initialization (if any) specified by the user.
+     * @param {Pointer<DEVMODEW>} pdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure containing device-specific initialization data for the device driver. The <a href="https://docs.microsoft.com/windows/desktop/printdocs/documentproperties">DocumentProperties</a> function retrieves this structure filled in for a specified device. The <i>pdm</i> parameter must be <b>NULL</b> if the device driver is to use the default initialization (if any) specified by the user.
      * 
      * If <i>lpszDriver</i> is DISPLAY, <i>pdm</i> must be <b>NULL</b>; GDI then uses the display device's current <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to a DC for the specified device.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdcw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdcw
      * @since windows5.0
      */
     static CreateDCW(pwszDriver, pwszDevice, pszPort, pdm) {
@@ -4980,16 +4867,6 @@ class Gdi {
 
     /**
      * The CreateDIBitmap function creates a compatible bitmap (DDB) from a DIB and, optionally, sets the bitmap bits.
-     * @remarks
-     * The DDB that is created will be whatever bit depth your reference DC is. To create a bitmap that is of different bit depth, use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a>.
-     * 
-     * For a device to reach optimal bitmap-drawing speed, specify <i>fdwInit</i> as CBM_INIT. Then, use the same color depth DIB as the video mode. When the video is running 4- or 8-bpp, use DIB_PAL_COLORS.
-     * 
-     * The CBM_CREATDIB flag for the <i>fdwInit</i> parameter is no longer supported.
-     * 
-     * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color management is performed. The contents of the resulting bitmap are not color matched after the bitmap has been created.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Pointer<BITMAPINFOHEADER>} pbmih A pointer to a bitmap information header structure, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a>.
      * 
@@ -5023,7 +4900,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the compatible bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibitmap
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdibitmap
      * @since windows5.0
      */
     static CreateDIBitmap(hdc, pbmih, flInit, pjBits, pbmi, iUsage) {
@@ -5033,18 +4910,12 @@ class Gdi {
 
     /**
      * The CreateDIBPatternBrush function creates a logical brush that has the pattern specified by the specified device-independent bitmap (DIB).
-     * @remarks
-     * When an application selects a two-color DIB pattern brush into a monochrome device context, the system does not acknowledge the colors specified in the DIB; instead, it displays the pattern brush using the current background and foreground colors of the device context. Pixels mapped to the first color of the DIB (offset 0 in the DIB color table) are displayed using the foreground color; pixels mapped to the second color (offset 1 in the color table) are displayed using the background color.
-     * 
-     * When you no longer need the brush, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Pointer<Void>} h A handle to a global memory object containing a packed DIB, which consists of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by an array of bytes defining the pixels of the bitmap.
      * @param {Integer} iUsage 
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibpatternbrush
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdibpatternbrush
      * @since windows5.0
      */
     static CreateDIBPatternBrush(h, iUsage) {
@@ -5054,20 +4925,12 @@ class Gdi {
 
     /**
      * The CreateDIBPatternBrushPt function creates a logical brush that has the pattern specified by the device-independent bitmap (DIB).
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * After an application creates a brush by calling <b>CreateDIBPatternBrushPt</b>, it can select that brush into any device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function.
-     * 
-     * When you no longer need the brush, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Pointer<Void>} lpPackedDIB A pointer to a packed DIB consisting of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by an array of bytes defining the pixels of the bitmap.
      * @param {Integer} iUsage 
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibpatternbrushpt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdibpatternbrushpt
      * @since windows5.0
      */
     static CreateDIBPatternBrushPt(lpPackedDIB, iUsage) {
@@ -5077,10 +4940,6 @@ class Gdi {
 
     /**
      * The CreateEllipticRgn function creates an elliptical region.
-     * @remarks
-     * When you no longer need the HRGN object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * A bounding rectangle defines the size, shape, and orientation of the region: The long sides of the rectangle define the length of the ellipse's major axis; the short sides define the length of the ellipse's minor axis; and the center of the rectangle defines the intersection of the major and minor axes.
      * @param {Integer} x1 Specifies the x-coordinate in logical units, of the upper-left corner of the bounding rectangle of the ellipse.
      * @param {Integer} y1 Specifies the y-coordinate in logical units, of the upper-left corner of the bounding rectangle of the ellipse.
      * @param {Integer} x2 Specifies the x-coordinate in logical units, of the lower-right corner of the bounding rectangle of the ellipse.
@@ -5088,7 +4947,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createellipticrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createellipticrgn
      * @since windows5.0
      */
     static CreateEllipticRgn(x1, y1, x2, y2) {
@@ -5098,15 +4957,11 @@ class Gdi {
 
     /**
      * The CreateEllipticRgnIndirect function creates an elliptical region.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * A bounding rectangle defines the size, shape, and orientation of the region: The long sides of the rectangle define the length of the ellipse's major axis; the short sides define the length of the ellipse's minor axis; and the center of the rectangle defines the intersection of the major and minor axes.
      * @param {Pointer<RECT>} lprect Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the upper-left and lower-right corners of the bounding rectangle of the ellipse in logical units.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createellipticrgnindirect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createellipticrgnindirect
      * @since windows5.0
      */
     static CreateEllipticRgnIndirect(lprect) {
@@ -5115,22 +4970,12 @@ class Gdi {
     }
 
     /**
-     * The CreateFontIndirect function creates a logical font that has the specified characteristics. The font can subsequently be selected as the current font for any device context. (ANSI)
-     * @remarks
-     * The <b>CreateFontIndirect</b> function creates a logical font with the characteristics specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure. When this font is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, GDI's font mapper attempts to match the logical font with an existing physical font. If it fails to find an exact match, it provides an alternative whose characteristics match as many of the requested characteristics as possible.
-     * 
-     * To get the appropriate font on different language versions of the OS, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> with the desired font characteristics in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure, retrieve the appropriate typeface name, and create the font using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a> or <b>CreateFontIndirect</b>.
-     * 
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a> and <b>CreateFontIndirect</b> take the localized typeface name only on a system locale that matches the language, while they take the English typeface name on all other system locales. The best method is to try one name and, on failure, try the other. Note that <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * The font mapper for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a>, <b>CreateFontIndirect</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirectexa">CreateFontIndirectEx</a> recognizes both the English and the localized typeface name, regardless of locale.
+     * The CreateFontIndirect function creates a logical font that has the specified characteristics. The font can subsequently be selected as the current font for any device context.
      * @param {Pointer<LOGFONTA>} lplf A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that defines the characteristics of the logical font.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirecta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfontindirecta
      * @since windows5.0
      */
     static CreateFontIndirectA(lplf) {
@@ -5139,22 +4984,12 @@ class Gdi {
     }
 
     /**
-     * The CreateFontIndirect function creates a logical font that has the specified characteristics. The font can subsequently be selected as the current font for any device context. (Unicode)
-     * @remarks
-     * The <b>CreateFontIndirect</b> function creates a logical font with the characteristics specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure. When this font is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, GDI's font mapper attempts to match the logical font with an existing physical font. If it fails to find an exact match, it provides an alternative whose characteristics match as many of the requested characteristics as possible.
-     * 
-     * To get the appropriate font on different language versions of the OS, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> with the desired font characteristics in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure, retrieve the appropriate typeface name, and create the font using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a> or <b>CreateFontIndirect</b>.
-     * 
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a> and <b>CreateFontIndirect</b> take the localized typeface name only on a system locale that matches the language, while they take the English typeface name on all other system locales. The best method is to try one name and, on failure, try the other. Note that <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * The font mapper for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a>, <b>CreateFontIndirect</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirectexa">CreateFontIndirectEx</a> recognizes both the English and the localized typeface name, regardless of locale.
+     * The CreateFontIndirect function creates a logical font that has the specified characteristics. The font can subsequently be selected as the current font for any device context.
      * @param {Pointer<LOGFONTW>} lplf A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that defines the characteristics of the logical font.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfontindirectw
      * @since windows5.0
      */
     static CreateFontIndirectW(lplf) {
@@ -5163,25 +4998,7 @@ class Gdi {
     }
 
     /**
-     * The CreateFont function creates a logical font with the specified characteristics. The logical font can subsequently be selected as the font for any device. (ANSI)
-     * @remarks
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * To help protect the copyrights of vendors who provide fonts for Windows, applications should always report the exact name of a selected font. Because available fonts can vary from system to system, do not assume that the selected font is always the same as the requested font. For example, if you request a font named Palatino, but no such font is available on the system, the font mapper will substitute a font that has similar attributes but a different name. Always report the name of the selected font to the user.
-     * 
-     * To get the appropriate font on different language versions of the OS, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> with the desired font characteristics in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure, then retrieve the appropriate typeface name and create the font using <b>CreateFont</b> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>.
-     * 
-     * The font mapper for <b>CreateFont</b>,<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirectexa">CreateFontIndirectEx</a> recognizes both the English and the localized typeface name, regardless of locale.
-     * 
-     * The following situations do not support ClearType antialiasing:
-     * 
-     * <ul>
-     * <li>Text rendered on a printer.</li>
-     * <li>A display set for 256 colors or less.</li>
-     * <li>Text rendered to a terminal server client.</li>
-     * <li>The font is not a TrueType font or an OpenType font with TrueType outlines. For example, the following do not support ClearType antialiasing: Type 1 fonts, Postscript OpenType fonts without TrueType outlines, bitmap fonts, vector fonts, and device fonts.</li>
-     * <li>The font has tuned embedded bitmaps, only for the font sizes that contain the embedded bitmaps. For example, this occurs commonly in East Asian fonts.</li>
-     * </ul>
+     * The CreateFont function creates a logical font with the specified characteristics. The logical font can subsequently be selected as the font for any device.
      * @param {Integer} cHeight The height, in logical units, of the font's character cell or character. The character height value (also known as the em height) is the character cell height value minus the internal-leading value. The font mapper interprets the value specified in <i>nHeight</i> in the following manner.
      * 
      * <table>
@@ -5462,7 +5279,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfonta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfonta
      * @since windows5.0
      */
     static CreateFontA(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
@@ -5473,25 +5290,7 @@ class Gdi {
     }
 
     /**
-     * The CreateFont function creates a logical font with the specified characteristics. The logical font can subsequently be selected as the font for any device. (Unicode)
-     * @remarks
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * To help protect the copyrights of vendors who provide fonts for Windows, applications should always report the exact name of a selected font. Because available fonts can vary from system to system, do not assume that the selected font is always the same as the requested font. For example, if you request a font named Palatino, but no such font is available on the system, the font mapper will substitute a font that has similar attributes but a different name. Always report the name of the selected font to the user.
-     * 
-     * To get the appropriate font on different language versions of the OS, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> with the desired font characteristics in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure, then retrieve the appropriate typeface name and create the font using <b>CreateFont</b> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>.
-     * 
-     * The font mapper for <b>CreateFont</b>,<a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirectexa">CreateFontIndirectEx</a> recognizes both the English and the localized typeface name, regardless of locale.
-     * 
-     * The following situations do not support ClearType antialiasing:
-     * 
-     * <ul>
-     * <li>Text rendered on a printer.</li>
-     * <li>A display set for 256 colors or less.</li>
-     * <li>Text rendered to a terminal server client.</li>
-     * <li>The font is not a TrueType font or an OpenType font with TrueType outlines. For example, the following do not support ClearType antialiasing: Type 1 fonts, Postscript OpenType fonts without TrueType outlines, bitmap fonts, vector fonts, and device fonts.</li>
-     * <li>The font has tuned embedded bitmaps, only for the font sizes that contain the embedded bitmaps. For example, this occurs commonly in East Asian fonts.</li>
-     * </ul>
+     * The CreateFont function creates a logical font with the specified characteristics. The logical font can subsequently be selected as the font for any device.
      * @param {Integer} cHeight The height, in logical units, of the font's character cell or character. The character height value (also known as the em height) is the character cell height value minus the internal-leading value. The font mapper interprets the value specified in <i>nHeight</i> in the following manner.
      * 
      * <table>
@@ -5772,7 +5571,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfontw
      * @since windows5.0
      */
     static CreateFontW(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
@@ -5784,22 +5583,12 @@ class Gdi {
 
     /**
      * The CreateHatchBrush function creates a logical brush that has the specified hatch pattern and color.
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * After an application creates a brush by calling <b>CreateHatchBrush</b>, it can select that brush into any device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. It can also call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> to affect the rendering of the  brush.
-     * 
-     * If an application uses a hatch brush to fill the backgrounds of both a parent and a child window with matching color, you must  set the brush origin before painting the background of the child window. You can do this by  calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbrushorgex">SetBrushOrgEx</a> function. Your application can retrieve the current brush origin by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbrushorgex">GetBrushOrgEx</a> function.
-     * 
-     * When you no longer need the brush, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color is defined  at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Integer} iHatch 
      * @param {Integer} color The foreground color of the brush that is used for the hatches. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createhatchbrush
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createhatchbrush
      * @since windows5.0
      */
     static CreateHatchBrush(iHatch, color) {
@@ -5808,16 +5597,7 @@ class Gdi {
     }
 
     /**
-     * The CreateIC function creates an information context for the specified device. (ANSI)
-     * @remarks
-     * When you no longer need the information DC, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateIC function creates an information context for the specified device.
      * @param {Pointer<Byte>} pszDriver A pointer to a null-terminated character string that specifies the name of the device driver (for example, Epson).
      * @param {Pointer<Byte>} pszDevice A pointer to a null-terminated character string that specifies the name of the specific output device being used, as shown by the Print Manager (for example, Epson FX-80). It is not the printer model name. The <i>lpszDevice</i> parameter must be used.
      * @param {Pointer<Byte>} pszPort This parameter is ignored and should be set to <b>NULL</b>. It is provided only for compatibility with 16-bit Windows.
@@ -5825,7 +5605,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to an information context.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createica
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createica
      * @since windows5.0
      */
     static CreateICA(pszDriver, pszDevice, pszPort, pdm) {
@@ -5838,16 +5618,7 @@ class Gdi {
     }
 
     /**
-     * The CreateIC function creates an information context for the specified device. (Unicode)
-     * @remarks
-     * When you no longer need the information DC, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateIC function creates an information context for the specified device.
      * @param {Pointer<Char>} pszDriver A pointer to a null-terminated character string that specifies the name of the device driver (for example, Epson).
      * @param {Pointer<Char>} pszDevice A pointer to a null-terminated character string that specifies the name of the specific output device being used, as shown by the Print Manager (for example, Epson FX-80). It is not the printer model name. The <i>lpszDevice</i> parameter must be used.
      * @param {Pointer<Char>} pszPort This parameter is ignored and should be set to <b>NULL</b>. It is provided only for compatibility with 16-bit Windows.
@@ -5855,7 +5626,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to an information context.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createicw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createicw
      * @since windows5.0
      */
     static CreateICW(pszDriver, pszDevice, pszPort, pdm) {
@@ -5868,27 +5639,12 @@ class Gdi {
     }
 
     /**
-     * The CreateMetaFile function creates a device context for a Windows-format metafile. (ANSI)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CreateMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * <b>CreateMetaFile</b> is a Windows-format metafile function. This function supports only 16-bit Windows-based applications, which are listed in <a href="https://docs.microsoft.com/windows/desktop/gdi/windows-format-metafiles">Windows-Format Metafiles</a>. It does not record or play back GDI functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezier">PolyBezier</a>, which were not part of 16-bit Windows.
-     * 
-     * The device context created by this function can be used to record GDI output functions in a Windows-format metafile. It cannot be used with GDI query functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextcolor">GetTextColor</a>. When the device context is used with a GDI output function, the return value of that function becomes <b>TRUE</b> if the function is recorded and <b>FALSE</b> otherwise. When an object is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, only a copy of the object is recorded. The object still belongs to the application.
-     * 
-     * To create a scalable Windows-format metafile, record the graphics output in the MM_ANISOTROPIC mapping mode. The file cannot contain functions that modify the viewport origin and extents, nor can it contain device-dependent functions such as the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectcliprgn">SelectClipRgn</a> function. Once created, the Windows metafile can be scaled and rendered to any output device-format by defining the viewport origin and extents of the picture before playing it.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateMetaFile function creates a device context for a Windows-format metafile.
      * @param {Pointer<Byte>} pszFile A pointer to the file name for the Windows-format metafile to be created. If this parameter is <b>NULL</b>, the Windows-format metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the device context for the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createmetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createmetafilea
      * @since windows5.0
      */
     static CreateMetaFileA(pszFile) {
@@ -5899,27 +5655,12 @@ class Gdi {
     }
 
     /**
-     * The CreateMetaFile function creates a device context for a Windows-format metafile. (Unicode)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CreateMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * <b>CreateMetaFile</b> is a Windows-format metafile function. This function supports only 16-bit Windows-based applications, which are listed in <a href="https://docs.microsoft.com/windows/desktop/gdi/windows-format-metafiles">Windows-Format Metafiles</a>. It does not record or play back GDI functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezier">PolyBezier</a>, which were not part of 16-bit Windows.
-     * 
-     * The device context created by this function can be used to record GDI output functions in a Windows-format metafile. It cannot be used with GDI query functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextcolor">GetTextColor</a>. When the device context is used with a GDI output function, the return value of that function becomes <b>TRUE</b> if the function is recorded and <b>FALSE</b> otherwise. When an object is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, only a copy of the object is recorded. The object still belongs to the application.
-     * 
-     * To create a scalable Windows-format metafile, record the graphics output in the MM_ANISOTROPIC mapping mode. The file cannot contain functions that modify the viewport origin and extents, nor can it contain device-dependent functions such as the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectcliprgn">SelectClipRgn</a> function. Once created, the Windows metafile can be scaled and rendered to any output device-format by defining the viewport origin and extents of the picture before playing it.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateMetaFile function creates a device context for a Windows-format metafile.
      * @param {Pointer<Char>} pszFile A pointer to the file name for the Windows-format metafile to be created. If this parameter is <b>NULL</b>, the Windows-format metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the device context for the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createmetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createmetafilew
      * @since windows5.0
      */
     static CreateMetaFileW(pszFile) {
@@ -5931,17 +5672,11 @@ class Gdi {
 
     /**
      * The CreatePalette function creates a logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * Once an application creates a logical palette, it can select that palette into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectpalette">SelectPalette</a> function. A palette selected into a device context can be realized by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> function.
-     * 
-     * When you no longer need the palette, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<LOGPALETTE>} plpal A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpalette">LOGPALETTE</a> structure that contains information about the colors in the logical palette.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical palette.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpalette
      * @since windows5.0
      */
     static CreatePalette(plpal) {
@@ -5951,22 +5686,6 @@ class Gdi {
 
     /**
      * The CreatePen function creates a logical pen that has the specified style, width, and color. The pen can subsequently be selected into a device context and used to draw lines and curves.
-     * @remarks
-     * After an application creates a logical pen, it can select that pen into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. After a pen is selected into a device context, it can be used to draw lines and curves.
-     * 
-     * If the value specified by the <i>nWidth</i> parameter is zero, a line drawn with the created pen always is a single pixel wide regardless of the current transformation.
-     * 
-     * If the value specified by <i>nWidth</i> is greater than 1, the <i>fnPenStyle</i> parameter must be PS_NULL, PS_SOLID, or PS_INSIDEFRAME.
-     * 
-     * If the value specified by <i>nWidth</i> is greater than 1 and <i>fnPenStyle</i> is PS_INSIDEFRAME, the line associated with the pen is drawn inside the frame of all primitives except polygons and polylines.
-     * 
-     * If the value specified by <i>nWidth</i> is greater than 1, <i>fnPenStyle</i> is PS_INSIDEFRAME, and the color specified by the <i>crColor</i> parameter does not match one of the entries in the logical palette, the system draws lines by using a dithered color. Dithered colors are not available with solid pens.
-     * 
-     * When using an <i>iStyle</i> parameter of PS_DASH, PS_DOT, PS_DASHDOT or PS_DASHDOTDOT, in order to make the gaps between the dashes or dots transparent, use <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> to set the mode to TRANSPARENT.
-     * 
-     * When you no longer need the pen, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * <b>ICM:</b> No color management is done at creation. However, color management is performed when the pen is selected into an ICM-enabled device context.
      * @param {Integer} iStyle 
      * @param {Integer} cWidth The width of the pen, in logical units. If <i>nWidth</i> is zero, the pen is a single pixel wide, regardless of the current transformation.
      * 
@@ -5975,7 +5694,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle that identifies a logical pen.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpen
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpen
      * @since windows5.0
      */
     static CreatePen(iStyle, cWidth, color) {
@@ -5985,15 +5704,11 @@ class Gdi {
 
     /**
      * The CreatePenIndirect function creates a logical cosmetic pen that has the style, width, and color specified in a structure.
-     * @remarks
-     * After an application creates a logical pen, it can select that pen into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. After a pen is selected into a device context, it can be used to draw lines and curves.
-     * 
-     * When you no longer need the pen, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<LOGPEN>} plpen Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpen">LOGPEN</a> structure that specifies the pen's style, width, and color.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle that identifies a logical cosmetic pen.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpenindirect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpenindirect
      * @since windows5.0
      */
     static CreatePenIndirect(plpen) {
@@ -6003,18 +5718,14 @@ class Gdi {
 
     /**
      * The CreatePolyPolygonRgn function creates a region consisting of a series of polygons. The polygons can overlap.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * Region coordinates are represented as 27-bit signed integers.
-     * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that define the vertices of the polygons in logical units. The polygons are specified consecutively. Each polygon is presumed closed and each vertex is specified only once.
+     * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that define the vertices of the polygons in logical units. The polygons are specified consecutively. Each polygon is presumed closed and each vertex is specified only once.
      * @param {Pointer<Int32>} pc A pointer to an array of integers, each of which specifies the number of points in one of the polygons in the array pointed to by <i>lppt</i>.
      * @param {Integer} cPoly The total number of integers in the array pointed to by <i>lpPolyCounts</i>.
      * @param {Integer} iMode 
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpolypolygonrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpolypolygonrgn
      * @since windows5.0
      */
     static CreatePolyPolygonRgn(pptl, pc, cPoly, iMode) {
@@ -6024,21 +5735,11 @@ class Gdi {
 
     /**
      * The CreatePatternBrush function creates a logical brush with the specified bitmap pattern. The bitmap can be a DIB section bitmap, which is created by the CreateDIBSection function, or it can be a device-dependent bitmap.
-     * @remarks
-     * A pattern brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * After an application creates a brush by calling <b>CreatePatternBrush</b>, it can select that brush into any device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function.
-     * 
-     * You can delete a pattern brush without affecting the associated bitmap by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function. Therefore, you can then use this bitmap to create any number of pattern brushes.
-     * 
-     * A brush created by using a monochrome (1 bit per pixel) bitmap has the text and background colors of the device context to which it is drawn. Pixels represented by a 0 bit are drawn with the current text color; pixels represented by a 1 bit are drawn with the current background color.
-     * 
-     * <b>ICM:</b> No color is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Pointer<Void>} hbm A handle to the bitmap to be used to create the logical brush.
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpatternbrush
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpatternbrush
      * @since windows5.0
      */
     static CreatePatternBrush(hbm) {
@@ -6048,12 +5749,6 @@ class Gdi {
 
     /**
      * The CreateRectRgn function creates a rectangular region.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * Region coordinates are represented as 27-bit signed integers.
-     * 
-     * Regions created by the Create&lt;shape&gt;Rgn methods (such as <b>CreateRectRgn</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpolygonrgn">CreatePolygonRgn</a>) only include the interior of the shape; the shape's outline is excluded from the region. This means that any point on a line between two sequential vertices is not included in the region. If you were to call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-ptinregion">PtInRegion</a> for such a point, it would return zero as the result.
      * @param {Integer} x1 Specifies the x-coordinate of the upper-left corner of the region in logical units.
      * @param {Integer} y1 Specifies the y-coordinate of the upper-left corner of the region in logical units.
      * @param {Integer} x2 Specifies the x-coordinate of the lower-right corner of the region in logical units.
@@ -6061,7 +5756,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createrectrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createrectrgn
      * @since windows5.0
      */
     static CreateRectRgn(x1, y1, x2, y2) {
@@ -6071,17 +5766,11 @@ class Gdi {
 
     /**
      * The CreateRectRgnIndirect function creates a rectangular region.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * Region coordinates are represented as 27-bit signed integers.
-     * 
-     * The region will be exclusive of the bottom and right edges.
      * @param {Pointer<RECT>} lprect Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the upper-left and lower-right corners of the rectangle that defines the region in logical units.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createrectrgnindirect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createrectrgnindirect
      * @since windows5.0
      */
     static CreateRectRgnIndirect(lprect) {
@@ -6091,10 +5780,6 @@ class Gdi {
 
     /**
      * The CreateRoundRectRgn function creates a rectangular region with rounded corners.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * Region coordinates are represented as 27-bit signed  integers.
      * @param {Integer} x1 Specifies the x-coordinate of the upper-left corner of the region in device units.
      * @param {Integer} y1 Specifies the y-coordinate of the upper-left corner of the region in device units.
      * @param {Integer} x2 Specifies the x-coordinate of the lower-right corner of the region in device units.
@@ -6104,7 +5789,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createroundrectrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createroundrectrgn
      * @since windows5.0
      */
     static CreateRoundRectRgn(x1, y1, x2, y2, w, h) {
@@ -6113,24 +5798,7 @@ class Gdi {
     }
 
     /**
-     * The CreateScalableFontResource function creates a font resource file for a scalable font. (ANSI)
-     * @remarks
-     * The <b>CreateScalableFontResource</b> function is used by applications that install TrueType fonts. An application uses the <b>CreateScalableFontResource</b> function to create a font resource file (typically with a .fot file name extension) and then uses the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function to install the font. The TrueType font file (typically with a .ttf file name extension) must be in the System subdirectory of the Windows directory to be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function.
-     * 
-     * The <b>CreateScalableFontResource</b> function currently supports only TrueType-technology scalable fonts.
-     * 
-     * When the <i>lpszFontFile</i> parameter specifies only a file name and extension, the <i>lpszCurrentPath</i> parameter must specify a path. When the <i>lpszFontFile</i> parameter specifies a full path, the <i>lpszCurrentPath</i> parameter must be <b>NULL</b> or a pointer to <b>NULL</b>.
-     * 
-     * When only a file name and extension are specified in the <i>lpszFontFile</i> parameter and a path is specified in the <i>lpszCurrentPath</i> parameter, the string in <i>lpszFontFile</i> is copied into the .fot file as the .ttf file that belongs to this resource. When the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function is called, the operating system assumes that the .ttf file has been copied into the System directory (or into the main Windows directory in the case of a network installation). The .ttf file need not be in this directory when the <b>CreateScalableFontResource</b> function is called, because the <i>lpszCurrentPath</i> parameter contains the directory information. A resource created in this manner does not contain absolute path information and can be used in any installation.
-     * 
-     * When a path is specified in the <i>lpszFontFile</i> parameter and <b>NULL</b> is specified in the <i>lpszCurrentPath</i> parameter, the string in <i>lpszFontFile</i> is copied into the .fot file. In this case, when the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function is called, the .ttf file must be at the location specified in the <i>lpszFontFile</i> parameter when the <b>CreateScalableFontResource</b> function was called; the <i>lpszCurrentPath</i> parameter is not needed. A resource created in this manner contains absolute references to paths and drives and does not work if the .ttf file is moved to a different location.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateScalableFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateScalableFontResource function creates a font resource file for a scalable font.
      * @param {Integer} fdwHidden 
      * @param {Pointer<Byte>} lpszFont A pointer to a null-terminated string specifying the name of the font resource file to create. If this parameter specifies an existing font resource file, the function fails.
      * @param {Pointer<Byte>} lpszFile A pointer to a null-terminated string specifying the name of the scalable font file that this function uses to create the font resource file.
@@ -6139,8 +5807,8 @@ class Gdi {
      * 
      * If the function fails, the return value is zero.
      * 
-     * If <i>lpszFontRes</i> specifies an existing font file, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createscalablefontresourcea
+     * If <i>lpszFontRes</i> specifies an existing font file, <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createscalablefontresourcea
      * @since windows5.0
      */
     static CreateScalableFontResourceA(fdwHidden, lpszFont, lpszFile, lpszPath) {
@@ -6158,24 +5826,7 @@ class Gdi {
     }
 
     /**
-     * The CreateScalableFontResource function creates a font resource file for a scalable font. (Unicode)
-     * @remarks
-     * The <b>CreateScalableFontResource</b> function is used by applications that install TrueType fonts. An application uses the <b>CreateScalableFontResource</b> function to create a font resource file (typically with a .fot file name extension) and then uses the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function to install the font. The TrueType font file (typically with a .ttf file name extension) must be in the System subdirectory of the Windows directory to be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function.
-     * 
-     * The <b>CreateScalableFontResource</b> function currently supports only TrueType-technology scalable fonts.
-     * 
-     * When the <i>lpszFontFile</i> parameter specifies only a file name and extension, the <i>lpszCurrentPath</i> parameter must specify a path. When the <i>lpszFontFile</i> parameter specifies a full path, the <i>lpszCurrentPath</i> parameter must be <b>NULL</b> or a pointer to <b>NULL</b>.
-     * 
-     * When only a file name and extension are specified in the <i>lpszFontFile</i> parameter and a path is specified in the <i>lpszCurrentPath</i> parameter, the string in <i>lpszFontFile</i> is copied into the .fot file as the .ttf file that belongs to this resource. When the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function is called, the operating system assumes that the .ttf file has been copied into the System directory (or into the main Windows directory in the case of a network installation). The .ttf file need not be in this directory when the <b>CreateScalableFontResource</b> function is called, because the <i>lpszCurrentPath</i> parameter contains the directory information. A resource created in this manner does not contain absolute path information and can be used in any installation.
-     * 
-     * When a path is specified in the <i>lpszFontFile</i> parameter and <b>NULL</b> is specified in the <i>lpszCurrentPath</i> parameter, the string in <i>lpszFontFile</i> is copied into the .fot file. In this case, when the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> function is called, the .ttf file must be at the location specified in the <i>lpszFontFile</i> parameter when the <b>CreateScalableFontResource</b> function was called; the <i>lpszCurrentPath</i> parameter is not needed. A resource created in this manner contains absolute references to paths and drives and does not work if the .ttf file is moved to a different location.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateScalableFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateScalableFontResource function creates a font resource file for a scalable font.
      * @param {Integer} fdwHidden 
      * @param {Pointer<Char>} lpszFont A pointer to a null-terminated string specifying the name of the font resource file to create. If this parameter specifies an existing font resource file, the function fails.
      * @param {Pointer<Char>} lpszFile A pointer to a null-terminated string specifying the name of the scalable font file that this function uses to create the font resource file.
@@ -6184,8 +5835,8 @@ class Gdi {
      * 
      * If the function fails, the return value is zero.
      * 
-     * If <i>lpszFontRes</i> specifies an existing font file, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createscalablefontresourcew
+     * If <i>lpszFontRes</i> specifies an existing font file, <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createscalablefontresourcew
      * @since windows5.0
      */
     static CreateScalableFontResourceW(fdwHidden, lpszFont, lpszFile, lpszPath) {
@@ -6204,21 +5855,11 @@ class Gdi {
 
     /**
      * The CreateSolidBrush function creates a logical brush that has the specified solid color.
-     * @remarks
-     * When you no longer need the <b>HBRUSH</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * A solid brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * After an application creates a brush by calling <b>CreateSolidBrush</b>, it can select that brush into any device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function.
-     * 
-     * To paint with a system color brush, an application should use <c>GetSysColorBrush (nIndex)</code> instead of <code>CreateSolidBrush(GetSysColor(nIndex))</c>, because <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> returns a cached brush instead of allocating a new one.
-     * 
-     * <b>ICM:</b> No color management is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Integer} color The color of the brush. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createsolidbrush
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createsolidbrush
      * @since windows5.0
      */
     static CreateSolidBrush(color) {
@@ -6228,13 +5869,11 @@ class Gdi {
 
     /**
      * The DeleteDC function deletes the specified device context (DC).
-     * @remarks
-     * An application must not delete a DC whose handle was obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function. Instead, it must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function to free the DC.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deletedc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-deletedc
      * @since windows5.0
      */
     static DeleteDC(hdc) {
@@ -6244,13 +5883,11 @@ class Gdi {
 
     /**
      * The DeleteMetaFile function deletes a Windows-format metafile or Windows-format metafile handle.
-     * @remarks
-     * If the metafile identified by the <i>hmf</i> parameter is stored in memory (rather than on a disk), its content is lost when it is deleted by using the <b>DeleteMetaFile</b> function.
      * @param {Pointer<Void>} hmf A handle to a Windows-format metafile.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deletemetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-deletemetafile
      * @since windows5.0
      */
     static DeleteMetaFile(hmf) {
@@ -6260,15 +5897,11 @@ class Gdi {
 
     /**
      * The DeleteObject function deletes a logical pen, brush, font, bitmap, region, or palette, freeing all system resources associated with the object. After the object is deleted, the specified handle is no longer valid.
-     * @remarks
-     * Do not delete a drawing object (pen or brush) while it is still selected into a DC.
-     * 
-     * When a pattern brush is deleted, the bitmap associated with the brush is not deleted. The bitmap must be deleted independently.
      * @param {Pointer<Void>} ho A handle to a logical pen, brush, font, bitmap, region, or palette.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the specified handle is not valid or is currently selected into a DC, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deleteobject
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-deleteobject
      * @since windows5.0
      */
     static DeleteObject(ho) {
@@ -6278,8 +5911,6 @@ class Gdi {
 
     /**
      * The DrawEscape function provides drawing capabilities of the specified video display that are not directly available through the graphics device interface (GDI).
-     * @remarks
-     * When an application calls the <b>DrawEscape</b> function, the data identified by <i>cbInput</i> and <i>lpszInData</i> is passed directly to the specified display driver.
      * @param {Pointer<Void>} hdc A handle to the DC for the specified video display.
      * @param {Integer} iEscape The escape function to be performed.
      * @param {Integer} cjIn The number of bytes of data pointed to by the <i>lpszInData</i> parameter.
@@ -6289,7 +5920,7 @@ class Gdi {
      * If the escape is not implemented, the return value is zero.
      * 
      * If an error occurred, the return value is less than zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-drawescape
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-drawescape
      * @since windows5.0
      */
     static DrawEscape(hdc, iEscape, cjIn, lpIn) {
@@ -6298,16 +5929,16 @@ class Gdi {
     }
 
     /**
-     * Creates a D2D1_ELLIPSE structure.
-     * @param {Pointer<Void>} hdc 
-     * @param {Integer} left 
-     * @param {Integer} top 
-     * @param {Integer} right 
-     * @param {Integer} bottom 
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ns-d2d1-d2d1_ellipse">D2D1_ELLIPSE</a></b>
+     * The Ellipse function draws an ellipse. The center of the ellipse is the center of the specified bounding rectangle. The ellipse is outlined by using the current pen and is filled by using the current brush.
+     * @param {Pointer<Void>} hdc A handle to the device context.
+     * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
+     * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
+     * @param {Integer} right The x-coordinate, in logical coordinates, of the lower-right corner of the bounding rectangle.
+     * @param {Integer} bottom The y-coordinate, in logical coordinates, of the lower-right corner of the bounding rectangle.
+     * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * The new ellipse.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-ellipse
+     * If the function fails, the return value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-ellipse
      * @since windows6.1
      */
     static Ellipse(hdc, left, top, right, bottom) {
@@ -6316,123 +5947,7 @@ class Gdi {
     }
 
     /**
-     * The EnumFontFamiliesEx function enumerates all uniquely-named fonts in the system that match the font characteristics specified by the LOGFONT structure. EnumFontFamiliesEx enumerates fonts based on typeface name, character set, or both. (ANSI)
-     * @remarks
-     * The <b>EnumFontFamiliesEx</b> function does not use tagged typeface names to identify character sets. Instead, it always passes the correct typeface name and a separate character set value to the callback function. The function enumerates fonts based on the values of the <b>lfCharSet</b> and <b>lfFaceName</b> members in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
-     * 
-     * As with <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, <b>EnumFontFamiliesEx</b> enumerates all font styles. Not all styles of a font cover the same character sets. For example, Fontorama Bold might contain ANSI, Greek, and Cyrillic characters, but Fontorama Italic might contain only ANSI characters. For this reason, it's best not to assume that a specified font covers a specific character set, even if it is the ANSI character set. The following table shows the results of various combinations of values for <b>lfCharSet</b> and <b>lfFaceName</b>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Values</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> = DEFAULT_CHARSET
-     * 
-     * <b>lfFaceName</b> = '\0'
-     * 
-     * </td>
-     * <td>
-     * Enumerates all uniquely-named fonts within all character sets. If there are two fonts with the same name, only one is enumerated.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> = DEFAULT_CHARSET
-     * 
-     * <b>lfFaceName</b> = a specific font
-     * 
-     * </td>
-     * <td>
-     * Enumerates all character sets and styles in a specific font.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> =a specific character set
-     * 
-     * <b>lfFaceName</b> = '\0'
-     * 
-     * </td>
-     * <td>
-     * Enumerates all styles of all fonts in the specific character set.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> =a specific character set
-     * 
-     * <b>lfFaceName</b> = a specific font
-     * 
-     * </td>
-     * <td>
-     * Enumerates all styles of a font in a specific character set.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The following code sample shows how these values are used.
-     * 
-     * 
-     * ```cpp
-     * 
-     * // To enumerate all styles and charsets of all fonts: 
-     * lf.lfFaceName[0] = '\0';
-     * lf.lfCharSet = DEFAULT_CHARSET;
-     * HRESULT hr;
-     * 
-     * // To enumerate all styles and character sets of the Arial font: 
-     * hr = StringCchCopy( (LPSTR)lf.lfFaceName, LF_FACESIZE, "Arial" );
-     * if (FAILED(hr))
-     * {
-     * // TODO: write error handler 
-     * }
-     * 
-     * lf.lfCharSet = DEFAULT_CHARSET;
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * ```cpp
-     * 
-     * // To enumerate all styles of all fonts for the ANSI character set 
-     * lf.lfFaceName[0] = '\0';
-     * lf.lfCharSet = ANSI_CHARSET;
-     * 
-     * // To enumerate all styles of Arial font that cover the ANSI charset 
-     * hr = StringCchCopy( (LPSTR)lf.lfFaceName, LF_FACESIZE, "Arial" );
-     * if (FAILED(hr))
-     * {
-     * // TODO: write error handler 
-     * }
-     * 
-     * lf.lfCharSet = ANSI_CHARSET;
-     * 
-     * ```
-     * 
-     * 
-     * The callback functions for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a> and <b>EnumFontFamiliesEx</b> are very similar. The main difference is that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure includes a script field.
-     * 
-     * Note, based on the values of <b>lfCharSet</b> and <b>lfFaceName</b>, <b>EnumFontFamiliesEx</b> will enumerate the same font as many times as there are distinct character sets in the font. This can create an extensive list of fonts which can be burdensome to a user. For example, the Century Schoolbook font can appear for the Baltic, Western, Greek, Turkish, and Cyrillic character sets. To avoid this, an application should filter the list of fonts.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <b>EnumFontFamiliesEx</b> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines EnumFontFamiliesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumFontFamiliesEx function enumerates all uniquely-named fonts in the system that match the font characteristics specified by the LOGFONT structure. EnumFontFamiliesEx enumerates fonts based on typeface name, character set, or both.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<LOGFONTA>} lpLogfont A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the fonts to enumerate. The function examines the following members.
      * 
@@ -6458,7 +5973,7 @@ class Gdi {
      * @param {Pointer} lParam An application defined value. The function passes this value to the callback function along with font information.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @returns {Integer} The return value is the last value returned by the callback function. This value depends on which font families are available for the specified device.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesexa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontfamiliesexa
      * @since windows5.0
      */
     static EnumFontFamiliesExA(hdc, lpLogfont, lpProc, lParam, dwFlags) {
@@ -6467,123 +5982,7 @@ class Gdi {
     }
 
     /**
-     * The EnumFontFamiliesEx function enumerates all uniquely-named fonts in the system that match the font characteristics specified by the LOGFONT structure. EnumFontFamiliesEx enumerates fonts based on typeface name, character set, or both. (Unicode)
-     * @remarks
-     * The <b>EnumFontFamiliesEx</b> function does not use tagged typeface names to identify character sets. Instead, it always passes the correct typeface name and a separate character set value to the callback function. The function enumerates fonts based on the values of the <b>lfCharSet</b> and <b>lfFaceName</b> members in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
-     * 
-     * As with <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, <b>EnumFontFamiliesEx</b> enumerates all font styles. Not all styles of a font cover the same character sets. For example, Fontorama Bold might contain ANSI, Greek, and Cyrillic characters, but Fontorama Italic might contain only ANSI characters. For this reason, it's best not to assume that a specified font covers a specific character set, even if it is the ANSI character set. The following table shows the results of various combinations of values for <b>lfCharSet</b> and <b>lfFaceName</b>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Values</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> = DEFAULT_CHARSET
-     * 
-     * <b>lfFaceName</b> = '\0'
-     * 
-     * </td>
-     * <td>
-     * Enumerates all uniquely-named fonts within all character sets. If there are two fonts with the same name, only one is enumerated.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> = DEFAULT_CHARSET
-     * 
-     * <b>lfFaceName</b> = a specific font
-     * 
-     * </td>
-     * <td>
-     * Enumerates all character sets and styles in a specific font.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> =a specific character set
-     * 
-     * <b>lfFaceName</b> = '\0'
-     * 
-     * </td>
-     * <td>
-     * Enumerates all styles of all fonts in the specific character set.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * <b>lfCharSet</b> =a specific character set
-     * 
-     * <b>lfFaceName</b> = a specific font
-     * 
-     * </td>
-     * <td>
-     * Enumerates all styles of a font in a specific character set.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The following code sample shows how these values are used.
-     * 
-     * 
-     * ```cpp
-     * 
-     * // To enumerate all styles and charsets of all fonts: 
-     * lf.lfFaceName[0] = '\0';
-     * lf.lfCharSet = DEFAULT_CHARSET;
-     * HRESULT hr;
-     * 
-     * // To enumerate all styles and character sets of the Arial font: 
-     * hr = StringCchCopy( (LPSTR)lf.lfFaceName, LF_FACESIZE, "Arial" );
-     * if (FAILED(hr))
-     * {
-     * // TODO: write error handler 
-     * }
-     * 
-     * lf.lfCharSet = DEFAULT_CHARSET;
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * ```cpp
-     * 
-     * // To enumerate all styles of all fonts for the ANSI character set 
-     * lf.lfFaceName[0] = '\0';
-     * lf.lfCharSet = ANSI_CHARSET;
-     * 
-     * // To enumerate all styles of Arial font that cover the ANSI charset 
-     * hr = StringCchCopy( (LPSTR)lf.lfFaceName, LF_FACESIZE, "Arial" );
-     * if (FAILED(hr))
-     * {
-     * // TODO: write error handler 
-     * }
-     * 
-     * lf.lfCharSet = ANSI_CHARSET;
-     * 
-     * ```
-     * 
-     * 
-     * The callback functions for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a> and <b>EnumFontFamiliesEx</b> are very similar. The main difference is that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure includes a script field.
-     * 
-     * Note, based on the values of <b>lfCharSet</b> and <b>lfFaceName</b>, <b>EnumFontFamiliesEx</b> will enumerate the same font as many times as there are distinct character sets in the font. This can create an extensive list of fonts which can be burdensome to a user. For example, the Century Schoolbook font can appear for the Baltic, Western, Greek, Turkish, and Cyrillic character sets. To avoid this, an application should filter the list of fonts.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <b>EnumFontFamiliesEx</b> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines EnumFontFamiliesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumFontFamiliesEx function enumerates all uniquely-named fonts in the system that match the font characteristics specified by the LOGFONT structure. EnumFontFamiliesEx enumerates fonts based on typeface name, character set, or both.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<LOGFONTW>} lpLogfont A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the fonts to enumerate. The function examines the following members.
      * 
@@ -6609,7 +6008,7 @@ class Gdi {
      * @param {Pointer} lParam An application defined value. The function passes this value to the callback function along with font information.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @returns {Integer} The return value is the last value returned by the callback function. This value depends on which font families are available for the specified device.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesexw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontfamiliesexw
      * @since windows5.0
      */
     static EnumFontFamiliesExW(hdc, lpLogfont, lpProc, lParam, dwFlags) {
@@ -6618,19 +6017,13 @@ class Gdi {
     }
 
     /**
-     * The EnumFontFamilies function enumerates the fonts in a specified font family that are available on a specified device. (ANSI)
-     * @remarks
-     * For each font having the typeface name specified by the <i>lpszFamily</i> parameter, the <b>EnumFontFamilies</b> function retrieves information about that font and passes it to the function pointed to by the <i>lpEnumFontFamProc</i> parameter. The application defined callback function can process the font information as desired. Enumeration continues until there are no more fonts or the callback function returns zero.
-     * 
-     * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <b>EnumFontFamilies</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
+     * The EnumFontFamilies function enumerates the fonts in a specified font family that are available on a specified device.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<Byte>} lpLogfont A pointer to a null-terminated string that specifies the family name of the desired fonts. If <i>lpszFamily</i> is <b>NULL</b>, <b>EnumFontFamilies</b> selects and enumerates one font of each available type family.
      * @param {Pointer<FONTENUMPROCA>} lpProc A pointer to the application defined callback function. For information, see <a href="https://docs.microsoft.com/previous-versions/dd162621(v=vs.85)">EnumFontFamProc</a>.
      * @param {Pointer} lParam A pointer to application-supplied data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is implementation specific.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontfamiliesa
      * @since windows5.0
      */
     static EnumFontFamiliesA(hdc, lpLogfont, lpProc, lParam) {
@@ -6641,19 +6034,13 @@ class Gdi {
     }
 
     /**
-     * The EnumFontFamilies function enumerates the fonts in a specified font family that are available on a specified device. (Unicode)
-     * @remarks
-     * For each font having the typeface name specified by the <i>lpszFamily</i> parameter, the <b>EnumFontFamilies</b> function retrieves information about that font and passes it to the function pointed to by the <i>lpEnumFontFamProc</i> parameter. The application defined callback function can process the font information as desired. Enumeration continues until there are no more fonts or the callback function returns zero.
-     * 
-     * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <b>EnumFontFamilies</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
+     * The EnumFontFamilies function enumerates the fonts in a specified font family that are available on a specified device.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<Char>} lpLogfont A pointer to a null-terminated string that specifies the family name of the desired fonts. If <i>lpszFamily</i> is <b>NULL</b>, <b>EnumFontFamilies</b> selects and enumerates one font of each available type family.
      * @param {Pointer<FONTENUMPROCW>} lpProc A pointer to the application defined callback function. For information, see <a href="https://docs.microsoft.com/previous-versions/dd162621(v=vs.85)">EnumFontFamProc</a>.
      * @param {Pointer} lParam A pointer to application-supplied data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is implementation specific.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontfamiliesw
      * @since windows5.0
      */
     static EnumFontFamiliesW(hdc, lpLogfont, lpProc, lParam) {
@@ -6664,24 +6051,13 @@ class Gdi {
     }
 
     /**
-     * The EnumFonts function enumerates the fonts available on a specified device. (ANSI)
-     * @remarks
-     * Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> instead of <b>EnumFonts</b>. The <b>EnumFontFamiliesEx</b> function differs from the <b>EnumFonts</b> function in that it retrieves the style names associated with a TrueType font. With <b>EnumFontFamiliesEx</b>, you can retrieve information about font styles that cannot be enumerated using the <b>EnumFonts</b> function.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <b>EnumFonts</b>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines EnumFonts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumFonts function enumerates the fonts available on a specified device.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<Byte>} lpLogfont A pointer to a null-terminated string that specifies the typeface name of the desired fonts. If <i>lpFaceName</i> is <b>NULL</b>, <b>EnumFonts</b> randomly selects and enumerates one font of each available typeface.
      * @param {Pointer<FONTENUMPROCA>} lpProc A pointer to the application definedcallback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162623(v=vs.85)">EnumFontsProc</a>.
      * @param {Pointer} lParam A pointer to any application-defined data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is defined by the application.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontsa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontsa
      * @since windows5.0
      */
     static EnumFontsA(hdc, lpLogfont, lpProc, lParam) {
@@ -6692,24 +6068,13 @@ class Gdi {
     }
 
     /**
-     * The EnumFonts function enumerates the fonts available on a specified device. (Unicode)
-     * @remarks
-     * Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> instead of <b>EnumFonts</b>. The <b>EnumFontFamiliesEx</b> function differs from the <b>EnumFonts</b> function in that it retrieves the style names associated with a TrueType font. With <b>EnumFontFamiliesEx</b>, you can retrieve information about font styles that cannot be enumerated using the <b>EnumFonts</b> function.
-     * 
-     * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <b>EnumFonts</b>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines EnumFonts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumFonts function enumerates the fonts available on a specified device.
      * @param {Pointer<Void>} hdc A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<Char>} lpLogfont A pointer to a null-terminated string that specifies the typeface name of the desired fonts. If <i>lpFaceName</i> is <b>NULL</b>, <b>EnumFonts</b> randomly selects and enumerates one font of each available typeface.
      * @param {Pointer<FONTENUMPROCW>} lpProc A pointer to the application definedcallback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162623(v=vs.85)">EnumFontsProc</a>.
      * @param {Pointer} lParam A pointer to any application-defined data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is defined by the application.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontsw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumfontsw
      * @since windows5.0
      */
     static EnumFontsW(hdc, lpLogfont, lpProc, lParam) {
@@ -6728,7 +6093,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the last value returned by the callback function. Its meaning is user-defined.
      * 
      * If the objects cannot be enumerated (for example, there are too many objects), the function returns zero without calling the callback function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumobjects
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      * @since windows5.0
      */
     static EnumObjects(hdc, nType, lpFunc, lParam) {
@@ -6743,7 +6108,7 @@ class Gdi {
      * @returns {Integer} If the two regions are equal, the return value is nonzero.
      * 
      * If the two regions are not equal, the return value is zero. A return value of ERROR means at least one of the region handles is invalid.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-equalrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-equalrgn
      * @since windows5.0
      */
     static EqualRgn(hrgn1, hrgn2) {
@@ -6753,8 +6118,6 @@ class Gdi {
 
     /**
      * The ExcludeClipRect function creates a new clipping region that consists of the existing clipping region minus the specified rectangle.
-     * @remarks
-     * The lower and right edges of the specified rectangle are not excluded from the clipping region.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the rectangle.
@@ -6812,7 +6175,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-excludecliprect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-excludecliprect
      * @since windows5.0
      */
     static ExcludeClipRect(hdc, left, top, right, bottom) {
@@ -6822,17 +6185,13 @@ class Gdi {
 
     /**
      * The ExtCreateRegion function creates a region from the specified region and transformation data.
-     * @remarks
-     * Region coordinates are represented as 27-bit signed integers.
-     * 
-     * An application can retrieve data for a region by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getregiondata">GetRegionData</a> function.
      * @param {Pointer<XFORM>} lpx A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that defines the transformation to be performed on the region. If this pointer is <b>NULL</b>, the identity transformation is used.
      * @param {Integer} nCount The number of bytes pointed to by <i>lpRgnData</i>.
      * @param {Pointer} lpData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure that contains the region data in logical units.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the value of the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extcreateregion
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-extcreateregion
      * @since windows5.0
      */
     static ExtCreateRegion(lpx, nCount, lpData) {
@@ -6842,20 +6201,6 @@ class Gdi {
 
     /**
      * The ExtFloodFill function fills an area of the display surface with the current brush.
-     * @remarks
-     * The following are some of the reasons this function might fail:
-     * 
-     * <ul>
-     * <li>The filling could not be completed.</li>
-     * <li>The specified point has the boundary color specified by the <i>color</i> parameter (if FLOODFILLBORDER was requested).</li>
-     * <li>The specified point does not have the color specified by <i>color</i> (if FLOODFILLSURFACE was requested).</li>
-     * <li>The point is outside the clipping region, that is, it is not visible on the device.</li>
-     * </ul>
-     * If the <i>fuFillType</i> parameter is FLOODFILLBORDER, the system assumes that the area to be filled is completely bounded by the color specified by the <i>color</i> parameter. The function begins filling at the point specified by the <i>nXStart</i> and <i>nYStart</i> parameters and continues in all directions until it reaches the boundary.
-     * 
-     * If <i>fuFillType</i> is FLOODFILLSURFACE, the system assumes that the area to be filled is a single color. The function begins to fill the area at the point specified by <i>nXStart</i> and <i>nYStart</i> and continues in all directions, filling all adjacent regions containing the color specified by <i>color</i>.
-     * 
-     * Only memory device contexts and devices that support raster-display operations support the <b>ExtFloodFill</b> function. To determine whether a device supports this technology, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point where filling is to start.
      * @param {Integer} y The y-coordinate, in logical units, of the point where filling is to start.
@@ -6864,7 +6209,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extfloodfill
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-extfloodfill
      * @since windows5.0
      */
     static ExtFloodFill(hdc, x, y, color, type) {
@@ -6880,7 +6225,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-fillrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-fillrgn
      * @since windows5.0
      */
     static FillRgn(hdc, hrgn, hbr) {
@@ -6890,14 +6235,6 @@ class Gdi {
 
     /**
      * The FloodFill function fills an area of the display surface with the current brush. The area is assumed to be bounded as specified by the color parameter.
-     * @remarks
-     * The following are reasons this function might fail:
-     * 
-     * <ul>
-     * <li>The fill could not be completed.</li>
-     * <li>The given point has the boundary color specified by the <i>color</i> parameter.</li>
-     * <li>The given point lies outside the current clipping region, that is, it is not visible on the device.</li>
-     * </ul>
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point where filling is to start.
      * @param {Integer} y The y-coordinate, in logical units, of the point where filling is to start.
@@ -6905,7 +6242,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-floodfill
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-floodfill
      * @since windows5.0
      */
     static FloodFill(hdc, x, y, color) {
@@ -6923,7 +6260,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-framergn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-framergn
      * @since windows5.0
      */
     static FrameRgn(hdc, hrgn, hbr, w, h) {
@@ -6933,84 +6270,11 @@ class Gdi {
 
     /**
      * The GetROP2 function retrieves the foreground mix mode of the specified device context. The mix mode specifies how the pen or interior color and the color already on the screen are combined to yield a new color.
-     * @remarks
-     * Following are the foreground mix modes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Mix mode</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>R2_BLACK</td>
-     * <td>Pixel is always 0.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_COPYPEN</td>
-     * <td>Pixel is the pen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MASKNOTPEN</td>
-     * <td>Pixel is a combination of the colors common to both the screen and the inverse of the pen.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MASKPEN</td>
-     * <td>Pixel is a combination of the colors common to both the pen and the screen.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MASKPENNOT</td>
-     * <td>Pixel is a combination of the colors common to both the pen and the inverse of the screen.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MERGENOTPEN</td>
-     * <td>Pixel is a combination of the screen color and the inverse of the pen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MERGEPEN</td>
-     * <td>Pixel is a combination of the pen color and the screen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_MERGEPENNOT</td>
-     * <td>Pixel is a combination of the pen color and the inverse of the screen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOP</td>
-     * <td>Pixel remains unchanged.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOT</td>
-     * <td>Pixel is the inverse of the screen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOTCOPYPEN</td>
-     * <td>Pixel is the inverse of the pen color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOTMASKPEN</td>
-     * <td>Pixel is the inverse of the R2_MASKPEN color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOTMERGEPEN</td>
-     * <td>Pixel is the inverse of the R2_MERGEPEN color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_NOTXORPEN</td>
-     * <td>Pixel is the inverse of the R2_XORPEN color.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_WHITE</td>
-     * <td>Pixel is always 1.</td>
-     * </tr>
-     * <tr>
-     * <td>R2_XORPEN</td>
-     * <td>Pixel is a combination of the colors in the pen and in the screen, but not in both.</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @returns {Integer} If the function succeeds, the return value specifies the foreground mix mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrop2
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getrop2
      * @since windows5.0
      */
     static GetROP2(hdc) {
@@ -7020,16 +6284,12 @@ class Gdi {
 
     /**
      * The GetAspectRatioFilterEx function retrieves the setting for the current aspect-ratio filter.
-     * @remarks
-     * The aspect ratio is the ratio formed by the width and height of a pixel on a specified device.
-     * 
-     * The system provides a special filter, the aspect-ratio filter, to select fonts that were designed for a particular device. An application can specify that the system should only retrieve fonts matching the specified aspect ratio by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setmapperflags">SetMapperFlags</a> function.
      * @param {Pointer<Void>} hdc Handle to a device context.
-     * @param {Pointer<SIZE>} lpsize Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the current aspect-ratio filter.
+     * @param {Pointer<SIZE>} lpsize Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the current aspect-ratio filter.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getaspectratiofilterex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getaspectratiofilterex
      * @since windows5.0
      */
     static GetAspectRatioFilterEx(hdc, lpsize) {
@@ -7040,10 +6300,10 @@ class Gdi {
     /**
      * The GetBkColor function returns the current background color for the specified device context.
      * @param {Pointer<Void>} hdc Handle to the device context whose background color is to be returned.
-     * @returns {Integer} If the function succeeds, the return value is a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current background color.
+     * @returns {Integer} If the function succeeds, the return value is a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value for the current background color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbkcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbkcolor
      * @since windows5.0
      */
     static GetBkColor(hdc) {
@@ -7053,15 +6313,11 @@ class Gdi {
 
     /**
      * The GetDCBrushColor function retrieves the current brush color for the specified device context (DC).
-     * @remarks
-     * For information on setting the brush color, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCBrushColor</a>.
-     * 
-     * <b>ICM:</b> Color management is performed if ICM is enabled.
      * @param {Pointer<Void>} hdc A handle to the DC whose brush color is to be returned.
-     * @returns {Integer} If the function succeeds, the return value is the <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC brush color.
+     * @returns {Integer} If the function succeeds, the return value is the <a href="/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC brush color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcbrushcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdcbrushcolor
      * @since windows5.0
      */
     static GetDCBrushColor(hdc) {
@@ -7071,15 +6327,11 @@ class Gdi {
 
     /**
      * The GetDCPenColor function retrieves the current pen color for the specified device context (DC).
-     * @remarks
-     * For information on setting the pen color, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCPenColor</a>.
-     * 
-     * <b>ICM:</b> Color management is performed if ICM is enabled.
      * @param {Pointer<Void>} hdc A handle to the DC whose brush color is to be returned.
-     * @returns {Integer} If the function succeeds, the return value is a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC pen color.
+     * @returns {Integer} If the function succeeds, the return value is a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC pen color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcpencolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdcpencolor
      * @since windows5.0
      */
     static GetDCPenColor(hdc) {
@@ -7093,7 +6345,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the current background mix mode, either OPAQUE or TRANSPARENT.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbkmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbkmode
      * @since windows5.0
      */
     static GetBkMode(hdc) {
@@ -7109,7 +6361,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of bytes copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbitmapbits
      * @since windows5.0
      */
     static GetBitmapBits(hbit, cb, lpvBits) {
@@ -7119,14 +6371,12 @@ class Gdi {
 
     /**
      * The GetBitmapDimensionEx function retrieves the dimensions of a compatible bitmap. The retrieved dimensions must have been set by the SetBitmapDimensionEx function.
-     * @remarks
-     * The function returns a data structure that contains fields for the height and width of the bitmap, in .01-mm units. If those dimensions have not yet been set, the structure that is returned will have zeros in those fields.
      * @param {Pointer<Void>} hbit A handle to a compatible bitmap (DDB).
-     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure to receive the bitmap dimensions. For more information, see Remarks.
+     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure to receive the bitmap dimensions. For more information, see Remarks.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapdimensionex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbitmapdimensionex
      * @since windows5.0
      */
     static GetBitmapDimensionEx(hbit, lpsize) {
@@ -7136,8 +6386,6 @@ class Gdi {
 
     /**
      * The GetBoundsRect function obtains the current accumulated bounding rectangle for a specified device context.
-     * @remarks
-     * The DCB_SET value is a combination of the bit values DCB_ACCUMULATE and DCB_RESET. Applications that check the DCB_RESET bit to determine whether the bounding rectangle is empty must also check the DCB_ACCUMULATE bit. The bounding rectangle is empty only if the DCB_RESET bit is 1 and the DCB_ACCUMULATE bit is 0.
      * @param {Pointer<Void>} hdc A handle to the device context whose bounding rectangle the function will return.
      * @param {Pointer<RECT>} lprect A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that will receive the current bounding rectangle. The application's rectangle is returned in logical coordinates, and the bounding rectangle is returned in screen coordinates.
      * @param {Integer} flags Specifies how the <b>GetBoundsRect</b> function will behave. This parameter can be the following value.
@@ -7186,7 +6434,7 @@ class Gdi {
      * <td>The bounding rectangle is not empty.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getboundsrect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getboundsrect
      * @since windows5.0
      */
     static GetBoundsRect(hdc, lprect, flags) {
@@ -7196,20 +6444,12 @@ class Gdi {
 
     /**
      * The GetBrushOrgEx function retrieves the current brush origin for the specified device context. This function replaces the GetBrushOrg function.
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * The brush origin is a set of coordinates with values between 0 and 7, specifying the location of one pixel in the bitmap. The default brush origin coordinates are (0,0). For horizontal coordinates, the value 0 corresponds to the leftmost column of pixels; the value 7 corresponds to the rightmost column. For vertical coordinates, the value 0 corresponds to the uppermost row of pixels; the value 7 corresponds to the lowermost row. When the system positions the brush at the start of any painting operation, it maps the origin of the brush to the location in the window's client area specified by the brush origin. For example, if the origin is set to (2,3), the system maps the origin of the brush (0,0) to the location (2,3) on the window's client area.
-     * 
-     * If an application uses a brush to fill the backgrounds of both a parent and a child window with matching colors, it may be necessary to set the brush origin after painting the parent window but before painting the child window.
-     * 
-     * The system automatically tracks the origin of all window-managed device contexts and adjusts their brushes as necessary to maintain an alignment of patterns on the surface.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the brush origin, in device coordinates.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the brush origin, in device coordinates.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbrushorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getbrushorgex
      * @since windows5.0
      */
     static GetBrushOrgEx(hdc, lppt) {
@@ -7218,20 +6458,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidth function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font. (ANSI)
-     * @remarks
-     * <b>GetCharWidth</b> cannot be used on TrueType fonts. To retrieve character widths for TrueType fonts, use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a>.
-     * 
-     * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharWidth as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharWidth function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
@@ -7239,7 +6466,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidtha
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidtha
      * @since windows5.0
      */
     static GetCharWidthA(hdc, iFirst, iLast, lpBuffer) {
@@ -7248,20 +6475,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidth function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font. (Unicode)
-     * @remarks
-     * <b>GetCharWidth</b> cannot be used on TrueType fonts. To retrieve character widths for TrueType fonts, use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a>.
-     * 
-     * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharWidth as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharWidth function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
@@ -7269,7 +6483,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidthw
      * @since windows5.0
      */
     static GetCharWidthW(hdc, iFirst, iLast, lpBuffer) {
@@ -7278,13 +6492,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidth32 function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font. (ANSI)
-     * @remarks
-     * <b>GetCharWidth32</b> cannot be used on TrueType fonts. To retrieve character widths for TrueType fonts, use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a>.
-     * 
-     * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
+     * The GetCharWidth32 function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
@@ -7292,7 +6500,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidth32a
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidth32a
      * @since windows5.0
      */
     static GetCharWidth32A(hdc, iFirst, iLast, lpBuffer) {
@@ -7301,13 +6509,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidth32 function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font. (Unicode)
-     * @remarks
-     * <b>GetCharWidth32</b> cannot be used on TrueType fonts. To retrieve character widths for TrueType fonts, use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a>.
-     * 
-     * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
+     * The GetCharWidth32 function retrieves the widths, in logical coordinates, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
@@ -7315,7 +6517,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidth32w
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidth32w
      * @since windows5.0
      */
     static GetCharWidth32W(hdc, iFirst, iLast, lpBuffer) {
@@ -7324,20 +6526,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidthFloat function retrieves the fractional widths of consecutive characters in a specified range from the current font. (ANSI)
-     * @remarks
-     * The returned widths are in the 32-bit IEEE floating-point format. (The widths are measured along the base line of the characters.)
-     * 
-     * If the <i>iFirstChar</i> parameter specifies the letter a and the <i>iLastChar</i> parameter specifies the letter z, <b>GetCharWidthFloat</b> retrieves the widths of all lowercase characters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharWidthFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharWidthFloat function retrieves the fractional widths of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
@@ -7345,7 +6534,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthfloata
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidthfloata
      * @since windows5.0
      */
     static GetCharWidthFloatA(hdc, iFirst, iLast, lpBuffer) {
@@ -7354,20 +6543,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharWidthFloat function retrieves the fractional widths of consecutive characters in a specified range from the current font. (Unicode)
-     * @remarks
-     * The returned widths are in the 32-bit IEEE floating-point format. (The widths are measured along the base line of the characters.)
-     * 
-     * If the <i>iFirstChar</i> parameter specifies the letter a and the <i>iLastChar</i> parameter specifies the letter z, <b>GetCharWidthFloat</b> retrieves the widths of all lowercase characters.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharWidthFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharWidthFloat function retrieves the fractional widths of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
@@ -7375,7 +6551,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthfloatw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidthfloatw
      * @since windows5.0
      */
     static GetCharWidthFloatW(hdc, iFirst, iLast, lpBuffer) {
@@ -7384,24 +6560,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharABCWidths function retrieves the widths, in logical units, of consecutive characters in a specified range from the current TrueType font. This function succeeds only with TrueType fonts. (ANSI)
-     * @remarks
-     * The TrueType rasterizer provides ABC character spacing after a specific point size has been selected. A spacing is the distance added to the current position before placing the glyph. B spacing is the width of the black part of the glyph. C spacing is the distance added to the current position to provide white space to the right of the glyph. The total advanced width is specified by A+B+C.
-     * 
-     * When the <b>GetCharABCWidths</b> function retrieves negative A or C widths for a character, that character includes underhangs or overhangs.
-     * 
-     * To convert the ABC widths to font design units, an application should use the value stored in the <b>otmEMSquare</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. This value can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getoutlinetextmetricsa">GetOutlineTextMetrics</a> function.
-     * 
-     * The ABC widths of the default character are used for characters outside the range of the currently selected font.
-     * 
-     * To retrieve the widths of characters in non-TrueType fonts, applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidtha">GetCharWidth</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharABCWidths as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharABCWidths function retrieves the widths, in logical units, of consecutive characters in a specified range from the current TrueType font. This function succeeds only with TrueType fonts.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} wFirst The first character in the group of consecutive characters from the current font.
      * @param {Integer} wLast The last character in the group of consecutive characters from the current font.
@@ -7409,7 +6568,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharabcwidthsa
      * @since windows5.0
      */
     static GetCharABCWidthsA(hdc, wFirst, wLast, lpABC) {
@@ -7418,24 +6577,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharABCWidths function retrieves the widths, in logical units, of consecutive characters in a specified range from the current TrueType font. This function succeeds only with TrueType fonts. (Unicode)
-     * @remarks
-     * The TrueType rasterizer provides ABC character spacing after a specific point size has been selected. A spacing is the distance added to the current position before placing the glyph. B spacing is the width of the black part of the glyph. C spacing is the distance added to the current position to provide white space to the right of the glyph. The total advanced width is specified by A+B+C.
-     * 
-     * When the <b>GetCharABCWidths</b> function retrieves negative A or C widths for a character, that character includes underhangs or overhangs.
-     * 
-     * To convert the ABC widths to font design units, an application should use the value stored in the <b>otmEMSquare</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. This value can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getoutlinetextmetricsa">GetOutlineTextMetrics</a> function.
-     * 
-     * The ABC widths of the default character are used for characters outside the range of the currently selected font.
-     * 
-     * To retrieve the widths of characters in non-TrueType fonts, applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidtha">GetCharWidth</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharABCWidths as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharABCWidths function retrieves the widths, in logical units, of consecutive characters in a specified range from the current TrueType font. This function succeeds only with TrueType fonts.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} wFirst The first character in the group of consecutive characters from the current font.
      * @param {Integer} wLast The last character in the group of consecutive characters from the current font.
@@ -7443,7 +6585,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharabcwidthsw
      * @since windows5.0
      */
     static GetCharABCWidthsW(hdc, wFirst, wLast, lpABC) {
@@ -7452,24 +6594,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharABCWidthsFloat function retrieves the widths, in logical units, of consecutive characters in a specified range from the current font. (ANSI)
-     * @remarks
-     * Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a> function that returns widths only for TrueType fonts, the <b>GetCharABCWidthsFloat</b> function retrieves widths for any font. The widths returned by this function are in the IEEE floating-point format.
-     * 
-     * If the current world-to-device transformation is not identified, the returned widths may be noninteger values, even if the corresponding values in the device space are integers.
-     * 
-     * A spacing is the distance added to the current position before placing the glyph. B spacing is the width of the black part of the glyph. C spacing is the distance added to the current position to provide white space to the right of the glyph. The total advanced width is specified by A+B+C.
-     * 
-     * The ABC spaces are measured along the character base line of the selected font.
-     * 
-     * The ABC widths of the default character are used for characters outside the range of the currently selected font.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharABCWidthsFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharABCWidthsFloat function retrieves the widths, in logical units, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Integer} iFirst Specifies the code point of the first character in the group of consecutive characters where the ABC widths are seeked.
      * @param {Integer} iLast Specifies the code point of the last character in the group of consecutive characters where the ABC widths are seeked. This range is inclusive. An error is returned if the specified last character precedes the specified first character.
@@ -7477,7 +6602,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsfloata
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharabcwidthsfloata
      * @since windows5.0
      */
     static GetCharABCWidthsFloatA(hdc, iFirst, iLast, lpABC) {
@@ -7486,24 +6611,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharABCWidthsFloat function retrieves the widths, in logical units, of consecutive characters in a specified range from the current font. (Unicode)
-     * @remarks
-     * Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a> function that returns widths only for TrueType fonts, the <b>GetCharABCWidthsFloat</b> function retrieves widths for any font. The widths returned by this function are in the IEEE floating-point format.
-     * 
-     * If the current world-to-device transformation is not identified, the returned widths may be noninteger values, even if the corresponding values in the device space are integers.
-     * 
-     * A spacing is the distance added to the current position before placing the glyph. B spacing is the width of the black part of the glyph. C spacing is the distance added to the current position to provide white space to the right of the glyph. The total advanced width is specified by A+B+C.
-     * 
-     * The ABC spaces are measured along the character base line of the selected font.
-     * 
-     * The ABC widths of the default character are used for characters outside the range of the currently selected font.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharABCWidthsFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharABCWidthsFloat function retrieves the widths, in logical units, of consecutive characters in a specified range from the current font.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Integer} iFirst Specifies the code point of the first character in the group of consecutive characters where the ABC widths are seeked.
      * @param {Integer} iLast Specifies the code point of the last character in the group of consecutive characters where the ABC widths are seeked. This range is inclusive. An error is returned if the specified last character precedes the specified first character.
@@ -7511,7 +6619,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsfloatw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharabcwidthsfloatw
      * @since windows5.0
      */
     static GetCharABCWidthsFloatW(hdc, iFirst, iLast, lpABC) {
@@ -7578,7 +6686,7 @@ class Gdi {
      *  
      * 
      * <b>GetClipBox</b> returns logical coordinates based on the given device context.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getclipbox
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getclipbox
      * @since windows5.0
      */
     static GetClipBox(hdc, lprect) {
@@ -7588,14 +6696,10 @@ class Gdi {
 
     /**
      * The GetClipRgn function retrieves a handle identifying the current application-defined clipping region for the specified device context.
-     * @remarks
-     * An application-defined clipping region is a clipping region identified by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectcliprgn">SelectClipRgn</a> function. It is not a clipping region created when the application calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
-     * 
-     * If the function succeeds, the <i>hrgn</i> parameter is a handle to a copy of the current clipping region. Subsequent changes to this copy will not affect the current clipping region.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hrgn A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current clipping region.
      * @returns {Integer} If the function succeeds and there is no clipping region for the given device context, the return value is zero. If the function succeeds and there is a clipping region for the given device context, the return value is 1. If an error occurs, the return value is -1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcliprgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcliprgn
      * @since windows5.0
      */
     static GetClipRgn(hdc, hrgn) {
@@ -7605,16 +6709,12 @@ class Gdi {
 
     /**
      * The GetMetaRgn function retrieves the current metaregion for the specified device context.
-     * @remarks
-     * If the function succeeds, <i>hrgn</i> is a handle to a copy of the current metaregion. Subsequent changes to this copy will not affect the current metaregion.
-     * 
-     * The current clipping region of a device context is defined by the intersection of its clipping region and its metaregion.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hrgn A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current metaregion.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetargn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmetargn
      * @since windows5.0
      */
     static GetMetaRgn(hdc, hrgn) {
@@ -7624,14 +6724,12 @@ class Gdi {
 
     /**
      * The GetCurrentObject function retrieves a handle to an object of the specified type that has been selected into the specified device context (DC).
-     * @remarks
-     * An application can use the <b>GetCurrentObject</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> functions to retrieve descriptions of the graphic objects currently selected into the specified DC.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} type 
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentobject
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcurrentobject
      * @since windows5.0
      */
     static GetCurrentObject(hdc, type) {
@@ -7642,11 +6740,11 @@ class Gdi {
     /**
      * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the logical coordinates of the current position.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the logical coordinates of the current position.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcurrentpositionex
      * @since windows5.0
      */
     static GetCurrentPositionEx(hdc, lppt) {
@@ -7656,59 +6754,12 @@ class Gdi {
 
     /**
      * The GetDeviceCaps function retrieves device-specific information for the specified device.
-     * @remarks
-     * When <i>nIndex</i> is SHADEBLENDCAPS:
-     * 
-     * <ul>
-     * <li>For a printer, <b>GetDeviceCaps</b> returns whatever the printer reports.</li>
-     * <li>For a display device, all blending operations are available; besides SB_NONE, the only return values are SB_CONST_ALPHA and SB_PIXEL_ALPHA, which indicate whether these operations are accelerated.</li>
-     * </ul>
-     * On a multiple monitor system, if <i>hdc</i> is the desktop, <b>GetDeviceCaps</b> returns the capabilities of the primary monitor. If you want info for other monitors, you must use the <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-reference">multi-monitor APIs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> to get a HDC for the device context (DC) of a specific monitor.  
-     * 
-     * <div class="alert"><b>Note</b>  Display1 is typically the primary monitor, but not always.</div>
-     * <div> </div>
-     * <b>GetDeviceCaps</b> provides the following six indexes in place of printer escapes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Index</th>
-     * <th>Printer escape replaced</th>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALWIDTH</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALHEIGHT</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETX</td>
-     * <td>GETPRINTINGOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETY</td>
-     * <td>GETPHYSICALOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORX</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORY</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} index 
      * @returns {Integer} The return value specifies the value of the desired item.
      * 
      * When <i>nIndex</i> is BITSPIXEL and the device has 15bpp or 16bpp, the return value is 16.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdevicecaps
      * @since windows5.0
      */
     static GetDeviceCaps(hdc, index) {
@@ -7718,54 +6769,16 @@ class Gdi {
 
     /**
      * The GetDIBits function retrieves the bits of the specified compatible bitmap and copies them into a buffer as a DIB using the specified format.
-     * @remarks
-     * If the requested format for the DIB matches its internal format, the RGB values for the bitmap are copied. If the requested format doesn't match the internal format, a color table is synthesized. The following table describes the color table synthesized for each format.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>1_BPP</td>
-     * <td>The color table consists of a black and a white entry.</td>
-     * </tr>
-     * <tr>
-     * <td>4_BPP</td>
-     * <td>The color table consists of a mix of colors identical to the standard VGA palette.</td>
-     * </tr>
-     * <tr>
-     * <td>8_BPP</td>
-     * <td>The color table consists of a general mix of 256 colors defined by GDI. (Included in these 256 colors are the 20 colors found in the default logical palette.)</td>
-     * </tr>
-     * <tr>
-     * <td>24_BPP</td>
-     * <td>No color table is returned.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * If the <i>lpvBits</i> parameter is a valid pointer, the first six members of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure must be initialized to specify the size and format of the DIB. The scan lines must be aligned on a <b>DWORD</b> except for RLE compressed bitmaps.
-     * 
-     * A bottom-up DIB is specified by setting the height to a positive number, while a top-down DIB is specified by setting the height to a negative number. The bitmap color table will be appended to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
-     * 
-     * If <i>lpvBits</i> is <b>NULL</b>, <b>GetDIBits</b> examines the first member of the first structure pointed to by <i>lpbi</i>. This member must specify the size, in bytes, of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreheader">BITMAPCOREHEADER</a> or a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure. The function uses the specified size to determine how the remaining members should be initialized.
-     * 
-     * If <i>lpvBits</i> is <b>NULL</b> and the bit count member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> is initialized to zero, <b>GetDIBits</b> fills in a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreheader">BITMAPCOREHEADER</a> without the color table. This technique can be used to query bitmap attributes.
-     * 
-     * The bitmap identified by the <i>hbmp</i> parameter must not be selected into a device context when the application calls this function.
-     * 
-     * The origin for a bottom-up DIB is the lower-left corner of the bitmap; the origin for a top-down DIB is the upper-left corner.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hbm A handle to the bitmap. This must be a compatible bitmap (DDB).
      * @param {Integer} start The first scan line to retrieve.
      * @param {Integer} cLines The number of scan lines to retrieve.
-     * @param {Pointer<Void>} lpvBits A pointer to a buffer to receive the bitmap data. If this parameter is <b>NULL</b>, the function passes the dimensions and format of the bitmap to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by the <i>lpbmi</i> parameter.
+     * @param {Pointer<Void>} lpvBits A pointer to a buffer to receive the bitmap data. If this parameter is <b>NULL</b>, the function passes the dimensions and format of the bitmap to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by the <i>lpbi</i> parameter.
      * @param {Pointer<BITMAPINFO>} lpbmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure that specifies the desired format for the DIB data.
      * @param {Integer} usage 
      * @returns {Integer} If the <i>lpvBits</i> parameter is non-<b>NULL</b> and the function succeeds, the return value is the number of scan lines copied from the bitmap.
      * 
-     * If the <i>lpvBits</i> parameter is <b>NULL</b> and <b>GetDIBits</b> successfully fills the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure, the return value is nonzero.
+     * If the <i>lpvBits</i> parameter is <b>NULL</b> and <b>GetDIBits</b> successfully fills the <a href="/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * 
@@ -7788,7 +6801,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdibits
      * @since windows5.0
      */
     static GetDIBits(hdc, hbm, start, cLines, lpvBits, lpbmi, usage) {
@@ -7798,12 +6811,6 @@ class Gdi {
 
     /**
      * The GetFontData function retrieves font metric data for a TrueType font.
-     * @remarks
-     * This function is intended to be used to retrieve TrueType font information directly from the font file by font-manipulation applications. For information about embedding fonts see the <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-reference">Font Embedding Reference</a>.
-     * 
-     * An application can sometimes use the <b>GetFontData</b> function to save a TrueType font with a document. To do this, the application determines whether the font can be embedded by checking the <b>otmfsType</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If bit 1 of <b>otmfsType</b> is set, embedding is not permitted for the font. If bit 1 is clear, the font can be embedded. If bit 2 is set, the embedding is read-only. If embedding is permitted, the application can retrieve the entire font file, specifying zero for the <i>dwTable</i>, <i>dwOffset</i>, and <i>cbData</i> parameters.
-     * 
-     * If an application attempts to use this function to retrieve information for a non-TrueType font, an error occurs.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} dwTable The name of a font metric table from which the font data is to be retrieved. This parameter can identify one of the metric tables documented in the TrueType Font Files specification published by Microsoft Corporation. If this parameter is zero, the information is retrieved starting at the beginning of the file for TrueType font files or from the beginning of the data for the currently selected font for TrueType Collection files. To retrieve the data from the beginning of the file for TrueType Collection files specify 'ttcf' (0x66637474).
      * @param {Integer} dwOffset The offset from the beginning of the font metric table to the location where the function should begin retrieving information. If this parameter is zero, the information is retrieved starting at the beginning of the table specified by the <i>dwTable</i> parameter. If this value is greater than or equal to the size of the table, an error occurs.
@@ -7812,7 +6819,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of bytes returned.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontdata
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getfontdata
      * @since windows5.0
      */
     static GetFontData(hdc, dwTable, dwOffset, pvBuffer, cjBuffer) {
@@ -7821,26 +6828,7 @@ class Gdi {
     }
 
     /**
-     * The GetGlyphOutline function retrieves the outline or bitmap for a character in the TrueType font that is selected into the specified device context. (ANSI)
-     * @remarks
-     * The glyph outline returned by the <b>GetGlyphOutline</b> function is for a grid-fitted glyph. (A grid-fitted glyph is a glyph that has been modified so that its bitmapped image conforms as closely as possible to the original design of the glyph.) If an application needs an unmodified glyph outline, it can request the glyph outline for a character in a font whose size is equal to the font's em unit. The value for a font's em unit is stored in the <b>otmEMSquare</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure.
-     * 
-     * The glyph bitmap returned by <b>GetGlyphOutline</b> when GGO_BITMAP is specified is a DWORD-aligned, row-oriented, monochrome bitmap. When GGO_GRAY2_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 4. When GGO_GRAY4_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 16. When GGO_GRAY8_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 64.
-     * 
-     * The native buffer returned by <b>GetGlyphOutline</b> when GGO_NATIVE is specified is a glyph outline. A glyph outline is returned as a series of one or more contours defined by a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolygonheader">TTPOLYGONHEADER</a> structure followed by one or more curves. Each curve in the contour is defined by a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> structure followed by a number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pointfx">POINTFX</a> data points. <b>POINTFX</b> points are absolute positions, not relative moves. The starting point of a contour is given by the <b>pfxStart</b> member of the <b>TTPOLYGONHEADER</b> structure. The starting point of each curve is the last point of the previous curve or the starting point of the contour. The count of data points in a curve is stored in the <b>cpfx</b> member of <b>TTPOLYCURVE</b> structure. The size of each contour in the buffer, in bytes, is stored in the <b>cb</b> member of <b>TTPOLYGONHEADER</b> structure. Additional curve definitions are packed into the buffer following preceding curves and additional contours are packed into the buffer following preceding contours. The buffer contains as many contours as fit within the buffer returned by <b>GetGlyphOutline</b>.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetrics">GLYPHMETRICS</a> structure specifies the width of the character cell and the location of a glyph within the character cell. The origin of the character cell is located at the left side of the cell at the baseline of the font. The location of the glyph origin is relative to the character cell origin. The height of a character cell, the baseline, and other metrics global to the font are given by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure.
-     * 
-     * An application can alter the characters retrieved in bitmap or native format by specifying a 2-by-2 transformation matrix in the <i>lpMatrix</i> parameter. For example the glyph can be modified by shear, rotation, scaling, or any combination of the three using matrix multiplication.
-     * 
-     * Additional information on a glyph outlines is located in the TrueType and the OpenType technical specifications.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetGlyphOutline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGlyphOutline function retrieves the outline or bitmap for a character in the TrueType font that is selected into the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} uChar The character for which data is to be returned.
      * @param {Integer} fuFormat 
@@ -7851,7 +6839,7 @@ class Gdi {
      * @returns {Integer} If GGO_BITMAP, GGO_GRAY2_BITMAP, GGO_GRAY4_BITMAP, GGO_GRAY8_BITMAP, or GGO_NATIVE is specified and the function succeeds, the return value is greater than zero; otherwise, the return value is GDI_ERROR. If one of these flags is specified and the buffer size or address is zero, the return value specifies the required buffer size, in bytes.
      * 
      * If GGO_METRICS is specified and the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphoutlinea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getglyphoutlinea
      * @since windows5.0
      */
     static GetGlyphOutlineA(hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
@@ -7860,26 +6848,7 @@ class Gdi {
     }
 
     /**
-     * The GetGlyphOutline function retrieves the outline or bitmap for a character in the TrueType font that is selected into the specified device context. (Unicode)
-     * @remarks
-     * The glyph outline returned by the <b>GetGlyphOutline</b> function is for a grid-fitted glyph. (A grid-fitted glyph is a glyph that has been modified so that its bitmapped image conforms as closely as possible to the original design of the glyph.) If an application needs an unmodified glyph outline, it can request the glyph outline for a character in a font whose size is equal to the font's em unit. The value for a font's em unit is stored in the <b>otmEMSquare</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure.
-     * 
-     * The glyph bitmap returned by <b>GetGlyphOutline</b> when GGO_BITMAP is specified is a DWORD-aligned, row-oriented, monochrome bitmap. When GGO_GRAY2_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 4. When GGO_GRAY4_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 16. When GGO_GRAY8_BITMAP is specified, the bitmap returned is a DWORD-aligned, row-oriented array of bytes whose values range from 0 to 64.
-     * 
-     * The native buffer returned by <b>GetGlyphOutline</b> when GGO_NATIVE is specified is a glyph outline. A glyph outline is returned as a series of one or more contours defined by a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolygonheader">TTPOLYGONHEADER</a> structure followed by one or more curves. Each curve in the contour is defined by a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> structure followed by a number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pointfx">POINTFX</a> data points. <b>POINTFX</b> points are absolute positions, not relative moves. The starting point of a contour is given by the <b>pfxStart</b> member of the <b>TTPOLYGONHEADER</b> structure. The starting point of each curve is the last point of the previous curve or the starting point of the contour. The count of data points in a curve is stored in the <b>cpfx</b> member of <b>TTPOLYCURVE</b> structure. The size of each contour in the buffer, in bytes, is stored in the <b>cb</b> member of <b>TTPOLYGONHEADER</b> structure. Additional curve definitions are packed into the buffer following preceding curves and additional contours are packed into the buffer following preceding contours. The buffer contains as many contours as fit within the buffer returned by <b>GetGlyphOutline</b>.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetrics">GLYPHMETRICS</a> structure specifies the width of the character cell and the location of a glyph within the character cell. The origin of the character cell is located at the left side of the cell at the baseline of the font. The location of the glyph origin is relative to the character cell origin. The height of a character cell, the baseline, and other metrics global to the font are given by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure.
-     * 
-     * An application can alter the characters retrieved in bitmap or native format by specifying a 2-by-2 transformation matrix in the <i>lpMatrix</i> parameter. For example the glyph can be modified by shear, rotation, scaling, or any combination of the three using matrix multiplication.
-     * 
-     * Additional information on a glyph outlines is located in the TrueType and the OpenType technical specifications.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetGlyphOutline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGlyphOutline function retrieves the outline or bitmap for a character in the TrueType font that is selected into the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} uChar The character for which data is to be returned.
      * @param {Integer} fuFormat 
@@ -7890,7 +6859,7 @@ class Gdi {
      * @returns {Integer} If GGO_BITMAP, GGO_GRAY2_BITMAP, GGO_GRAY4_BITMAP, GGO_GRAY8_BITMAP, or GGO_NATIVE is specified and the function succeeds, the return value is greater than zero; otherwise, the return value is GDI_ERROR. If one of these flags is specified and the buffer size or address is zero, the return value specifies the required buffer size, in bytes.
      * 
      * If GGO_METRICS is specified and the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphoutlinew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getglyphoutlinew
      * @since windows5.0
      */
     static GetGlyphOutlineW(hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
@@ -7900,8 +6869,6 @@ class Gdi {
 
     /**
      * The GetGraphicsMode function retrieves the current graphics mode for the specified device context.
-     * @remarks
-     * An application can set the graphics mode for a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current graphics mode. It can be one of the following values.
      * 
@@ -7922,7 +6889,7 @@ class Gdi {
      *  
      * 
      * Otherwise, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getgraphicsmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getgraphicsmode
      * @since windows5.0
      */
     static GetGraphicsMode(hdc) {
@@ -7932,52 +6899,11 @@ class Gdi {
 
     /**
      * The GetMapMode function retrieves the current mapping mode.
-     * @remarks
-     * The following are the various mapping modes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Mode</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>MM_ANISOTROPIC</td>
-     * <td>Logical units are mapped to arbitrary units with arbitrarily scaled axes. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a> functions to specify the units, orientation, and scaling required.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_HIENGLISH</td>
-     * <td>Each logical unit is mapped to 0.001 inch. Positive x is to the right; positive y is up.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_HIMETRIC</td>
-     * <td>Each logical unit is mapped to 0.01 millimeter. Positive x is to the right; positive y is up.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_ISOTROPIC</td>
-     * <td>Logical units are mapped to arbitrary units with equally scaled axes; that is, one unit along the x-axis is equal to one unit along the y-axis. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a> functions to specify the units and the orientation of the axes. Graphics device interface makes adjustments as necessary to ensure the x and y units remain the same size. (When the windows extent is set, the viewport will be adjusted to keep the units isotropic).</td>
-     * </tr>
-     * <tr>
-     * <td>MM_LOENGLISH</td>
-     * <td>Each logical unit is mapped to 0.01 inch. Positive x is to the right; positive y is up.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_LOMETRIC</td>
-     * <td>Each logical unit is mapped to 0.1 millimeter. Positive x is to the right; positive y is up.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_TEXT</td>
-     * <td>Each logical unit is mapped to one device pixel. Positive x is to the right; positive y is down.</td>
-     * </tr>
-     * <tr>
-     * <td>MM_TWIPS</td>
-     * <td>Each logical unit is mapped to one twentieth of a printer's point (1/1440 inch, also called a "twip"). Positive x is to the right; positive y is up.</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value specifies the mapping mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmapmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmapmode
      * @since windows5.0
      */
     static GetMapMode(hdc) {
@@ -7987,19 +6913,13 @@ class Gdi {
 
     /**
      * The GetMetaFileBitsEx function retrieves the contents of a Windows-format metafile and copies them into the specified buffer.
-     * @remarks
-     * After the Windows-metafile bits are retrieved, they can be used to create a memory-based metafile by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setmetafilebitsex">SetMetaFileBitsEx</a> function.
-     * 
-     * The <b>GetMetaFileBitsEx</b> function does not invalidate the metafile handle. An application must delete this handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
-     * 
-     * To convert a Windows-format metafile into an enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
      * @param {Pointer<Void>} hMF A handle to a Windows-format metafile.
      * @param {Integer} cbBuffer The size, in bytes, of the buffer to receive the data.
      * @param {Pointer} lpData A pointer to a buffer that receives the metafile data. The buffer must be sufficiently large to contain the data. If <i>lpvData</i> is <b>NULL</b>, the function returns the number of bytes required to hold the data.
      * @returns {Integer} If the function succeeds and the buffer pointer is <b>NULL</b>, the return value is the number of bytes required for the buffer; if the function succeeds and the buffer pointer is a valid pointer, the return value is the number of bytes copied.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilebitsex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmetafilebitsex
      * @since windows5.0
      */
     static GetMetaFileBitsEx(hMF, cbBuffer, lpData) {
@@ -8008,21 +6928,12 @@ class Gdi {
     }
 
     /**
-     * The GetMetaFile function creates a handle that identifies the metafile stored in the specified file. (ANSI)
-     * @remarks
-     * This function is not implemented in the Win32 API. It is provided for compatibility with 16-bit versions of Windows. In Win32 applications, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getenhmetafilea">GetEnhMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetMetaFile function creates a handle that identifies the metafile stored in the specified file.
      * @param {Pointer<Byte>} lpName A pointer to a null-terminated string that specifies the name of a metafile.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmetafilea
      */
     static GetMetaFileA(lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
@@ -8032,21 +6943,12 @@ class Gdi {
     }
 
     /**
-     * The GetMetaFile function creates a handle that identifies the metafile stored in the specified file. (Unicode)
-     * @remarks
-     * This function is not implemented in the Win32 API. It is provided for compatibility with 16-bit versions of Windows. In Win32 applications, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getenhmetafilea">GetEnhMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetMetaFile function creates a handle that identifies the metafile stored in the specified file.
      * @param {Pointer<Char>} lpName A pointer to a null-terminated string that specifies the name of a metafile.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmetafilew
      */
     static GetMetaFileW(lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
@@ -8062,7 +6964,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value identifies a color from the system palette that corresponds to the given color value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getnearestcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getnearestcolor
      * @since windows5.0
      */
     static GetNearestColor(hdc, color) {
@@ -8072,16 +6974,12 @@ class Gdi {
 
     /**
      * The GetNearestPaletteIndex function retrieves the index for the entry in the specified logical palette most closely matching a specified color value.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * If the given logical palette contains entries with the PC_EXPLICIT flag set, the return value is undefined.
      * @param {Pointer<Void>} h A handle to a logical palette.
      * @param {Integer} color A color to be matched. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {Integer} If the function succeeds, the return value is the index of an entry in a logical palette.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getnearestpaletteindex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getnearestpaletteindex
      * @since windows5.0
      */
     static GetNearestPaletteIndex(h, color) {
@@ -8159,7 +7057,7 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjecttype
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobjecttype
      * @since windows5.0
      */
     static GetObjectType(h) {
@@ -8168,23 +7066,14 @@ class Gdi {
     }
 
     /**
-     * The GetOutlineTextMetrics function retrieves text metrics for TrueType fonts. (ANSI)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure contains most of the text metric information provided for TrueType fonts (including a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure). The sizes returned in <b>OUTLINETEXTMETRIC</b> are in logical units; they depend on the current mapping mode.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetOutlineTextMetrics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetOutlineTextMetrics function retrieves text metrics for TrueType fonts.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} cjCopy The size, in bytes, of the array that receives the text metrics.
      * @param {Pointer} potm A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If this parameter is <b>NULL</b>, the function returns the size of the buffer required for the retrieved metric data.
      * @returns {Integer} If the function succeeds, the return value is nonzero or the size of the required buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getoutlinetextmetricsa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getoutlinetextmetricsa
      * @since windows5.0
      */
     static GetOutlineTextMetricsA(hdc, cjCopy, potm) {
@@ -8193,23 +7082,14 @@ class Gdi {
     }
 
     /**
-     * The GetOutlineTextMetrics function retrieves text metrics for TrueType fonts. (Unicode)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure contains most of the text metric information provided for TrueType fonts (including a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure). The sizes returned in <b>OUTLINETEXTMETRIC</b> are in logical units; they depend on the current mapping mode.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetOutlineTextMetrics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetOutlineTextMetrics function retrieves text metrics for TrueType fonts.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} cjCopy The size, in bytes, of the array that receives the text metrics.
      * @param {Pointer} potm A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If this parameter is <b>NULL</b>, the function returns the size of the buffer required for the retrieved metric data.
      * @returns {Integer} If the function succeeds, the return value is nonzero or the size of the required buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getoutlinetextmetricsw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getoutlinetextmetricsw
      * @since windows5.0
      */
     static GetOutlineTextMetricsW(hdc, cjCopy, potm) {
@@ -8219,10 +7099,6 @@ class Gdi {
 
     /**
      * The GetPaletteEntries function retrieves a specified range of palette entries from the given logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * If the <i>nEntries</i> parameter specifies more entries than exist in the palette, the remaining members of the <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structure are not altered.
      * @param {Pointer<Void>} hpal A handle to the logical palette.
      * @param {Integer} iStart The first entry in the logical palette to be retrieved.
      * @param {Integer} cEntries The number of entries in the logical palette to be retrieved.
@@ -8230,7 +7106,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds and the handle to the logical palette is a valid pointer (not <b>NULL</b>), the return value is the number of entries retrieved from the logical palette. If the function succeeds and handle to the logical palette is <b>NULL</b>, the return value is the number of entries in the given palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpaletteentries
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpaletteentries
      * @since windows5.0
      */
     static GetPaletteEntries(hpal, iStart, cEntries, pPalEntries) {
@@ -8240,17 +7116,11 @@ class Gdi {
 
     /**
      * The GetPixel function retrieves the red, green, blue (RGB) color value of the pixel at the specified coordinates.
-     * @remarks
-     * The pixel must be within the boundaries of the current clipping region.
-     * 
-     * Not all devices support <b>GetPixel</b>. An application should call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> to determine whether a specified device supports this function.
-     * 
-     * A bitmap must be selected within the device context, otherwise, CLR_INVALID is returned on all pixels.
-     * @param {Pointer<Void>} hdc A handle to the [device context](/windows/win32/gdi/device-contexts).
+     * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the pixel to be examined.
      * @param {Integer} y The y-coordinate, in logical units, of the pixel to be examined.
-     * @returns {Integer} The return value is the <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the RGB of the pixel. If the pixel is outside of the current clipping region, the return value is CLR_INVALID (0xFFFFFFFF defined in Wingdi.h).
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixel
+     * @returns {Integer} The return value is the <a href="/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the RGB of the pixel. If the pixel is outside of the current clipping region, the return value is CLR_INVALID (0xFFFFFFFF defined in Wingdi.h).
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixel
      * @since windows5.0
      */
     static GetPixel(hdc, x, y) {
@@ -8280,7 +7150,7 @@ class Gdi {
      *  
      * 
      * If an error occurs, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpolyfillmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpolyfillmode
      * @since windows5.0
      */
     static GetPolyFillMode(hdc) {
@@ -8290,18 +7160,12 @@ class Gdi {
 
     /**
      * The GetRasterizerCaps function returns flags indicating whether TrueType fonts are installed in the system.
-     * @remarks
-     * The <b>GetRasterizerCaps</b> function enables applications and printer drivers to determine whether TrueType fonts are installed.
-     * 
-     * If the TT_AVAILABLE flag is set in the <b>wFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rasterizer_status">RASTERIZER_STATUS</a> structure, at least one TrueType font is installed. If the TT_ENABLED flag is set, TrueType is enabled for the system.
-     * 
-     * The actual number of bytes copied is either the member specified in the <i>cb</i> parameter or the length of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rasterizer_status">RASTERIZER_STATUS</a> structure, whichever is less.
      * @param {Pointer} lpraststat A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rasterizer_status">RASTERIZER_STATUS</a> structure that receives information about the rasterizer.
      * @param {Integer} cjBytes The number of bytes to be copied into the structure pointed to by the <i>lprs</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrasterizercaps
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getrasterizercaps
      * @since windows5.0
      */
     static GetRasterizerCaps(lpraststat, cjBytes) {
@@ -8311,15 +7175,11 @@ class Gdi {
 
     /**
      * The GetRandomRgn function copies the system clipping region of a specified device context to a specific region.
-     * @remarks
-     * When using the SYSRGN flag, note that the system clipping region might not be current because of window movements. Nonetheless, it is safe to retrieve and use the system clipping region within the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>-<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-endpaint">EndPaint</a> block during <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> processing. In this case, the system region is the intersection of the update region and the current visible area of the window. Any window movement following the return of <b>GetRandomRgn</b> and before <b>EndPaint</b> will result in a new <b>WM_PAINT</b> message. Any other use of the SYSRGN flag may result in painting errors in your application.
-     * 
-     * The region returned is in screen coordinates.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hrgn A handle to a region. Before the function is called, this identifies an existing region. After the function returns, this identifies a copy of the current system region. The old region identified by <i>hrgn</i> is overwritten.
      * @param {Integer} i This parameter must be SYSRGN.
      * @returns {Integer} If the function succeeds, the return value is 1. If the function fails, the return value is -1. If the region to be retrieved is <b>NULL</b>, the return value is 0. If the function fails or the region to be retrieved is <b>NULL</b>, <i>hrgn</i> is not initialized.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrandomrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getrandomrgn
      * @since windows5.0
      */
     static GetRandomRgn(hdc, hrgn, i) {
@@ -8329,15 +7189,13 @@ class Gdi {
 
     /**
      * The GetRegionData function fills the specified buffer with data describing a region. This data includes the dimensions of the rectangles that make up the region.
-     * @remarks
-     * The <b>GetRegionData</b> function is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreateregion">ExtCreateRegion</a> function.
      * @param {Pointer<Void>} hrgn A handle to the region.
      * @param {Integer} nCount The size, in bytes, of the <i>lpRgnData</i> buffer.
      * @param {Pointer} lpRgnData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure that receives the information. The dimensions of the region are in logical units. If this parameter is <b>NULL</b>, the return value contains the number of bytes needed for the region data.
      * @returns {Integer} If the function succeeds and <i>dwCount</i> specifies an adequate number of bytes, the return value is always <i>dwCount</i>. If <i>dwCount</i> is too small or the function fails, the return value is 0. If <i>lpRgnData</i> is <b>NULL</b>, the return value is the required number of bytes.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getregiondata
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getregiondata
      * @since windows5.0
      */
     static GetRegionData(hrgn, nCount, lpRgnData) {
@@ -8372,7 +7230,7 @@ class Gdi {
      *  
      * 
      * If the <i>hrgn</i> parameter does not identify a valid region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrgnbox
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getrgnbox
      * @since windows5.0
      */
     static GetRgnBox(hrgn, lprc) {
@@ -8382,21 +7240,11 @@ class Gdi {
 
     /**
      * The GetStockObject function retrieves a handle to one of the stock pens, brushes, fonts, or palettes.
-     * @remarks
-     * It is not recommended that you employ this method to obtain the current font used by dialogs and windows. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the SPI_GETNONCLIENTMETRICS parameter to retrieve the current font. <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> will take into account the current theme and provides font information for captions, menus, and message dialogs. 
-     * 
-     * Use the DKGRAY_BRUSH, GRAY_BRUSH, and LTGRAY_BRUSH stock objects only in windows with the CS_HREDRAW and CS_VREDRAW styles. Using a gray stock brush in any other style of window can lead to misalignment of brush patterns after a window is moved or sized. The origins of stock brushes cannot be adjusted.
-     * 
-     * The HOLLOW_BRUSH and NULL_BRUSH stock objects are equivalent.
-     * 
-     * It is not necessary (but it is not harmful) to delete stock objects by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
-     * 
-     * Both DC_BRUSH and DC_PEN can be used interchangeably with other stock objects like BLACK_BRUSH and BLACK_PEN. For information on retrieving the current pen or brush color, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdcbrushcolor">GetDCBrushColor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdcpencolor">GetDCPenColor</a>. See <a href="https://docs.microsoft.com/windows/desktop/gdi/setting-the-pen-or-brush-color">Setting the Pen or Brush Color</a> for an example of setting colors. The <b>GetStockObject</b> function with an argument of DC_BRUSH or DC_PEN can be used interchangeably with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcpencolor">SetDCPenColor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCBrushColor</a> functions.
      * @param {Integer} i 
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the requested logical object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getstockobject
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getstockobject
      * @since windows5.0
      */
     static GetStockObject(i) {
@@ -8450,7 +7298,7 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getstretchbltmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getstretchbltmode
      * @since windows5.0
      */
     static GetStretchBltMode(hdc) {
@@ -8460,8 +7308,6 @@ class Gdi {
 
     /**
      * The GetSystemPaletteEntries function retrieves a range of palette entries from the system palette that is associated with the specified device context (DC).
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iStart The first entry to be retrieved from the system palette.
      * @param {Integer} cEntries The number of entries to be retrieved from the system palette.
@@ -8469,7 +7315,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of entries retrieved from the palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getsystempaletteentries
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getsystempaletteentries
      * @since windows5.0
      */
     static GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries) {
@@ -8479,12 +7325,6 @@ class Gdi {
 
     /**
      * The GetSystemPaletteUse function retrieves the current state of the system (physical) palette for the specified device context (DC).
-     * @remarks
-     * By default, the system palette contains 20 static colors that are not changed when an application realizes its logical palette. An application can gain access to most of these colors by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setsystempaletteuse">SetSystemPaletteUse</a> function.
-     * 
-     * The device context identified by the <i>hdc</i> parameter must represent a device that supports color palettes.
-     * 
-     * An application can determine whether a device supports color palettes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current state of the system palette. This parameter can be one of the following values.
      * 
@@ -8506,7 +7346,7 @@ class Gdi {
      * <td>The given device context is invalid or does not support a color palette.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getsystempaletteuse
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getsystempaletteuse
      * @since windows5.0
      */
     static GetSystemPaletteUse(hdc) {
@@ -8516,13 +7356,11 @@ class Gdi {
 
     /**
      * The GetTextCharacterExtra function retrieves the current intercharacter spacing for the specified device context.
-     * @remarks
-     * The intercharacter spacing defines the extra space, in logical units along the base line, that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions add to each character as a line is written. The spacing is used to expand lines of text.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current intercharacter spacing, in logical coordinates.
      * 
      * If the function fails, the return value is 0x8000000.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharacterextra
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextcharacterextra
      * @since windows5.0
      */
     static GetTextCharacterExtra(hdc) {
@@ -8532,32 +7370,6 @@ class Gdi {
 
     /**
      * The GetTextAlign function retrieves the text-alignment setting for the specified device context.
-     * @remarks
-     * The bounding rectangle is a rectangle bounding all of the character cells in a string of text. Its dimensions can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function.
-     * 
-     * The text-alignment flags determine how the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions align a string of text in relation to the string's reference point provided to <b>TextOut</b> or <b>ExtTextOut</b>.
-     * 
-     * The text-alignment flags are not necessarily single bit flags and may be equal to zero. The flags must be examined in groups of related flags, as shown in the following list.
-     * 
-     * <ul>
-     * <li>TA_LEFT, TA_RIGHT, and TA_CENTER</li>
-     * <li>TA_BOTTOM, TA_TOP, and TA_BASELINE</li>
-     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
-     * </ul>
-     * If the current font has a vertical default base line, the related flags are as shown in the following list.
-     * 
-     * <ul>
-     * <li>TA_LEFT, TA_RIGHT, and VTA_BASELINE</li>
-     * <li>TA_BOTTOM, TA_TOP, and VTA_CENTER</li>
-     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
-     * </ul>
-     * <p class="proch"><b>To verify that a particular flag is set in the return value of this function:</b>
-     * 
-     * <ol>
-     * <li>Apply the bitwise OR operator to the flag and its related flags.</li>
-     * <li>Apply the bitwise AND operator to the result and the return value.</li>
-     * <li>Test for the equality of this result and the flag.</li>
-     * </ol>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the status of the text-alignment flags. For more information about the return value, see the Remarks section. The return value is a combination of the following values.
      * 
@@ -8624,7 +7436,7 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextalign
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextalign
      * @since windows5.0
      */
     static GetTextAlign(hdc) {
@@ -8634,13 +7446,11 @@ class Gdi {
 
     /**
      * The GetTextColor function retrieves the current text color for the specified device context.
-     * @remarks
-     * The text color defines the foreground color of characters drawn by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function.
      * @param {Pointer<Void>} hdc Handle to the device context.
-     * @returns {Integer} If the function succeeds, the return value is the current text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {Integer} If the function succeeds, the return value is the current text color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextcolor
      * @since windows5.0
      */
     static GetTextColor(hdc) {
@@ -8649,28 +7459,15 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentPoint function computes the width and height of the specified string of text. (ANSI)
-     * @remarks
-     * The <b>GetTextExtentPoint</b> function uses the currently selected font to compute the dimensions of the string. The width and height, in logical units, are computed without considering any clipping. Also, this function assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if using a font specifying a nonzero escapement, this function will not use the angle while computing the text extent. The application must convert it explicitly.
-     * 
-     * Because some devices kern characters, the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextExtentPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextExtentPoint function computes the width and height of the specified string of text.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpString A pointer to the string that specifies the text. The string does not need to be zero-terminated, since <i>cbString</i> specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentpointa
      * @since windows5.0
      */
     static GetTextExtentPointA(hdc, lpString, c, lpsz) {
@@ -8681,28 +7478,15 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentPoint function computes the width and height of the specified string of text. (Unicode)
-     * @remarks
-     * The <b>GetTextExtentPoint</b> function uses the currently selected font to compute the dimensions of the string. The width and height, in logical units, are computed without considering any clipping. Also, this function assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if using a font specifying a nonzero escapement, this function will not use the angle while computing the text extent. The application must convert it explicitly.
-     * 
-     * Because some devices kern characters, the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextExtentPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextExtentPoint function computes the width and height of the specified string of text.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpString A pointer to the string that specifies the text. The string does not need to be zero-terminated, since <i>cbString</i> specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentpointw
      * @since windows5.0
      */
     static GetTextExtentPointW(hdc, lpString, c, lpsz) {
@@ -8713,31 +7497,15 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentPoint32 function computes the width and height of the specified string of text. (ANSI)
-     * @remarks
-     * The <b>GetTextExtentPoint32</b> function uses the currently selected font to compute the dimensions of the string. The width and height, in logical units, are computed without considering any clipping.
-     * 
-     * Because some devices kern characters, the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function and the justification set by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextjustification">SetTextJustification</a>. This is true for both displaying on a screen and for printing. However, if <i>lpDx</i> is set in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>, <b>GetTextExtentPoint32</b> does not take into account either intercharacter spacing or justification. In addition, for EMF, the print result always takes both intercharacter spacing and justification into account.
-     * 
-     * When dealing with text displayed on a screen, the calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function and the justification set by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextjustification">SetTextJustification</a>. However, if <i>lpDx</i> is set in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>, <b>GetTextExtentPoint32</b> does not take into account either intercharacter spacing or justification. However, when printing with EMF:
-     * 
-     * <ul>
-     * <li>The print result ignores intercharacter spacing, although <b>GetTextExtentPoint32</b> takes it into account.</li>
-     * <li>The print result takes justification into account, although <b>GetTextExtentPoint32</b> ignores it.</li>
-     * </ul>
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * 
-     * <b>GetTextExtentPoint32</b> doesn't consider "\n" (new line) or "\r\n" (carriage return and new line) characters when it computes the height of a text string.
+     * The GetTextExtentPoint32 function computes the width and height of the specified string of text.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpString A pointer to a buffer that specifies the text string. The string does not need to be null-terminated, because the <i>c</i> parameter specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
-     * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
+     * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpoint32a
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentpoint32a
      * @since windows5.0
      */
     static GetTextExtentPoint32A(hdc, lpString, c, psizl) {
@@ -8748,31 +7516,15 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentPoint32 function computes the width and height of the specified string of text. (Unicode)
-     * @remarks
-     * The <b>GetTextExtentPoint32</b> function uses the currently selected font to compute the dimensions of the string. The width and height, in logical units, are computed without considering any clipping.
-     * 
-     * Because some devices kern characters, the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function and the justification set by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextjustification">SetTextJustification</a>. This is true for both displaying on a screen and for printing. However, if <i>lpDx</i> is set in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>, <b>GetTextExtentPoint32</b> does not take into account either intercharacter spacing or justification. In addition, for EMF, the print result always takes both intercharacter spacing and justification into account.
-     * 
-     * When dealing with text displayed on a screen, the calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function and the justification set by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextjustification">SetTextJustification</a>. However, if <i>lpDx</i> is set in <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>, <b>GetTextExtentPoint32</b> does not take into account either intercharacter spacing or justification. However, when printing with EMF:
-     * 
-     * <ul>
-     * <li>The print result ignores intercharacter spacing, although <b>GetTextExtentPoint32</b> takes it into account.</li>
-     * <li>The print result takes justification into account, although <b>GetTextExtentPoint32</b> ignores it.</li>
-     * </ul>
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * 
-     * <b>GetTextExtentPoint32</b> doesn't consider "\n" (new line) or "\r\n" (carriage return and new line) characters when it computes the height of a text string.
+     * The GetTextExtentPoint32 function computes the width and height of the specified string of text.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpString A pointer to a buffer that specifies the text string. The string does not need to be null-terminated, because the <i>c</i> parameter specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
-     * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
+     * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpoint32w
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentpoint32w
      * @since windows5.0
      */
     static GetTextExtentPoint32W(hdc, lpString, c, psizl) {
@@ -8783,24 +7535,7 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentExPoint function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters. (ANSI)
-     * @remarks
-     * If both the <i>lpnFit</i> and <i>alpDx</i> parameters are <b>NULL</b>, calling the <b>GetTextExtentExPoint</b> function is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointa">GetTextExtentPoint</a> function.
-     * 
-     * For the ANSI version of <b>GetTextExtentExPoint</b>, the <i>lpDx</i> array has the same number of INT values as there are bytes in <i>lpString</i>. The INT values that correspond to the two bytes of a DBCS character are each the extent of the entire composite character.
-     * 
-     * Note, the <i>alpDx</i> values for <b>GetTextExtentExPoint</b> are not the same as the <i>lpDx</i> values for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>. To use the <i>alpDx</i> values in <i>lpDx</i>, you must first process them.
-     * 
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * 
-     * This function returns the extent of each successive character in a string. When these are rounded to logical units, you get different results than what is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidtha">GetCharWidth</a>, which returns the width of each individual character rounded to logical units.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextExtentExPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextExtentExPoint function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
@@ -8809,11 +7544,11 @@ class Gdi {
      * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
      * 
      * For complex scripts, where a sequence of characters may be represented by any number of glyphs, the values in the <i>alpDx</i> array up to the number specified by the <i>lpnFit</i> parameter match one-to-one with code points. Again, you should ignore the rest of the values in the <i>alpDx</i> array.
-     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentexpointa
      * @since windows5.0
      */
     static GetTextExtentExPointA(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
@@ -8824,24 +7559,7 @@ class Gdi {
     }
 
     /**
-     * The GetTextExtentExPoint function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters. (Unicode)
-     * @remarks
-     * If both the <i>lpnFit</i> and <i>alpDx</i> parameters are <b>NULL</b>, calling the <b>GetTextExtentExPoint</b> function is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointa">GetTextExtentPoint</a> function.
-     * 
-     * For the ANSI version of <b>GetTextExtentExPoint</b>, the <i>lpDx</i> array has the same number of INT values as there are bytes in <i>lpString</i>. The INT values that correspond to the two bytes of a DBCS character are each the extent of the entire composite character.
-     * 
-     * Note, the <i>alpDx</i> values for <b>GetTextExtentExPoint</b> are not the same as the <i>lpDx</i> values for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>. To use the <i>alpDx</i> values in <i>lpDx</i>, you must first process them.
-     * 
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * 
-     * This function returns the extent of each successive character in a string. When these are rounded to logical units, you get different results than what is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidtha">GetCharWidth</a>, which returns the width of each individual character rounded to logical units.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextExtentExPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextExtentExPoint function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
@@ -8850,11 +7568,11 @@ class Gdi {
      * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
      * 
      * For complex scripts, where a sequence of characters may be represented by any number of glyphs, the values in the <i>alpDx</i> array up to the number specified by the <i>lpnFit</i> parameter match one-to-one with code points. Again, you should ignore the rest of the values in the <i>alpDx</i> array.
-     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentexpointw
      * @since windows5.0
      */
     static GetTextExtentExPointW(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
@@ -8884,11 +7602,11 @@ class Gdi {
      * </tr>
      * <tr>
      * <td>FLI_GLYPHS</td>
-     * <td>The font contains extra glyphs not normally accessible using the code page. Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> to access the glyphs. This value is for information only and is not intended to be passed to <b>GetCharacterPlacement</b>.</td>
+     * <td>The font contains extra glyphs not normally accessible using the code page. Use <a href="/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> to access the glyphs. This value is for information only and is not intended to be passed to <b>GetCharacterPlacement</b>.</td>
      * </tr>
      * <tr>
      * <td>GCP_GLYPHSHAPE</td>
-     * <td>The font/language contains multiple glyphs per code point or per code point combination (supports shaping and/or ligation), and the font contains advanced glyph tables to provide extra glyphs for the extra shapes. If this value is specified, the <b>lpGlyphs</b> array must be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> function and the ETO_GLYPHINDEX value must be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function when the string is drawn.</td>
+     * <td>The font/language contains multiple glyphs per code point or per code point combination (supports shaping and/or ligation), and the font contains advanced glyph tables to provide extra glyphs for the extra shapes. If this value is specified, the <b>lpGlyphs</b> array must be used with the <a href="/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> function and the ETO_GLYPHINDEX value must be passed to the <a href="/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function when the string is drawn.</td>
      * </tr>
      * <tr>
      * <td>GCP_KASHIDA</td>
@@ -8904,13 +7622,13 @@ class Gdi {
      * </tr>
      * <tr>
      * <td>GCP_REORDER</td>
-     * <td>The language requires reordering for display for example, Hebrew or Arabic.</td>
+     * <td>The language requires reordering for displayfor example, Hebrew or Arabic.</td>
      * </tr>
      * </table>
      *  
      * 
-     * The return value, when masked with FLI_MASK, can be passed directly to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontlanguageinfo
+     * The return value, when masked with FLI_MASK, can be passed directly to the <a href="/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getfontlanguageinfo
      * @since windows5.0
      */
     static GetFontLanguageInfo(hdc) {
@@ -8919,29 +7637,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharacterPlacement function retrieves information about a character string, such as character widths, caret positioning, ordering within the string, and glyph rendering. (ANSI)
-     * @remarks
-     * <b>GetCharacterPlacement</b> ensures that an application can correctly process text regardless of the international setting and type of fonts available. Applications use this function before using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function and in place of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function (and occasionally in place of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidth32a">GetCharWidth32</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a> functions).
-     * 
-     * Using <b>GetCharacterPlacement</b> to retrieve intercharacter spacing and index arrays is not always necessary unless justification or kerning is required. For non-Latin fonts, applications can improve the speed at which the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function renders text by using <b>GetCharacterPlacement</b> to retrieve the intercharacter spacing and index arrays before calling <b>ExtTextOut</b>. This is especially useful when rendering the same text repeatedly or when using intercharacter spacing to position the caret. If the <b>lpGlyphs</b> output array is used in the call to <b>ExtTextOut</b>, the ETO_GLYPH_INDEX flag must be set.
-     * 
-     * <b>GetCharacterPlacement</b> checks the <b>lpOrder</b>, <b>lpDX</b>, <b>lpCaretPos</b>, <b>lpOutString</b>, and <b>lpGlyphs</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gcp_resultsa">GCP_RESULTS</a> structure and fills the corresponding arrays if these members are not set to <b>NULL</b>. If <b>GetCharacterPlacement</b> cannot fill an array, it sets the corresponding member to <b>NULL</b>. To ensure retrieval of valid information, the application is responsible for setting the member to a valid address before calling the function and for checking the value of the member after the call. If the GCP_JUSTIFY or GCP_USEKERNING values are specified, the <b>lpDX</b> and/or <b>lpCaretPos</b> members must have valid addresses.
-     * 
-     * Note that the glyph indexes returned in GCP_RESULTS.lpGlyphs are specific to the current font in the device context and should only be used to draw text in the device context while that font remains selected.
-     * 
-     * When computing justification, if the trailing characters in the string are spaces, the function reduces the length of the string and removes the spaces prior to computing the justification. If the array consists of only spaces, the function returns an error.
-     * 
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> expects an <b>lpDX</b> entry for each byte of a DBCS string, whereas <b>GetCharacterPlacement</b> assigns an <b>lpDX</b> entry for each glyph. To correct this mismatch when using this combination of functions, either use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphindicesa">GetGlyphIndices</a> or expand the <b>lpDX</b> array with zero-width entries for the corresponding second byte of a DBCS byte pair.
-     * 
-     * If the logical width is less than the width of the leading character in the input string, GCP_RESULTS.nMaxFit returns a bad value. For this case, call <b>GetCharacterPlacement</b> for glyph indexes and the <b>lpDX</b> array. Then use the <b>lpDX</b> array to do the extent calculation using the advance width of each character, where <b>nMaxFit</b> is the number of characters whose glyph indexes advance width is less than the width of the leading character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharacterPlacement as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharacterPlacement function retrieves information about a character string, such as character widths, caret positioning, ordering within the string, and glyph rendering.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpString A pointer to the character string to process. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} nCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
@@ -8951,7 +7647,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the  width and height of the string in logical units. The width is the low-order word and the height is the high-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharacterplacementa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharacterplacementa
      * @since windows5.0
      */
     static GetCharacterPlacementA(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
@@ -8962,28 +7658,7 @@ class Gdi {
     }
 
     /**
-     * The GetCharacterPlacement function retrieves information about a character string, such as character widths, caret positioning, ordering within the string, and glyph rendering. (Unicode)
-     * @remarks
-     * <b>GetCharacterPlacement</b> ensures that an application can correctly process text regardless of the international setting and type of fonts available. Applications use this function before using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function and in place of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function (and occasionally in place of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidth32a">GetCharWidth32</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharabcwidthsa">GetCharABCWidths</a> functions).
-     * 
-     * Using <b>GetCharacterPlacement</b> to retrieve intercharacter spacing and index arrays is not always necessary unless justification or kerning is required. For non-Latin fonts, applications can improve the speed at which the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function renders text by using <b>GetCharacterPlacement</b> to retrieve the intercharacter spacing and index arrays before calling <b>ExtTextOut</b>. This is especially useful when rendering the same text repeatedly or when using intercharacter spacing to position the caret. If the <b>lpGlyphs</b> output array is used in the call to <b>ExtTextOut</b>, the ETO_GLYPH_INDEX flag must be set.
-     * 
-     * <b>GetCharacterPlacement</b> checks the <b>lpOrder</b>, <b>lpDX</b>, <b>lpCaretPos</b>, <b>lpOutString</b>, and <b>lpGlyphs</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gcp_resultsa">GCP_RESULTS</a> structure and fills the corresponding arrays if these members are not set to <b>NULL</b>. If <b>GetCharacterPlacement</b> cannot fill an array, it sets the corresponding member to <b>NULL</b>. To ensure retrieval of valid information, the application is responsible for setting the member to a valid address before calling the function and for checking the value of the member after the call. If the GCP_JUSTIFY or GCP_USEKERNING values are specified, the <b>lpDX</b> and/or <b>lpCaretPos</b> members must have valid addresses.
-     * 
-     * Note that the glyph indexes returned in GCP_RESULTS.lpGlyphs are specific to the current font in the device context and should only be used to draw text in the device context while that font remains selected.
-     * 
-     * When computing justification, if the trailing characters in the string are spaces, the function reduces the length of the string and removes the spaces prior to computing the justification. If the array consists of only spaces, the function returns an error.
-     * 
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> expects an <b>lpDX</b> entry for each byte of a DBCS string, whereas <b>GetCharacterPlacement</b> assigns an <b>lpDX</b> entry for each glyph. To correct this mismatch when using this combination of functions, either use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphindicesa">GetGlyphIndices</a> or expand the <b>lpDX</b> array with zero-width entries for the corresponding second byte of a DBCS byte pair.
-     * 
-     * If the logical width is less than the width of the leading character in the input string, GCP_RESULTS.nMaxFit returns a bad value. For this case, call <b>GetCharacterPlacement</b> for glyph indexes and the <b>lpDX</b> array. Then use the <b>lpDX</b> array to do the extent calculation using the advance width of each character, where <b>nMaxFit</b> is the number of characters whose glyph indexes advance width is less than the width of the leading character.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetCharacterPlacement as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetCharacterPlacement function retrieves information about a character string, such as character widths, caret positioning, ordering within the string, and glyph rendering.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpString A pointer to the character string to process. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} nCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
@@ -8993,7 +7668,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the  width and height of the string in logical units. The width is the low-order word and the height is the high-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharacterplacementw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharacterplacementw
      * @since windows5.0
      */
     static GetCharacterPlacementW(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
@@ -9010,7 +7685,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, it returns number of bytes written to the GLYPHSET structure or, if the <i>lpgs</i> parameter is <b>NULL</b>, it returns the size of the GLYPHSET structure required to store the information.
      * 
      * If the function fails, it returns zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontunicoderanges
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getfontunicoderanges
      * @since windows5.0
      */
     static GetFontUnicodeRanges(hdc, lpgs) {
@@ -9019,16 +7694,7 @@ class Gdi {
     }
 
     /**
-     * The GetGlyphIndices function translates a string into an array of glyph indices. The function can be used to determine whether a glyph exists in a font. (ANSI)
-     * @remarks
-     * This function attempts to identify a single-glyph representation for each character in the string pointed to by <i>lpstr</i>. While this is useful for certain low-level purposes (such as manipulating font files), higher-level applications that wish to map a string to glyphs will typically wish to use the <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe">Uniscribe</a> functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetGlyphIndices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGlyphIndices function translates a string into an array of glyph indices. The function can be used to determine whether a glyph exists in a font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
@@ -9054,7 +7720,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, it returns the number of bytes (for the ANSI function) or WORDs (for the Unicode function) converted.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphindicesa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getglyphindicesa
      * @since windows5.0
      */
     static GetGlyphIndicesA(hdc, lpstr, c, pgi, fl) {
@@ -9065,16 +7731,7 @@ class Gdi {
     }
 
     /**
-     * The GetGlyphIndices function translates a string into an array of glyph indices. The function can be used to determine whether a glyph exists in a font. (Unicode)
-     * @remarks
-     * This function attempts to identify a single-glyph representation for each character in the string pointed to by <i>lpstr</i>. While this is useful for certain low-level purposes (such as manipulating font files), higher-level applications that wish to map a string to glyphs will typically wish to use the <a href="https://docs.microsoft.com/windows/desktop/Intl/uniscribe">Uniscribe</a> functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetGlyphIndices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetGlyphIndices function translates a string into an array of glyph indices. The function can be used to determine whether a glyph exists in a font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
@@ -9100,7 +7757,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, it returns the number of bytes (for the ANSI function) or WORDs (for the Unicode function) converted.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphindicesw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getglyphindicesw
      * @since windows5.0
      */
     static GetGlyphIndicesW(hdc, lpstr, c, pgi, fl) {
@@ -9112,22 +7769,14 @@ class Gdi {
 
     /**
      * The GetTextExtentPointI function computes the width and height of the specified array of glyph indices.
-     * @remarks
-     * The <b>GetTextExtentPointI</b> function uses the currently selected font to compute the dimensions of the array of glyph indices. The width and height, in logical units, are computed without considering any clipping.
-     * 
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * 
-     * Because some devices kern characters, the sum of the extents of the individual glyph indices may not be equal to the extent of the entire array of glyph indices.
-     * 
-     * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Pointer<UInt16>} pgiIn Pointer to array of glyph indices.
      * @param {Integer} cgi Specifies the number of glyph indices.
-     * @param {Pointer<SIZE>} psize Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
+     * @param {Pointer<SIZE>} psize Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointi
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentpointi
      * @since windows5.0
      */
     static GetTextExtentPointI(hdc, pgiIn, cgi, psize) {
@@ -9137,21 +7786,17 @@ class Gdi {
 
     /**
      * The GetTextExtentExPointI function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters.
-     * @remarks
-     * If both the <i>lpnFit</i> and <i>alpDx</i> parameters are <b>NULL</b>, calling the <b>GetTextExtentExPointI</b> function is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointi">GetTextExtentPointI</a> function.
-     * 
-     * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<UInt16>} lpwszString A pointer to an array of glyph indices for which extents are to be retrieved.
      * @param {Integer} cwchString The number of glyphs in the array pointed to by the <i>pgiIn</i> parameter.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
      * @param {Pointer<Int32>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
      * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial glyph extents. Each element in the array gives the distance, in logical units, between the beginning of the glyph indices array and one of the glyphs that fits in the space specified by the <i>nMaxExtent</i> parameter. Although this array should have at least as many elements as glyph indices specified by the <i>cgi</i> parameter, the function fills the array with extents only for as many glyph indices as are specified by the <i>lpnFit</i> parameter. If <i>lpnFit</i> is <b>NULL</b>, the function does not compute partial string widths.
-     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the glyph indices array, in logical units. This value cannot be <b>NULL</b>.
+     * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the glyph indices array, in logical units. This value cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointi
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextextentexpointi
      * @since windows5.0
      */
     static GetTextExtentExPointI(hdc, lpwszString, cwchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
@@ -9161,10 +7806,6 @@ class Gdi {
 
     /**
      * The GetCharWidthI function retrieves the widths, in logical coordinates, of consecutive glyph indices in a specified range from the current font.
-     * @remarks
-     * The <b>GetCharWidthI</b> function processes a consecutive glyph indices if the <i>pgi</i> parameter is <b>NULL</b> with the <i>giFirst</i> parameter indicating the first glyph index to process and the <i>cgi</i> parameter indicating how many glyph indices to process. Otherwise the <b>GetCharWidthI</b> function processes the array of glyph indices pointed to by the <i>pgi</i> parameter with the <i>cgi</i> parameter indicating how many glyph indices to process.
-     * 
-     * If a character does not exist in the current font, it is assigned the width of the default character.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices.
      * @param {Integer} cgi The number of glyph indices.
@@ -9173,7 +7814,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthi
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharwidthi
      * @since windows5.0
      */
     static GetCharWidthI(hdc, giFirst, cgi, pgi, piWidths) {
@@ -9183,16 +7824,6 @@ class Gdi {
 
     /**
      * The GetCharABCWidthsI function retrieves the widths, in logical units, of consecutive glyph indices in a specified range from the current TrueType font. This function succeeds only with TrueType fonts.
-     * @remarks
-     * The TrueType rasterizer provides ABC character spacing after a specific point size has been selected. A spacing is the distance added to the current position before placing the glyph. B spacing is the width of the black part of the glyph. C spacing is the distance added to the current position to provide white space to the right of the glyph. The total advanced width is specified by A+B+C.
-     * 
-     * When the <b>GetCharABCWidthsI</b> function retrieves negative A or C widths for a character, that character includes underhangs or overhangs.
-     * 
-     * To convert the ABC widths to font design units, an application should use the value stored in the <b>otmEMSquare</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. This value can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getoutlinetextmetricsa">GetOutlineTextMetrics</a> function.
-     * 
-     * The ABC widths of the default character are used for characters outside the range of the currently selected font.
-     * 
-     * To retrieve the widths of glyph indices in non-TrueType fonts, applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidthi">GetCharWidthI</a> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices from the current font. This parameter is only used if the <i>pgi</i> parameter is <b>NULL</b>.
      * @param {Integer} cgi The number of glyph indices.
@@ -9201,7 +7832,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsi
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcharabcwidthsi
      * @since windows5.0
      */
     static GetCharABCWidthsI(hdc, giFirst, cgi, pgi, pabc) {
@@ -9210,22 +7841,7 @@ class Gdi {
     }
 
     /**
-     * The AddFontResourceEx function adds the font resource from the specified file to the system. Fonts added with the AddFontResourceEx function can be marked as private and not enumerable. (ANSI)
-     * @remarks
-     * This function allows a process to use fonts without allowing other processes access to the fonts.
-     * 
-     * When an application no longer needs a font resource it loaded by calling the <b>AddFontResourceEx</b> function, it must remove the resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourceexa">RemoveFontResourceEx</a> function.
-     * 
-     * This function installs the font only for the current session. When the system restarts, the font will not be present. To have the font installed even after restarting the system, the font must be listed in the registry.
-     * 
-     * A font listed in the registry and installed to a location other than the %windir%\fonts\ folder cannot be modified, deleted, or replaced as long as it is loaded in any session. In order to change one of these fonts, it must first be removed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a>, removed from the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>), and the system restarted. After restarting the system, the font will no longer be loaded and can be changed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines AddFontResourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AddFontResourceEx function adds the font resource from the specified file to the system. Fonts added with the AddFontResourceEx function can be marked as private and not enumerable.
      * @param {Pointer<Byte>} name A pointer to a null-terminated character string that contains a valid font file name. This parameter can specify any of the following files.
      * 
      * <table>
@@ -9331,7 +7947,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourceexa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontresourceexa
      * @since windows5.0
      */
     static AddFontResourceExA(name, fl) {
@@ -9344,22 +7960,7 @@ class Gdi {
     }
 
     /**
-     * The AddFontResourceEx function adds the font resource from the specified file to the system. Fonts added with the AddFontResourceEx function can be marked as private and not enumerable. (Unicode)
-     * @remarks
-     * This function allows a process to use fonts without allowing other processes access to the fonts.
-     * 
-     * When an application no longer needs a font resource it loaded by calling the <b>AddFontResourceEx</b> function, it must remove the resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourceexa">RemoveFontResourceEx</a> function.
-     * 
-     * This function installs the font only for the current session. When the system restarts, the font will not be present. To have the font installed even after restarting the system, the font must be listed in the registry.
-     * 
-     * A font listed in the registry and installed to a location other than the %windir%\fonts\ folder cannot be modified, deleted, or replaced as long as it is loaded in any session. In order to change one of these fonts, it must first be removed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontresourcea">RemoveFontResource</a>, removed from the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>), and the system restarted. After restarting the system, the font will no longer be loaded and can be changed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines AddFontResourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The AddFontResourceEx function adds the font resource from the specified file to the system. Fonts added with the AddFontResourceEx function can be marked as private and not enumerable.
      * @param {Pointer<Char>} name A pointer to a null-terminated character string that contains a valid font file name. This parameter can specify any of the following files.
      * 
      * <table>
@@ -9465,7 +8066,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourceexw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontresourceexw
      * @since windows5.0
      */
     static AddFontResourceExW(name, fl) {
@@ -9478,44 +8079,13 @@ class Gdi {
     }
 
     /**
-     * The RemoveFontResourceEx function removes the fonts in the specified file from the system font table. (ANSI)
-     * @remarks
-     * This function will only remove the font if the flags specified are the same as when then font was added with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> function.
-     * 
-     * When you try to replace an existing font file that contains a font with outstanding references to it, you might get an error that indicates that the original font can't be deleted because it’s in use even after you call <b>RemoveFontResourceEx</b>. If your app requires that the font file be replaced, to reduce the resource count of the original font to zero, call <b>RemoveFontResourceEx</b> in a loop as shown in this example code. If you continue to get errors, this is an indication that the font file remains loaded in other sessions. Make sure the font isn't listed in the font registry and restart the system to ensure the font is unloaded from all sessions.
-     * 
-     * <div class="alert"><b>Note</b>  Apps where the original font file is in use will still be able to access the original file and won't use the new font until the font reloads. Call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> to reload the font.  We recommend that you call <b>AddFontResourceEx</b> the same number of times as the call to <b>RemoveFontResourceEx</b> succeeded as shown in this example code.</div>
-     * <div> </div>
-     * 
-     * ``` syntax
-     * 
-     * int i = 0;
-     * while( RemoveFontResourceEx( FontFile, FR_PRIVATE, 0 ) )
-     * {
-     *     i++;
-     * }
-     * 
-     * // TODO: Replace font file
-     * 
-     * while( i-- )
-     * {
-     *     AddFontResourceEx( FontFile, FR_PRIVATE, 0 );
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines RemoveFontResourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The RemoveFontResourceEx function removes the fonts in the specified file from the system font table.
      * @param {Pointer<Byte>} name A pointer to a null-terminated string that names a font resource file.
      * @param {Integer} fl The characteristics of the font to be removed from the system. In order for the font to be removed, the flags used must be the same as when the font was added with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> function. See the <b>AddFontResourceEx</b> function for more information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourceexa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-removefontresourceexa
      * @since windows5.0
      */
     static RemoveFontResourceExA(name, fl) {
@@ -9528,44 +8098,13 @@ class Gdi {
     }
 
     /**
-     * The RemoveFontResourceEx function removes the fonts in the specified file from the system font table. (Unicode)
-     * @remarks
-     * This function will only remove the font if the flags specified are the same as when then font was added with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> function.
-     * 
-     * When you try to replace an existing font file that contains a font with outstanding references to it, you might get an error that indicates that the original font can't be deleted because it’s in use even after you call <b>RemoveFontResourceEx</b>. If your app requires that the font file be replaced, to reduce the resource count of the original font to zero, call <b>RemoveFontResourceEx</b> in a loop as shown in this example code. If you continue to get errors, this is an indication that the font file remains loaded in other sessions. Make sure the font isn't listed in the font registry and restart the system to ensure the font is unloaded from all sessions.
-     * 
-     * <div class="alert"><b>Note</b>  Apps where the original font file is in use will still be able to access the original file and won't use the new font until the font reloads. Call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> to reload the font.  We recommend that you call <b>AddFontResourceEx</b> the same number of times as the call to <b>RemoveFontResourceEx</b> succeeded as shown in this example code.</div>
-     * <div> </div>
-     * 
-     * ``` syntax
-     * 
-     * int i = 0;
-     * while( RemoveFontResourceEx( FontFile, FR_PRIVATE, 0 ) )
-     * {
-     *     i++;
-     * }
-     * 
-     * // TODO: Replace font file
-     * 
-     * while( i-- )
-     * {
-     *     AddFontResourceEx( FontFile, FR_PRIVATE, 0 );
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines RemoveFontResourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The RemoveFontResourceEx function removes the fonts in the specified file from the system font table.
      * @param {Pointer<Char>} name A pointer to a null-terminated string that names a font resource file.
      * @param {Integer} fl The characteristics of the font to be removed from the system. In order for the font to be removed, the flags used must be the same as when the font was added with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourceexa">AddFontResourceEx</a> function. See the <b>AddFontResourceEx</b> function for more information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourceexw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-removefontresourceexw
      * @since windows5.0
      */
     static RemoveFontResourceExW(name, fl) {
@@ -9579,17 +8118,11 @@ class Gdi {
 
     /**
      * The AddFontMemResourceEx function adds the font resource from a memory image to the system.
-     * @remarks
-     * This function allows an application to get a font that is embedded in a document or a webpage. A font that is added by <b>AddFontMemResourceEx</b> is always private to the process that made the call and is not enumerable.
-     * 
-     * A memory image can contain more than one font. When this function succeeds, <i>pcFonts</i> is a pointer to a <b>DWORD</b> whose value is the number of fonts added to the system as a result of this call. For example, this number could be 2 for the vertical and horizontal faces of an Asian font.
-     * 
-     * When the function succeeds, the caller of this function can free the memory pointed to by <i>pbFont</i> because the system has made its own copy of the memory. To remove the fonts that were installed, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontmemresourceex">RemoveFontMemResourceEx</a>. However, when the process goes away, the system will unload the fonts even if the process did not call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-removefontmemresourceex">RemoveFontMemResource</a>.
      * @param {Pointer} pFileView A pointer to a font resource.
      * @param {Integer} cjSize The number of bytes in the font resource that is pointed to by <i>pbFont</i>.
      * @param {Pointer<UInt32>} pNumFonts A pointer to a variable that specifies the number of fonts installed.
      * @returns {Pointer<Void>} If the function succeeds, the return value specifies the handle to the font added. This handle uniquely identifies the fonts that were installed on the system. If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontmemresourceex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontmemresourceex
      * @since windows5.0
      */
     static AddFontMemResourceEx(pFileView, cjSize, pNumFonts) {
@@ -9601,13 +8134,11 @@ class Gdi {
 
     /**
      * The RemoveFontMemResourceEx function removes the fonts added from a memory image file.
-     * @remarks
-     * This function removes a font that was added by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontmemresourceex">AddFontMemResourceEx</a> function. To remove the font, specify the same path and flags as were used in <b>AddFontMemResourceEx</b>. This function will only remove the font that is specified by <i>fh</i>.
      * @param {Pointer<Void>} h A handle to the font-resource. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontmemresourceex">AddFontMemResourceEx</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontmemresourceex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-removefontmemresourceex
      * @since windows5.0
      */
     static RemoveFontMemResourceEx(h) {
@@ -9616,25 +8147,12 @@ class Gdi {
     }
 
     /**
-     * The CreateFontIndirectEx function specifies a logical font that has the characteristics in the specified structure. The font can subsequently be selected as the current font for any device context. (ANSI)
-     * @remarks
-     * The <b>CreateFontIndirectEx</b> function creates a logical font with the characteristics specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure. When this font is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, GDI's font mapper attempts to match the logical font with an existing physical font. If it fails to find an exact match, it provides an alternative whose characteristics match as many of the requested characteristics as possible.
-     * 
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * The font mapper for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>, and <b>CreateFontIndirectEx</b> recognizes both the English and the localized typeface name, regardless of locale.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateFontIndirectEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateFontIndirectEx function specifies a logical font that has the characteristics in the specified structure. The font can subsequently be selected as the current font for any device context.
      * @param {Pointer<ENUMLOGFONTEXDVA>} param0 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the new <a href="/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectexa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfontindirectexa
      * @since windows5.0
      */
     static CreateFontIndirectExA(param0) {
@@ -9643,25 +8161,12 @@ class Gdi {
     }
 
     /**
-     * The CreateFontIndirectEx function specifies a logical font that has the characteristics in the specified structure. The font can subsequently be selected as the current font for any device context. (Unicode)
-     * @remarks
-     * The <b>CreateFontIndirectEx</b> function creates a logical font with the characteristics specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure. When this font is selected by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function, GDI's font mapper attempts to match the logical font with an existing physical font. If it fails to find an exact match, it provides an alternative whose characteristics match as many of the requested characteristics as possible.
-     * 
-     * When you no longer need the font, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * The font mapper for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfonta">CreateFont</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createfontindirecta">CreateFontIndirect</a>, and <b>CreateFontIndirectEx</b> recognizes both the English and the localized typeface name, regardless of locale.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CreateFontIndirectEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateFontIndirectEx function specifies a logical font that has the characteristics in the specified structure. The font can subsequently be selected as the current font for any device context.
      * @param {Pointer<ENUMLOGFONTEXDVW>} param0 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the new <a href="/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectexw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createfontindirectexw
      * @since windows5.0
      */
     static CreateFontIndirectExW(param0) {
@@ -9672,11 +8177,11 @@ class Gdi {
     /**
      * The GetViewportExtEx function retrieves the x-extent and y-extent of the current viewport for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the x- and y-extents, in device units.
+     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the x- and y-extents, in device units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getviewportextex
      * @since windows5.0
      */
     static GetViewportExtEx(hdc, lpsize) {
@@ -9687,11 +8192,11 @@ class Gdi {
     /**
      * The GetViewportOrgEx function retrieves the x-coordinates and y-coordinates of the viewport origin for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the coordinates of the origin, in device units.
+     * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the coordinates of the origin, in device units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getviewportorgex
      * @since windows5.0
      */
     static GetViewportOrgEx(hdc, lppoint) {
@@ -9702,11 +8207,11 @@ class Gdi {
     /**
      * This function retrieves the x-extent and y-extent of the window for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the x- and y-extents in page-space units, that is, logical units.
+     * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the x- and y-extents in page-space units, that is, logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwindowextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getwindowextex
      * @since windows5.0
      */
     static GetWindowExtEx(hdc, lpsize) {
@@ -9717,11 +8222,11 @@ class Gdi {
     /**
      * The GetWindowOrgEx function retrieves the x-coordinates and y-coordinates of the window origin for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the coordinates, in logical units, of the window origin.
+     * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the coordinates, in logical units, of the window origin.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwindoworgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getwindoworgex
      * @since windows5.0
      */
     static GetWindowOrgEx(hdc, lppoint) {
@@ -9731,10 +8236,6 @@ class Gdi {
 
     /**
      * The IntersectClipRect function creates a new clipping region from the intersection of the current clipping region and the specified rectangle.
-     * @remarks
-     * The lower and right-most edges of the given rectangle are excluded from the clipping region.
-     * 
-     * If a clipping region does not already exist then the system may apply a default clipping region to the specified HDC. A clipping region is then created from the intersection of that default clipping region and the rectangle specified in the function parameters.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the rectangle.
@@ -9792,7 +8293,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-intersectcliprect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-intersectcliprect
      * @since windows5.0
      */
     static IntersectClipRect(hdc, left, top, right, bottom) {
@@ -9802,14 +8303,12 @@ class Gdi {
 
     /**
      * The InvertRgn function inverts the colors in the specified region.
-     * @remarks
-     * On monochrome screens, the <b>InvertRgn</b> function makes white pixels black and black pixels white. On color screens, this inversion is dependent on the type of technology used to generate the colors for the screen.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Pointer<Void>} hrgn Handle to the region for which colors are inverted. The region's coordinates are presumed to be logical coordinates.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-invertrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-invertrgn
      * @since windows5.0
      */
     static InvertRgn(hdc, hrgn) {
@@ -9819,10 +8318,6 @@ class Gdi {
 
     /**
      * The LineDDA function determines which pixels should be highlighted for a line defined by the specified starting and ending points.
-     * @remarks
-     * The <b>LineDDA</b> function passes the coordinates for each point along the line, except for the line's ending point, to the application-defined callback function. In addition to passing the coordinates of a point, this function passes any existing application-defined data.
-     * 
-     * The coordinates passed to the callback function match pixels on a video display only if the default transformations and mapping modes are used.
      * @param {Integer} xStart Specifies the x-coordinate, in logical units, of the line's starting point.
      * @param {Integer} yStart Specifies the y-coordinate, in logical units, of the line's starting point.
      * @param {Integer} xEnd Specifies the x-coordinate, in logical units, of the line's ending point.
@@ -9832,7 +8327,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-linedda
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-linedda
      * @since windows5.0
      */
     static LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
@@ -9842,17 +8337,13 @@ class Gdi {
 
     /**
      * The LineTo function draws a line from the current position up to, but not including, the specified point.
-     * @remarks
-     * The line is drawn by using the current pen and, if the pen is a geometric pen, the current brush.
-     * 
-     * If <b>LineTo</b> succeeds, the current position is set to the specified ending point.
      * @param {Pointer<Void>} hdc Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the line's ending point.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the line's ending point.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-lineto
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-lineto
      * @since windows5.0
      */
     static LineTo(hdc, x, y) {
@@ -9862,28 +8353,6 @@ class Gdi {
 
     /**
      * The MaskBlt function combines the color data for the source and destination bitmaps using the specified mask and raster operation.
-     * @remarks
-     * The <b>MaskBlt</b> function uses device-dependent bitmaps.
-     * 
-     * A value of 1 in the mask specified by <i>hbmMask</i> indicates that the foreground raster operation code specified by <i>dwRop</i> should be applied at that location. A value of 0 in the mask indicates that the background raster operation code specified by <i>dwRop</i> should be applied at that location.
-     * 
-     * If the raster operations require a source, the mask rectangle must cover the source rectangle. If it does not, the function will fail. If the raster operations do not require a source, the mask rectangle must cover the destination rectangle. If it does not, the function will fail.
-     * 
-     * If a rotation or shear transformation is in effect for the source device context when this function is called, an error occurs. However, other types of transformation are allowed.
-     * 
-     * If the color formats of the source, pattern, and destination bitmaps differ, this function converts the pattern or source format, or both, to match the destination format.
-     * 
-     * If the mask bitmap is not a monochrome bitmap, an error occurs.
-     * 
-     * When an enhanced metafile is being recorded, an error occurs (and the function returns <b>FALSE</b>) if the source device context identifies an enhanced-metafile device context.
-     * 
-     * Not all devices support the <b>MaskBlt</b> function. An application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function with the <i>nIndex</i> parameter as RC_BITBLT to determine whether a device supports this function.
-     * 
-     * If no mask bitmap is supplied, this function behaves exactly like <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-bitblt">BitBlt</a>, using the foreground raster operation code.
-     * 
-     * <b>ICM:</b> No color management is performed when blits occur.
-     * 
-     * When used in a multiple monitor system, both <i>hdcSrc</i> and <i>hdcDest</i> must refer to the same device or the function will fail. To transfer data between DCs for different devices, convert the memory bitmap (compatible bitmap, or DDB) to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -9903,7 +8372,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-maskblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-maskblt
      * @since windows5.0
      */
     static MaskBlt(hdcDest, xDest, yDest, width, height, hdcSrc, xSrc, ySrc, hbmMask, xMask, yMask, rop) {
@@ -9913,26 +8382,6 @@ class Gdi {
 
     /**
      * The PlgBlt function performs a bit-block transfer of the bits of color data from the specified rectangle in the source device context to the specified parallelogram in the destination device context.
-     * @remarks
-     * The <b>PlgBlt</b> function works with device-dependent bitmaps.
-     * 
-     * The fourth vertex of the parallelogram (D) is defined by treating the first three points (A, B, and C ) as vectors and computing D = B +CA.
-     * 
-     * If the bitmask exists, a value of one in the mask indicates that the source pixel color should be copied to the destination. A value of zero in the mask indicates that the destination pixel color is not to be changed. If the mask rectangle is smaller than the source and destination rectangles, the function replicates the mask pattern.
-     * 
-     * Scaling, translation, and reflection transformations are allowed in the source device context; however, rotation and shear transformations are not. If the mask bitmap is not a monochrome bitmap, an error occurs. The stretching mode for the destination device context is used to determine how to stretch or compress the pixels, if that is necessary.
-     * 
-     * When an enhanced metafile is being recorded, an error occurs if the source device context identifies an enhanced-metafile device context.
-     * 
-     * The destination coordinates are transformed according to the destination device context; the source coordinates are transformed according to the source device context. If the source transformation has a rotation or shear, an error is returned.
-     * 
-     * If the destination and source rectangles do not have the same color format, <b>PlgBlt</b> converts the source rectangle to match the destination rectangle.
-     * 
-     * Not all devices support the <b>PlgBlt</b> function. For more information, see the description of the RC_BITBLT raster capability in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
-     * 
-     * If the source and destination device contexts represent incompatible devices, <b>PlgBlt</b> returns an error.
-     * 
-     * When used in a multiple monitor system, both <i>hdcSrc</i> and <i>hdcDest</i> must refer to the same device or the function will fail. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Pointer<POINT>} lpPoint A pointer to an array of three points in logical space that identify three corners of the destination parallelogram. The upper-left corner of the source rectangle is mapped to the first point in this array, the upper-right corner to the second point in this array, and the lower-left corner to the third point. The lower-right corner of the source rectangle is mapped to the implicit fourth point in the parallelogram.
      * @param {Pointer<Void>} hdcSrc A handle to the source device context.
@@ -9946,7 +8395,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-plgblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-plgblt
      * @since windows5.0
      */
     static PlgBlt(hdcDest, lpPoint, hdcSrc, xSrc, ySrc, width, height, hbmMask, xMask, yMask) {
@@ -10011,7 +8460,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetcliprgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-offsetcliprgn
      * @since windows5.0
      */
     static OffsetClipRgn(hdc, x, y) {
@@ -10048,7 +8497,7 @@ class Gdi {
      * <td>An error occurred; region is unaffected.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-offsetrgn
      * @since windows5.0
      */
     static OffsetRgn(hrgn, x, y) {
@@ -10058,10 +8507,6 @@ class Gdi {
 
     /**
      * The PatBlt function paints the specified rectangle using the brush that is currently selected into the specified device context. The brush color and the surface color or colors are combined by using the specified raster operation.
-     * @remarks
-     * The values of the <i>dwRop</i> parameter for this function are a limited subset of the full 256 ternary raster-operation codes; in particular, an operation code that refers to a source rectangle cannot be used.
-     * 
-     * Not all devices support the <b>PatBlt</b> function. For more information, see the description of the RC_BITBLT capability in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the upper-left corner of the rectangle to be filled.
      * @param {Integer} y The y-coordinate, in logical units, of the upper-left corner of the rectangle to be filled.
@@ -10071,7 +8516,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-patblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-patblt
      * @since windows5.0
      */
     static PatBlt(hdc, x, y, w, h, rop) {
@@ -10081,10 +8526,6 @@ class Gdi {
 
     /**
      * The Pie function draws a pie-shaped wedge bounded by the intersection of an ellipse and two radials. The pie is outlined by using the current pen and filled by using the current brush.
-     * @remarks
-     * The curve of the pie is defined by an ellipse that fits the specified bounding rectangle. The curve begins at the point where the ellipse intersects the first radial and extends counterclockwise to the point where the ellipse intersects the second radial.
-     * 
-     * The current position is neither used nor updated by the <b>Pie</b> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
@@ -10097,7 +8538,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-pie
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-pie
      * @since windows5.0
      */
     static Pie(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
@@ -10107,22 +8548,12 @@ class Gdi {
 
     /**
      * The PlayMetaFile function displays the picture stored in the given Windows-format metafile on the specified device.
-     * @remarks
-     * To convert a Windows-format metafile into an enhanced format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * A Windows-format metafile can be played multiple times.
-     * 
-     * A Windows-format metafile can be embedded in a second Windows-format metafile by calling the <b>PlayMetaFile</b> function and playing the source metafile into the device context for the target metafile.
-     * 
-     * Any object created but not deleted in the Windows-format metafile is deleted by this function.
-     * 
-     * To stop this function, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-canceldc">CancelDC</a> function from another thread to terminate the operation. In this case, the function returns <b>FALSE</b>.
      * @param {Pointer<Void>} hdc Handle to a device context.
      * @param {Pointer<Void>} hmf Handle to a Windows-format metafile.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playmetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-playmetafile
      * @since windows5.0
      */
     static PlayMetaFile(hdc, hmf) {
@@ -10137,7 +8568,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-paintrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-paintrgn
      * @since windows5.0
      */
     static PaintRgn(hdc, hrgn) {
@@ -10147,18 +8578,14 @@ class Gdi {
 
     /**
      * The PolyPolygon function draws a series of closed polygons. Each polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode. The polygons drawn by this function can overlap.
-     * @remarks
-     * The current position is neither used nor updated by this function.
-     * 
-     * Any extra points are ignored. To draw the polygons with more points, divide your data into groups, each of which have less than the maximum number of points, and call the function for each group of points. Note, it is best to have a polygon in only one of the groups.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that define the vertices of the polygons, in logical coordinates. The polygons are specified consecutively. Each polygon is closed automatically by drawing a line from the last vertex to the first. Each vertex should be specified once.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that define the vertices of the polygons, in logical coordinates. The polygons are specified consecutively. Each polygon is closed automatically by drawing a line from the last vertex to the first. Each vertex should be specified once.
      * @param {Pointer<Int32>} asz A pointer to an array of integers, each of which specifies the number of points in the corresponding polygon. Each integer must be greater than or equal to 2.
      * @param {Integer} csz The total number of polygons.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polypolygon
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polypolygon
      * @since windows5.0
      */
     static PolyPolygon(hdc, apt, asz, csz) {
@@ -10174,7 +8601,7 @@ class Gdi {
      * @returns {Integer} If the specified point is in the region, the return value is nonzero.
      * 
      * If the specified point is not in the region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-ptinregion
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-ptinregion
      * @since windows5.0
      */
     static PtInRegion(hrgn, x, y) {
@@ -10192,7 +8619,7 @@ class Gdi {
      * If the specified point is not within the clipping region of the device context, the return value is <b>FALSE</b>(0).
      * 
      * If the <b>HDC</b> is not valid, the return value is (BOOL)-1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-ptvisible
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-ptvisible
      * @since windows5.0
      */
     static PtVisible(hdc, x, y) {
@@ -10207,7 +8634,7 @@ class Gdi {
      * @returns {Integer} If any part of the specified rectangle lies within the boundaries of the region, the return value is nonzero.
      * 
      * If no part of the specified rectangle lies within the boundaries of the region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectinregion
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-rectinregion
      * @since windows5.0
      */
     static RectInRegion(hrgn, lprect) {
@@ -10228,7 +8655,7 @@ class Gdi {
      * If the current transform has a rotation and the rectangle does not lie within the clipping region, the return value is 1.
      * 
      * All other return values are considered error codes. If the any parameter is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectvisible
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-rectvisible
      * @since windows5.0
      */
     static RectVisible(hdc, lprect) {
@@ -10238,12 +8665,6 @@ class Gdi {
 
     /**
      * The Rectangle function draws a rectangle. The rectangle is outlined by using the current pen and filled by using the current brush.
-     * @remarks
-     * The current position is neither used nor updated by <b>Rectangle</b>.
-     * 
-     * The rectangle that is drawn excludes the bottom and right edges.
-     * 
-     * If a PS_NULL pen is used, the dimensions of the rectangle are 1 pixel less in height and 1 pixel less in width.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
@@ -10252,7 +8673,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectangle
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-rectangle
      * @since windows5.0
      */
     static Rectangle(hdc, left, top, right, bottom) {
@@ -10262,14 +8683,12 @@ class Gdi {
 
     /**
      * The RestoreDC function restores a device context (DC) to the specified state. The DC is restored by popping state information off a stack created by earlier calls to the SaveDC function.
-     * @remarks
-     * Each DC maintains a stack of saved states. The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-savedc">SaveDC</a> function pushes the current state of the DC onto its stack of saved states. That state can be restored only to the same DC from which it was created. After a state is restored, the saved state is destroyed and cannot be reused. Furthermore, any states saved after the restored state was created are also destroyed and cannot be used. In other words, the <b>RestoreDC</b> function pops the restored state (and any subsequent states) from the state information stack.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} nSavedDC The saved state to be restored. If this parameter is positive, <i>nSavedDC</i> represents a specific instance of the state to be restored. If this parameter is negative, <i>nSavedDC</i> represents an instance relative to the current state. For example, -1 restores the most recently saved state.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-restoredc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-restoredc
      * @since windows5.0
      */
     static RestoreDC(hdc, nSavedDC) {
@@ -10278,28 +8697,13 @@ class Gdi {
     }
 
     /**
-     * The ResetDC function updates the specified printer or plotter device context (DC) using the specified information. (ANSI)
-     * @remarks
-     * An application will typically use the <b>ResetDC</b> function when a window receives a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-devmodechange">WM_DEVMODECHANGE</a> message. <b>ResetDC</b> can also be used to change the paper orientation or paper bins while printing a document.
-     * 
-     * The <b>ResetDC</b> function cannot be used to change the driver name, device name, or the output port. When the user changes the port connection or device name, the application must delete the original DC and create a new DC with the new information.
-     * 
-     * An application can pass an information DC to the <b>ResetDC</b> function. In that situation, <b>ResetDC</b> will always return a printer DC.
-     * 
-     * <b>ICM:</b> The color profile of the DC specified by the <i>hdc</i> parameter will be reset based on the information contained in the <b>lpInitData</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines ResetDC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ResetDC function updates the specified printer or plotter device context (DC) using the specified information.
      * @param {Pointer<Void>} hdc A handle to the DC to update.
      * @param {Pointer<DEVMODEA>} lpdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure containing information about the new DC.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the original DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resetdca
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-resetdca
      * @since windows5.0
      */
     static ResetDCA(hdc, lpdm) {
@@ -10308,28 +8712,13 @@ class Gdi {
     }
 
     /**
-     * The ResetDC function updates the specified printer or plotter device context (DC) using the specified information. (Unicode)
-     * @remarks
-     * An application will typically use the <b>ResetDC</b> function when a window receives a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-devmodechange">WM_DEVMODECHANGE</a> message. <b>ResetDC</b> can also be used to change the paper orientation or paper bins while printing a document.
-     * 
-     * The <b>ResetDC</b> function cannot be used to change the driver name, device name, or the output port. When the user changes the port connection or device name, the application must delete the original DC and create a new DC with the new information.
-     * 
-     * An application can pass an information DC to the <b>ResetDC</b> function. In that situation, <b>ResetDC</b> will always return a printer DC.
-     * 
-     * <b>ICM:</b> The color profile of the DC specified by the <i>hdc</i> parameter will be reset based on the information contained in the <b>lpInitData</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines ResetDC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ResetDC function updates the specified printer or plotter device context (DC) using the specified information.
      * @param {Pointer<Void>} hdc A handle to the DC to update.
      * @param {Pointer<DEVMODEW>} lpdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure containing information about the new DC.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the original DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resetdcw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-resetdcw
      * @since windows5.0
      */
     static ResetDCW(hdc, lpdm) {
@@ -10339,19 +8728,11 @@ class Gdi {
 
     /**
      * The RealizePalette function maps palette entries from the current logical palette to the system palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * The <b>RealizePalette</b> function modifies the palette for the device associated with the specified device context. If the device context is a memory DC, the color table for the bitmap selected into the DC is modified. If the device context is a display DC, the physical palette for that device is modified.
-     * 
-     * A logical palette is a buffer between color-intensive applications and the system, allowing these applications to use as many colors as needed without interfering with colors displayed by other windows.
-     * 
-     * When an application's window has the focus and it calls the <b>RealizePalette</b> function, the system attempts to realize as many of the requested colors as possible. The same is also true for applications with inactive windows.
      * @param {Pointer<Void>} hdc A handle to the device context into which a logical palette has been selected.
      * @returns {Integer} If the function succeeds, the return value is the number of entries in the logical palette mapped to the system palette.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-realizepalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-realizepalette
      * @since windows5.0
      */
     static RealizePalette(hdc) {
@@ -10360,45 +8741,12 @@ class Gdi {
     }
 
     /**
-     * The RemoveFontResource function removes the fonts in the specified file from the system font table. (ANSI)
-     * @remarks
-     * We recommend that if an app adds or removes fonts from the system font table that it notify other windows of the change by sending a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-fontchange">WM_FONTCHANGE</a> message to all top-level windows in the system. The app sends this message by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a> function with the <i>hwnd</i> parameter set to HWND_BROADCAST.
-     * 
-     * If there are outstanding references to a font, the associated resource remains loaded until no device context is using it. Furthermore, if the font is listed in the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>) and is installed to any location other than the %windir%\fonts\ folder, it may be loaded into other active sessions (including session 0).
-     * 
-     * When you try to replace an existing font file that contains a font with outstanding references to it, you might get an error that indicates that the original font can't be deleted because it’s in use even after you call <b>RemoveFontResource</b>. If your app requires that the font file be replaced, to reduce the resource count of the original font to zero, call <b>RemoveFontResource</b> in a loop as shown in this example code. If you continue to get errors, this is an indication that the font file remains loaded in other sessions. Make sure the font isn't listed in the font registry and restart the system to ensure the font is unloaded from all sessions. 
-     * 
-     * <div class="alert"><b>Note</b>  Apps where the original font file is in use will still be able to access the original file and won't use the new font until the font reloads. Call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> to reload the font.  We recommend that you call <b>AddFontResource</b> the same number of times as the call to <b>RemoveFontResource</b> succeeded as shown in this example code.</div>
-     * <div> </div>
-     * 
-     * ``` syntax
-     * 
-     * int i = 0;
-     * while( RemoveFontResource( FontFile ) )
-     * {
-     *     i++;
-     * }
-     * 
-     * // TODO: Replace font file
-     * 
-     * while( i-- )
-     * {
-     *     AddFontResource( FontFile );
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines RemoveFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The RemoveFontResource function removes the fonts in the specified file from the system font table.
      * @param {Pointer<Byte>} lpFileName A pointer to a null-terminated string that names a font resource file.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourcea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-removefontresourcea
      * @since windows5.0
      */
     static RemoveFontResourceA(lpFileName) {
@@ -10409,45 +8757,12 @@ class Gdi {
     }
 
     /**
-     * The RemoveFontResource function removes the fonts in the specified file from the system font table. (Unicode)
-     * @remarks
-     * We recommend that if an app adds or removes fonts from the system font table that it notify other windows of the change by sending a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-fontchange">WM_FONTCHANGE</a> message to all top-level windows in the system. The app sends this message by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a> function with the <i>hwnd</i> parameter set to HWND_BROADCAST.
-     * 
-     * If there are outstanding references to a font, the associated resource remains loaded until no device context is using it. Furthermore, if the font is listed in the font registry (<b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</b>) and is installed to any location other than the %windir%\fonts\ folder, it may be loaded into other active sessions (including session 0).
-     * 
-     * When you try to replace an existing font file that contains a font with outstanding references to it, you might get an error that indicates that the original font can't be deleted because it’s in use even after you call <b>RemoveFontResource</b>. If your app requires that the font file be replaced, to reduce the resource count of the original font to zero, call <b>RemoveFontResource</b> in a loop as shown in this example code. If you continue to get errors, this is an indication that the font file remains loaded in other sessions. Make sure the font isn't listed in the font registry and restart the system to ensure the font is unloaded from all sessions. 
-     * 
-     * <div class="alert"><b>Note</b>  Apps where the original font file is in use will still be able to access the original file and won't use the new font until the font reloads. Call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-addfontresourcea">AddFontResource</a> to reload the font.  We recommend that you call <b>AddFontResource</b> the same number of times as the call to <b>RemoveFontResource</b> succeeded as shown in this example code.</div>
-     * <div> </div>
-     * 
-     * ``` syntax
-     * 
-     * int i = 0;
-     * while( RemoveFontResource( FontFile ) )
-     * {
-     *     i++;
-     * }
-     * 
-     * // TODO: Replace font file
-     * 
-     * while( i-- )
-     * {
-     *     AddFontResource( FontFile );
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines RemoveFontResource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The RemoveFontResource function removes the fonts in the specified file from the system font table.
      * @param {Pointer<Char>} lpFileName A pointer to a null-terminated string that names a font resource file.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourcew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-removefontresourcew
      * @since windows5.0
      */
     static RemoveFontResourceW(lpFileName) {
@@ -10459,8 +8774,6 @@ class Gdi {
 
     /**
      * The RoundRect function draws a rectangle with rounded corners. The rectangle is outlined by using the current pen and filled by using the current brush.
-     * @remarks
-     * The current position is neither used nor updated by this function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
@@ -10471,7 +8784,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-roundrect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-roundrect
      * @since windows5.0
      */
     static RoundRect(hdc, left, top, right, bottom, width, height) {
@@ -10481,10 +8794,6 @@ class Gdi {
 
     /**
      * The ResizePalette function increases or decreases the size of a logical palette based on the specified value.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * If an application calls <b>ResizePalette</b> to reduce the size of the palette, the entries remaining in the resized palette are unchanged. If the application calls <b>ResizePalette</b> to enlarge the palette, the additional palette entries are set to black (the red, green, and blue values are all 0) and their flags are set to zero.
      * @param {Pointer<Void>} hpal A handle to the palette to be changed.
      * @param {Integer} n The number of entries in the palette after it has been resized.
      * 
@@ -10492,7 +8801,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resizepalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-resizepalette
      * @since windows5.0
      */
     static ResizePalette(hpal, n) {
@@ -10502,15 +8811,11 @@ class Gdi {
 
     /**
      * The SaveDC function saves the current state of the specified device context (DC) by copying data describing selected objects and graphic modes (such as the bitmap, brush, palette, font, pen, region, drawing mode, and mapping mode) to a context stack.
-     * @remarks
-     * The <b>SaveDC</b> function can be used any number of times to save any number of instances of the DC state.
-     * 
-     * A saved state can be restored by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-restoredc">RestoreDC</a> function.
      * @param {Pointer<Void>} hdc A handle to the DC whose state is to be saved.
      * @returns {Integer} If the function succeeds, the return value identifies the saved state.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-savedc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-savedc
      * @since windows5.0
      */
     static SaveDC(hdc) {
@@ -10520,12 +8825,6 @@ class Gdi {
 
     /**
      * The SelectClipRgn function selects a region as the current clipping region for the specified device context.
-     * @remarks
-     * Only a copy of the selected region is used. The region itself can be selected for any number of other device contexts or it can be deleted.
-     * 
-     * The <b>SelectClipRgn</b> function assumes that the coordinates for a region are specified in device units.
-     * 
-     * To remove a device-context's clipping region, specify a <b>NULL</b> region handle.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hrgn A handle to the region to be selected.
      * @returns {Integer} The return value specifies the region's complexity and can be one of the following values.
@@ -10580,7 +8879,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectcliprgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-selectcliprgn
      * @since windows5.0
      */
     static SelectClipRgn(hdc, hrgn) {
@@ -10590,12 +8889,6 @@ class Gdi {
 
     /**
      * The ExtSelectClipRgn function combines the specified region with the current clipping region using the specified mode.
-     * @remarks
-     * If an error occurs when this function is called, the previous clipping region for the specified device context is not affected.
-     * 
-     * The <b>ExtSelectClipRgn</b> function assumes that the coordinates for the specified region are specified in device units.
-     * 
-     * Only a copy of the region identified by the <i>hrgn</i> parameter is used. The region itself can be reused after this call or it can be deleted.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hrgn A handle to the region to be selected. This handle must not be <b>NULL</b> unless the RGN_COPY mode is specified.
      * @param {Integer} mode 
@@ -10651,7 +8944,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extselectcliprgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-extselectcliprgn
      * @since windows5.0
      */
     static ExtSelectClipRgn(hdc, hrgn, mode) {
@@ -10661,10 +8954,6 @@ class Gdi {
 
     /**
      * The SetMetaRgn function intersects the current clipping region for the specified device context with the current metaregion and saves the combined region as the new metaregion for the specified device context.
-     * @remarks
-     * The current clipping region of a device context is defined by the intersection of its clipping region and its metaregion.
-     * 
-     * The <b>SetMetaRgn</b> function should only be called after an application's original device context was saved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-savedc">SaveDC</a> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} The return value specifies the new clipping region's complexity and can be one of the following values.
      * 
@@ -10718,7 +9007,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmetargn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setmetargn
      * @since windows5.0
      */
     static SetMetaRgn(hdc) {
@@ -10728,12 +9017,6 @@ class Gdi {
 
     /**
      * The SelectObject function selects an object into the specified device context (DC). The new object replaces the previous object of the same type.
-     * @remarks
-     * This function returns the previously selected object of the specified type. An application should always replace a new object with the original, default object after it has finished drawing with the new object.
-     * 
-     * An application cannot select a single bitmap into more than one DC at a time.
-     * 
-     * <b>ICM:</b> If the object being selected is a brush or a pen, color management is performed.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Pointer<Void>} h A handle to the object to be selected. The specified object must have been created by using one of the following functions.
      * 
@@ -10828,7 +9111,7 @@ class Gdi {
      *  
      * 
      * If an error occurs and the selected object is not a region, the return value is <b>NULL</b>. Otherwise, it is HGDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectobject
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-selectobject
      * @since windows5.0
      */
     static SelectObject(hdc, h) {
@@ -10838,12 +9121,6 @@ class Gdi {
 
     /**
      * The SelectPalette function selects the specified logical palette into a device context.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * An application can select a logical palette into more than one device context only if device contexts are compatible. Otherwise <b>SelectPalette</b> fails. To create a device context that is compatible with another device context, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> with the first device context as the parameter. If a logical palette is selected into more than one device context, changes to the logical palette will affect all device contexts for which it is selected.
-     * 
-     * An application might call the <b>SelectPalette</b> function with the <i>bForceBackground</i> parameter set to <b>TRUE</b> if the child windows of a top-level window each realize their own palettes. However, only the child window that needs to realize its palette must set <i>bForceBackground</i> to <b>TRUE</b>; other child windows must set this value to <b>FALSE</b>.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Void>} hPal A handle to the logical palette to be selected.
      * @param {Integer} bForceBkgd Specifies whether the logical palette is forced to be a background palette. If this value is <b>TRUE</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> function causes the logical palette to be mapped to the colors already in the physical palette in the best possible way. This is always done, even if the window for which the palette is realized belongs to a thread without active focus.
@@ -10852,7 +9129,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the device context's previous logical palette.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectpalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-selectpalette
      * @since windows5.0
      */
     static SelectPalette(hdc, hPal, bForceBkgd) {
@@ -10862,16 +9139,12 @@ class Gdi {
 
     /**
      * The SetBkColor function sets the current background color to the specified color value, or to the nearest physical color if the device cannot represent the specified color value.
-     * @remarks
-     * This function fills the gaps between styled lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpen">CreatePen</a> function; it does not fill the gaps between styled lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a> function. The <b>SetBkColor</b> function also sets the background colors for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>.
-     * 
-     * If the background mode is OPAQUE, the background color is used to fill gaps between styled lines, gaps between hatched lines in brushes, and character cells. The background color is also used when converting bitmaps from color to monochrome and vice versa.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} color The new background color. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @returns {Integer} If the function succeeds, the return value specifies the previous background color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {Integer} If the function succeeds, the return value specifies the previous background color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbkcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbkcolor
      * @since windows5.0
      */
     static SetBkColor(hdc, color) {
@@ -10881,20 +9154,12 @@ class Gdi {
 
     /**
      * SetDCBrushColor function sets the current device context (DC) brush color to the specified color value. If the device cannot represent the specified color value, the color is set to the nearest physical color.
-     * @remarks
-     * When the stock DC_BRUSH is selected in a DC, all the subsequent drawings will be done using the DC brush color until the stock brush is deselected. The default DC_BRUSH color is WHITE.
-     * 
-     * The function returns the previous DC_BRUSH color, even if the stock brush DC_BRUSH is not selected in the DC: however, this will not be used in drawing operations until the stock DC_BRUSH is selected in the DC.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function with an argument of DC_BRUSH or DC_PEN can be used interchangeably with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcpencolor">SetDCPenColor</a> and <b>SetDCBrushColor</b> functions.
-     * 
-     * <b>ICM:</b> Color management is performed if ICM is enabled.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} color The new brush color.
-     * @returns {Integer} If the function succeeds, the return value specifies the previous DC brush color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {Integer} If the function succeeds, the return value specifies the previous DC brush color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdcbrushcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdcbrushcolor
      * @since windows5.0
      */
     static SetDCBrushColor(hdc, color) {
@@ -10904,16 +9169,10 @@ class Gdi {
 
     /**
      * SetDCPenColor function sets the current device context (DC) pen color to the specified color value. If the device cannot represent the specified color value, the color is set to the nearest physical color.
-     * @remarks
-     * The function returns the previous DC_PEN color, even if the stock pen DC_PEN is not selected in the DC; however, this will not be used in drawing operations until the stock DC_PEN is selected in the DC.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function with an argument of DC_BRUSH or DC_PEN can be used interchangeably with the <b>SetDCPenColor</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCBrushColor</a> functions.
-     * 
-     * <b>ICM:</b> Color management is performed if ICM is enabled.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} color The new pen color.
-     * @returns {Integer} If the function succeeds, the return value specifies the previous DC pen color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value. If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdcpencolor
+     * @returns {Integer} If the function succeeds, the return value specifies the previous DC pen color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value. If the function fails, the return value is CLR_INVALID.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdcpencolor
      * @since windows5.0
      */
     static SetDCPenColor(hdc, color) {
@@ -10923,14 +9182,12 @@ class Gdi {
 
     /**
      * The SetBkMode function sets the background mix mode of the specified device context. The background mix mode is used with text, hatched brushes, and pen styles that are not solid lines.
-     * @remarks
-     * The <b>SetBkMode</b> function affects the line styles for lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpen">CreatePen</a> function. <b>SetBkMode</b> does not affect lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a> function.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} mode 
      * @returns {Integer} If the function succeeds, the return value specifies the previous background mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbkmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbkmode
      * @since windows5.0
      */
     static SetBkMode(hdc, mode) {
@@ -10940,15 +9197,13 @@ class Gdi {
 
     /**
      * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
-     * @remarks
-     * The array identified by <i>lpBits</i> must be WORD aligned.
      * @param {Pointer<Void>} hbm A handle to the bitmap to be set. This must be a compatible bitmap (DDB).
      * @param {Integer} cb The number of bytes pointed to by the <i>lpBits</i> parameter.
      * @param {Pointer} pvBits A pointer to an array of bytes that contain color data for the specified bitmap.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapbits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbitmapbits
      * @since windows5.0
      */
     static SetBitmapBits(hbm, cb, pvBits) {
@@ -10958,8 +9213,6 @@ class Gdi {
 
     /**
      * The SetBoundsRect function controls the accumulation of bounding rectangle information for the specified device context.
-     * @remarks
-     * The DCB_SET value is a combination of the bit values DCB_ACCUMULATE and DCB_RESET. Applications that check the DCB_RESET bit to determine whether the bounding rectangle is empty must also check the DCB_ACCUMULATE bit. The bounding rectangle is empty only if the DCB_RESET bit is 1 and the DCB_ACCUMULATE bit is 0.
      * @param {Pointer<Void>} hdc A handle to the device context for which to accumulate bounding rectangles.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure used to set the bounding rectangle. Rectangle dimensions are in logical coordinates. This parameter can be <b>NULL</b>.
      * @param {Integer} flags 
@@ -10990,7 +9243,7 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setboundsrect
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setboundsrect
      * @since windows5.0
      */
     static SetBoundsRect(hdc, lprect, flags) {
@@ -11000,20 +9253,6 @@ class Gdi {
 
     /**
      * The SetDIBits function sets the pixels in a compatible bitmap (DDB) using the color data found in the specified DIB.
-     * @remarks
-     * Optimal bitmap drawing speed is obtained when the bitmap bits are indexes into the system palette.
-     * 
-     * Applications can retrieve the system palette colors and indexes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getsystempaletteentries">GetSystemPaletteEntries</a> function. After the colors and indexes are retrieved, the application can create the DIB. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/system-palette">System Palette</a>.
-     * 
-     * The device context identified by the <i>hdc</i> parameter is used only if the DIB_PAL_COLORS constant is set for the <i>fuColorUse</i> parameter; otherwise it is ignored.
-     * 
-     * The bitmap identified by the <i>hbmp</i> parameter must not be selected into a device context when the application calls this function.
-     * 
-     * The scan lines must be aligned on a <b>DWORD</b> except for RLE-compressed bitmaps.
-     * 
-     * The origin for bottom-up DIBs is the lower-left corner of the bitmap; the origin for top-down DIBs is the upper-left corner of the bitmap.
-     * 
-     * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpbmi</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Pointer<Void>} hbm A handle to the compatible bitmap (DDB) that is to be altered using the color data from the specified DIB.
      * @param {Integer} start The starting scan line for the device-independent color data in the array pointed to by the <i>lpvBits</i> parameter.
@@ -11044,7 +9283,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdibits
      * @since windows5.0
      */
     static SetDIBits(hdc, hbm, start, cLines, lpBits, lpbmi, ColorUse) {
@@ -11054,24 +9293,6 @@ class Gdi {
 
     /**
      * The SetDIBitsToDevice function sets the pixels in the specified rectangle on the device that is associated with the destination device context using color data from a DIB, JPEG, or PNG image.
-     * @remarks
-     * Optimal bitmap drawing speed is obtained when the bitmap bits are indexes into the system palette.
-     * 
-     * Applications can retrieve the system palette colors and indexes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getsystempaletteentries">GetSystemPaletteEntries</a> function. After the colors and indexes are retrieved, the application can create the DIB. For more information about the system palette, see <a href="https://docs.microsoft.com/windows/desktop/gdi/colors">Colors</a>. 
-     * 
-     * The scan lines must be aligned on a <b>DWORD</b> except for RLE-compressed bitmaps.
-     * 
-     * The origin of a bottom-up DIB is the lower-left corner of the bitmap; the origin of a top-down DIB is the upper-left corner.
-     * 
-     * To reduce the amount of memory required to set bits from a large DIB on a device surface, an application can band the output by repeatedly calling <b>SetDIBitsToDevice</b>, placing a different portion of the bitmap into the <i>lpvBits</i> array each time. The values of the <i>uStartScan</i> and <i>cScanLines</i> parameters identify the portion of the bitmap contained in the <i>lpvBits</i> array.
-     * 
-     * The <b>SetDIBitsToDevice</b> function returns an error if it is called by a process that is running in the background while a full-screen MS-DOS session runs in the foreground.
-     * 
-     * <ul>
-     * <li>If the <b>biCompression</b> member of <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> is BI_JPEG or BI_PNG, <i>lpvBits</i> points to a buffer containing a JPEG or PNG image. The <b>biSizeImage</b> member of specifies the size of the buffer. The <i>fuColorUse</i> parameter must be set to DIB_RGB_COLORS.</li>
-     * <li>To ensure proper metafile spooling while printing, applications must call the CHECKJPEGFORMAT or CHECKPNGFORMAT escape to verify that the printer recognizes the JPEG or PNG image, respectively, before calling <b>SetDIBitsToDevice</b>.</li>
-     * </ul>
-     * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpbmi</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -11089,7 +9310,7 @@ class Gdi {
      * If zero scan lines are set (such as when <i>dwHeight</i> is 0) or the function fails, the function returns zero.
      * 
      * If the driver cannot support the JPEG or PNG file image passed to <b>SetDIBitsToDevice</b>, the function will fail and return GDI_ERROR. If failure does occur, the application must fall back on its own JPEG or PNG support to decompress the image into a bitmap, and then pass the bitmap to <b>SetDIBitsToDevice</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibitstodevice
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdibitstodevice
      * @since windows5.0
      */
     static SetDIBitsToDevice(hdc, xDest, yDest, w, h, xSrc, ySrc, StartScan, cLines, lpvBits, lpbmi, ColorUse) {
@@ -11099,16 +9320,12 @@ class Gdi {
 
     /**
      * The SetMapperFlags function alters the algorithm the font mapper uses when it maps logical fonts to physical fonts.
-     * @remarks
-     * If the <i>dwFlag</i> parameter is set and no matching fonts exist, Windows chooses a new aspect ratio and retrieves a font that matches this ratio.
-     * 
-     * The remaining bits of the <i>dwFlag</i> parameter must be zero.
      * @param {Pointer<Void>} hdc A handle to the device context that contains the font-mapper flag.
      * @param {Integer} flags Specifies whether the font mapper should attempt to match a font's aspect ratio to the current device's aspect ratio. If bit zero is set, the mapper selects only matching fonts.
      * @returns {Integer} If the function succeeds, the return value is the previous value of the font-mapper flag.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmapperflags
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setmapperflags
      * @since windows5.0
      */
     static SetMapperFlags(hdc, flags) {
@@ -11118,35 +9335,12 @@ class Gdi {
 
     /**
      * The SetGraphicsMode function sets the graphics mode for the specified device context.
-     * @remarks
-     * There are three areas in which graphics output differs according to the graphics mode:
-     * 
-     * <ol>
-     * <li>
-     * Text Output: In the GM_COMPATIBLE mode, TrueType (or vector font) text output behaves much the same way as raster font text output with respect to the world-to-device transformations in the DC. The TrueType text is always written from left to right and right side up, even if the rest of the graphics will be flipped on the x or y axis. Only the height of the TrueType (or vector font) text is scaled. The only way to write text that is not horizontal in the GM_COMPATIBLE mode is to specify nonzero escapement and orientation for the logical font selected in this device context.
-     * 
-     * In the GM_ADVANCED mode, TrueType (or vector font) text output fully conforms to the world-to-device transformation in the device context. The raster fonts only have very limited transformation capabilities (stretching by some integer factors). Graphics device interface (GDI) tries to produce the best output it can with raster fonts for nontrivial transformations.
-     * 
-     * </li>
-     * <li>
-     * Rectangle Exclusion: If the default GM_COMPATIBLE graphics mode is set, the system excludes bottom and rightmost edges when it draws rectangles.
-     * 
-     * The GM_ADVANCED graphics mode is required if applications want to draw rectangles that are lower-right inclusive.
-     * 
-     * </li>
-     * <li>
-     * Arc Drawing: If the default GM_COMPATIBLE graphics mode is set, GDI draws arcs using the current arc direction in the device space. With this convention, arcs do not respect page-to-device transforms that require a flip along the x or y axis.
-     * 
-     * If the GM_ADVANCED graphics mode is set, GDI always draws arcs in the counterclockwise direction in logical space. This is equivalent to the statement that, in the GM_ADVANCED graphics mode, both arc control points and arcs themselves fully respect the device context's world-to-device transformation.
-     * 
-     * </li>
-     * </ol>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iMode 
      * @returns {Integer} If the function succeeds, the return value is the old graphics mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setgraphicsmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setgraphicsmode
      * @since windows5.0
      */
     static SetGraphicsMode(hdc, iMode) {
@@ -11156,20 +9350,12 @@ class Gdi {
 
     /**
      * The SetMapMode function sets the mapping mode of the specified device context. The mapping mode defines the unit of measure used to transform page-space units into device-space units, and also defines the orientation of the device's x and y axes.
-     * @remarks
-     * The MM_TEXT mode allows applications to work in device pixels, whose size varies from device to device.
-     * 
-     * The MM_HIENGLISH, MM_HIMETRIC, MM_LOENGLISH, MM_LOMETRIC, and MM_TWIPS modes are useful for applications drawing in physically meaningful units (such as inches or millimeters).
-     * 
-     * The MM_ISOTROPIC mode ensures a 1:1 aspect ratio.
-     * 
-     * The MM_ANISOTROPIC mode allows the x-coordinates and y-coordinates to be adjusted independently.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} iMode 
      * @returns {Integer} If the function succeeds, the return value identifies the previous mapping mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmapmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setmapmode
      * @since windows5.0
      */
     static SetMapMode(hdc, iMode) {
@@ -11179,56 +9365,12 @@ class Gdi {
 
     /**
      * The SetLayout function changes the layout of a device context (DC).
-     * @remarks
-     * The layout specifies the order in which text and graphics are revealed in a window or a device context. The default is left to right. The <b>SetLayout</b> function changes this to be right to left, which is the standard in Arabic and Hebrew cultures.
-     * 
-     * Once the LAYOUT_RTL flag is selected, flags normally specifying right or left are reversed. To avoid confusion, consider defining alternate words for standard flags, such as those in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Standard flag</th>
-     * <th>Suggested alternate name</th>
-     * </tr>
-     * <tr>
-     * <td>WS_EX_RIGHT</td>
-     * <td>WS_EX_TRAILING</td>
-     * </tr>
-     * <tr>
-     * <td>WS_EX_RTLREADING</td>
-     * <td>WS_EX_REVERSEREADING</td>
-     * </tr>
-     * <tr>
-     * <td>WS_EX_LEFTSCROLLBAR</td>
-     * <td>WS_EX_LEADSCROLLBAR</td>
-     * </tr>
-     * <tr>
-     * <td>ES_LEFT</td>
-     * <td>ES_LEAD</td>
-     * </tr>
-     * <tr>
-     * <td>ES_RIGHT</td>
-     * <td>ES_TRAIL</td>
-     * </tr>
-     * <tr>
-     * <td>EC_LEFTMARGIN</td>
-     * <td>EC_LEADMARGIN</td>
-     * </tr>
-     * <tr>
-     * <td>EC_RIGHTMARGIN</td>
-     * <td>EC_TRAILMARGIN</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <b>SetLayout</b> cannot modify drawing directly into the bits of a DIB.
-     * 
-     * For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
      * @param {Pointer<Void>} hdc A handle to the DC.
      * @param {Integer} l 
      * @returns {Integer} If the function succeeds, it returns the previous layout of the DC.
      * 
      * If the function fails, it returns GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setlayout
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setlayout
      * @since windows5.0
      */
     static SetLayout(hdc, l) {
@@ -11238,13 +9380,11 @@ class Gdi {
 
     /**
      * The GetLayout function returns the layout of a device context (DC).
-     * @remarks
-     * The layout specifies the order in which text and graphics are revealed in a window or device context. The default is left to right. The <b>GetLayout</b> function tells you if the default has been changed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setlayout">SetLayout</a>. For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, it returns the layout flags for the current device context.
      * 
-     * If the function fails, it returns GDI_ERROR. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlayout
+     * If the function fails, it returns GDI_ERROR. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlayout
      * @since windows5.0
      */
     static GetLayout(hdc) {
@@ -11259,16 +9399,12 @@ class Gdi {
 
     /**
      * The SetMetaFileBitsEx function creates a memory-based Windows-format metafile from the supplied data.
-     * @remarks
-     * To convert a Windows-format metafile into an enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * When the application no longer needs the metafile handle returned by <b>SetMetaFileBitsEx</b>, it should delete it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
      * @param {Integer} cbBuffer Specifies the size, in bytes, of the Windows-format metafile.
      * @param {Pointer} lpData Pointer to a buffer that contains the Windows-format metafile. (It is assumed that the data was obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmetafilebitsex">GetMetaFileBitsEx</a> function.)
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a memory-based Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmetafilebitsex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setmetafilebitsex
      * @since windows5.0
      */
     static SetMetaFileBitsEx(cbBuffer, lpData) {
@@ -11278,10 +9414,6 @@ class Gdi {
 
     /**
      * The SetPaletteEntries function sets RGB (red, green, blue) color values and flags in a range of entries in a logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * Even if a logical palette has been selected and realized, changes to the palette do not affect the physical palette in the surface. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> must be called again to set the new logical palette into the surface.
      * @param {Pointer<Void>} hpal A handle to the logical palette.
      * @param {Integer} iStart The first logical-palette entry to be set.
      * @param {Integer} cEntries The number of logical-palette entries to be set.
@@ -11289,7 +9421,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of entries that were set in the logical palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpaletteentries
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setpaletteentries
      * @since windows5.0
      */
     static SetPaletteEntries(hpal, iStart, cEntries, pPalEntries) {
@@ -11299,10 +9431,6 @@ class Gdi {
 
     /**
      * The SetPixel function sets the pixel at the specified coordinates to the specified color.
-     * @remarks
-     * The function fails if the pixel coordinates lie outside of the current clipping region.
-     * 
-     * Not all devices support the <b>SetPixel</b> function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point to be set.
      * @param {Integer} y The y-coordinate, in logical units, of the point to be set.
@@ -11330,7 +9458,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixel
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setpixel
      * @since windows5.0
      */
     static SetPixel(hdc, x, y, color) {
@@ -11340,10 +9468,6 @@ class Gdi {
 
     /**
      * The SetPixelV function sets the pixel at the specified coordinates to the closest approximation of the specified color. The point must be in the clipping region and the visible part of the device surface.
-     * @remarks
-     * Not all devices support the <b>SetPixelV</b> function. For more information, see the description of the RC_BITBLT capability in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
-     * 
-     * <b>SetPixelV</b> is faster than <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setpixel">SetPixel</a> because it does not need to return the color value of the point actually painted.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point to be set.
      * @param {Integer} y The y-coordinate, in logical units, of the point to be set.
@@ -11351,7 +9475,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixelv
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setpixelv
      * @since windows5.0
      */
     static SetPixelV(hdc, x, y, color) {
@@ -11361,16 +9485,10 @@ class Gdi {
 
     /**
      * The SetPolyFillMode function sets the polygon fill mode for functions that fill polygons.
-     * @remarks
-     * In general, the modes differ only in cases where a complex, overlapping polygon must be filled (for example, a five-sided polygon that forms a five-pointed star with a pentagon in the center). In such cases, ALTERNATE mode fills every other enclosed region within the polygon (that is, the points of the star), but WINDING mode fills all regions (that is, the points and the pentagon).
-     * 
-     * When the fill mode is ALTERNATE, GDI fills the area between odd-numbered and even-numbered polygon sides on each scan line. That is, GDI fills the area between the first and second side, between the third and fourth side, and so on.
-     * 
-     * When the fill mode is WINDING, GDI fills any region that has a nonzero winding value. This value is defined as the number of times a pen used to draw the polygon would go around the region. The direction of each edge of the polygon is important.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} mode 
      * @returns {Integer} The return value specifies the previous filling mode. If an error occurs, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setpolyfillmode
      * @since windows5.0
      */
     static SetPolyFillMode(hdc, mode) {
@@ -11380,28 +9498,6 @@ class Gdi {
 
     /**
      * The StretchBlt function copies a bitmap from a source rectangle into a destination rectangle, stretching or compressing the bitmap to fit the dimensions of the destination rectangle, if necessary.
-     * @remarks
-     * <b>StretchBlt</b> stretches or compresses the source bitmap in memory and then copies the result to the destination rectangle. This bitmap can be either a compatible bitmap (DDB) or the output from <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a>. The color data for pattern or destination pixels is merged after the stretching or compression occurs.
-     * 
-     * When an enhanced metafile is being recorded, an error occurs (and the function returns <b>FALSE</b>) if the source device context identifies an enhanced-metafile device context.
-     * 
-     * If the specified raster operation requires a brush, the system uses the brush currently selected into the destination device context.
-     * 
-     * The destination coordinates are transformed by using the transformation currently specified for the destination device context; the source coordinates are transformed by using the transformation currently specified for the source device context.
-     * 
-     * If the source transformation has a rotation or shear, an error occurs.
-     * 
-     * If destination, source, and pattern bitmaps do not have the same color format, <b>StretchBlt</b> converts the source and pattern bitmaps to match the destination bitmap.
-     * 
-     * If <b>StretchBlt</b> must convert a monochrome bitmap to a color bitmap, it sets white bits (1) to the background color and black bits (0) to the foreground color. To convert a color bitmap to a monochrome bitmap, it sets pixels that match the background color to white (1) and sets all other pixels to black (0). The foreground and background colors of the device context with color are used.
-     * 
-     * <b>StretchBlt</b> creates a mirror image of a bitmap if the signs of the <i>nWidthSrc</i> and <i>nWidthDest</i> parameters or if the <i>nHeightSrc</i> and <i>nHeightDest</i> parameters differ. If <i>nWidthSrc</i> and <i>nWidthDest</i> have different signs, the function creates a mirror image of the bitmap along the x-axis. If <i>nHeightSrc</i> and <i>nHeightDest</i> have different signs, the function creates a mirror image of the bitmap along the y-axis.
-     * 
-     * Not all devices support the <b>StretchBlt</b> function. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
-     * 
-     * <b>ICM:</b> No color management is performed when a blit operation occurs.
-     * 
-     * When used in a multiple monitor system, both <i>hdcSrc</i> and <i>hdcDest</i> must refer to the same device or the function will fail. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -11418,7 +9514,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-stretchblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-stretchblt
      * @since windows5.0
      */
     static StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop) {
@@ -11428,8 +9524,6 @@ class Gdi {
 
     /**
      * The SetRectRgn function converts a region into a rectangular region with the specified coordinates.
-     * @remarks
-     * The region does not include the lower and right boundaries of the rectangle.
      * @param {Pointer<Void>} hrgn Handle to the region.
      * @param {Integer} left Specifies the x-coordinate of the upper-left corner of the rectangular region in logical units.
      * @param {Integer} top Specifies the y-coordinate of the upper-left corner of the rectangular region in logical units.
@@ -11438,7 +9532,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setrectrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setrectrgn
      * @since windows5.0
      */
     static SetRectRgn(hrgn, left, top, right, bottom) {
@@ -11448,20 +9542,6 @@ class Gdi {
 
     /**
      * The StretchDIBits function copies the color data for a rectangle of pixels in a DIB, JPEG, or PNG image to the specified destination rectangle.
-     * @remarks
-     * The origin of a bottom-up DIB is the lower-left corner; the origin of a top-down DIB is the upper-left corner.
-     * 
-     * <b>StretchDIBits</b> creates a mirror image of a bitmap if the signs of the <i>nSrcWidth</i> and <i>nDestWidth</i> parameters, or if the <i>nSrcHeight</i> and <i>nDestHeight</i> parameters differ. If <i>nSrcWidth</i> and <i>nDestWidth</i> have different signs, the function creates a mirror image of the bitmap along the x-axis. If <i>nSrcHeight</i> and <i>nDestHeight</i> have different signs, the function creates a mirror image of the bitmap along the y-axis.
-     * 
-     * <b>StretchDIBits</b> creates a top-down image if the sign of the <b>biHeight</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure for the DIB is negative. For a code example, see <a href="https://docs.microsoft.com/windows/desktop/gdi/sizing-a-jpeg-or-png-image">Sizing a JPEG or PNG Image</a>.
-     * 
-     * This function allows a JPEG or PNG image to be passed as the source image. How each parameter is used remains the same, except:
-     * 
-     * <ul>
-     * <li>If the <b>biCompression</b> member of <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> is BI_JPEG or BI_PNG, <i>lpBits</i> points to a buffer containing a JPEG or PNG image, respectively. The <b>biSizeImage</b> member of the <b>BITMAPINFOHEADER</b> structure specifies the size of the buffer. The <i>iUsage</i> parameter must be set to DIB_RGB_COLORS. The <i>dwRop</i> parameter must be set to SRCCOPY.</li>
-     * <li>To ensure proper metafile spooling while printing, applications must call the CHECKJPEGFORMAT or CHECKPNGFORMAT escape to verify that the printer recognizes the JPEG or PNG image, respectively, before calling <b>StretchDIBits</b>.</li>
-     * </ul>
-     * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpBitsInfo</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
      * @param {Pointer<Void>} hdc A handle to the destination device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -11480,7 +9560,7 @@ class Gdi {
      * If the function fails, or no scan lines are copied, the return value is 0.
      * 
      * If the driver cannot support the JPEG or PNG file image passed to <b>StretchDIBits</b>, the function will fail and return GDI_ERROR. If failure does occur, the application must fall back on its own JPEG or PNG support to decompress the image into a bitmap, and then pass the bitmap to <b>StretchDIBits</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-stretchdibits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-stretchdibits
      * @since windows5.0
      */
     static StretchDIBits(hdc, xDest, yDest, DestWidth, DestHeight, xSrc, ySrc, SrcWidth, SrcHeight, lpBits, lpbmi, iUsage, rop) {
@@ -11490,14 +9570,12 @@ class Gdi {
 
     /**
      * The SetROP2 function sets the current foreground mix mode.
-     * @remarks
-     * Mix modes define how GDI combines source and destination colors when drawing with the current pen. The mix modes are binary raster operation codes, representing all possible Boolean functions of two variables, using the binary operations AND, OR, and XOR (exclusive OR), and the unary operation NOT. The mix mode is for raster devices only; it is not available for vector devices.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} rop2 
      * @returns {Integer} If the function succeeds, the return value specifies the previous mix mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setrop2
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setrop2
      * @since windows5.0
      */
     static SetROP2(hdc, rop2) {
@@ -11507,14 +9585,6 @@ class Gdi {
 
     /**
      * The SetStretchBltMode function sets the bitmap stretching mode in the specified device context.
-     * @remarks
-     * The stretching mode defines how the system combines rows or columns of a bitmap with existing pixels on a display device when an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a> function.
-     * 
-     * The BLACKONWHITE (STRETCH_ANDSCANS) and WHITEONBLACK (STRETCH_ORSCANS) modes are typically used to preserve foreground pixels in monochrome bitmaps. The COLORONCOLOR (STRETCH_DELETESCANS) mode is typically used to preserve color in color bitmaps.
-     * 
-     * The HALFTONE mode is slower and requires more processing of the source image than the other three modes; but produces higher quality images. Also note that <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbrushorgex">SetBrushOrgEx</a> must be called after setting the HALFTONE mode to avoid brush misalignment.
-     * 
-     * Additional stretching modes might also be available depending on the capabilities of the device driver.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} mode 
      * @returns {Integer} If the function succeeds, the return value is the previous stretching mode.
@@ -11540,7 +9610,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setstretchbltmode
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setstretchbltmode
      * @since windows5.0
      */
     static SetStretchBltMode(hdc, mode) {
@@ -11550,39 +9620,12 @@ class Gdi {
 
     /**
      * The SetSystemPaletteUse function allows an application to specify whether the system palette contains 2 or 20 static colors.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * When an application window moves to the foreground and the SYSPAL_NOSTATIC value is set, the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function to save the current system colors setting. It must also call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setsyscolors">SetSysColors</a> to set reasonable values using only black and white. When the application returns to the background or terminates, the previous system colors must be restored.
-     * 
-     * If the function returns SYSPAL_ERROR, the specified device context is invalid or does not support color palettes.
-     * 
-     * An application must call this function only when its window is maximized and has the input focus.
-     * 
-     * If an application calls <b>SetSystemPaletteUse</b> with <i>uUsage</i> set to SYSPAL_NOSTATIC, the system continues to set aside two entries in the system palette for pure white and pure black, respectively.
-     * 
-     * After calling this function with <i>uUsage</i> set to SYSPAL_NOSTATIC, an application must take the following steps:
-     * 
-     * <ol>
-     * <li>Realize the logical palette.</li>
-     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function to save the current system-color settings.</li>
-     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setsyscolors">SetSysColors</a> function to set the system colors to reasonable values using black and white. For example, adjacent or overlapping items (such as window frames and borders) should be set to black and white, respectively.</li>
-     * <li>Send the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-syscolorchange">WM_SYSCOLORCHANGE</a> message to other top-level windows to allow them to be redrawn with the new system colors.</li>
-     * </ol>
-     * When the application's window loses focus or closes, the application must perform the following steps:
-     * 
-     * <ol>
-     * <li>Call <b>SetSystemPaletteUse</b> with the <i>uUsage</i> parameter set to SYSPAL_STATIC.</li>
-     * <li>Realize the logical palette.</li>
-     * <li>Restore the system colors to their previous values.</li>
-     * <li>Send the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-syscolorchange">WM_SYSCOLORCHANGE</a> message.</li>
-     * </ol>
      * @param {Pointer<Void>} hdc A handle to the device context. This device context must refer to a device that supports color palettes.
      * @param {Integer} use 
      * @returns {Integer} If the function succeeds, the return value is the previous system palette. It can be either SYSPAL_NOSTATIC, SYSPAL_NOSTATIC256, or SYSPAL_STATIC.
      * 
      * If the function fails, the return value is SYSPAL_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setsystempaletteuse
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setsystempaletteuse
      * @since windows5.0
      */
     static SetSystemPaletteUse(hdc, use) {
@@ -11592,16 +9635,12 @@ class Gdi {
 
     /**
      * The SetTextCharacterExtra function sets the intercharacter spacing. Intercharacter spacing is added to each character, including break characters, when the system writes a line of text.
-     * @remarks
-     * This function is supported mainly for compatibility with existing applications. New applications should generally avoid calling this function, because it is incompatible with complex scripts (scripts that require text shaping; Arabic script is an example of this).
-     * 
-     * The recommended approach is that instead of calling this function and then <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a>, applications should call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> and use its <i>lpDx</i> parameter to supply widths.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} extra The amount of extra space, in logical units, to be added to each character. If the current mapping mode is not MM_TEXT, the <i>nCharExtra</i> parameter is transformed and rounded to the nearest pixel.
      * @returns {Integer} If the function succeeds, the return value is the previous intercharacter spacing.
      * 
      * If the function fails, the return value is 0x80000000.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextcharacterextra
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextcharacterextra
      * @since windows5.0
      */
     static SetTextCharacterExtra(hdc, extra) {
@@ -11611,14 +9650,12 @@ class Gdi {
 
     /**
      * The SetTextColor function sets the text color for the specified device context to the specified color.
-     * @remarks
-     * The text color is used to draw the face of each character written by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions. The text color is also used in converting bitmaps from color to monochrome and vice versa.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} color The color of the text.
-     * @returns {Integer} If the function succeeds, the return value is a color reference for the previous text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {Integer} If the function succeeds, the return value is a color reference for the previous text color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextcolor
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextcolor
      * @since windows5.0
      */
     static SetTextColor(hdc, color) {
@@ -11628,35 +9665,6 @@ class Gdi {
 
     /**
      * The SetTextAlign function sets the text-alignment flags for the specified device context.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions use the text-alignment flags to position a string of text on a display or other device. The flags specify the relationship between a reference point and a rectangle that bounds the text. The reference point is either the current position or a point passed to a text output function.
-     * 
-     * The rectangle that bounds the text is formed by the character cells in the text string.
-     * 
-     * The best way to get left-aligned text is to use either
-     * 
-     * 
-     * ```cpp
-     * 
-     * SetTextAlign (hdc, GetTextAlign(hdc) & (~TA_CENTER))
-     * 
-     * ```
-     * 
-     * 
-     * or
-     * 
-     * 
-     * ```cpp
-     * 
-     * SetTextAlign (hdc,TA_LEFT | <other flags>)
-     * 
-     * ```
-     * 
-     * 
-     * You can also use <b>SetTextAlign</b> (hdc, TA_LEFT) for this purpose, but this loses any vertical or right-to-left settings.
-     * 
-     * <div class="alert"><b>Note</b>  You should not use <b>SetTextAlign</b> with TA_UPDATECP when you are using <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringout">ScriptStringOut</a>, because selected text is not rendered correctly. If you must use this flag, you can unset and reset it as necessary to avoid the problem.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} align The text alignment by using a mask of the values in the following list. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
      * 
@@ -11792,7 +9800,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the previous text-alignment setting.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextalign
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextalign
      * @since windows5.0
      */
     static SetTextAlign(hdc, align) {
@@ -11802,23 +9810,13 @@ class Gdi {
 
     /**
      * The SetTextJustification function specifies the amount of space the system should add to the break characters in a string of text. The space is added when an application calls the TextOut or ExtTextOut functions.
-     * @remarks
-     * The break character is usually the space character (ASCII 32), but it may be defined by a font as some other character. The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextmetrics">GetTextMetrics</a> function can be used to retrieve a font's break character.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function distributes the specified extra space evenly among the break characters in the line.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function is always used with the <b>SetTextJustification</b> function. Sometimes the <b>GetTextExtentPoint32</b> function takes justification into account when computing the width of a specified line before justification, and sometimes it does not. For more details on this, see <b>GetTextExtentPoint32</b>. This width must be known before an appropriate <i>nBreakExtra</i> value can be computed.
-     * 
-     * <b>SetTextJustification</b> can be used to justify a line that contains multiple strings in different fonts. In this case, each string must be justified separately.
-     * 
-     * Because rounding errors can occur during justification, the system keeps a running error term that defines the current error value. When justifying a line that contains multiple runs, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointa">GetTextExtentPoint</a> automatically uses this error term when it computes the extent of the next run, allowing <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> to blend the error into the new run. After each line has been justified, this error term must be cleared to prevent it from being incorporated into the next line. The term can be cleared by calling <b>SetTextJustification</b> with <i>nBreakExtra</i> set to zero.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} extra The total extra space, in logical units, to be added to the line of text. If the current mapping mode is not MM_TEXT, the value identified by the <i>nBreakExtra</i> parameter is transformed and rounded to the nearest pixel.
      * @param {Integer} count The number of break characters in the line.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextjustification
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextjustification
      * @since windows5.0
      */
     static SetTextJustification(hdc, extra, count) {
@@ -11828,19 +9826,11 @@ class Gdi {
 
     /**
      * The UpdateColors function updates the client area of the specified device context by remapping the current colors in the client area to the currently realized logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * 
-     * An inactive window with a realized logical palette may call <b>UpdateColors</b> as an alternative to redrawing its client area when the system palette changes.
-     * 
-     * The <b>UpdateColors</b> function typically updates a client area faster than redrawing the area. However, because <b>UpdateColors</b> performs the color translation based on the color of each pixel before the system palette changed, each call to this function results in the loss of some color accuracy.
-     * 
-     * This function must be called soon after a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-palettechanged">WM_PALETTECHANGED</a> message is received.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-updatecolors
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-updatecolors
      * @since windows5.0
      */
     static UpdateColors(hdc) {
@@ -11850,26 +9840,6 @@ class Gdi {
 
     /**
      * The AlphaBlend function displays bitmaps that have transparent or semitransparent pixels.
-     * @remarks
-     * If the source rectangle and destination rectangle are not the same size, the source bitmap is stretched to match the destination rectangle. If the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a> function is used, the <i>iStretchMode</i> value is automatically converted to COLORONCOLOR for this function (that is, BLACKONWHITE, WHITEONBLACK, and HALFTONE are changed to COLORONCOLOR).
-     * 
-     * The destination coordinates are transformed by using the transformation currently specified for the destination device context. The source coordinates are transformed by using the transformation currently specified for the source device context.
-     * 
-     * An error occurs (and the function returns <b>FALSE</b>) if the source device context identifies an enhanced metafile device context.
-     * 
-     * If destination and source bitmaps do not have the same color format, <b>AlphaBlend</b> converts the source bitmap to match the destination bitmap.
-     * 
-     * <b>AlphaBlend</b> does not support mirroring. If either the width or height of the source or destination is negative, this call will fail.
-     * 
-     * When rendering to a printer, first call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> with SHADEBLENDCAPS to determine if the printer supports blending with <b>AlphaBlend</b>. Note that, for a display DC, all blending operations are supported and these flags represent whether the operations are accelerated.
-     * 
-     * If the source and destination are the same surface, that is, they are both the screen or the same memory bitmap and the source and destination rectangles overlap, an error occurs and the function returns <b>FALSE</b>.
-     * 
-     * The source rectangle must lie completely within the source surface, otherwise an error occurs and the function returns <b>FALSE</b>.
-     * 
-     * <b>AlphaBlend</b> fails if the width or height of the source or destination is negative.
-     * 
-     * The <b>SourceConstantAlpha</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> specifies an alpha transparency value to be used on the entire source bitmap. The <b>SourceConstantAlpha</b> value is combined with any per-pixel alpha values. If <b>SourceConstantAlpha</b> is 0, it is assumed that the image is transparent. Set the <b>SourceConstantAlpha</b> value to 255 (which indicates that the image is opaque) when you only want to use per-pixel alpha values.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xoriginDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yoriginDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -11884,7 +9854,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-alphablend
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-alphablend
      * @since windows5.0
      */
     static AlphaBlend(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, ftn) {
@@ -11894,18 +9864,6 @@ class Gdi {
 
     /**
      * The TransparentBlt function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.
-     * @remarks
-     * The <b>TransparentBlt</b> function works with compatible bitmaps (DDBs).
-     * 
-     * The <b>TransparentBlt</b> function supports all formats of source bitmaps. However, for 32 bpp bitmaps, it just copies the alpha value over. Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> to specify 32 bits-per-pixel bitmaps with transparency.
-     * 
-     * If the source and destination rectangles are not the same size, the source bitmap is stretched to match the destination rectangle. When the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a> function is used, the <i>iStretchMode</i> modes of BLACKONWHITE and WHITEONBLACK are converted to COLORONCOLOR for the <b>TransparentBlt</b> function.
-     * 
-     * The destination device context specifies the transformation type for the destination coordinates. The source device context specifies the transformation type for the source coordinates.
-     * 
-     * <b>TransparentBlt</b> does not mirror a bitmap if either the width or height, of either the source or destination, is negative.
-     * 
-     * When used in a multiple monitor system, both <i>hdcSrc</i> and <i>hdcDest</i> must refer to the same device or the function will fail. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xoriginDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yoriginDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -11920,7 +9878,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-transparentblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-transparentblt
      * @since windows5.0
      */
     static TransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, crTransparent) {
@@ -11930,23 +9888,6 @@ class Gdi {
 
     /**
      * The GradientFill function fills rectangle and triangle structures.
-     * @remarks
-     * To add smooth shading to a triangle, call the <b>GradientFill</b> function with the three triangle endpoints. GDI will linearly interpolate and fill the triangle. Here is the drawing output of a shaded triangle.
-     * 
-     * <img alt="Illustration of a triangle that fills from orange at the top point to magenta on the bottom line " border="0" src="./images/GradientFillTriangle.png"/>
-     * To add smooth shading to a rectangle, call <b>GradientFill</b> with the upper-left and lower-right coordinates of the rectangle. There are two shading modes used when drawing a rectangle. In horizontal mode, the rectangle is shaded from left-to-right. In vertical mode, the rectangle is shaded from top-to-bottom. Here is the drawing output of two shaded rectangles - one in horizontal mode, the other in vertical mode:
-     * 
-     * <img alt="Illustration of a rectangle that shades from dark on the left side to light on the right side" border="0" src="./images/GradientFillRectangle.png"/>
-     * <img alt="Illustration of a rectangle that shades from dark on the top to light on the bottom" border="0" src="./images/GradientFillRectangle2.png"/>
-     * The <b>GradientFill</b> function uses a mesh method to specify the endpoints of the object to draw. All vertices are passed to <b>GradientFill</b> in the <i>pVertex</i> array. The <i>pMesh</i> parameter specifies how these vertices are connected to form an object. When filling a rectangle, <i>pMesh</i> points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_rect">GRADIENT_RECT</a> structures. Each <b>GRADIENT_RECT</b> structure specifies the index of two vertices in the <i>pVertex</i> array. These two vertices form the upper-left and lower-right boundary of one rectangle.
-     * 
-     * In the case of filling a triangle, <i>pMesh</i> points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_triangle">GRADIENT_TRIANGLE</a> structures. Each <b>GRADIENT_TRIANGLE</b> structure specifies the index of three vertices in the <i>pVertex</i> array. These three vertices form one triangle.
-     * 
-     * To simplify hardware acceleration, this routine is not required to be pixel-perfect in the triangle interior.
-     * 
-     * Note that GradientFill does not use the Alpha member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structure. To use GradientFill with transparency, call GradientFill and then call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> with the desired values for the alpha channel of each vertex.
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/smooth-shading">Smooth Shading</a>, <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-triangle">Drawing a Shaded Triangle</a>, and <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-rectangle">Drawing a Shaded Rectangle</a>.
      * @param {Pointer<Void>} hdc A handle to the destination device context.
      * @param {Pointer<TRIVERTEX>} pVertex A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a vertex.
      * @param {Integer} nVertex The number of vertices in <i>pVertex</i>.
@@ -11956,7 +9897,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gradientfill
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gradientfill
      * @since windows5.0
      */
     static GradientFill(hdc, pVertex, nVertex, pMesh, nMesh, ulMode) {
@@ -11966,28 +9907,6 @@ class Gdi {
 
     /**
      * The GdiAlphaBlend function displays bitmaps that have transparent or semitransparent pixels.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This function is the same as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a>.</div>
-     * <div> </div>
-     * If the source rectangle and destination rectangle are not the same size, the source bitmap is stretched to match the destination rectangle. If the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a> function is used, the <i>iStretchMode</i> value is automatically converted to COLORONCOLOR for this function (that is, BLACKONWHITE, WHITEONBLACK, and HALFTONE are changed to COLORONCOLOR).
-     * 
-     * The destination coordinates are transformed by using the transformation currently specified for the destination device context. The source coordinates are transformed by using the transformation currently specified for the source device context.
-     * 
-     * An error occurs (and the function returns <b>FALSE</b>) if the source device context identifies an enhanced metafile device context.
-     * 
-     * If destination and source bitmaps do not have the same color format, <b>GdiAlphaBlend</b> converts the source bitmap to match the destination bitmap.
-     * 
-     * <b>GdiAlphaBlend</b> does not support mirroring. If either the width or height of the source or destination is negative, this call will fail.
-     * 
-     * When rendering to a printer, first call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> with SHADEBLENDCAPS to determine if the printer supports blending with <b>GdiAlphaBlend</b>. Note that, for a display DC, all blending operations are supported and these flags represent whether the operations are accelerated.
-     * 
-     * If the source and destination are the same surface, that is, they are both the screen or the same memory bitmap and the source and destination rectangles overlap, an error occurs and the function returns <b>FALSE</b>.
-     * 
-     * The source rectangle must lie completely within the source surface, otherwise an error occurs and the function returns <b>FALSE</b>.
-     * 
-     * <b>GdiAlphaBlend</b> fails if the width or height of the source or destination is negative.
-     * 
-     * The <b>SourceConstantAlpha</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> specifies an alpha transparency value to be used on the entire source bitmap. The <b>SourceConstantAlpha</b> value is combined with any per-pixel alpha values. If <b>SourceConstantAlpha</b> is 0, it is assumed that the image is transparent. Set the <b>SourceConstantAlpha</b> value to 255 (which indicates that the image is opaque) when you only want to use per-pixel alpha values.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xoriginDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yoriginDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -12022,7 +9941,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdialphablend
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdialphablend
      * @since windows5.0
      */
     static GdiAlphaBlend(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, ftn) {
@@ -12032,18 +9951,6 @@ class Gdi {
 
     /**
      * The GdiTransparentBlt function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.
-     * @remarks
-     * The <b>GdiTransparentBlt</b> function works with compatible bitmaps (DDBs).
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-transparentblt">GdiTransparentBlt</a> function supports all formats of source bitmaps. However, for 32 bpp bitmaps, it just copies the alpha value over. Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> to specify 32 bits-per-pixel bitmaps with transparency.
-     * 
-     * If the source and destination rectangles are not the same size, the source bitmap is stretched to match the destination rectangle. When the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a> function is used, the <i>iStretchMode</i> modes of BLACKONWHITE and WHITEONBLACK are converted to COLORONCOLOR for the <b>GdiTransparentBlt</b> function.
-     * 
-     * The destination device context specifies the transformation type for the destination coordinates. The source device context specifies the transformation type for the source coordinates.
-     * 
-     * <b>GdiTransparentBlt</b> does not mirror a bitmap if either the width or height, of either the source or destination, is negative.
-     * 
-     * When used in a multiple monitor system, both <i>hdcSrc</i> and <i>hdcDest</i> must refer to the same device or the function will fail. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * @param {Pointer<Void>} hdcDest A handle to the destination device context.
      * @param {Integer} xoriginDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yoriginDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
@@ -12058,7 +9965,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gditransparentblt
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gditransparentblt
      * @since windows5.0
      */
     static GdiTransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, crTransparent) {
@@ -12068,25 +9975,6 @@ class Gdi {
 
     /**
      * The GdiGradientFill function fills rectangle and triangle structures.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This function is the same as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gradientfill">GradientFill</a>.</div>
-     * <div> </div>
-     * To add smooth shading to a triangle, call the <b>GdiGradientFill</b> function with the three triangle endpoints. GDI will linearly interpolate and fill the triangle. Here is the drawing output of a shaded triangle.
-     * 
-     * <img alt="Illustration of a triangle that fills from orange at the top point to magenta on the bottom line " border="0" src="./images/GradientFillTriangle.png"/>
-     * To add smooth shading to a rectangle, call <b>GdiGradientFill</b> with the upper-left and lower-right coordinates of the rectangle. There are two shading modes used when drawing a rectangle. In horizontal mode, the rectangle is shaded from left-to-right. In vertical mode, the rectangle is shaded from top-to-bottom. Here is the drawing output of two shaded rectangles - one in horizontal mode, the other in vertical mode.
-     * 
-     * <img alt="Illustration of a rectangle that shades from dark on the left side to light on the right side" border="0" src="./images/GradientFillRectangle.png"/>
-     * <img alt="Illustration of a rectangle that shades from dark on the top to light on the bottom" border="0" src="./images/GradientFillRectangle2.png"/>
-     * The <b>GdiGradientFill</b> function uses a mesh method to specify the endpoints of the object to draw. All vertices are passed to <b>GdiGradientFill</b> in the <i>pVertex</i> array. The <i>pMesh</i> parameter specifies how these vertices are connected to form an object. When filling a rectangle, <i>pMesh</i> points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_rect">GRADIENT_RECT</a> structures. Each <b>GRADIENT_RECT</b> structure specifies the index of two vertices in the <i>pVertex</i> array. These two vertices form the upper-left and lower-right boundary of one rectangle.
-     * 
-     * In the case of filling a triangle, <i>pMesh</i> points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_triangle">GRADIENT_TRIANGLE</a> structures. Each <b>GRADIENT_TRIANGLE</b> structure specifies the index of three vertices in the <i>pVertex</i> array. These three vertices form one triangle.
-     * 
-     * To simplify hardware acceleration, this routine is not required to be pixel-perfect in the triangle interior.
-     * 
-     * Note that <b>GdiGradientFill</b> does not use the Alpha member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structure. To use <b>GdiGradientFill</b> with transparency, call <b>GdiGradientFill</b> and then call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdialphablend">GdiAlphaBlend</a> with the desired values for the alpha channel of each vertex.
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/smooth-shading">Smooth Shading</a>, <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-triangle">Drawing a Shaded Triangle</a>, and <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-rectangle">Drawing a Shaded Rectangle</a>.
      * @param {Pointer<Void>} hdc A handle to the destination device context.
      * @param {Pointer<TRIVERTEX>} pVertex A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a triangle vertex.
      * @param {Integer} nVertex The number of vertices in <i>pVertex</i>.
@@ -12096,7 +9984,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdigradientfill
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdigradientfill
      * @since windows5.0
      */
     static GdiGradientFill(hdc, pVertex, nVertex, pMesh, nCount, ulMode) {
@@ -12106,14 +9994,6 @@ class Gdi {
 
     /**
      * The PlayMetaFileRecord function plays a Windows-format metafile record by executing the graphics device interface (GDI) function contained within that record.
-     * @remarks
-     * To convert a Windows-format metafile into an enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * An application typically uses <b>PlayMetaFileRecord</b> in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enummetafile">EnumMetaFile</a> function to process and play a Windows-format metafile one record at a time.
-     * 
-     * The <i>lpHandletable</i> and <i>nHandles</i> parameters must be identical to those passed to the <a href="https://docs.microsoft.com/previous-versions/dd162630(v=vs.85)">EnumMetaFileProc</a> callback procedure by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enummetafile">EnumMetaFile</a>.
-     * 
-     * If the <b>PlayMetaFileRecord</b> function does not recognize a record, it ignores the record and returns <b>TRUE</b>.
      * @param {Pointer<Void>} hdc A handle to a device context.
      * @param {Pointer<HANDLETABLE>} lpHandleTable A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-handletable">HANDLETABLE</a> structure representing the table of handles to GDI objects used when playing the metafile.
      * @param {Pointer<METARECORD>} lpMR A pointer to the Windows-format metafile record.
@@ -12121,7 +10001,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playmetafilerecord
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-playmetafilerecord
      * @since windows5.0
      */
     static PlayMetaFileRecord(hdc, lpHandleTable, lpMR, noObjs) {
@@ -12131,10 +10011,6 @@ class Gdi {
 
     /**
      * The EnumMetaFile function enumerates the records within a Windows-format metafile by retrieving each record and passing it to the specified callback function.
-     * @remarks
-     * To convert a Windows-format metafile into an enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * You can use the <b>EnumMetaFile</b> function to embed one Windows-format metafile within another.
      * @param {Pointer<Void>} hdc Handle to a device context. This handle is passed to the callback function.
      * @param {Pointer<Void>} hmf Handle to a Windows-format metafile.
      * @param {Pointer<MFENUMPROC>} proc Pointer to an application-supplied callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162630(v=vs.85)">EnumMetaFileProc</a>.
@@ -12142,7 +10018,7 @@ class Gdi {
      * @returns {Integer} If the callback function successfully enumerates all the records in the Windows-format metafile, the return value is nonzero.
      * 
      * If the callback function does not successfully enumerate all the records in the Windows-format metafile, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enummetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enummetafile
      * @since windows5.0
      */
     static EnumMetaFile(hdc, hmf, proc, param3) {
@@ -12152,25 +10028,11 @@ class Gdi {
 
     /**
      * The CloseEnhMetaFile function closes an enhanced-metafile device context and returns a handle that identifies an enhanced-format metafile.
-     * @remarks
-     * An application can use the enhanced-metafile handle returned by the <b>CloseEnhMetaFile</b> function to perform the following tasks:
-     * 
-     * <ul>
-     * <li>Display a picture stored in an enhanced metafile</li>
-     * <li>Create copies of the enhanced metafile</li>
-     * <li>Enumerate, edit, or copy individual records in the enhanced metafile</li>
-     * <li>Retrieve an optional description of the metafile contents from the enhanced-metafile header</li>
-     * <li>Retrieve a copy of the enhanced-metafile header</li>
-     * <li>Retrieve a binary copy of the enhanced metafile</li>
-     * <li>Enumerate the colors in the optional palette</li>
-     * <li>Convert an enhanced-format metafile into a Windows-format metafile</li>
-     * </ul>
-     * When the application no longer needs the enhanced metafile handle, it should release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
      * @param {Pointer<Void>} hdc Handle to an enhanced-metafile device context.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to an enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closeenhmetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-closeenhmetafile
      * @since windows5.0
      */
     static CloseEnhMetaFile(hdc) {
@@ -12179,26 +10041,13 @@ class Gdi {
     }
 
     /**
-     * The CopyEnhMetaFile function copies the contents of an enhanced-format metafile to a specified file. (ANSI)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CopyEnhMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * Applications can use metafiles stored in memory for temporary operations.
-     * 
-     * When the application no longer needs the enhanced-metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CopyEnhMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CopyEnhMetaFile function copies the contents of an enhanced-format metafile to a specified file.
      * @param {Pointer<Void>} hEnh A handle to the enhanced metafile to be copied.
      * @param {Pointer<Byte>} lpFileName A pointer to the name of the destination file. If this parameter is <b>NULL</b>, the source metafile is copied to memory.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the copy of the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copyenhmetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-copyenhmetafilea
      * @since windows5.0
      */
     static CopyEnhMetaFileA(hEnh, lpFileName) {
@@ -12209,26 +10058,13 @@ class Gdi {
     }
 
     /**
-     * The CopyEnhMetaFile function copies the contents of an enhanced-format metafile to a specified file. (Unicode)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CopyEnhMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * Applications can use metafiles stored in memory for temporary operations.
-     * 
-     * When the application no longer needs the enhanced-metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines CopyEnhMetaFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CopyEnhMetaFile function copies the contents of an enhanced-format metafile to a specified file.
      * @param {Pointer<Void>} hEnh A handle to the enhanced metafile to be copied.
      * @param {Pointer<Char>} lpFileName A pointer to the name of the destination file. If this parameter is <b>NULL</b>, the source metafile is copied to memory.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the copy of the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copyenhmetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-copyenhmetafilew
      * @since windows5.0
      */
     static CopyEnhMetaFileW(hEnh, lpFileName) {
@@ -12239,25 +10075,7 @@ class Gdi {
     }
 
     /**
-     * The CreateEnhMetaFile function creates a device context for an enhanced-format metafile. This device context can be used to store a device-independent picture. (ANSI)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CreateEnhMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * The system uses the reference device identified by the <i>hdcRef</i> parameter to record the resolution and units of the device on which a picture originally appeared. If the <i>hdcRef</i> parameter is <b>NULL</b>, it uses the current display device for reference.
-     * 
-     * The <b>left</b> and <b>top</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure pointed to by the <i>lpRect</i> parameter must be less than the <b>right</b> and <b>bottom</b> members, respectively. Points along the edges of the rectangle are included in the picture. If <i>lpRect</i> is <b>NULL</b>, the graphics device interface (GDI) computes the dimensions of the smallest rectangle that surrounds the picture drawn by the application. The <i>lpRect</i> parameter should be provided where possible.
-     * 
-     * The string pointed to by the <i>lpDescription</i> parameter must contain a null character between the application name and the picture name and must terminate with two null characters, for example, "XYZ Graphics Editor\0Bald Eagle\0\0", where \0 represents the null character. If <i>lpDescription</i> is <b>NULL</b>, there is no corresponding entry in the enhanced-metafile header.
-     * 
-     * Applications use the device context created by this function to store a graphics picture in an enhanced metafile. The handle identifying this device context can be passed to any GDI function.
-     * 
-     * After an application stores a picture in an enhanced metafile, it can display the picture on any output device by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-playenhmetafile">PlayEnhMetaFile</a> function. When displaying the picture, the system uses the rectangle pointed to by the <i>lpRect</i> parameter and the resolution data from the reference device to position and scale the picture.
-     * 
-     * The device context returned by this function contains the same default attributes associated with any new device context.
-     * 
-     * Applications must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function to convert an enhanced metafile to the older Windows metafile format.
-     * 
-     * The file name for the enhanced metafile should use the .emf extension.
+     * The CreateEnhMetaFile function creates a device context for an enhanced-format metafile. This device context can be used to store a device-independent picture.
      * @param {Pointer<Void>} hdc A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @param {Pointer<Byte>} lpFilename A pointer to the file name for the enhanced metafile to be created. If this parameter is <b>NULL</b>, the enhanced metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the dimensions (in .01-millimeter units) of the picture to be stored in the enhanced metafile.
@@ -12265,7 +10083,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the device context for the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createenhmetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createenhmetafilea
      * @since windows5.0
      */
     static CreateEnhMetaFileA(hdc, lpFilename, lprc, lpDesc) {
@@ -12277,25 +10095,7 @@ class Gdi {
     }
 
     /**
-     * The CreateEnhMetaFile function creates a device context for an enhanced-format metafile. This device context can be used to store a device-independent picture. (Unicode)
-     * @remarks
-     * Where text arguments must use Unicode characters, use the <b>CreateEnhMetaFile</b> function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * The system uses the reference device identified by the <i>hdcRef</i> parameter to record the resolution and units of the device on which a picture originally appeared. If the <i>hdcRef</i> parameter is <b>NULL</b>, it uses the current display device for reference.
-     * 
-     * The <b>left</b> and <b>top</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure pointed to by the <i>lpRect</i> parameter must be less than the <b>right</b> and <b>bottom</b> members, respectively. Points along the edges of the rectangle are included in the picture. If <i>lpRect</i> is <b>NULL</b>, the graphics device interface (GDI) computes the dimensions of the smallest rectangle that surrounds the picture drawn by the application. The <i>lpRect</i> parameter should be provided where possible.
-     * 
-     * The string pointed to by the <i>lpDescription</i> parameter must contain a null character between the application name and the picture name and must terminate with two null characters, for example, "XYZ Graphics Editor\0Bald Eagle\0\0", where \0 represents the null character. If <i>lpDescription</i> is <b>NULL</b>, there is no corresponding entry in the enhanced-metafile header.
-     * 
-     * Applications use the device context created by this function to store a graphics picture in an enhanced metafile. The handle identifying this device context can be passed to any GDI function.
-     * 
-     * After an application stores a picture in an enhanced metafile, it can display the picture on any output device by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-playenhmetafile">PlayEnhMetaFile</a> function. When displaying the picture, the system uses the rectangle pointed to by the <i>lpRect</i> parameter and the resolution data from the reference device to position and scale the picture.
-     * 
-     * The device context returned by this function contains the same default attributes associated with any new device context.
-     * 
-     * Applications must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function to convert an enhanced metafile to the older Windows metafile format.
-     * 
-     * The file name for the enhanced metafile should use the .emf extension.
+     * The CreateEnhMetaFile function creates a device context for an enhanced-format metafile. This device context can be used to store a device-independent picture.
      * @param {Pointer<Void>} hdc A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @param {Pointer<Char>} lpFilename A pointer to the file name for the enhanced metafile to be created. If this parameter is <b>NULL</b>, the enhanced metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the dimensions (in .01-millimeter units) of the picture to be stored in the enhanced metafile.
@@ -12303,7 +10103,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the device context for the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createenhmetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createenhmetafilew
      * @since windows5.0
      */
     static CreateEnhMetaFileW(hdc, lpFilename, lprc, lpDesc) {
@@ -12316,13 +10116,11 @@ class Gdi {
 
     /**
      * The DeleteEnhMetaFile function deletes an enhanced-format metafile or an enhanced-format metafile handle.
-     * @remarks
-     * If the <i>hemf</i> parameter identifies an enhanced metafile stored in memory, the <b>DeleteEnhMetaFile</b> function deletes the metafile. If <i>hemf</i> identifies a metafile stored on a disk, the function deletes the metafile handle but does not destroy the actual metafile. An application can retrieve the file by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getenhmetafilea">GetEnhMetaFile</a> function.
      * @param {Pointer<Void>} hmf A handle to an enhanced metafile.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deleteenhmetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-deleteenhmetafile
      * @since windows5.0
      */
     static DeleteEnhMetaFile(hmf) {
@@ -12332,12 +10130,6 @@ class Gdi {
 
     /**
      * The EnumEnhMetaFile function enumerates the records within an enhanced-format metafile by retrieving each record and passing it to the specified callback function.
-     * @remarks
-     * Points along the edge of the rectangle pointed to by the <i>lpRect</i> parameter are included in the picture. If the <i>hdc</i> parameter is <b>NULL</b>, the system ignores <i>lpRect</i>.
-     * 
-     * If the callback function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-playenhmetafilerecord">PlayEnhMetaFileRecord</a> function, <i>hdc</i> must identify a valid device context. The system uses the device context's transformation and mapping mode to transform the picture displayed by the <b>PlayEnhMetaFileRecord</b> function.
-     * 
-     * You can use the <b>EnumEnhMetaFile</b> function to embed one enhanced-metafile within another.
      * @param {Pointer<Void>} hdc A handle to a device context. This handle is passed to the callback function.
      * @param {Pointer<Void>} hmf A handle to an enhanced metafile.
      * @param {Pointer<ENHMFENUMPROC>} proc A pointer to the application-supplied callback function. For more information, see the <a href="https://docs.microsoft.com/previous-versions/dd162606(v=vs.85)">EnhMetaFileProc</a> function.
@@ -12346,7 +10138,7 @@ class Gdi {
      * @returns {Integer} If the callback function successfully enumerates all the records in the enhanced metafile, the return value is nonzero.
      * 
      * If the callback function does not successfully enumerate all the records in the enhanced metafile, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumenhmetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumenhmetafile
      * @since windows5.0
      */
     static EnumEnhMetaFile(hdc, hmf, proc, param3, lpRect) {
@@ -12355,18 +10147,12 @@ class Gdi {
     }
 
     /**
-     * The GetEnhMetaFile function creates a handle that identifies the enhanced-format metafile stored in the specified file. (ANSI)
-     * @remarks
-     * When the application no longer needs an enhanced-metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * 
-     * A Windows-format metafile must be converted to the enhanced format before it can be processed by the <b>GetEnhMetaFile</b> function. To convert the file, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
+     * The GetEnhMetaFile function creates a handle that identifies the enhanced-format metafile stored in the specified file.
      * @param {Pointer<Byte>} lpName A pointer to a null-terminated string that specifies the name of an enhanced metafile.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafilea
      * @since windows5.0
      */
     static GetEnhMetaFileA(lpName) {
@@ -12377,18 +10163,12 @@ class Gdi {
     }
 
     /**
-     * The GetEnhMetaFile function creates a handle that identifies the enhanced-format metafile stored in the specified file. (Unicode)
-     * @remarks
-     * When the application no longer needs an enhanced-metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * 
-     * A Windows-format metafile must be converted to the enhanced format before it can be processed by the <b>GetEnhMetaFile</b> function. To convert the file, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
-     * 
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
+     * The GetEnhMetaFile function creates a handle that identifies the enhanced-format metafile stored in the specified file.
      * @param {Pointer<Char>} lpName A pointer to a null-terminated string that specifies the name of an enhanced metafile.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafilew
      * @since windows5.0
      */
     static GetEnhMetaFileW(lpName) {
@@ -12400,12 +10180,6 @@ class Gdi {
 
     /**
      * The GetEnhMetaFileBits function retrieves the contents of the specified enhanced-format metafile and copies them into a buffer.
-     * @remarks
-     * After the enhanced-metafile bits are retrieved, they can be used to create a memory-based metafile by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setenhmetafilebits">SetEnhMetaFileBits</a> function.
-     * 
-     * The <b>GetEnhMetaFileBits</b> function does not invalidate the enhanced-metafile handle. The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function to delete the handle when it is no longer needed.
-     * 
-     * The metafile contents retrieved by this function are in the enhanced format. To retrieve the metafile contents in the Windows format, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function.
      * @param {Pointer<Void>} hEMF A handle to the enhanced metafile.
      * @param {Integer} nSize The size, in bytes, of the buffer to receive the data.
      * @param {Pointer} lpData A pointer to a buffer that receives the metafile data. The buffer must be sufficiently large to contain the data. If <i>lpbBuffer</i> is <b>NULL</b>, the function returns the size necessary to hold the data.
@@ -12414,7 +10188,7 @@ class Gdi {
      * If the function succeeds and the buffer pointer is a valid pointer, the return value is the number of bytes copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilebits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafilebits
      * @since windows5.0
      */
     static GetEnhMetaFileBits(hEMF, nSize, lpData) {
@@ -12423,18 +10197,7 @@ class Gdi {
     }
 
     /**
-     * The GetEnhMetaFileDescription function retrieves an optional text description from an enhanced-format metafile and copies the string to the specified buffer. (ANSI)
-     * @remarks
-     * The optional text description contains two strings, the first identifying the application that created the enhanced metafile and the second identifying the picture contained in the metafile. The strings are separated by a null character and terminated with two null characters, for example, "XYZ Graphics Editor\0Bald Eagle\0\0" where \0 represents the null character.
-     * 
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetEnhMetaFileDescription as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetEnhMetaFileDescription function retrieves an optional text description from an enhanced-format metafile and copies the string to the specified buffer.
      * @param {Pointer<Void>} hemf A handle to the enhanced metafile.
      * @param {Integer} cchBuffer The size, in characters, of the buffer to receive the data. Only this many characters will be copied.
      * @param {Pointer<Byte>} lpDescription A pointer to a buffer that receives the optional text description.
@@ -12445,7 +10208,7 @@ class Gdi {
      * If the optional text description does not exist, the return value is zero.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafiledescriptiona
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafiledescriptiona
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionA(hemf, cchBuffer, lpDescription) {
@@ -12456,18 +10219,7 @@ class Gdi {
     }
 
     /**
-     * The GetEnhMetaFileDescription function retrieves an optional text description from an enhanced-format metafile and copies the string to the specified buffer. (Unicode)
-     * @remarks
-     * The optional text description contains two strings, the first identifying the application that created the enhanced metafile and the second identifying the picture contained in the metafile. The strings are separated by a null character and terminated with two null characters, for example, "XYZ Graphics Editor\0Bald Eagle\0\0" where \0 represents the null character.
-     * 
-     * Where text arguments must use Unicode characters, use this function as a wide-character function. Where text arguments must use characters from the Windows character set, use this function as an ANSI function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetEnhMetaFileDescription as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetEnhMetaFileDescription function retrieves an optional text description from an enhanced-format metafile and copies the string to the specified buffer.
      * @param {Pointer<Void>} hemf A handle to the enhanced metafile.
      * @param {Integer} cchBuffer The size, in characters, of the buffer to receive the data. Only this many characters will be copied.
      * @param {Pointer<Char>} lpDescription A pointer to a buffer that receives the optional text description.
@@ -12478,7 +10230,7 @@ class Gdi {
      * If the optional text description does not exist, the return value is zero.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafiledescriptionw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafiledescriptionw
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionW(hemf, cchBuffer, lpDescription) {
@@ -12490,15 +10242,11 @@ class Gdi {
 
     /**
      * The GetEnhMetaFileHeader function retrieves the record containing the header for the specified enhanced-format metafile.
-     * @remarks
-     * An enhanced-metafile header contains such information as the metafile's size, in bytes; the dimensions of the picture stored in the metafile; the number of records stored in the metafile; the offset to the optional text description; the size of the optional palette, and the resolution of the device on which the picture was created.
-     * 
-     * The record that contains the enhanced-metafile header is always the first record in the metafile.
      * @param {Pointer<Void>} hemf A handle to the enhanced metafile for which the header is to be retrieved.
      * @param {Integer} nSize The size, in bytes, of the buffer to receive the data. Only this many bytes will be copied.
      * @param {Pointer} lpEnhMetaHeader A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enhmetaheader">ENHMETAHEADER</a> structure that receives the header record. If this parameter is <b>NULL</b>, the function returns the size of the header record.
      * @returns {Integer} If the function succeeds and the structure pointer is <b>NULL</b>, the return value is the size of the record that contains the header; if the structure pointer is a valid pointer, the return value is the number of bytes copied. Otherwise, it is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafileheader
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafileheader
      * @since windows5.0
      */
     static GetEnhMetaFileHeader(hemf, nSize, lpEnhMetaHeader) {
@@ -12508,15 +10256,11 @@ class Gdi {
 
     /**
      * The GetEnhMetaFilePaletteEntries function retrieves optional palette entries from the specified enhanced metafile.
-     * @remarks
-     * An application can store an optional palette in an enhanced metafile by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpalette">CreatePalette</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setpaletteentries">SetPaletteEntries</a> functions before creating the picture and storing it in the metafile. By doing this, the application can achieve consistent colors when the picture is displayed on a variety of devices.
-     * 
-     * An application that displays a picture stored in an enhanced metafile can call the <b>GetEnhMetaFilePaletteEntries</b> function to determine whether the optional palette exists. If it does, the application can call the <b>GetEnhMetaFilePaletteEntries</b> function a second time to retrieve the palette entries and then create a logical palette (by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpalette">CreatePalette</a> function), select it into its device context (by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectpalette">SelectPalette</a> function), and then realize it (by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> function). After the logical palette has been realized, calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-playenhmetafile">PlayEnhMetaFile</a> function displays the picture using its original colors.
      * @param {Pointer<Void>} hemf A handle to the enhanced metafile.
      * @param {Integer} nNumEntries The number of entries to be retrieved from the optional palette.
      * @param {Pointer<PALETTEENTRY>} lpPaletteEntries A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures that receives the palette colors. The array must contain at least as many structures as there are entries specified by the <i>cEntries</i> parameter.
      * @returns {Integer} If the array pointer is <b>NULL</b> and the enhanced metafile contains an optional palette, the return value is the number of entries in the enhanced metafile's palette; if the array pointer is a valid pointer and the enhanced metafile contains an optional palette, the return value is the number of entries copied; if the metafile does not contain an optional palette, the return value is zero. Otherwise, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilepaletteentries
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getenhmetafilepaletteentries
      * @since windows5.0
      */
     static GetEnhMetaFilePaletteEntries(hemf, nNumEntries, lpPaletteEntries) {
@@ -12526,16 +10270,6 @@ class Gdi {
 
     /**
      * The GetWinMetaFileBits function converts the enhanced-format records from a metafile into Windows-format records and stores the converted records in the specified buffer.
-     * @remarks
-     * This function converts an enhanced metafile into a Windows-format metafile so that its picture can be displayed in an application that recognizes the older format.
-     * 
-     * The system uses the reference device context to determine the resolution of the converted metafile.
-     * 
-     * The <b>GetWinMetaFileBits</b> function does not invalidate the enhanced metafile handle. An application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function to release the handle when it is no longer needed.
-     * 
-     * To create a scalable Windows-format metafile, specify MM_ANISOTROPIC as the <i>fnMapMode</i> parameter.
-     * 
-     * The upper-left corner of the metafile picture is always mapped to the origin of the reference device.
      * @param {Pointer<Void>} hemf A handle to the enhanced metafile.
      * @param {Integer} cbData16 The size, in bytes, of the buffer into which the converted records are to be copied.
      * @param {Pointer} pData16 A pointer to the buffer that receives the converted records. If <i>lpbBuffer</i> is <b>NULL</b>, <b>GetWinMetaFileBits</b> returns the number of bytes required to store the converted metafile records.
@@ -12544,7 +10278,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds and the buffer pointer is <b>NULL</b>, the return value is the number of bytes required to store the converted records; if the function succeeds and the buffer pointer is a valid pointer, the return value is the size of the metafile data in bytes.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwinmetafilebits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getwinmetafilebits
      * @since windows5.0
      */
     static GetWinMetaFileBits(hemf, cbData16, pData16, iMapMode, hdcRef) {
@@ -12554,25 +10288,13 @@ class Gdi {
 
     /**
      * The PlayEnhMetaFile function displays the picture stored in the specified enhanced-format metafile.
-     * @remarks
-     * When an application calls the <b>PlayEnhMetaFile</b> function, the system uses the picture frame in the enhanced-metafile header to map the picture onto the rectangle pointed to by the <i>lpRect</i> parameter. (This picture may be sheared or rotated by setting the world transform in the output device before calling <b>PlayEnhMetaFile</b>.) Points along the edges of the rectangle are included in the picture.
-     * 
-     * An enhanced-metafile picture can be clipped by defining the clipping region in the output device before playing the enhanced metafile.
-     * 
-     * If an enhanced metafile contains an optional palette, an application can achieve consistent colors by setting up a color palette on the output device before calling <b>PlayEnhMetaFile</b>. To retrieve the optional palette, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getenhmetafilepaletteentries">GetEnhMetaFilePaletteEntries</a> function.
-     * 
-     * An enhanced metafile can be embedded in a newly created enhanced metafile by calling <b>PlayEnhMetaFile</b> and playing the source enhanced metafile into the device context for the new enhanced metafile.
-     * 
-     * The states of the output device context are preserved by this function. Any object created but not deleted in the enhanced metafile is deleted by this function.
-     * 
-     * To stop this function, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-canceldc">CancelDC</a> function from another thread to terminate the operation. In this case, the function returns <b>FALSE</b>.
      * @param {Pointer<Void>} hdc A handle to the device context for the output device on which the picture will appear.
      * @param {Pointer<Void>} hmf A handle to the enhanced metafile.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the bounding rectangle used to display the picture. The coordinates are specified in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playenhmetafile
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-playenhmetafile
      * @since windows5.0
      */
     static PlayEnhMetaFile(hdc, hmf, lprect) {
@@ -12582,14 +10304,6 @@ class Gdi {
 
     /**
      * The PlayEnhMetaFileRecord function plays an enhanced-metafile record by executing the graphics device interface (GDI) functions identified by the record.
-     * @remarks
-     * This is an enhanced-metafile function.
-     * 
-     * An application typically uses <b>PlayEnhMetaFileRecord</b> in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function to process and play an enhanced-format metafile one record at a time.
-     * 
-     * The <i>hdc</i>, <i>lpHandletable</i>, and <i>nHandles</i> parameters must be exactly those passed to the <a href="https://docs.microsoft.com/previous-versions/dd162606(v=vs.85)">EnhMetaFileProc</a> callback procedure by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function.
-     * 
-     * If <b>PlayEnhMetaFileRecord</b> does not recognize a record, it ignores the record and returns <b>TRUE</b>.
      * @param {Pointer<Void>} hdc A handle to the device context passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function.
      * @param {Pointer<HANDLETABLE>} pht A pointer to a table of handles to GDI objects used when playing the metafile. The first entry in this table contains the enhanced-metafile handle.
      * @param {Pointer<ENHMETARECORD>} pmr A pointer to the enhanced-metafile record to be played.
@@ -12597,7 +10311,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playenhmetafilerecord
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-playenhmetafilerecord
      * @since windows5.0
      */
     static PlayEnhMetaFileRecord(hdc, pht, pmr, cht) {
@@ -12607,16 +10321,12 @@ class Gdi {
 
     /**
      * The SetEnhMetaFileBits function creates a memory-based enhanced-format metafile from the specified data.
-     * @remarks
-     * When the application no longer needs the enhanced-metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * 
-     * The <b>SetEnhMetaFileBits</b> function does not accept metafile data in the Windows format. To import Windows-format metafiles, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
      * @param {Integer} nSize Specifies the size, in bytes, of the data provided.
      * @param {Pointer} pb Pointer to a buffer that contains enhanced-metafile data. (It is assumed that the data in the buffer was obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getenhmetafilebits">GetEnhMetaFileBits</a> function.)
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setenhmetafilebits
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setenhmetafilebits
      * @since windows5.0
      */
     static SetEnhMetaFileBits(nSize, pb) {
@@ -12626,85 +10336,13 @@ class Gdi {
 
     /**
      * The GdiComment function copies a comment from a buffer into a specified enhanced-format metafile.
-     * @remarks
-     * A comment can include any kind of private information, for example, the source of a picture and the date it was created. A comment should begin with an application signature, followed by the data.
-     * 
-     * Comments should not contain application-specific or position-specific data. Position-specific data specifies the location of a record, and it should not be included because one metafile may be embedded within another metafile.
-     * 
-     * A public comment is a comment that begins with the comment signature identifier GDICOMMENT_IDENTIFIER. The following public comments are defined.
-     * 
-     * <table>
-     * <tr>
-     * <td>GDICOMMENT_WINDOWS_METAFILE</td>
-     * <td>The GDICOMMENT_WINDOWS_METAFILE public comment contains a Windows-format metafile that is equivalent to an enhanced-format metafile. This comment is written only by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function. The comment record, if given, follows the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enhmetaheader">ENHMETAHEADER</a> metafile record. The comment has the following form:</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * ``` syntax
-     * 
-     * DWORD ident;         // This contains GDICOMMENT_IDENTIFIER.  
-     * DWORD iComment;      // This contains GDICOMMENT_WINDOWS_METAFILE.  
-     * DWORD nVersion;      // This contains the version number of the  
-     *                      // Windows-format metafile.  
-     * DWORD nChecksum;     // This is the additive DWORD checksum for  
-     *                      // the enhanced metafile.  The checksum  
-     *                      // for the enhanced metafile data including  
-     *                      // this comment record must be zero.  
-     *                      // Otherwise, the enhanced metafile has been  
-     *                      //  modified and the Windows-format  
-     *                      // metafile is no longer valid.  
-     * DWORD fFlags;        // This must be zero.  
-     * DWORD cbWinMetaFile; // This is the size, in bytes. of the  
-     *                      // Windows-format metafile data that follows.  
-     * 
-     * ```
-     * 
-     * <table>
-     * <tr>
-     * <td>GDICOMMENT_BEGINGROUP</td>
-     * <td>The GDICOMMENT_BEGINGROUP public comment identifies the beginning of a group of drawing records. It identifies an object within an enhanced metafile. The comment has the following form:</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * ``` syntax
-     * 
-     * DWORD   ident;         // This contains GDICOMMENT_IDENTIFIER.  
-     * DWORD   iComment;      // This contains GDICOMMENT_BEGINGROUP.  
-     * RECTL   rclOutput;     // This is the bounding rectangle for the  
-     *                        // object in logical coordinates.  
-     * DWORD   nDescription;  // This is the number of characters in the  
-     *                        // optional Unicode description string that  
-     *                        // follows. This is zero if there is no  
-     *                        // description string.  
-     * 
-     * ```
-     * 
-     * <table>
-     * <tr>
-     * <td>GDICOMMENT_ENDGROUP</td>
-     * <td>The GDICOMMENT_ENDGROUP public comment identifies the end of a group of drawing records. The GDICOMMENT_BEGINGROUP comment and the GDICOMMENT_ENDGROUP comment must be included in a pair and may be nested. The comment has the following form:</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * ``` syntax
-     * 
-     * DWORD   ident;       // This contains GDICOMMENT_IDENTIFIER.  
-     * DWORD   iComment;    // This contains GDICOMMENT_ENDGROUP.  
-     * 
-     * ```
      * @param {Pointer<Void>} hdc A handle to an enhanced-metafile device context.
      * @param {Integer} nSize The length of the comment buffer, in bytes.
      * @param {Pointer} lpData A pointer to the buffer that contains the comment.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdicomment
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdicomment
      * @since windows5.0
      */
     static GdiComment(hdc, nSize, lpData) {
@@ -12713,15 +10351,13 @@ class Gdi {
     }
 
     /**
-     * The GetTextMetrics function fills the specified buffer with the metrics for the currently selected font. (GetTextMetricsA)
-     * @remarks
-     * To determine whether a font is a TrueType font, first select it into a DC, then call <b>GetTextMetrics</b>, and then check for TMPF_TRUETYPE in TEXTMETRIC.tmPitchAndFamily. Note that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> returns an uninitialized DC, which has "System" (a bitmap font) as the default font; thus the need to select a font into the DC.
+     * The GetTextMetrics function fills the specified buffer with the metrics for the currently selected font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<TEXTMETRICA>} lptm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure that receives the text metrics.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextmetricsa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextmetricsa
      * @since windows5.0
      */
     static GetTextMetricsA(hdc, lptm) {
@@ -12730,15 +10366,13 @@ class Gdi {
     }
 
     /**
-     * The GetTextMetricsW (Unicode) function (wingdi.h) fills the specified buffer with the metrics for the currently selected font.
-     * @remarks
-     * To determine whether a font is a TrueType font, first select it into a DC, then call <b>GetTextMetrics</b>, and then check for TMPF_TRUETYPE in TEXTMETRIC.tmPitchAndFamily. Note that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> returns an uninitialized DC, which has "System" (a bitmap font) as the default font; thus the need to select a font into the DC.
+     * The GetTextMetrics function fills the specified buffer with the metrics for the currently selected font.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<TEXTMETRICW>} lptm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure that receives the text metrics.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextmetricsw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextmetricsw
      * @since windows5.0
      */
     static GetTextMetricsW(hdc, lptm) {
@@ -12748,16 +10382,6 @@ class Gdi {
 
     /**
      * The AngleArc function draws a line segment and an arc.
-     * @remarks
-     * The <b>AngleArc</b> function moves the current position to the ending point of the arc.
-     * 
-     * The arc drawn by this function may appear to be elliptical, depending on the current transformation and mapping mode. Before drawing the arc, <b>AngleArc</b> draws the line segment from the current position to the beginning of the arc.
-     * 
-     * The arc is drawn by constructing an imaginary circle around the specified center point with the specified radius. The starting point of the arc is determined by measuring counterclockwise from the x-axis of the circle by the number of degrees in the start angle. The ending point is similarly located by measuring counterclockwise from the starting point by the number of degrees in the sweep angle.
-     * 
-     * If the sweep angle is greater than 360 degrees, the arc is swept multiple times.
-     * 
-     * This function draws lines by using the current pen. The figure is not filled.
      * @param {Pointer<Void>} hdc Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the center of the circle.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the center of the circle.
@@ -12767,7 +10391,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-anglearc
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-anglearc
      * @since windows5.0
      */
     static AngleArc(hdc, x, y, r, StartAngle, SweepAngle) {
@@ -12777,18 +10401,14 @@ class Gdi {
 
     /**
      * The PolyPolyline function draws multiple series of connected line segments.
-     * @remarks
-     * The line segments are drawn by using the current pen. The figures formed by the segments are not filled.
-     * 
-     * The current position is neither used nor updated by this function.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the vertices of the polylines, in logical units. The polylines are specified consecutively.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the vertices of the polylines, in logical units. The polylines are specified consecutively.
      * @param {Pointer<UInt32>} asz A pointer to an array of variables specifying the number of points in the <i>lppt</i> array for the corresponding polyline. Each entry must be greater than or equal to two.
      * @param {Integer} csz The total number of entries in the <i>lpdwPolyPoints</i> array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polypolyline
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polypolyline
      * @since windows5.0
      */
     static PolyPolyline(hdc, apt, asz, csz) {
@@ -12798,14 +10418,12 @@ class Gdi {
 
     /**
      * The GetWorldTransform function retrieves the current world-space to page-space transformation.
-     * @remarks
-     * The precision of the transformation may be altered if an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-modifyworldtransform">ModifyWorldTransform</a> function prior to calling <b>GetWorldTransform</b>. (This is because the internal format for storing transformation values uses a higher precision than a <b>FLOAT</b> value.)
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that receives the current world-space to page-space transformation.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getworldtransform
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getworldtransform
      * @since windows5.0
      */
     static GetWorldTransform(hdc, lpxf) {
@@ -12815,45 +10433,12 @@ class Gdi {
 
     /**
      * The SetWorldTransform function sets a two-dimensional linear transformation between world space and page space for the specified device context. This transformation can be used to scale, rotate, shear, or translate graphics output.
-     * @remarks
-     * Below is the transformation matrix (note that the digits in the element notation are 1-based column number followed by 1-based row number, rather than the reverse).
-     * 
-     * 
-     * ``` syntax
-     * | eM11 eM21 eDx |
-     * | eM12 eM22 eDy |
-     * | 0    0    1   |
-     * 
-     * ```
-     * 
-     * 
-     * So for any coordinates (x, y) in world space, the transformed coordinates in page space (x', y') can be determined in the way shown below.
-     * 
-     * 
-     * ``` syntax
-     * | x' |   | eM11 eM21 eDx |   | x |   
-     * | y' | = | eM12 eM22 eDy | . | y |
-     * | 1  |   | 0    0    1   |   | 1 |
-     * 
-     * x' = x * eM11 + y * eM21 + eDx
-     * y' = x * eM12 + y * eM22 + eDy
-     * 
-     * ```
-     * 
-     * 
-     * This function uses logical units.
-     * 
-     * The world transformation is usually used to scale or rotate logical images in a device-independent way.
-     * 
-     * The default world transformation is the identity matrix with zero offset.
-     * 
-     * The <b>SetWorldTransform</b> function will fail unless the graphics mode for the given device context has been set to GM_ADVANCED by previously calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function. Likewise, it will not be possible to reset the graphics mode for the device context to the default GM_COMPATIBLE mode, unless the world transformation has first been reset to the default identity transformation by calling <b>SetWorldTransform</b> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-modifyworldtransform">ModifyWorldTransform</a>.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that contains the transformation data.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setworldtransform
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setworldtransform
      * @since windows5.0
      */
     static SetWorldTransform(hdc, lpxf) {
@@ -12863,15 +10448,13 @@ class Gdi {
 
     /**
      * The ModifyWorldTransform function changes the world transformation for a device context using the specified mode.
-     * @remarks
-     * The <b>ModifyWorldTransform</b> function will fail unless graphics mode for the specified device context has been set to GM_ADVANCED by previously calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function. Likewise, it will not be possible to reset the graphics mode for the device context to the default GM_COMPATIBLE mode, unless world transform has first been reset to the default identity transform by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setworldtransform">SetWorldTransform</a> or <b>ModifyWorldTransform</b>.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure used to modify the world transformation for the given device context.
      * @param {Integer} mode 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-modifyworldtransform
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-modifyworldtransform
      * @since windows5.0
      */
     static ModifyWorldTransform(hdc, lpxf, mode) {
@@ -12881,17 +10464,13 @@ class Gdi {
 
     /**
      * The CombineTransform function concatenates two world-space to page-space transformations.
-     * @remarks
-     * Applying the combined transformation has the same effect as applying the first transformation and then applying the second transformation.
-     * 
-     * The three transformations need not be distinct. For example, <i>lpxform1</i> can point to the same <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure as <i>lpxformResult</i>.
      * @param {Pointer<XFORM>} lpxfOut A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that receives the combined transformation.
      * @param {Pointer<XFORM>} lpxf1 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that specifies the first transformation.
      * @param {Pointer<XFORM>} lpxf2 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that specifies the second transformation.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-combinetransform
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-combinetransform
      * @since windows5.0
      */
     static CombineTransform(lpxfOut, lpxf1, lpxf2) {
@@ -12901,16 +10480,6 @@ class Gdi {
 
     /**
      * The CreateDIBSection function creates a DIB that applications can write to directly.
-     * @remarks
-     * As noted above, if <i>hSection</i> is <b>NULL</b>, the system allocates memory for the DIB. The system closes the handle to that memory when you later delete the DIB by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function. If <i>hSection</i> is not <b>NULL</b>, you must close the <i>hSection</i> memory handle yourself after calling <b>DeleteObject</b> to delete the bitmap.
-     * 
-     * You cannot paste a DIB section from one application into another application.
-     * 
-     * <b>CreateDIBSection</b> does not use the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> parameters <i>biXPelsPerMeter</i> or <i>biYPelsPerMeter</i> and will not provide resolution information in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
-     * 
-     * You need to guarantee that the GDI subsystem has completed any drawing to a bitmap created by <b>CreateDIBSection</b> before you draw to the bitmap yourself. Access to the bitmap must be synchronized. Do this by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> function. This applies to any use of the pointer to the bitmap bit values, including passing the pointer in calls to functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a>.
-     * 
-     * <b>ICM:</b> No color management is done.
      * @param {Pointer<Void>} hdc A handle to a device context. If the value of <i>iUsage</i> is DIB_PAL_COLORS, the function uses this device context's logical palette to initialize the DIB colors.
      * @param {Pointer<BITMAPINFO>} pbmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure that specifies various attributes of the DIB, including the bitmap dimensions and colors.
      * @param {Integer} usage The type of data contained in the <b>bmiColors</b> array member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by <i>pbmi</i> (either logical palette indexes or literal RGB values). The following values are defined.
@@ -12952,9 +10521,9 @@ class Gdi {
      * @param {Integer} offset The offset from the beginning of the file-mapping object referenced by <i>hSection</i> where storage for the bitmap bit values is to begin. This value is ignored if <i>hSection</i> is <b>NULL</b>. The bitmap bit values are aligned on doubleword boundaries, so <i>dwOffset</i> must be a multiple of the size of a <b>DWORD</b>.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created DIB, and *<i>ppvBits</i> points to the bitmap bit values.
      * 
-     * If the function fails, the return value is <b>NULL</b>, and *<i>ppvBits</i> is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * If the function fails, the return value is <b>NULL</b>, and *<i>ppvBits</i> is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can return the following value:
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can return the following value:
      * 
      * <table>
      * <tr>
@@ -12973,7 +10542,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibsection
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createdibsection
      * @since windows5.0
      */
     static CreateDIBSection(hdc, pbmi, usage, ppvBits, hSection, offset) {
@@ -12988,8 +10557,6 @@ class Gdi {
 
     /**
      * The GetDIBColorTable function retrieves RGB (red, green, blue) color values from a range of entries in the color table of the DIB section bitmap that is currently selected into a specified device context.
-     * @remarks
-     * The <b>GetDIBColorTable</b> function should be called to retrieve the color table for DIB section bitmaps that use 1, 4, or 8 bpp. The <b>biBitCount</b> member of a bitmap associated <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure specifies the number of bits-per-pixel. DIB section bitmaps with a <b>biBitCount</b> value greater than eight do not have a color table, but they do have associated color masks. Call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> function to retrieve those color masks.
      * @param {Pointer<Void>} hdc A handle to a device context. A DIB section bitmap must be selected into this device context.
      * @param {Integer} iStart A zero-based color table index that specifies the first color table entry to retrieve.
      * @param {Integer} cEntries The number of color table entries to retrieve.
@@ -12997,7 +10564,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of color table entries that the function retrieves.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibcolortable
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdibcolortable
      * @since windows5.0
      */
     static GetDIBColorTable(hdc, iStart, cEntries, prgbq) {
@@ -13007,16 +10574,6 @@ class Gdi {
 
     /**
      * The SetDIBColorTable function sets RGB (red, green, blue) color values in a range of entries in the color table of the DIB that is currently selected into a specified device context.
-     * @remarks
-     * This function should be called to set the color table for DIBs that use 1, 4, or 8 bpp. The <b>BitCount</b> member of a bitmap's associated bitmap information header structure.
-     * 
-     * 
-     * <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER
-     *         </a> structure specifies the number of bits-per-pixel. Device-independent bitmaps with a <b>biBitCount</b> value greater than 8 do not have a color table.
-     * 
-     * The <b>bV5BitCount</b> member of a bitmap's associated <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> structure specifies the number of bits-per-pixel. Device-independent bitmaps with a <b>bV5BitCount</b> value greater than 8 do not have a color table.
-     * 
-     * <b>ICM:</b> No color management is performed.
      * @param {Pointer<Void>} hdc A device context. A DIB must be selected into this device context.
      * @param {Integer} iStart A zero-based color table index that specifies the first color table entry to set.
      * @param {Integer} cEntries The number of color table entries to set.
@@ -13024,7 +10581,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of color table entries that the function sets.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibcolortable
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdibcolortable
      * @since windows5.0
      */
     static SetDIBColorTable(hdc, iStart, cEntries, prgbq) {
@@ -13034,14 +10591,12 @@ class Gdi {
 
     /**
      * The SetColorAdjustment function sets the color adjustment values for a device context (DC) using the specified values.
-     * @remarks
-     * The color adjustment values are used to adjust the input color of the source bitmap for calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a> functions when HALFTONE mode is set.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<COLORADJUSTMENT>} lpca A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-coloradjustment">COLORADJUSTMENT</a> structure containing the color adjustment values.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setcoloradjustment
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setcoloradjustment
      * @since windows5.0
      */
     static SetColorAdjustment(hdc, lpca) {
@@ -13056,7 +10611,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcoloradjustment
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcoloradjustment
      * @since windows5.0
      */
     static GetColorAdjustment(hdc, lpca) {
@@ -13066,15 +10621,11 @@ class Gdi {
 
     /**
      * The CreateHalftonePalette function creates a halftone palette for the specified device context (DC).
-     * @remarks
-     * An application should create a halftone palette when the stretching mode of a device context is set to HALFTONE. The logical halftone palette returned by <b>CreateHalftonePalette</b> should then be selected and realized into the device context before the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a> function is called.
-     * 
-     * When you no longer need the palette, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a logical halftone palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createhalftonepalette
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createhalftonepalette
      * @since windows5.0
      */
     static CreateHalftonePalette(hdc) {
@@ -13084,13 +10635,11 @@ class Gdi {
 
     /**
      * The AbortPath function closes and discards any paths in the specified device context.
-     * @remarks
-     * If there is an open path bracket in the given device context, the path bracket is closed and the path is discarded. If there is a closed path in the device context, the path is discarded.
      * @param {Pointer<Void>} hdc Handle to the device context from which a path will be discarded.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-abortpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-abortpath
      * @since windows5.0
      */
     static AbortPath(hdc) {
@@ -13100,14 +10649,6 @@ class Gdi {
 
     /**
      * The ArcTo function draws an elliptical arc.
-     * @remarks
-     * <b>ArcTo</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-arc">Arc</a> function, except that the current position is updated.
-     * 
-     * The points (<i>nLeftRect</i>, <i>nTopRect</i>) and (<i>nRightRect</i>, <i>nBottomRect</i>) specify the bounding rectangle. An ellipse formed by the specified bounding rectangle defines the curve of the arc. The arc extends counterclockwise from the point where it intersects the radial line from the center of the bounding rectangle to the (<i>nXRadial1</i>, <i>nYRadial1</i>) point. The arc ends where it intersects the radial line from the center of the bounding rectangle to the (<i>nXRadial2</i>, <i>nYRadial2</i>) point. If the starting point and ending point are the same, a complete ellipse is drawn.
-     * 
-     * A line is drawn from the current position to the starting point of the arc. If no error occurs, the current position is set to the ending point of the arc.
-     * 
-     * The arc is drawn using the current pen; it is not filled.
      * @param {Pointer<Void>} hdc A handle to the device context where drawing takes place.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
@@ -13120,7 +10661,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-arcto
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-arcto
      * @since windows5.0
      */
     static ArcTo(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
@@ -13130,81 +10671,11 @@ class Gdi {
 
     /**
      * The BeginPath function opens a path bracket in the specified device context.
-     * @remarks
-     * After a path bracket is open, an application can begin calling GDI drawing functions to define the points that lie in the path. An application can close an open path bracket by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpath">EndPath</a> function.
-     * 
-     * When an application calls <b>BeginPath</b> for a device context, any previous paths are discarded from that device context. The following list shows which drawing functions can be used.
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-anglearc">AngleArc</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-arc">Arc</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-arcto">ArcTo</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-chord">Chord</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-closefigure">CloseFigure</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-ellipse">Ellipse</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-movetoex">MoveToEx</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-pie">Pie</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezier">PolyBezier</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezierto">PolyBezierTo</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polydraw">PolyDraw</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polygon">Polygon</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polyline">Polyline</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polylineto">PolylineTo</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polypolygon">PolyPolygon</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polypolyline">PolyPolyline</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rectangle">Rectangle</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-roundrect">RoundRect</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a>
-     * </li>
-     * </ul>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-beginpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-beginpath
      * @since windows5.0
      */
     static BeginPath(hdc) {
@@ -13214,19 +10685,11 @@ class Gdi {
 
     /**
      * The CloseFigure function closes an open figure in a path.
-     * @remarks
-     * The <b>CloseFigure</b> function closes the figure by drawing a line from the current position to the first point of the figure (usually, the point specified by the most recent call to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-movetoex">MoveToEx</a> function) and then connects the lines by using the line join style. If a figure is closed by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a> function instead of <b>CloseFigure</b>, end caps are used to create the corner instead of a join.
-     * 
-     * The <b>CloseFigure</b> function should only be called if there is an open path bracket in the specified device context.
-     * 
-     * A figure in a path is open unless it is explicitly closed by using this function. (A figure can be open even if the current point and the starting point of the figure are the same.)
-     * 
-     * After a call to <b>CloseFigure</b>, adding a line or curve to the path starts a new figure.
      * @param {Pointer<Void>} hdc Handle to the device context in which the figure will be closed.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closefigure
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-closefigure
      * @since windows5.0
      */
     static CloseFigure(hdc) {
@@ -13240,7 +10703,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-endpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-endpath
      * @since windows5.0
      */
     static EndPath(hdc) {
@@ -13250,13 +10713,11 @@ class Gdi {
 
     /**
      * The FillPath function closes any open figures in the current path and fills the path's interior by using the current brush and polygon-filling mode.
-     * @remarks
-     * After its interior is filled, the path is discarded from the DC identified by the <i>hdc</i> parameter.
      * @param {Pointer<Void>} hdc A handle to a device context that contains a valid path.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-fillpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-fillpath
      * @since windows5.0
      */
     static FillPath(hdc) {
@@ -13270,7 +10731,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-flattenpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-flattenpath
      * @since windows5.0
      */
     static FlattenPath(hdc) {
@@ -13280,18 +10741,12 @@ class Gdi {
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @remarks
-     * The device context identified by the <i>hdc</i> parameter must contain a closed path.
-     * 
-     * The points of the path are returned in logical coordinates. Points are stored in the path in device coordinates, so <b>GetPath</b> changes the points from device coordinates to logical coordinates by using the inverse of the current transformation.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-flattenpath">FlattenPath</a> function may be called before <b>GetPath</b> to convert all curves in the path into line segments.
      * @param {Pointer<Void>} hdc A handle to a device context that contains a closed path.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that receives the line endpoints and curve control points, in logical coordinates.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that receives the line endpoints and curve control points, in logical coordinates.
      * @param {Pointer<Byte>} aj 
-     * @param {Integer} cpt The total number of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that can be stored in the array pointed to by <i>lpPoints</i>. This value must be the same as the number of bytes that can be placed in the array pointed to by <i>lpTypes</i>.
+     * @param {Integer} cpt The total number of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that can be stored in the array pointed to by <i>lpPoints</i>. This value must be the same as the number of bytes that can be placed in the array pointed to by <i>lpTypes</i>.
      * @returns {Integer} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      * @since windows5.0
      */
     static GetPath(hdc, apt, aj, cpt) {
@@ -13301,17 +10756,11 @@ class Gdi {
 
     /**
      * The PathToRegion function creates a region from the path that is selected into the specified device context. The resulting region uses device coordinates.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * The device context identified by the <i>hdc</i> parameter must contain a closed path.
-     * 
-     * After <b>PathToRegion</b> converts a path into a region, the system discards the closed path from the specified device context.
      * @param {Pointer<Void>} hdc Handle to a device context that contains a closed path.
      * @returns {Pointer<Void>} If the function succeeds, the return value identifies a valid region.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-pathtoregion
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-pathtoregion
      * @since windows5.0
      */
     static PathToRegion(hdc) {
@@ -13321,20 +10770,14 @@ class Gdi {
 
     /**
      * The PolyDraw function draws a set of line segments and B�zier curves.
-     * @remarks
-     * The <b>PolyDraw</b> function can be used in place of consecutive calls to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-movetoex">MoveToEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezierto">PolyBezierTo</a> functions to draw disjoint figures. The lines and curves are drawn using the current pen and figures are not filled. If there is an active path started by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-beginpath">BeginPath</a>, <b>PolyDraw</b> adds to the path.
-     * 
-     * The points contained in the <i>lppt</i> array and in the <i>lpbTypes</i> array indicate whether each point is part of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-movetoex">MoveTo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezierto">PolyBezierTo</a> operation. It is also possible to close figures.
-     * 
-     * This function updates the current position.
      * @param {Pointer<Void>} hdc A handle to a device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the endpoints for each line segment and the endpoints and control points for each Bézier curve, in logical units.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the endpoints for each line segment and the endpoints and control points for each Bézier curve, in logical units.
      * @param {Pointer<Byte>} aj 
      * @param {Integer} cpt The total number of points in the <i>lppt</i> array, the same as the number of bytes in the <i>lpbTypes</i> array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polydraw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polydraw
      * @since windows5.0
      */
     static PolyDraw(hdc, apt, aj, cpt) {
@@ -13344,14 +10787,12 @@ class Gdi {
 
     /**
      * The SelectClipPath function selects the current path as a clipping region for a device context, combining the new region with any existing clipping region using the specified mode.
-     * @remarks
-     * The device context identified by the <i>hdc</i> parameter must contain a closed path.
      * @param {Pointer<Void>} hdc A handle to the device context of the path.
      * @param {Integer} mode 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectclippath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-selectclippath
      * @since windows5.0
      */
     static SelectClipPath(hdc, mode) {
@@ -13361,40 +10802,12 @@ class Gdi {
 
     /**
      * The SetArcDirection sets the drawing direction to be used for arc and rectangle functions.
-     * @remarks
-     * The default direction is counterclockwise.
-     * 
-     * The <b>SetArcDirection</b> function specifies the direction in which the following functions draw:
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-arc">Arc</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-arcto">ArcTo</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-chord">Chord</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-ellipse">Ellipse</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-pie">Pie</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rectangle">Rectangle</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-roundrect">RoundRect</a>
-     * </li>
-     * </ul>
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} dir 
      * @returns {Integer} If the function succeeds, the return value specifies the old arc direction.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setarcdirection
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setarcdirection
      * @since windows5.0
      */
     static SetArcDirection(hdc, dir) {
@@ -13404,20 +10817,13 @@ class Gdi {
 
     /**
      * The SetMiterLimit function sets the limit for the length of miter joins for the specified device context.
-     * @remarks
-     * The miter length is defined as the distance from the intersection of the line walls on the inside of the join to the intersection of the line walls on the outside of the join. The miter limit is the maximum allowed ratio of the miter length to the line width.
-     * 
-     * The default miter limit is 10.0.
-     * 
-     * <div class="alert"><b>Note</b>  Setting <i>eNewLimit</i> to a float value less than 1.0f will cause the function to fail.</div>
-     * <div> </div>
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Float} limit Specifies the new miter limit for the device context.
      * @param {Pointer<Single>} old Pointer to a floating-point value that receives the previous miter limit. If this parameter is <b>NULL</b>, the previous miter limit is not returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmiterlimit
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setmiterlimit
      * @since windows5.0
      */
     static SetMiterLimit(hdc, limit, old) {
@@ -13427,15 +10833,11 @@ class Gdi {
 
     /**
      * The StrokeAndFillPath function closes any open figures in a path, strokes the outline of the path by using the current pen, and fills its interior by using the current brush.
-     * @remarks
-     * The device context identified by the <i>hdc</i> parameter must contain a closed path.
-     * 
-     * The <b>StrokeAndFillPath</b> function has the same effect as closing all the open figures in the path, and stroking and filling the path separately, except that the filled region will not overlap the stroked region even if the pen is wide.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-strokeandfillpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-strokeandfillpath
      * @since windows5.0
      */
     static StrokeAndFillPath(hdc) {
@@ -13445,13 +10847,11 @@ class Gdi {
 
     /**
      * The StrokePath function renders the specified path by using the current pen.
-     * @remarks
-     * The path, if it is to be drawn by <b>StrokePath</b>, must have been completed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpath">EndPath</a>. Calling this function on a path for which <b>EndPath</b> has not been called will cause this function to fail and return zero.  Unlike other path drawing functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-strokeandfillpath">StrokeAndFillPath</a>, <b>StrokePath</b> will not attempt to close the path by drawing a straight line from the first point on the path to the last point on the path.
      * @param {Pointer<Void>} hdc Handle to a device context that contains the completed path.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-strokepath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-strokepath
      * @since windows5.0
      */
     static StrokePath(hdc) {
@@ -13461,17 +10861,11 @@ class Gdi {
 
     /**
      * The WidenPath function redefines the current path as the area that would be painted if the path were stroked using the pen currently selected into the given device context.
-     * @remarks
-     * The <b>WidenPath</b> function is successful only if the current pen is a geometric pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a> function, or if the pen is created with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpen">CreatePen</a> function and has a width, in device units, of more than one.
-     * 
-     * The device context identified by the <i>hdc</i> parameter must contain a closed path.
-     * 
-     * Any Bézier curves in the path are converted to sequences of straight lines approximating the widened curves. As such, no Bézier curves remain in the path after <b>WidenPath</b> is called.
      * @param {Pointer<Void>} hdc A handle to a device context that contains a closed path.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-widenpath
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-widenpath
      * @since windows5.0
      */
     static WidenPath(hdc) {
@@ -13481,26 +10875,6 @@ class Gdi {
 
     /**
      * The ExtCreatePen function creates a logical cosmetic or geometric pen that has the specified style, width, and brush attributes.
-     * @remarks
-     * A geometric pen can have any width and can have any of the attributes of a brush, such as dithers and patterns. A cosmetic pen can only be a single pixel wide and must be a solid color, but cosmetic pens are generally faster than geometric pens.
-     * 
-     * The width of a geometric pen is always specified in world units. The width of a cosmetic pen is always 1.
-     * 
-     * End caps and joins are only specified for geometric pens.
-     * 
-     * After an application creates a logical pen, it can select that pen into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> function. After a pen is selected into a device context, it can be used to draw lines and curves.
-     * 
-     * If <i>dwPenStyle</i> is PS_COSMETIC and PS_USERSTYLE, the entries in the <i>lpStyle</i> array specify lengths of dashes and spaces in style units. A style unit is defined by the device where the pen is used to draw a line.
-     * 
-     * If <i>dwPenStyle</i> is PS_GEOMETRIC and PS_USERSTYLE, the entries in the <i>lpStyle</i> array specify lengths of dashes and spaces in logical units.
-     * 
-     * If <i>dwPenStyle</i> is PS_ALTERNATE, the style unit is ignored and every other pixel is set.
-     * 
-     * If the <b>lbStyle</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a> structure pointed to by <i>lplb</i> is BS_PATTERN, the bitmap pointed to by the <b>lbHatch</b> member of that structure cannot be a DIB section. A DIB section is a bitmap created by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a>. If that bitmap is a DIB section, the <b>ExtCreatePen</b> function fails.
-     * 
-     * When an application no longer requires a specified pen, it should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete the pen.
-     * 
-     * <b>ICM:</b> No color management is done at pen creation. However, color management is performed when the pen is selected into an ICM-enabled device context.
      * @param {Integer} iPenStyle A combination of type, style, end cap, and join attributes. The values from each category are combined by using the bitwise OR operator ( | ).
      * @param {Integer} cWidth The width of the pen. If the <i>dwPenStyle</i> parameter is PS_GEOMETRIC, the width is given in logical units. If <i>dwPenStyle</i> is PS_COSMETIC, the width must be set to 1.
      * @param {Pointer<LOGBRUSH>} plbrush A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a> structure. If <i>dwPenStyle</i> is PS_COSMETIC, the <b>lbColor</b> member specifies the color of the pen and the <b>lpStyle</b> member must be set to BS_SOLID. If <i>dwPenStyle</i> is PS_GEOMETRIC, all members must be used to specify the brush attributes of the pen.
@@ -13513,7 +10887,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle that identifies a logical pen.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extcreatepen
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-extcreatepen
      * @since windows5.0
      */
     static ExtCreatePen(iPenStyle, cWidth, plbrush, cStyle, pstyle) {
@@ -13523,14 +10897,12 @@ class Gdi {
 
     /**
      * The GetMiterLimit function retrieves the miter limit for the specified device context.
-     * @remarks
-     * The miter limit is used when drawing geometric lines that have miter joins.
      * @param {Pointer<Void>} hdc Handle to the device context.
      * @param {Pointer<Single>} plimit Pointer to a floating-point value that receives the current miter limit.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmiterlimit
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmiterlimit
      * @since windows5.0
      */
     static GetMiterLimit(hdc, plimit) {
@@ -13557,7 +10929,7 @@ class Gdi {
      * <td>Arcs and rectangles are drawn clockwise.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getarcdirection
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getarcdirection
      * @since windows5.0
      */
     static GetArcDirection(hdc) {
@@ -13566,26 +10938,111 @@ class Gdi {
     }
 
     /**
-     * The GetObjectW (Unicode) function (wingdi.h) retrieves information for the specified graphics object.
-     * @remarks
-     * The buffer pointed to by the <i>lpvObject</i> parameter must be sufficiently large to receive the information about the graphics object. Depending on the graphics object, the function uses a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpen">LOGPEN</a> structure, or a count of table entries (for a logical palette).
+     * The GetObject function retrieves information for the specified graphics object.
+     * @param {Pointer<Void>} h A handle to the graphics object of interest. This can be a handle to one of the following: a logical bitmap, a brush, a font, a palette, a pen, or a device independent bitmap created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function.
+     * @param {Integer} c The number of bytes of information to be written to the buffer.
+     * @param {Pointer} pv A pointer to a buffer that receives the information about the specified graphics object.
      * 
-     * If <i>hgdiobj</i> is a handle to a bitmap created by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a>, and the specified buffer is large enough, the <b>GetObject</b> function returns a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a> structure. In addition, the <b>bmBits</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a> structure contained within the <b>DIBSECTION</b> will contain a pointer to the bitmap's bit values.
+     * The following table shows the type of information the buffer receives for each type of graphics object you can specify with <i>hgdiobj</i>.
      * 
-     * If <i>hgdiobj</i> is a handle to a bitmap created by any other means, <b>GetObject</b> returns only the width, height, and color format information of the bitmap. You can obtain the bitmap's bit values by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbitmapbits">GetBitmapBits</a> function.
+     * <table>
+     * <tr>
+     * <th>Object type</th>
+     * <th>Data written to buffer</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBITMAP"></a><a id="hbitmap"></a><dl>
+     * <dt><b><b>HBITMAP</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
      * 
-     * If <i>hgdiobj</i> is a handle to a logical palette, <b>GetObject</b> retrieves a 2-byte integer that specifies the number of entries in the palette. The function does not retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpalette">LOGPALETTE</a> structure defining the palette. To retrieve information about palette entries, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getpaletteentries">GetPaletteEntries</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>
      * 
-     * If <i>hgdiobj</i> is a handle to a font, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> that is returned is the <b>LOGFONT</b> used to create the font. If Windows had to make some interpolation of the font because the precise <b>LOGFONT</b> could not be represented, the interpolation will not be reflected in the <b>LOGFONT</b>. For example, if you ask for a vertical version of a font that doesn't support vertical painting, the <b>LOGFONT</b> indicates the font is vertical, but Windows will paint it horizontally.
-     * @param {Pointer<Void>} h 
-     * @param {Integer} c 
-     * @param {Pointer} pv 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBITMAP_returned_from_a_call_to_CreateDIBSection"></a><a id="hbitmap_returned_from_a_call_to_createdibsection"></a><a id="HBITMAP_RETURNED_FROM_A_CALL_TO_CREATEDIBSECTION"></a><dl>
+     * <dt><b><b>HBITMAP</b> returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a>, if <i>cbBuffer</i> is set to<c> sizeof (DIBSECTION)</code>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmap">BITMAP</a>, if <i>cbBuffer</i> is set to <code>sizeof (BITMAP)</c>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPALETTE"></a><a id="hpalette"></a><dl>
+     * <dt><b><b>HPALETTE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A <b>WORD</b> count of the number of entries in the logical palette
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPEN_returned_from_a_call_to_ExtCreatePen"></a><a id="hpen_returned_from_a_call_to_extcreatepen"></a><a id="HPEN_RETURNED_FROM_A_CALL_TO_EXTCREATEPEN"></a><dl>
+     * <dt><b><b>HPEN</b> returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HPEN"></a><a id="hpen"></a><dl>
+     * <dt><b><b>HPEN</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logpen">LOGPEN</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HBRUSH"></a><a id="hbrush"></a><dl>
+     * <dt><b><b>HBRUSH</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logbrush">LOGBRUSH</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="HFONT"></a><a id="hfont"></a><dl>
+     * <dt><b><b>HFONT</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If the <i>lpvObject</i> parameter is <b>NULL</b>, the function return value is the number of bytes required to store the information it writes to the buffer for the specified graphics object.
+     * 
+     * The address of <i>lpvObject</i> must be on a 4-byte boundary; otherwise, <b>GetObject</b> fails.
      * @returns {Integer} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
      * 
      * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjectw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobjectw
      * @since windows5.0
      */
     static GetObjectW(h, c, pv) {
@@ -13595,16 +11052,14 @@ class Gdi {
 
     /**
      * The MoveToEx function updates the current position to the specified point and optionally returns the previous position.
-     * @remarks
-     * The <b>MoveToEx</b> function affects all drawing functions.
      * @param {Pointer<Void>} hdc Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the new position, in logical units.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the new position, in logical units.
-     * @param {Pointer<POINT>} lppt Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous current position. If this parameter is a <b>NULL</b> pointer, the previous position is not returned.
+     * @param {Pointer<POINT>} lppt Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the previous current position. If this parameter is a <b>NULL</b> pointer, the previous position is not returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-movetoex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-movetoex
      * @since windows5.0
      */
     static MoveToEx(hdc, x, y, lppt) {
@@ -13613,144 +11068,7 @@ class Gdi {
     }
 
     /**
-     * The TextOut function writes a character string at the specified location, using the currently selected font, background color, and text color. (ANSI)
-     * @remarks
-     * The interpretation of the reference point depends on the current text-alignment mode. An application can retrieve this mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function; an application can alter this mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. You can use the following values for text alignment. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Term</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BASELINE"></a><a id="ta_baseline"></a>TA_BASELINE
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the base line of the text.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BOTTOM"></a><a id="ta_bottom"></a>TA_BOTTOM
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the bottom edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_TOP"></a><a id="ta_top"></a>TA_TOP
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the top edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_CENTER"></a><a id="ta_center"></a>TA_CENTER
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be aligned horizontally with the center of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_LEFT"></a><a id="ta_left"></a>TA_LEFT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the left edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RIGHT"></a><a id="ta_right"></a>TA_RIGHT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the right edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_NOUPDATECP"></a><a id="ta_noupdatecp"></a>TA_NOUPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is not updated after each text output call. The reference point is passed to the text output function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RTLREADING"></a><a id="ta_rtlreading"></a>TA_RTLREADING
-     * 
-     * </td>
-     * <td width="60%">
-     * <b>Middle East language edition of Windows:</b> The text is laid out in right to left reading order, as opposed to the default left to right order. This applies only when the font selected into the device context is either Hebrew or Arabic.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_UPDATECP"></a><a id="ta_updatecp"></a>TA_UPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is updated after each text output call. The current position is used as the reference point.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * By default, the current position is not used or updated by this function. However, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>fMode</i> parameter set to TA_UPDATECP to permit the system to use and update the current position each time the application calls <b>TextOut</b> for a specified device context. When this flag is set, the system ignores the <i>nXStart</i> and <i>nYStart</i> parameters on subsequent <b>TextOut</b> calls.
-     * 
-     * When the <b>TextOut</b> function is placed inside a path bracket, the system generates a path for the TrueType text that includes each character plus its character box. The region generated is the character box minus the text, rather than the text itself. You can obtain the region enclosed by the outline of the TrueType text by setting the background mode to transparent before placing the <b>TextOut</b> function in the path bracket. Following is sample code that demonstrates this procedure.
-     * 
-     * 
-     * ```cpp
-     * 
-     * // Obtain the window's client rectangle 
-     * GetClientRect(hwnd, &r);
-     * 
-     * // THE FIX: by setting the background mode 
-     * // to transparent, the region is the text itself 
-     * // SetBkMode(hdc, TRANSPARENT); 
-     * 
-     * // Bracket begin a path 
-     * BeginPath(hdc);
-     * 
-     * // Send some text out into the world 
-     * TCHAR text[ ] = "Defenestration can be hazardous";
-     * TextOut(hdc,r.left,r.top,text, ARRAYSIZE(text));
-     * 
-     * // Bracket end a path 
-     * EndPath(hdc);
-     * 
-     * // Derive a region from that path 
-     * SelectClipPath(hdc, RGN_AND);
-     * 
-     * // This generates the same result as SelectClipPath() 
-     * // SelectClipRgn(hdc, PathToRegion(hdc)); 
-     * 
-     * // Fill the region with grayness 
-     * FillRect(hdc, &r, GetStockObject(GRAY_BRUSH));
-     * 
-     * ```
+     * The TextOut function writes a character string at the specified location, using the currently selected font, background color, and text color.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
@@ -13759,7 +11077,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-textouta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-textouta
      * @since windows5.0
      */
     static TextOutA(hdc, x, y, lpString, c) {
@@ -13770,144 +11088,7 @@ class Gdi {
     }
 
     /**
-     * The TextOut function writes a character string at the specified location, using the currently selected font, background color, and text color. (Unicode)
-     * @remarks
-     * The interpretation of the reference point depends on the current text-alignment mode. An application can retrieve this mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function; an application can alter this mode by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. You can use the following values for text alignment. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Term</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BASELINE"></a><a id="ta_baseline"></a>TA_BASELINE
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the base line of the text.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BOTTOM"></a><a id="ta_bottom"></a>TA_BOTTOM
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the bottom edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_TOP"></a><a id="ta_top"></a>TA_TOP
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the top edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_CENTER"></a><a id="ta_center"></a>TA_CENTER
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be aligned horizontally with the center of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_LEFT"></a><a id="ta_left"></a>TA_LEFT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the left edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RIGHT"></a><a id="ta_right"></a>TA_RIGHT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the right edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_NOUPDATECP"></a><a id="ta_noupdatecp"></a>TA_NOUPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is not updated after each text output call. The reference point is passed to the text output function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RTLREADING"></a><a id="ta_rtlreading"></a>TA_RTLREADING
-     * 
-     * </td>
-     * <td width="60%">
-     * <b>Middle East language edition of Windows:</b> The text is laid out in right to left reading order, as opposed to the default left to right order. This applies only when the font selected into the device context is either Hebrew or Arabic.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_UPDATECP"></a><a id="ta_updatecp"></a>TA_UPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is updated after each text output call. The current position is used as the reference point.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * By default, the current position is not used or updated by this function. However, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>fMode</i> parameter set to TA_UPDATECP to permit the system to use and update the current position each time the application calls <b>TextOut</b> for a specified device context. When this flag is set, the system ignores the <i>nXStart</i> and <i>nYStart</i> parameters on subsequent <b>TextOut</b> calls.
-     * 
-     * When the <b>TextOut</b> function is placed inside a path bracket, the system generates a path for the TrueType text that includes each character plus its character box. The region generated is the character box minus the text, rather than the text itself. You can obtain the region enclosed by the outline of the TrueType text by setting the background mode to transparent before placing the <b>TextOut</b> function in the path bracket. Following is sample code that demonstrates this procedure.
-     * 
-     * 
-     * ```cpp
-     * 
-     * // Obtain the window's client rectangle 
-     * GetClientRect(hwnd, &r);
-     * 
-     * // THE FIX: by setting the background mode 
-     * // to transparent, the region is the text itself 
-     * // SetBkMode(hdc, TRANSPARENT); 
-     * 
-     * // Bracket begin a path 
-     * BeginPath(hdc);
-     * 
-     * // Send some text out into the world 
-     * TCHAR text[ ] = "Defenestration can be hazardous";
-     * TextOut(hdc,r.left,r.top,text, ARRAYSIZE(text));
-     * 
-     * // Bracket end a path 
-     * EndPath(hdc);
-     * 
-     * // Derive a region from that path 
-     * SelectClipPath(hdc, RGN_AND);
-     * 
-     * // This generates the same result as SelectClipPath() 
-     * // SelectClipRgn(hdc, PathToRegion(hdc)); 
-     * 
-     * // Fill the region with grayness 
-     * FillRect(hdc, &r, GetStockObject(GRAY_BRUSH));
-     * 
-     * ```
+     * The TextOut function writes a character string at the specified location, using the currently selected font, background color, and text color.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
@@ -13916,7 +11097,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-textoutw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-textoutw
      * @since windows5.0
      */
     static TextOutW(hdc, x, y, lpString, c) {
@@ -13927,125 +11108,7 @@ class Gdi {
     }
 
     /**
-     * The ExtTextOut function draws text using the currently selected font, background color, and text color. You can optionally provide dimensions to be used for clipping, opaquing, or both. (ANSI)
-     * @remarks
-     * The current text-alignment settings for the specified device context determine how the reference point is used to position the text. The text-alignment settings are retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function. The text-alignment settings are altered by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. You can use the following values for text alignment. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Term</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BASELINE"></a><a id="ta_baseline"></a>TA_BASELINE
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the base line of the text.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BOTTOM"></a><a id="ta_bottom"></a>TA_BOTTOM
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the bottom edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_TOP"></a><a id="ta_top"></a>TA_TOP
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the top edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_CENTER"></a><a id="ta_center"></a>TA_CENTER
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be aligned horizontally with the center of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_LEFT"></a><a id="ta_left"></a>TA_LEFT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the left edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RIGHT"></a><a id="ta_right"></a>TA_RIGHT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the right edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_NOUPDATECP"></a><a id="ta_noupdatecp"></a>TA_NOUPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is not updated after each text output call. The reference point is passed to the text output function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RTLREADING"></a><a id="ta_rtlreading"></a>TA_RTLREADING
-     * 
-     * </td>
-     * <td width="60%">
-     * <b>Middle East language edition of Windows:</b> The text is laid out in right to left reading order, as opposed to the default left to right order. This applies only when the font selected into the device context is either Hebrew or Arabic.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_UPDATECP"></a><a id="ta_updatecp"></a>TA_UPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is updated after each text output call. The current position is used as the reference point.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * If the <i>lpDx</i> parameter is <b>NULL</b>, the <b>ExtTextOut</b> function uses the default spacing between characters. The character-cell origins and the contents of the array pointed to by the <i>lpDx</i> parameter are specified in logical units. A character-cell origin is defined as the upper-left corner of the character cell.
-     * 
-     * By default, the current position is not used or updated by this function. However, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>fMode</i> parameter set to TA_UPDATECP to permit the system to use and update the current position each time the application calls <b>ExtTextOut</b> for a specified device context. When this flag is set, the system ignores the <i>X</i> and <i>Y</i> parameters on subsequent <b>ExtTextOut</b> calls.
-     * 
-     * For the ANSI version of <b>ExtTextOut</b>, the <i>lpDx</i> array has the same number of INT values as there are bytes in <i>lpString</i>. For DBCS characters, you can apportion the dx in the <i>lpDx</i> entries between the lead byte and the trail byte, as long as the sum of the two bytes adds up to the desired dx. For DBCS characters with the Unicode version of <b>ExtTextOut</b>, each Unicode glyph gets a single <i>pdx</i> entry.
-     * 
-     * Note, the <i>alpDx</i> values from <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentexpointa">GetTextExtentExPoint</a> are not the same as the <i>lpDx</i> values for <b>ExtTextOut</b>. To use the <i>alpDx</i> values in <i>lpDx</i>, you must first process them.
-     * 
-     * 
-     * **ExtTextOut** will use [Uniscribe](/windows/win32/intl/uniscribe) when necessary resulting in font fallback. The ETO_IGNORELANGUAGE flag will inhibit this behavior and should not be passed.
-     * 
-     * Additionally, **ExtTextOut** will perform internal batching of calls before transitioning to kernel mode, mitigating some of the performance concerns when weighing usage of **PolyTextOut** versus **ExtTextOut**.
-     * 
-     * > [!TIP]
-     * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
+     * The ExtTextOut function draws text using the currently selected font, background color, and text color. You can optionally provide dimensions to be used for clipping, opaquing, or both.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point used to position the string.
@@ -14059,7 +11122,7 @@ class Gdi {
      * @returns {Integer} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-exttextouta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-exttextouta
      * @since windows5.0
      */
     static ExtTextOutA(hdc, x, y, options, lprect, lpString, c, lpDx) {
@@ -14070,124 +11133,7 @@ class Gdi {
     }
 
     /**
-     * The ExtTextOut function draws text using the currently selected font, background color, and text color. You can optionally provide dimensions to be used for clipping, opaquing, or both. (Unicode)
-     * @remarks
-     * The current text-alignment settings for the specified device context determine how the reference point is used to position the text. The text-alignment settings are retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function. The text-alignment settings are altered by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. You can use the following values for text alignment. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Term</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BASELINE"></a><a id="ta_baseline"></a>TA_BASELINE
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the base line of the text.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_BOTTOM"></a><a id="ta_bottom"></a>TA_BOTTOM
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the bottom edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_TOP"></a><a id="ta_top"></a>TA_TOP
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the top edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_CENTER"></a><a id="ta_center"></a>TA_CENTER
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be aligned horizontally with the center of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_LEFT"></a><a id="ta_left"></a>TA_LEFT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the left edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RIGHT"></a><a id="ta_right"></a>TA_RIGHT
-     * 
-     * </td>
-     * <td width="60%">
-     * The reference point will be on the right edge of the bounding rectangle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_NOUPDATECP"></a><a id="ta_noupdatecp"></a>TA_NOUPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is not updated after each text output call. The reference point is passed to the text output function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_RTLREADING"></a><a id="ta_rtlreading"></a>TA_RTLREADING
-     * 
-     * </td>
-     * <td width="60%">
-     * <b>Middle East language edition of Windows:</b> The text is laid out in right to left reading order, as opposed to the default left to right order. This applies only when the font selected into the device context is either Hebrew or Arabic.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <a id="TA_UPDATECP"></a><a id="ta_updatecp"></a>TA_UPDATECP
-     * 
-     * </td>
-     * <td width="60%">
-     * The current position is updated after each text output call. The current position is used as the reference point.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * If the <i>lpDx</i> parameter is <b>NULL</b>, the <b>ExtTextOut</b> function uses the default spacing between characters. The character-cell origins and the contents of the array pointed to by the <i>lpDx</i> parameter are specified in logical units. A character-cell origin is defined as the upper-left corner of the character cell.
-     * 
-     * By default, the current position is not used or updated by this function. However, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>fMode</i> parameter set to TA_UPDATECP to permit the system to use and update the current position each time the application calls <b>ExtTextOut</b> for a specified device context. When this flag is set, the system ignores the <i>X</i> and <i>Y</i> parameters on subsequent <b>ExtTextOut</b> calls.
-     * 
-     * For the ANSI version of <b>ExtTextOut</b>, the <i>lpDx</i> array has the same number of INT values as there are bytes in <i>lpString</i>. For DBCS characters, you can apportion the dx in the <i>lpDx</i> entries between the lead byte and the trail byte, as long as the sum of the two bytes adds up to the desired dx. For DBCS characters with the Unicode version of <b>ExtTextOut</b>, each Unicode glyph gets a single <i>pdx</i> entry.
-     * 
-     * Note, the <i>alpDx</i> values from <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentexpointa">GetTextExtentExPoint</a> are not the same as the <i>lpDx</i> values for <b>ExtTextOut</b>. To use the <i>alpDx</i> values in <i>lpDx</i>, you must first process them.
-     * 
-     * **ExtTextOut** will use [Uniscribe](/windows/win32/intl/uniscribe) when necessary resulting in font fallback. The ETO_IGNORELANGUAGE flag will inhibit this behavior and should not be passed.
-     * 
-     * Additionally, **ExtTextOut** will perform internal batching of calls before transitioning to kernel mode, mitigating some of the performance concerns when weighing usage of **PolyTextOut** versus **ExtTextOut**.
-     * 
-     * > [!TIP]
-     * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
+     * The ExtTextOut function draws text using the currently selected font, background color, and text color. You can optionally provide dimensions to be used for clipping, opaquing, or both.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point used to position the string.
@@ -14201,7 +11147,7 @@ class Gdi {
      * @returns {Integer} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-exttextoutw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-exttextoutw
      * @since windows5.0
      */
     static ExtTextOutW(hdc, x, y, options, lprect, lpString, c, lpDx) {
@@ -14212,28 +11158,14 @@ class Gdi {
     }
 
     /**
-     * The PolyTextOut function draws several strings using the font and text colors currently selected in the specified device context. (ANSI)
-     * @remarks
-     * Each <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structure contains the coordinates of a reference point that Windows uses to align the corresponding string of text. An application can specify how the reference point is used by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. An application can determine the current text-alignment setting for the specified device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function.
-     * 
-     * To draw a single string of text, the application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function.
-     * 
-     * 
-     * **PolyTextOut** will not handle international scripting support automatically. To get international scripting support, use **ExtTextOut** instead. **ExtTextOut** will use [Uniscribe](/windows/win32/intl/uniscribe) when necessary resulting in font fallback. Additionally, **ExtTextOut** will perform internal batching of calls before transitioning to kernel mode, mitigating some of the performance concerns when weighing usage of **PolyTextOut** versus **ExtTextOut**.
-     * 
-     * > [!TIP]
-     * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines PolyTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The PolyTextOut function draws several strings using the font and text colors currently selected in the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<POLYTEXTA>} ppt A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures describing the strings to be drawn. The array contains one structure for each string to be drawn.
      * @param {Integer} nstrings The number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures in the <i>pptxt</i> array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polytextouta
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polytextouta
      * @since windows5.0
      */
     static PolyTextOutA(hdc, ppt, nstrings) {
@@ -14242,26 +11174,14 @@ class Gdi {
     }
 
     /**
-     * The PolyTextOut function draws several strings using the font and text colors currently selected in the specified device context. (Unicode)
-     * @remarks
-     * Each <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structure contains the coordinates of a reference point that Windows uses to align the corresponding string of text. An application can specify how the reference point is used by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function. An application can determine the current text-alignment setting for the specified device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextalign">GetTextAlign</a> function.
-     * 
-     * To draw a single string of text, the application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function.
-     * 
-     * **PolyTextOut** will not handle international scripting support automatically. To get international scripting support, use **ExtTextOut** instead. **ExtTextOut** will use [Uniscribe](/windows/win32/intl/uniscribe) when necessary resulting in font fallback. Additionally, **ExtTextOut** will perform internal batching of calls before transitioning to kernel mode, mitigating some of the performance concerns when weighing usage of **PolyTextOut** versus **ExtTextOut**.
-     * 
-     * > [!TIP]
-     * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines PolyTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The PolyTextOut function draws several strings using the font and text colors currently selected in the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<POLYTEXTW>} ppt A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures describing the strings to be drawn. The array contains one structure for each string to be drawn.
      * @param {Integer} nstrings The number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures in the <i>pptxt</i> array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polytextoutw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polytextoutw
      * @since windows5.0
      */
     static PolyTextOutW(hdc, ppt, nstrings) {
@@ -14271,19 +11191,13 @@ class Gdi {
 
     /**
      * The CreatePolygonRgn function creates a polygonal region.
-     * @remarks
-     * When you no longer need the <b>HRGN</b> object, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * 
-     * Region coordinates are represented as 27-bit signed integers.
-     * 
-     * Regions created by the Create&lt;shape&gt;Rgn methods (such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createrectrgn">CreateRectRgn</a> and <b>CreatePolygonRgn</b>) only include the interior of the shape; the shape's outline is excluded from the region. This means that any point on a line between two sequential vertices is not included in the region. If you were to call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-ptinregion">PtInRegion</a> for such a point, it would return zero as the result.
-     * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that define the vertices of the polygon in logical units. The polygon is presumed closed. Each vertex can be specified only once.
+     * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that define the vertices of the polygon in logical units. The polygon is presumed closed. Each vertex can be specified only once.
      * @param {Integer} cPoint The number of points in the array.
      * @param {Integer} iMode 
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpolygonrgn
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpolygonrgn
      * @since windows5.0
      */
     static CreatePolygonRgn(pptl, cPoint, iMode) {
@@ -14293,15 +11207,13 @@ class Gdi {
 
     /**
      * The DPtoLP function converts device coordinates into logical coordinates. The conversion depends on the mapping mode of the device context, the settings of the origins and extents for the window and viewport, and the world transformation.
-     * @remarks
-     * The <b>DPtoLP</b> function fails if the device coordinates exceed 27 bits, or if the converted logical coordinates exceed 32 bits. In the case of such an overflow, the results for all the points are undefined.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures. The x- and y-coordinates contained in each <b>POINT</b> structure will be transformed.
+     * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures. The x- and y-coordinates contained in each <b>POINT</b> structure will be transformed.
      * @param {Integer} c The number of points in the array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-dptolp
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-dptolp
      * @since windows5.0
      */
     static DPtoLP(hdc, lppt, c) {
@@ -14311,17 +11223,13 @@ class Gdi {
 
     /**
      * The LPtoDP function converts logical coordinates into device coordinates. The conversion depends on the mapping mode of the device context, the settings of the origins and extents for the window and viewport, and the world transformation.
-     * @remarks
-     * The <b>LPtoDP</b> function fails if the logical coordinates exceed 32 bits, or if the converted device coordinates exceed 27 bits. In the case of such an overflow, the results for all the points are undefined.
-     * 
-     * <b>LPtoDP</b> calculates complex floating-point arithmetic, and it has a caching system for efficiency. Therefore, the conversion result of an initial call to <b>LPtoDP</b> might not exactly match the conversion result of a later call to <b>LPtoDP</b>. We recommend not to write code that relies on the exact match of the conversion results from multiple calls to <b>LPtoDP</b> even if the parameters that are passed to each call are identical.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures. The x-coordinates and y-coordinates contained in each of the <b>POINT</b> structures will be transformed.
+     * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures. The x-coordinates and y-coordinates contained in each of the <b>POINT</b> structures will be transformed.
      * @param {Integer} c The number of points in the array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-lptodp
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-lptodp
      * @since windows5.0
      */
     static LPtoDP(hdc, lppt, c) {
@@ -14331,19 +11239,13 @@ class Gdi {
 
     /**
      * The Polygon function draws a polygon consisting of two or more vertices connected by straight lines. The polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode.
-     * @remarks
-     * The polygon is closed automatically by drawing a line from the last vertex to the first.
-     * 
-     * The current position is neither used nor updated by the <b>Polygon</b> function.
-     * 
-     * Any extra points are ignored. To draw a line with more points, divide your data into groups, each of which have less than the maximum number of points, and call the function for each group of points. Remember to connect the line segments.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that specify the vertices of the polygon, in logical coordinates.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that specify the vertices of the polygon, in logical coordinates.
      * @param {Integer} cpt The number of vertices in the array. This value must be greater than or equal to 2.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polygon
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polygon
      * @since windows5.0
      */
     static Polygon(hdc, apt, cpt) {
@@ -14353,15 +11255,13 @@ class Gdi {
 
     /**
      * The Polyline function draws a series of line segments by connecting the points in the specified array.
-     * @remarks
-     * The lines are drawn from the first point through subsequent points by using the current pen. Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polylineto">PolylineTo</a> functions, the <b>Polyline</b> function neither uses nor updates the current position.
      * @param {Pointer<Void>} hdc A handle to a device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures, in logical units.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures, in logical units.
      * @param {Integer} cpt The number of points in the array. This number must be greater than or equal to two.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polyline
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polyline
      * @since windows5.0
      */
     static Polyline(hdc, apt, cpt) {
@@ -14371,19 +11271,13 @@ class Gdi {
 
     /**
      * The PolyBezier function draws one or more B�zier curves.
-     * @remarks
-     * The <b>PolyBezier</b> function draws cubic Bézier curves by using the endpoints and control points specified by the <i>lppt</i> parameter. The first curve is drawn from the first point to the fourth point by using the second and third points as control points. Each subsequent curve in the sequence needs exactly three more points: the ending point of the previous curve is used as the starting point, the next two points in the sequence are control points, and the third is the ending point.
-     * 
-     * The current position is neither used nor updated by the <b>PolyBezier</b> function. The figure is not filled.
-     * 
-     * This function draws lines by using the current pen.
      * @param {Pointer<Void>} hdc A handle to a device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contain the endpoints and control points of the curve(s), in logical units.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contain the endpoints and control points of the curve(s), in logical units.
      * @param {Integer} cpt The number of points in the <i>lppt</i> array. This value must be one more than three times the number of curves to be drawn, because each Bézier curve requires two control points and an endpoint, and the initial curve requires an additional starting point.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polybezier
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polybezier
      * @since windows5.0
      */
     static PolyBezier(hdc, apt, cpt) {
@@ -14393,19 +11287,13 @@ class Gdi {
 
     /**
      * The PolyBezierTo function draws one or more B�zier curves.
-     * @remarks
-     * This function draws cubic Bézier curves by using the control points specified by the <i>lppt</i> parameter. The first curve is drawn from the current position to the third point by using the first two points as control points. For each subsequent curve, the function needs exactly three more points, and uses the ending point of the previous curve as the starting point for the next.
-     * 
-     * <b>PolyBezierTo</b> moves the current position to the ending point of the last Bézier curve. The figure is not filled.
-     * 
-     * This function draws lines by using the current pen.
      * @param {Pointer<Void>} hdc A handle to a device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the endpoints and control points, in logical units.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the endpoints and control points, in logical units.
      * @param {Integer} cpt The number of points in the <i>lppt</i> array. This value must be three times the number of curves to be drawn because each Bézier curve requires two control points and an ending point.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polybezierto
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polybezierto
      * @since windows5.0
      */
     static PolyBezierTo(hdc, apt, cpt) {
@@ -14415,21 +11303,13 @@ class Gdi {
 
     /**
      * The PolylineTo function draws one or more straight lines.
-     * @remarks
-     * Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polyline">Polyline</a> function, the <b>PolylineTo</b> function uses and updates the current position.
-     * 
-     * A line is drawn from the current position to the first point specified by the <i>lppt</i> parameter by using the current pen. For each additional line, the function draws from the ending point of the previous line to the next point specified by <i>lppt</i>.
-     * 
-     * <b>PolylineTo</b> moves the current position to the ending point of the last line.
-     * 
-     * If the line segments drawn by this function form a closed figure, the figure is not filled.
      * @param {Pointer<Void>} hdc A handle to the device context.
-     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the vertices of the line, in logical units.
+     * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the vertices of the line, in logical units.
      * @param {Integer} cpt The number of points in the array.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polylineto
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-polylineto
      * @since windows5.0
      */
     static PolylineTo(hdc, apt, cpt) {
@@ -14439,28 +11319,14 @@ class Gdi {
 
     /**
      * Sets the horizontal and vertical extents of the viewport for a device context by using the specified values.
-     * @remarks
-     * The <i>viewport</i> refers to the device coordinate system of the device space. The <i>extent</i> is the maximum value of an axis. This function sets the maximum values for the horizontal and vertical axes of the viewport in device coordinates (or pixels). When mapping between page space and device space, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> and <b>SetViewportExtEx</b> determine the scaling factor between the window and the viewport. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/transformation-of-coordinate-spaces">Transformation of Coordinate Spaces</a>.
-     * 
-     * When the following mapping modes are set, calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> and <b>SetViewportExtEx</b> functions are ignored.
-     * 
-     * <ul>
-     * <li>MM_HIENGLISH</li>
-     * <li>MM_HIMETRIC</li>
-     * <li>MM_LOENGLISH</li>
-     * <li>MM_LOMETRIC</li>
-     * <li>MM_TEXT</li>
-     * <li>MM_TWIPS</li>
-     * </ul>
-     * When MM_ISOTROPIC mode is set, an application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> function before it calls <b>SetViewportExtEx</b>. Note that for the MM_ISOTROPIC mode certain portions of a nonsquare screen may not be available for display because the logical units on both axes represent equal physical distances.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The horizontal extent, in device units, of the viewport.
      * @param {Integer} y The vertical extent, in device units, of the viewport.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous viewport extents, in device units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the previous viewport extents, in device units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setviewportextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setviewportextex
      * @since windows5.0
      */
     static SetViewportExtEx(hdc, x, y, lpsz) {
@@ -14470,27 +11336,14 @@ class Gdi {
 
     /**
      * The SetViewportOrgEx function specifies which device point maps to the window origin (0,0).
-     * @remarks
-     * This function (along with <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a>) helps define the mapping from the logical coordinate space (also known as a <i>window</i>) to the device coordinate space (the <i>viewport</i>). <b>SetViewportOrgEx</b> specifies which device point maps to the logical point (0,0). It has the effect of shifting the axes so that the logical point (0,0) no longer refers to the upper-left corner.
-     * 
-     * 
-     * ```cpp
-     * 
-     * //map the logical point (0,0) to the device point (xViewOrg, yViewOrg) 
-     * SetViewportOrgEx ( hdc, xViewOrg, yViewOrg, NULL)
-     * 
-     * ```
-     * 
-     * 
-     * This is related to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindoworgex">SetWindowOrgEx</a> function. Generally, you will use one function or the other, but not both. Regardless of your use of <b>SetWindowOrgEx</b> and <b>SetViewportOrgEx</b>, the device point (0,0) is always the upper-left corner.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in device units, of the new viewport origin.
      * @param {Integer} y The y-coordinate, in device units, of the new viewport origin.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous viewport origin, in device coordinates. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the previous viewport origin, in device coordinates. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setviewportorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setviewportorgex
      * @since windows5.0
      */
     static SetViewportOrgEx(hdc, x, y, lppt) {
@@ -14500,28 +11353,14 @@ class Gdi {
 
     /**
      * The SetWindowExtEx function sets the horizontal and vertical extents of the window for a device context by using the specified values.
-     * @remarks
-     * The <i>window</i> refers to the logical coordinate system of the page space. The <i>extent</i> is the maximum value of an axis. This function sets the maximum values for the horizontal and vertical axes of the window (in logical coordinates). When mapping between page space and device space, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a> and <b>SetWindowExtEx</b> determine the scaling factor between the window and the viewport. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/transformation-of-coordinate-spaces">Transformation of Coordinate Spaces</a>.
-     * 
-     * When the following mapping modes are set, calls to the <b>SetWindowExtEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a> functions are ignored:
-     * 
-     * <ul>
-     * <li>MM_HIENGLISH</li>
-     * <li>MM_HIMETRIC</li>
-     * <li>MM_LOENGLISH</li>
-     * <li>MM_LOMETRIC</li>
-     * <li>MM_TEXT</li>
-     * <li>MM_TWIPS</li>
-     * </ul>
-     * When MM_ISOTROPIC mode is set, an application must call the <b>SetWindowExtEx</b> function before calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a>. Note that for the MM_ISOTROPIC mode, certain portions of a nonsquare screen may not be available for display because the logical units on both axes represent equal physical distances.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The window's horizontal extent in logical units.
      * @param {Integer} y The window's vertical extent in logical units.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous window extents, in logical units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the previous window extents, in logical units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setwindowextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setwindowextex
      * @since windows5.0
      */
     static SetWindowExtEx(hdc, x, y, lpsz) {
@@ -14531,27 +11370,14 @@ class Gdi {
 
     /**
      * The SetWindowOrgEx function specifies which window point maps to the viewport origin (0,0).
-     * @remarks
-     * This helps define the mapping from the logical coordinate space (also known as a <i>window</i>) to the device coordinate space (the <i>viewport</i>). <b>SetWindowOrgEx</b> specifies which logical point maps to the device point (0,0). It has the effect of shifting the axes so that the logical point (0,0) no longer refers to the upper-left corner.
-     * 
-     * 
-     * ```cpp
-     * 
-     * //map the logical point (xWinOrg, yWinOrg) to the device point (0,0) 
-     * SetWindowOrgEx (hdc, xWinOrg, yWinOrg, NULL)
-     * 
-     * ```
-     * 
-     * 
-     * This is related to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportorgex">SetViewportOrgEx</a> function. Generally, you will use one function or the other, but not both. Regardless of your use of <b>SetWindowOrgEx</b> and <b>SetViewportOrgEx</b>, the device point (0,0) is always the upper-left corner.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the new window origin.
      * @param {Integer} y The y-coordinate, in logical units, of the new window origin.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous origin of the window, in logical units. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the previous origin of the window, in logical units. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setwindoworgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setwindoworgex
      * @since windows5.0
      */
     static SetWindowOrgEx(hdc, x, y, lppt) {
@@ -14561,16 +11387,14 @@ class Gdi {
 
     /**
      * The OffsetViewportOrgEx function modifies the viewport origin for a device context using the specified horizontal and vertical offsets.
-     * @remarks
-     * The new origin is the sum of the current origin and the horizontal and vertical offsets.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The horizontal offset, in device units.
      * @param {Integer} y The vertical offset, in device units.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure. The previous viewport origin, in device units, is placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous viewport origin is not returned.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure. The previous viewport origin, in device units, is placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous viewport origin is not returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetviewportorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-offsetviewportorgex
      * @since windows5.0
      */
     static OffsetViewportOrgEx(hdc, x, y, lppt) {
@@ -14583,11 +11407,11 @@ class Gdi {
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The horizontal offset, in logical units.
      * @param {Integer} y The vertical offset, in logical units.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure. The logical coordinates of the previous window origin are placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous origin is not returned.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure. The logical coordinates of the previous window origin are placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous origin is not returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetwindoworgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-offsetwindoworgex
      * @since windows5.0
      */
     static OffsetWindowOrgEx(hdc, x, y, lppt) {
@@ -14597,26 +11421,16 @@ class Gdi {
 
     /**
      * The ScaleViewportExtEx function modifies the viewport for a device context using the ratios formed by the specified multiplicands and divisors.
-     * @remarks
-     * The viewport extents are modified as follows:
-     * 
-     * 
-     * ```cpp
-     * 
-     *     xNewVE = (xOldVE * Xnum) / Xdenom 
-     *     yNewVE = (yOldVE * Ynum) / Ydenom 
-     * 
-     * ```
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} xn The amount by which to multiply the current horizontal extent.
      * @param {Integer} dx The amount by which to divide the current horizontal extent.
      * @param {Integer} yn The amount by which to multiply the current vertical extent.
      * @param {Integer} yd The amount by which to divide the current vertical extent.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous viewport extents, in device units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the previous viewport extents, in device units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-scaleviewportextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-scaleviewportextex
      * @since windows5.0
      */
     static ScaleViewportExtEx(hdc, xn, dx, yn, yd, lpsz) {
@@ -14626,26 +11440,16 @@ class Gdi {
 
     /**
      * The ScaleWindowExtEx function modifies the window for a device context using the ratios formed by the specified multiplicands and divisors.
-     * @remarks
-     * The window extents are modified as follows:
-     * 
-     * 
-     * ```cpp
-     * 
-     *     xNewWE = (xOldWE * Xnum) / Xdenom 
-     *     yNewWE = (yOldWE * Ynum) / Ydenom 
-     * 
-     * ```
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} xn The amount by which to multiply the current horizontal extent.
      * @param {Integer} xd The amount by which to divide the current horizontal extent.
      * @param {Integer} yn The amount by which to multiply the current vertical extent.
      * @param {Integer} yd The amount by which to divide the current vertical extent.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous window extents, in logical units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the previous window extents, in logical units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-scalewindowextex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-scalewindowextex
      * @since windows5.0
      */
     static ScaleWindowExtEx(hdc, xn, xd, yn, yd, lpsz) {
@@ -14655,18 +11459,14 @@ class Gdi {
 
     /**
      * The SetBitmapDimensionEx function assigns preferred dimensions to a bitmap. These dimensions can be used by applications; however, they are not used by the system.
-     * @remarks
-     * An application can retrieve the dimensions assigned to a bitmap with the <b>SetBitmapDimensionEx</b> function by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbitmapdimensionex">GetBitmapDimensionEx</a> function.
-     * 
-     * The bitmap identified by <i>hBitmap</i> cannot be a DIB section, which is a bitmap created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function. If the bitmap is a DIB section, the <b>SetBitmapDimensionEx</b> function fails.
      * @param {Pointer<Void>} hbm A handle to the bitmap. The bitmap cannot be a DIB-section bitmap.
      * @param {Integer} w The width, in 0.1-millimeter units, of the bitmap.
      * @param {Integer} h The height, in 0.1-millimeter units, of the bitmap.
-     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure to receive the previous dimensions of the bitmap. This pointer can be <b>NULL</b>.
+     * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure to receive the previous dimensions of the bitmap. This pointer can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapdimensionex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbitmapdimensionex
      * @since windows5.0
      */
     static SetBitmapDimensionEx(hbm, w, h, lpsz) {
@@ -14676,26 +11476,16 @@ class Gdi {
 
     /**
      * The SetBrushOrgEx function sets the brush origin that GDI assigns to the next brush an application selects into the specified device context.
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes.
-     * 
-     * The brush origin is a pair of coordinates specifying the location of one pixel in the bitmap. The default brush origin coordinates are (0,0). For horizontal coordinates, the value 0 corresponds to the leftmost column of pixels; the width corresponds to the rightmost column. For vertical coordinates, the value 0 corresponds to the uppermost row of pixels; the height corresponds to the lowermost row.
-     * 
-     * The system automatically tracks the origin of all window-managed device contexts and adjusts their brushes as necessary to maintain an alignment of patterns on the surface. The brush origin that is set with this call is relative to the upper-left corner of the client area.
-     * 
-     * An application should call <b>SetBrushOrgEx</b> after setting the bitmap stretching mode to HALFTONE by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a>. This must be done to avoid brush misalignment.
-     * 
-     * The system automatically tracks the origin of all window-managed device contexts and adjusts their brushes as necessary to maintain an alignment of patterns on the surface.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate, in device units, of the new brush origin. If this value is greater than the brush width, its value is reduced using the modulus operator (<i>nXOrg</i> <b>mod</b> brush width).
      * @param {Integer} y The y-coordinate, in device units, of the new brush origin. If this value is greater than the brush height, its value is reduced using the modulus operator (<i>nYOrg</i> <b>mod</b> brush height).
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous brush origin.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the previous brush origin.
      * 
      * This parameter can be <b>NULL</b> if the previous brush origin is not required.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbrushorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setbrushorgex
      * @since windows5.0
      */
     static SetBrushOrgEx(hdc, x, y, lppt) {
@@ -14704,25 +11494,14 @@ class Gdi {
     }
 
     /**
-     * The GetTextFace function retrieves the typeface name of the font that is selected into the specified device context. (ANSI)
-     * @remarks
-     * The typeface name is copied as a null-terminated character string.
-     * 
-     * If the name is longer than the number of characters specified by the <i>nCount</i> parameter, the name is truncated.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextFace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextFace function retrieves the typeface name of the font that is selected into the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} c The length of the buffer pointed to by <i>lpFaceName</i>. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Pointer<Byte>} lpName A pointer to the buffer that receives the typeface name. If this parameter is <b>NULL</b>, the function returns the number of characters in the name, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of characters copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextfacea
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextfacea
      * @since windows5.0
      */
     static GetTextFaceA(hdc, c, lpName) {
@@ -14733,25 +11512,14 @@ class Gdi {
     }
 
     /**
-     * The GetTextFace function retrieves the typeface name of the font that is selected into the specified device context. (Unicode)
-     * @remarks
-     * The typeface name is copied as a null-terminated character string.
-     * 
-     * If the name is longer than the number of characters specified by the <i>nCount</i> parameter, the name is truncated.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wingdi.h header defines GetTextFace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTextFace function retrieves the typeface name of the font that is selected into the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} c The length of the buffer pointed to by <i>lpFaceName</i>. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Pointer<Char>} lpName A pointer to the buffer that receives the typeface name. If this parameter is <b>NULL</b>, the function returns the number of characters in the name, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of characters copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextfacew
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gettextfacew
      * @since windows5.0
      */
     static GetTextFaceW(hdc, c, lpName) {
@@ -14762,17 +11530,14 @@ class Gdi {
     }
 
     /**
-     * The GetKerningPairs function retrieves the character-kerning pairs for the currently selected font for the specified device context. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wingdi.h header defines GetKerningPairs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetKerningPairs function retrieves the character-kerning pairs for the currently selected font for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} nPairs The number of pairs in the <i>lpkrnpair</i> array. If the font has more than <i>nNumPairs</i> kerning pairs, the function returns an error.
      * @param {Pointer<KERNINGPAIR>} lpKernPair A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-kerningpair">KERNINGPAIR</a> structures that receives the kerning pairs. The array must contain at least as many structures as specified by the <i>nNumPairs</i> parameter. If this parameter is <b>NULL</b>, the function returns the total number of kerning pairs for the font.
      * @returns {Integer} If the function succeeds, the return value is the number of kerning pairs returned.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getkerningpairsa
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getkerningpairsa
      * @since windows5.0
      */
     static GetKerningPairsA(hdc, nPairs, lpKernPair) {
@@ -14781,17 +11546,14 @@ class Gdi {
     }
 
     /**
-     * The GetKerningPairs function retrieves the character-kerning pairs for the currently selected font for the specified device context. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wingdi.h header defines GetKerningPairs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetKerningPairs function retrieves the character-kerning pairs for the currently selected font for the specified device context.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} nPairs The number of pairs in the <i>lpkrnpair</i> array. If the font has more than <i>nNumPairs</i> kerning pairs, the function returns an error.
      * @param {Pointer<KERNINGPAIR>} lpKernPair A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-kerningpair">KERNINGPAIR</a> structures that receives the kerning pairs. The array must contain at least as many structures as specified by the <i>nNumPairs</i> parameter. If this parameter is <b>NULL</b>, the function returns the total number of kerning pairs for the font.
      * @returns {Integer} If the function succeeds, the return value is the number of kerning pairs returned.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getkerningpairsw
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getkerningpairsw
      * @since windows5.0
      */
     static GetKerningPairsW(hdc, nPairs, lpKernPair) {
@@ -14801,14 +11563,12 @@ class Gdi {
 
     /**
      * The GetDCOrgEx function retrieves the final translation origin for a specified device context (DC).
-     * @remarks
-     * The final translation origin is relative to the physical origin of the screen.
      * @param {Pointer<Void>} hdc A handle to the DC whose final translation origin is to be retrieved.
-     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the final translation origin, in device coordinates.
+     * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the final translation origin, in device coordinates.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcorgex
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdcorgex
      * @since windows5.0
      */
     static GetDCOrgEx(hdc, lppt) {
@@ -14831,17 +11591,11 @@ class Gdi {
 
     /**
      * The UnrealizeObject function resets the origin of a brush or resets a logical palette.
-     * @remarks
-     * The <b>UnrealizeObject</b> function should not be used with stock objects. For example, the default palette, obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> (DEFAULT_PALETTE), is a stock object.
-     * 
-     * A palette identified by <i>hgdiobj</i> can be the currently selected palette of a device context.
-     * 
-     * If <i>hgdiobj</i> is a brush, <b>UnrealizeObject</b> does nothing, and the function returns <b>TRUE</b>. Use <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbrushorgex">SetBrushOrgEx</a> to set the origin of a brush.
-     * @param {Pointer<Void>} h 
+     * @param {Pointer<Void>} h A handle to the logical palette to be reset.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-unrealizeobject
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-unrealizeobject
      * @since windows5.0
      */
     static UnrealizeObject(h) {
@@ -14851,28 +11605,10 @@ class Gdi {
 
     /**
      * The GdiFlush function flushes the calling thread's current batch.
-     * @remarks
-     * Batching enhances drawing performance by minimizing the amount of time needed to call GDI drawing functions that return Boolean values. The system accumulates the parameters for calls to these functions in the current batch and then calls the functions when the batch is flushed by any of the following means:
-     * 
-     * <ul>
-     * <li>Calling the <b>GdiFlush</b> function.</li>
-     * <li>Reaching or exceeding the batch limit set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdisetbatchlimit">GdiSetBatchLimit</a> function.</li>
-     * <li>Filling the batching buffers.</li>
-     * <li>Calling any GDI function that does not return a Boolean value.</li>
-     * </ul>
-     * The return value for <b>GdiFlush</b> applies only to the functions in the batch at the time <b>GdiFlush</b> is called. Errors that occur when the batch is flushed by any other means are never reported.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdigetbatchlimit">GdiGetBatchLimit</a> function returns the batch limit.
-     * 
-     * <div class="alert"><b>Note</b>  The batch limit is maintained for each thread separately. In order to completely disable batching, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdisetbatchlimit">GdiSetBatchLimit</a> (1) during the initialization of each thread.</div>
-     * <div> </div>
-     * An application should call <b>GdiFlush</b> before a thread goes away if there is a possibility that there are pending function calls in the graphics batch queue. The system does not execute such batched functions when a thread goes away.
-     * 
-     * A multithreaded application that serializes access to GDI objects with a mutex must ensure flushing the GDI batch queue by calling <b>GdiFlush</b> as each thread releases ownership of the GDI object. This prevents collisions of the GDI objects (device contexts, metafiles, and so on).
      * @returns {Integer} If all functions in the current batch succeed, the return value is nonzero.
      * 
      * If not all functions in the current batch succeed, the return value is zero, indicating that at least one function returned an error.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdiflush
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdiflush
      * @since windows5.0
      */
     static GdiFlush() {
@@ -14882,18 +11618,11 @@ class Gdi {
 
     /**
      * The GdiSetBatchLimit function sets the maximum number of function calls that can be accumulated in the calling thread's current batch. The system flushes the current batch whenever this limit is exceeded.
-     * @remarks
-     * Only GDI drawing functions that return Boolean values can be accumulated in the current batch; calls to any other GDI functions immediately flush the current batch. Exceeding the batch limit or calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> function also flushes the current batch.
-     * 
-     * When the system accumulates a function call, the function returns <b>TRUE</b> to indicate it is in the batch. When the system flushes the current batch and executes the function for the second time, the return value is either <b>TRUE</b> or <b>FALSE</b>, depending on whether the function succeeds. This second return value is reported only if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> is used to flush the batch.
-     * 
-     * <div class="alert"><b>Note</b>  The batch limit is maintained for each thread separately. In order to completely disable batching, call <b>GdiSetBatchLimit</b> (1) during the initialization of each thread.</div>
-     * <div> </div>
      * @param {Integer} dw Specifies the batch limit to be set. A value of 0 sets the default limit. A value of 1 disables batching.
      * @returns {Integer} If the function succeeds, the return value is the previous batch limit.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdisetbatchlimit
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdisetbatchlimit
      * @since windows5.0
      */
     static GdiSetBatchLimit(dw) {
@@ -14903,19 +11632,10 @@ class Gdi {
 
     /**
      * The GdiGetBatchLimit function returns the maximum number of function calls that can be accumulated in the calling thread's current batch. The system flushes the current batch whenever this limit is exceeded.
-     * @remarks
-     * The batch limit is set by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdisetbatchlimit">GdiSetBatchLimit</a> function. Setting the limit to 1 effectively disables batching.
-     * 
-     * Only GDI drawing functions that return Boolean values can be batched; calls to any other GDI functions immediately flush the current batch. Exceeding the batch limit or calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> function also flushes the current batch.
-     * 
-     * When the system batches a function call, the function returns <b>TRUE</b>. The actual return value for the function is reported only if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> is used to flush the batch.
-     * 
-     * <div class="alert"><b>Note</b>  The batch limit is maintained for each thread separately. In order to completely disable batching, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdisetbatchlimit">GdiSetBatchLimit</a> (1) during the initialization of each thread.</div>
-     * <div> </div>
      * @returns {Integer} If the function succeeds, the return value is the batch limit.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdigetbatchlimit
+     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-gdigetbatchlimit
      * @since windows5.0
      */
     static GdiGetBatchLimit() {
@@ -14936,12 +11656,6 @@ class Gdi {
 
     /**
      * The CreateFontPackage function creates a subset version of a specified TrueType font, typically in order to pass it to a printer.
-     * @remarks
-     * By specifying a value of TTFCFP_SUBSET for <i>usSubsetFormat</i>, you can directly create a working font rather than a font package. This does not allow for future merging, but if there is no need for merging, this skips a step in the downstream processing: a font package needs to be converted back to a working font before it can be used.
-     * 
-     * By specifying a value of TTFCFP_SUBSET1 for <i>usSubsetFormat</i>, you can create a font package that allows later merging. For example, consider the case where an application calls this function at the start of a large print job. Part way through the print job, the application discovers that it needs glyphs that are not in the subset it has built. The application can make another call to <b>CreateFontPackage</b>, this time specifying a value of TTFCFP_DELTA for <i>usSubsetFormat</i>. The printer can use <a href="https://docs.microsoft.com/windows/desktop/api/fontsub/nf-fontsub-mergefontpackage">MergeFontPackage</a> to merge in these additional glyphs.
-     * 
-     * A CMAP maps from character encodings to glyphs. If *<i>pusSubsetKeepList</i> is a list of character values, then the application uses parameters <i>usSubsetPlatform</i> and <i>usSubsetEncoding</i> to specify what type of CMAP is being used, so that character values can be mapped to glyphs.
      * @param {Pointer<Byte>} puchSrcBuffer Points to a buffer containing source TTF or TTC data, describing the font that is to be subsetted.
      * @param {Integer} ulSrcBufferSize Specifies size of *<i>puchSrcBuffer</i>, in bytes.
      * @param {Pointer<Byte>} ppuchFontPackageBuffer Points to a variable of type unsigned char*. The <b>CreateFontPackage</b> function will allocate a buffer **<i>puchFontPackageBuffer</i>, using <i>lpfnAllocate</i> and <i>lpfnReAllocate</i>. On successful return, the buffer will contain the subset font or font package. The application is responsible for eventually freeing the buffer.
@@ -15045,8 +11759,8 @@ class Gdi {
      * @param {Pointer<Void>} lpvReserved Must be set to <b>NULL</b>.
      * @returns {Integer} If the function is successful, returns zero.
      * 
-     * Otherwise, returns a nonzero value. See <a href="https://docs.microsoft.com/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
-     * @see https://learn.microsoft.com/windows/win32/api/fontsub/nf-fontsub-createfontpackage
+     * Otherwise, returns a nonzero value. See <a href="/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
+     * @see https://docs.microsoft.com/windows/win32/api//fontsub/nf-fontsub-createfontpackage
      * @since windows5.1.2600
      */
     static CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer, pulFontPackageBufferSize, pulBytesWritten, usFlag, usTTCIndex, usSubsetFormat, usSubsetLanguage, usSubsetPlatform, usSubsetEncoding, pusSubsetKeepList, usSubsetListCount, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
@@ -15056,39 +11770,6 @@ class Gdi {
 
     /**
      * The MergeFontPackage function manipulates fonts created by CreateFontPackage.
-     * @remarks
-     * This function handles four distinct, related entities, each representing a subset font:
-     * 
-     * <table>
-     * <tr>
-     * <th>Entity</th>
-     * <th>Produced by</th>
-     * <th>Directly usable as a font</th>
-     * </tr>
-     * <tr>
-     * <td>Simple working font</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/fontsub/nf-fontsub-createfontpackage">CreateFontPackage</a> with <i>usSubsetFormat</i> set to TFCFP_SUBSET.</td>
-     * <td>Yes</td>
-     * </tr>
-     * <tr>
-     * <td>Font package</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/fontsub/nf-fontsub-createfontpackage">CreateFontPackage</a> with <i>usSubsetFormat</i> set to TTFCFP_SUBSET1.</td>
-     * <td>No</td>
-     * </tr>
-     * <tr>
-     * <td>Delta font package</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/fontsub/nf-fontsub-createfontpackage">CreateFontPackage</a> with <i>usSubsetFormat</i> set to TTFCFP_DELTA.</td>
-     * <td>No</td>
-     * </tr>
-     * <tr>
-     * <td>Mergeable working font</td>
-     * <td><b>MergeFontPackage</b> with <i>usMode</i> set to TTFMFP_SUBSET1 or TTFMFP_DELTA.</td>
-     * <td>Yes</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Byte>} puchMergeFontBuffer A pointer to a buffer containing a font to merge with. This is used only when <i>usMode</i> is TTFMFP_DELTA.
      * @param {Integer} ulMergeFontBufferSize Specifies size of *<i>puchMergeFontBuffer</i>, in bytes.
      * @param {Pointer<Byte>} puchFontPackageBuffer A pointer to a to buffer containing a font package.
@@ -15146,8 +11827,8 @@ class Gdi {
      * @param {Pointer<Void>} lpvReserved Must be set to <b>NULL</b>.
      * @returns {Integer} If the function is successful, returns zero.
      * 
-     * Otherwise, returns a nonzero value. See <a href="https://docs.microsoft.com/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
-     * @see https://learn.microsoft.com/windows/win32/api/fontsub/nf-fontsub-mergefontpackage
+     * Otherwise, returns a nonzero value. See <a href="/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
+     * @see https://docs.microsoft.com/windows/win32/api//fontsub/nf-fontsub-mergefontpackage
      * @since windows5.1.2600
      */
     static MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPackageBuffer, ulFontPackageBufferSize, ppuchDestBuffer, pulDestBufferSize, pulBytesWritten, usMode, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
@@ -15157,10 +11838,6 @@ class Gdi {
 
     /**
      * Creates a font structure containing the subsetted wide-character (16-bit) font. The current font of the device context (hDC) provides the font information.
-     * @remarks
-     * Clients are responsible for determining and indicating the character set of the font.
-     * 
-     * For information about embedding UCS-4 characters, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontex">TTEmbedFontEx</a>. For information about embedding font characters from a file, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontfromfilea">TTEmbedFontFromFileA</a>.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
@@ -15176,8 +11853,8 @@ class Gdi {
      * 
      * The font structure is incorporated into the document stream by the client. <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfont
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttembedfont
      * @since windows5.0
      */
     static TTEmbedFont(hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
@@ -15187,12 +11864,6 @@ class Gdi {
 
     /**
      * Creates a font structure containing the subsetted wide-character (16-bit) font. An external file provides the font information.
-     * @remarks
-     * This function references a client-defined callback routine for embedding the font structure into the document stream.
-     * 
-     * Clients are responsible for determining and indicating the character set of the font.
-     * 
-     * For information on embedding Unicode characters from a device context, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfont">TTEmbedFont</a>; for information on embedding UCS-4 characters from a device context, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontex">TTEmbedFontEx</a>.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Pointer<Byte>} szFontFileName The font file name and path to embed. This is an ANSI string.
      * @param {Integer} usTTCIndex Zero-based index into the font file (TTC) identifying the physical font to embed. If the file contains a single font (such as a TTF or OTF outline file), this parameter should be set to 0.
@@ -15210,8 +11881,8 @@ class Gdi {
      * 
      * The font structure is incorporated into the document stream by the client. <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfontfromfilea
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttembedfontfromfilea
      * @since windows5.0
      */
     static TTEmbedFontFromFileA(hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
@@ -15223,16 +11894,6 @@ class Gdi {
 
     /**
      * Reads an embedded font from the document stream and installs it. Also allows a client to further restrict embedding privileges of the font.
-     * @remarks
-     * To assist a client in determining whether an embedded font is already installed on the system, the font loading function will return an error message indicating a font with the same name exists on the system (E_FONTNAMEALREADYEXISTS), and if that font has the same checksum as the embedded font (E_FONTALREADYEXISTS). The client then has two options:
-     * 
-     * <ol>
-     * <li>Assume that the installed font is really the same as the embedded font and covers the same subsets.</li>
-     * <li>Force the embedded font to be installed with a different name to avoid incompatibilities with the font already on the system.</li>
-     * </ol>
-     * To change the name of an embedded font prior to installing, the client must supply both the 8-bit-character and 16-bit-character name strings as parameters. The font name will be changed in the name table of the newly installed font. The new name is only available to the client and will not be enumerated to the user.
-     * 
-     * To use the existing name of the embedded font, the name string parameters need to be set to <b>NULL</b>.
      * @param {Pointer<Void>} phFontReference A pointer to a handle that identifies the installed embedded font. This handle references an internal structure, not an Hfont.
      * @param {Integer} ulFlags A flag specifying loading and installation options. Currently, this flag can be set to zero or the following value:
      * 
@@ -15264,8 +11925,8 @@ class Gdi {
      * 
      * If font loading is successful, a font indicated by <i>phFontReference</i> is created from the font structure with the names referenced in <i>szWinFamilyName</i> and <i>szMacFamilyName</i>. <i>pulPrivStatus</i> is set indicating the embedding privileges of the font; and <i>pulStatus</i> may be set indicating status information about the font loading operation.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttloadembeddedfont
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttloadembeddedfont
      * @since windows5.0
      */
     static TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, szWinFamilyName, szMacFamilyName, pTTLoadInfo) {
@@ -15353,8 +12014,8 @@ class Gdi {
      * 
      * The location referenced by *<i>pulPrivStatus</i> identifies embedding privileges of the font. The location referenced by *<i>pulStatus</i> identifies whether a subset of the font is embedded.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetembeddedfontinfo
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttgetembeddedfontinfo
      * @since windows5.0
      */
     static TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, pTTLoadInfo) {
@@ -15364,8 +12025,6 @@ class Gdi {
 
     /**
      * Releases memory used by an embedded font, hFontReference.
-     * @remarks
-     * The client is responsible for calling this function to remove fonts when the embedding privileges do not allow a font to be permanently installed on a user's system.
      * @param {Pointer<Void>} hFontReference Handle identifying font, as provided in the <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a> function.
      * @param {Integer} ulFlags Flag specifying font deletion options. Currently, this flag can be set to zero or the following value:
      * 
@@ -15390,8 +12049,8 @@ class Gdi {
      * 
      * The memory occupied by the embedded font structure is cleared. By default, the font indicated by <i>hFontReference</i> is also permanently removed (uninstalled and deleted) from the system.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttdeleteembeddedfont
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttdeleteembeddedfont
      * @since windows5.0
      */
     static TTDeleteEmbeddedFont(hFontReference, ulFlags, pulStatus) {
@@ -15401,16 +12060,14 @@ class Gdi {
 
     /**
      * Obtains the embedding privileges of a font.
-     * @remarks
-     * Alternatively, an application can determine embedding privileges by using <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a> and then checking the value returned in <i>pulPrivStatus</i> for success or failure of the function.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Pointer<UInt32>} pulEmbedType 
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * This function reads the embedding privileges stored in the font and transfers the privileges to <i>pulPrivStatus</i>.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetembeddingtype
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttgetembeddingtype
      * @since windows5.0
      */
     static TTGetEmbeddingType(hDC, pulEmbedType) {
@@ -15420,8 +12077,6 @@ class Gdi {
 
     /**
      * Converts an array of 8-bit character code values to 16-bit Unicode values.
-     * @remarks
-     * This function may be useful to clients when creating a list of symbol characters to be subsetted.
      * @param {Pointer<Void>} hDC A device context handle.
      * @param {Pointer<Byte>} pucCharCodes A pointer to an array of 8-bit character codes to convert to 16-bit Unicode values. Must be set to a non-null value.
      * @param {Integer} ulCharCodeSize The size of an 8-bit character code array.
@@ -15432,8 +12087,8 @@ class Gdi {
      * 
      * Array *<i>pusShortCodes</i> is filled with 16-bit Unicode values that correspond to the 8-bit character codes in *<i>pusCharCodes</i>.<i>ulShortCodeSize</i> contains the size, in wide characters, of *<i>pusShortCodes</i>.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttchartounicode
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttchartounicode
      * @since windows5.0
      */
     static TTCharToUnicode(hDC, pucCharCodes, ulCharCodeSize, pusShortCodes, ulShortCodeSize, ulFlags) {
@@ -15443,16 +12098,12 @@ class Gdi {
 
     /**
      * Validates part or all glyph data of a wide-character (16-bit) font, in the size range specified.
-     * @remarks
-     * This function was supported in Windows XP and earlier, but is no longer supported. In Windows Vista and later, this function will always return E_API_NOTIMPL, and no processing is performed by this API.
-     * 
-     * Effective font validation can be performed by a tool, such as Font Validator, that is capable of performing thorough validation of all parts of the font file. See the <a href="https://www.microsoft.com/typography/FontValidator.aspx">Font Validator documentation</a> for more information.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Pointer<TTVALIDATIONTESTSPARAMS>} pTestParam Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttvalidationtestsparams">TTVALIDATIONTESTPARAMS</a> structure specifying the parameters to test.
      * @returns {Integer} If successful and the glyph data is valid, returns E_NONE.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttrunvalidationtests
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttrunvalidationtests
      * @since windows5.0
      */
     static TTRunValidationTests(hDC, pTestParam) {
@@ -15462,18 +12113,14 @@ class Gdi {
 
     /**
      * Determines whether the typeface exclusion list contains a specified font.
-     * @remarks
-     * If the specified font is listed, the client should not embed the font.
-     * 
-     * For additional information on the exclusion list, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttenableembeddingforfacename">TTEnableEmbeddingForFacename</a>.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Pointer<Int32>} pbEnabled Pointer to a boolean, set upon completion of the function. A nonzero value indicates the font is not in the typeface exclusion list and, therefore, can be embedded without conflict.
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * The parameter <i>pbEnabled</i> is filled with a boolean that indicates whether embedding is currently enabled within a device context.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttisembeddingenabled
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttisembeddingenabled
      * @since windows5.0
      */
     static TTIsEmbeddingEnabled(hDC, pbEnabled) {
@@ -15483,18 +12130,14 @@ class Gdi {
 
     /**
      * Determines whether embedding is enabled for a specified font.
-     * @remarks
-     * If successful, the client may embed the font.
-     * 
-     * For additional information on the exclusion list, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttenableembeddingforfacename">TTEnableEmbeddingForFacename</a>.
      * @param {Pointer<Byte>} lpszFacename Pointer to the facename of the font, such as Arial Bold.
      * @param {Pointer<Int32>} pbEnabled Pointer to a boolean, set upon completion of the function. A nonzero value indicates the font is not in the typeface exclusion list, and, therefore, can be embedded without conflict.
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * <i>pbEnabled</i> is filled with a boolean that indicates whether embedding is currently enabled within a device context for the specified font.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttisembeddingenabledforfacename
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttisembeddingenabledforfacename
      * @since windows5.0
      */
     static TTIsEmbeddingEnabledForFacename(lpszFacename, pbEnabled) {
@@ -15506,97 +12149,14 @@ class Gdi {
 
     /**
      * Adds or removes facenames from the typeface exclusion list.
-     * @remarks
-     * The function <b>TTEnableEmbeddingForFacename</b> uses a typeface exclusion list to control whether a specific font can be embedded. This list identifies all fonts that should NOT be embedded and is shared by all authoring clients on a single system.
-     * 
-     * An authoring client can embed fonts without referencing the typeface exclusion list (that is, without using <b>TTEnableEmbeddingForFacename</b>). Embedding fonts in a document results in the following tradeoffs.
-     * 
-     * <ul>
-     * <li>Provides all font information within a document so the appropriate client can render the document.</li>
-     * <li>Adds size to a document.</li>
-     * <li>Complicates streaming read and write operations to a document and uses more processing bandwidth.</li>
-     * <li>Makes a document less readable by other applications.</li>
-     * <li>Can leave copyright issues unmanaged, if the type exclusion list is not used.</li>
-     * </ul>
-     * Two additional functions, <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttisembeddingenabled">TTIsEmbeddingEnabled</a> and <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttisembeddingenabledforfacename">TTIsEmbeddingEnabledForFacename</a>, access the typeface exclusion list to provide enabling status.
-     * 
-     * The typeface exclusion list is stored in the registry key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Shared Tools\t2embed</b>. The default typeface exclusion list should contain the following named value entries representing the Microsoft Windows core fonts.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value name</th>
-     * <th>Data type</th>
-     * <th>Data value</th>
-     * </tr>
-     * <tr>
-     * <td>Arial</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Arial Bold</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Arial Bold Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Arial Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Courier New</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Courier New Bold</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Courier New Bold Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Courier New Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Times New Roman</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Times New Roman Bold</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Times New Roman Bold Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td>Times New Roman Italic</td>
-     * <td>REG_DWORD</td>
-     * <td>0</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Byte>} lpszFacename Pointer to the facename of the font to be added or removed from the typeface exclusion list.
      * @param {Integer} bEnable Boolean controlling operation on typeface exclusion list. If nonzero, then the facename will be removed from the list; if zero, the facename will be added to the list.
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * The facename indicated by <i>lpszFacename</i> will be added or removed from the typeface exclusion list.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttenableembeddingforfacename
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttenableembeddingforfacename
      * @since windows5.0
      */
     static TTEnableEmbeddingForFacename(lpszFacename, bEnable) {
@@ -15608,12 +12168,6 @@ class Gdi {
 
     /**
      * Creates a font structure containing the subsetted UCS-4 character (32-bit) font. The current font of the device context (hDC) provides the font information.
-     * @remarks
-     * This function references a client-defined callback routine for embedding the font structure into the document stream.
-     * 
-     * Clients are responsible for determining and indicating the character set of the font.
-     * 
-     * For information on embedding Unicode characters, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfont">TTEmbedFont</a>; for information on embedding Unicode characters from a file, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontfromfilea">TTEmbedFontFromFileA</a>.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
@@ -15631,8 +12185,8 @@ class Gdi {
      * 
      * <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfontex
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttembedfontex
      * @since windows5.0
      */
     static TTEmbedFontEx(hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pulCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
@@ -15642,18 +12196,12 @@ class Gdi {
 
     /**
      * Validates part or all glyph data of a UCS-4 character (32-bit) font, in the size range specified.
-     * @remarks
-     * <b>TTRunValidationTestsEx</b> is a UCS-4 version of <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttrunvalidationtests">TTRunValidationTests</a>.
-     * 
-     * This function was supported in Windows XP and earlier, but is no longer supported. In Windows Vista and later, this function will always return E_API_NOTIMPL, and no processing is performed by this API.
-     * 
-     * Effective font validation can be performed by a tool, such as Font Validator, that is capable of performing thorough validation of all parts of the font file. Please see <a href="https://www.microsoft.com/typography/FontValidator.aspx">https://www.microsoft.com/typography/FontValidator.aspx</a> for information on the Font Validator tool.
      * @param {Pointer<Void>} hDC Device context handle.
      * @param {Pointer<TTVALIDATIONTESTSPARAMSEX>} pTestParam Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttvalidationtestsparamsex">TTVALIDATIONTESTPARAMSEX</a> structure specifying the parameters to test.
      * @returns {Integer} If successful and the glyph data is valid, returns E_NONE.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttrunvalidationtestsex
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttrunvalidationtestsex
      * @since windows5.0
      */
     static TTRunValidationTestsEx(hDC, pTestParam) {
@@ -15663,9 +12211,6 @@ class Gdi {
 
     /**
      * Obtains the family name for the font loaded through TTLoadEmbeddedFont.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This function returns the font family name in the appropriate string buffer, either for Windows or the MacIntosh. The buffer for the other operating system is not used.</div>
-     * <div> </div>
      * @param {Pointer<Void>} phFontReference Handle that identifies the embedded font that has been installed. The handle references an internal structure, not an Hfont.
      * @param {Pointer<Char>} wzWinFamilyName Buffer to hold the new 16-bit-character Microsoft Windows family name.
      * @param {Integer} cchMaxWinName Length of the string allocated for the Windows name (<i>szWinFamilyName</i>). Must be at least LF_FACESIZE long.
@@ -15675,8 +12220,8 @@ class Gdi {
      * 
      * The font family name is a string in <i>szWinFamilyName</i> or <i>szMacFamilyName</i>.
      * 
-     * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetnewfontname
+     * Otherwise, returns an error code described in <a href="/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//t2embapi/nf-t2embapi-ttgetnewfontname
      * @since windows5.0
      */
     static TTGetNewFontName(phFontReference, wzWinFamilyName, cchMaxWinName, szMacFamilyName, cchMaxMacName) {
@@ -15803,7 +12348,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawedge
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawedge
      * @since windows5.0
      */
     static DrawEdge(hdc, qrc, edge, grfFlags) {
@@ -15813,11 +12358,6 @@ class Gdi {
 
     /**
      * The DrawFrameControl function draws a frame control of the specified type and style.
-     * @remarks
-     * If <i>uType</i> is either DFC_MENU or DFC_BUTTON and <i>uState</i> is not DFCS_BUTTONPUSH, the frame control is a black-on-white mask (that is, a black frame control on a white background). In such cases, the application must pass a handle to a bitmap memory device control. The application can then use the associated bitmap as the <i>hbmMask</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-maskblt">MaskBlt</a> function, or it can use the device context as a parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-bitblt">BitBlt</a> function using ROPs such as SRCAND and SRCINVERT.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
      * @param {Pointer<Void>} hdc 
      * @param {Pointer<RECT>} lprc 
      * @param {Integer} uType 
@@ -15825,7 +12365,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawframecontrol
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawframecontrol
      * @since windows5.0
      */
     static DrawFrameControl(hdc, lprc, uType, uState) {
@@ -15842,7 +12382,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawcaption
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawcaption
      * @since windows5.0
      */
     static DrawCaption(hwnd, hdc, lprect, flags) {
@@ -15859,7 +12399,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawanimatedrects
      * @since windows5.0
      */
     static DrawAnimatedRects(hwnd, idAni, lprcFrom, lprcTo) {
@@ -15868,20 +12408,7 @@ class Gdi {
     }
 
     /**
-     * The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth). (DrawTextA)
-     * @remarks
-     * The <b>DrawText</b> function uses the device context's selected font, text color, and background color to draw the text. Unless the DT_NOCLIP format is used, <b>DrawText</b> clips the text so that it does not appear outside the specified rectangle. Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics. All formatting is assumed to have multiple lines unless the DT_SINGLELINE format is specified.
-     * 
-     * If the selected font is too large for the specified rectangle, the <b>DrawText</b> function does not attempt to substitute a smaller font.
-     * 
-     * The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines DrawText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpchText A pointer to the string that specifies the text to be drawn. If the <i>nCount</i> parameter is -1, the string must be null-terminated.
      * 
@@ -15889,10 +12416,10 @@ class Gdi {
      * @param {Integer} cchText The length, in characters, of the string. If <i>nCount</i> is -1, then the <i>lpchText</i> parameter is assumed to be a pointer to a null-terminated string and <b>DrawText</b> computes the character count automatically.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.
      * @param {Integer} format 
-     * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lpRect-&gt;top</c> to the bottom of the drawn text
+     * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <code>lpRect-&gt;top</code> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtexta
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawtexta
      * @since windows5.0
      */
     static DrawTextA(hdc, lpchText, cchText, lprc, format) {
@@ -15903,20 +12430,7 @@ class Gdi {
     }
 
     /**
-     * The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth). (DrawTextW)
-     * @remarks
-     * The <b>DrawText</b> function uses the device context's selected font, text color, and background color to draw the text. Unless the DT_NOCLIP format is used, <b>DrawText</b> clips the text so that it does not appear outside the specified rectangle. Note that text with significant overhang may be clipped, for example, an initial "W" in the text string or text that is in italics. All formatting is assumed to have multiple lines unless the DT_SINGLELINE format is specified.
-     * 
-     * If the selected font is too large for the specified rectangle, the <b>DrawText</b> function does not attempt to substitute a smaller font.
-     * 
-     * The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines DrawText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawText function draws formatted text in the specified rectangle. It formats the text according to the specified method (expanding tabs, justifying characters, breaking lines, and so forth).
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpchText A pointer to the string that specifies the text to be drawn. If the <i>nCount</i> parameter is -1, the string must be null-terminated.
      * 
@@ -15924,10 +12438,10 @@ class Gdi {
      * @param {Integer} cchText The length, in characters, of the string. If <i>nCount</i> is -1, then the <i>lpchText</i> parameter is assumed to be a pointer to a null-terminated string and <b>DrawText</b> computes the character count automatically.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle (in logical coordinates) in which the text is to be formatted.
      * @param {Integer} format 
-     * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lpRect-&gt;top</c> to the bottom of the drawn text
+     * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <code>lpRect-&gt;top</code> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawtextw
      * @since windows5.0
      */
     static DrawTextW(hdc, lpchText, cchText, lprc, format) {
@@ -15938,18 +12452,7 @@ class Gdi {
     }
 
     /**
-     * The DrawTextEx function draws formatted text in the specified rectangle. (ANSI)
-     * @remarks
-     * The <b>DrawTextEx</b> function supports only fonts whose escapement and orientation are both zero.
-     * 
-     * The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines DrawTextEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawTextEx function draws formatted text in the specified rectangle.
      * @param {Pointer<Void>} hdc A handle to the device context in which to draw.
      * @param {Pointer<Byte>} lpchText A pointer to the string that contains the text to draw. If the <i>cchText</i> parameter is -1, the string must be null-terminated.
      * 
@@ -15958,10 +12461,10 @@ class Gdi {
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle, in logical coordinates, in which the text is to be formatted.
      * @param {Integer} format 
      * @param {Pointer<DRAWTEXTPARAMS>} lpdtp A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-drawtextparams">DRAWTEXTPARAMS</a> structure that specifies additional formatting options. This parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lprc-&gt;top</c> to the bottom of the drawn text
+     * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <code>lprc-&gt;top</code> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextexa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawtextexa
      * @since windows5.0
      */
     static DrawTextExA(hdc, lpchText, cchText, lprc, format, lpdtp) {
@@ -15972,18 +12475,7 @@ class Gdi {
     }
 
     /**
-     * The DrawTextEx function draws formatted text in the specified rectangle. (Unicode)
-     * @remarks
-     * The <b>DrawTextEx</b> function supports only fonts whose escapement and orientation are both zero.
-     * 
-     * The text alignment mode for the device context must include the TA_LEFT, TA_TOP, and TA_NOUPDATECP flags.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines DrawTextEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawTextEx function draws formatted text in the specified rectangle.
      * @param {Pointer<Void>} hdc A handle to the device context in which to draw.
      * @param {Pointer<Char>} lpchText A pointer to the string that contains the text to draw. If the <i>cchText</i> parameter is -1, the string must be null-terminated.
      * 
@@ -15992,10 +12484,10 @@ class Gdi {
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle, in logical coordinates, in which the text is to be formatted.
      * @param {Integer} format 
      * @param {Pointer<DRAWTEXTPARAMS>} lpdtp A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-drawtextparams">DRAWTEXTPARAMS</a> structure that specifies additional formatting options. This parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lprc-&gt;top</c> to the bottom of the drawn text
+     * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <code>lprc-&gt;top</code> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextexw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawtextexw
      * @since windows5.0
      */
     static DrawTextExW(hdc, lpchText, cchText, lprc, format, lpdtp) {
@@ -16006,16 +12498,7 @@ class Gdi {
     }
 
     /**
-     * The GrayString function draws gray text at the specified location. (ANSI)
-     * @remarks
-     * Without calling <b>GrayString</b>, an application can draw grayed strings on devices that support a solid gray color. The system color COLOR_GRAYTEXT is the solid-gray system color used to draw disabled text. The application can call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function to retrieve the color value of COLOR_GRAYTEXT. If the color is other than zero (black), the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcolor">SetTextColor</a> function to set the text color to the color value and then draw the string directly. If the retrieved color is black, the application must call <b>GrayString</b> to gray the text.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines GrayString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GrayString function draws gray text at the specified location.
      * @param {Pointer<Void>} hDC A handle to the device context.
      * @param {Pointer<Void>} hBrush A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
      * @param {Pointer<GRAYSTRINGPROC>} lpOutputFunc A pointer to the application-defined function that will draw the string, or, if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> is to be used to draw the string, it is a <b>NULL</b> pointer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-graystringproc">OutputProc</a> callback function.
@@ -16027,8 +12510,8 @@ class Gdi {
      * @param {Integer} nHeight The height, in device units, of the rectangle that encloses the string. If this parameter is zero, <b>GrayString</b> calculates the height of the area, assuming <i>lpData</i> is a pointer to the string.
      * @returns {Integer} If the string is drawn, the return value is nonzero.
      * 
-     * If either the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-graystringa
+     * If either the <a href="/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-graystringa
      * @since windows5.0
      */
     static GrayStringA(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
@@ -16037,16 +12520,7 @@ class Gdi {
     }
 
     /**
-     * The GrayString function draws gray text at the specified location. (Unicode)
-     * @remarks
-     * Without calling <b>GrayString</b>, an application can draw grayed strings on devices that support a solid gray color. The system color COLOR_GRAYTEXT is the solid-gray system color used to draw disabled text. The application can call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function to retrieve the color value of COLOR_GRAYTEXT. If the color is other than zero (black), the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcolor">SetTextColor</a> function to set the text color to the color value and then draw the string directly. If the retrieved color is black, the application must call <b>GrayString</b> to gray the text.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines GrayString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GrayString function draws gray text at the specified location.
      * @param {Pointer<Void>} hDC A handle to the device context.
      * @param {Pointer<Void>} hBrush A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
      * @param {Pointer<GRAYSTRINGPROC>} lpOutputFunc A pointer to the application-defined function that will draw the string, or, if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> is to be used to draw the string, it is a <b>NULL</b> pointer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-graystringproc">OutputProc</a> callback function.
@@ -16058,8 +12532,8 @@ class Gdi {
      * @param {Integer} nHeight The height, in device units, of the rectangle that encloses the string. If this parameter is zero, <b>GrayString</b> calculates the height of the area, assuming <i>lpData</i> is a pointer to the string.
      * @returns {Integer} If the string is drawn, the return value is nonzero.
      * 
-     * If either the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-graystringw
+     * If either the <a href="/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-graystringw
      * @since windows5.0
      */
     static GrayStringW(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
@@ -16068,10 +12542,7 @@ class Gdi {
     }
 
     /**
-     * The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines DrawState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state.
      * @param {Pointer<Void>} hdc A handle to the device context to draw in.
      * @param {Pointer<Void>} hbrFore A handle to the brush used to draw the image, if the state specified by the <i>fuFlags</i> parameter is DSS_MONO. This parameter is ignored for other states.
      * @param {Pointer<DRAWSTATEPROC>} qfnCallBack A pointer to an application-defined callback function used to render the image. This parameter is required if the image type in <i>fuFlags</i> is DST_COMPLEX. It is optional and can be <b>NULL</b> if the image type is DST_TEXT. For all other image types, this parameter is ignored. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-drawstateproc">DrawStateProc</a> function.
@@ -16225,7 +12696,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawstatea
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawstatea
      * @since windows5.0
      */
     static DrawStateA(hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy, uFlags) {
@@ -16234,10 +12705,7 @@ class Gdi {
     }
 
     /**
-     * The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines DrawState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The DrawState function displays an image and applies a visual effect to indicate a state, such as a disabled or default state.
      * @param {Pointer<Void>} hdc A handle to the device context to draw in.
      * @param {Pointer<Void>} hbrFore A handle to the brush used to draw the image, if the state specified by the <i>fuFlags</i> parameter is DSS_MONO. This parameter is ignored for other states.
      * @param {Pointer<DRAWSTATEPROC>} qfnCallBack A pointer to an application-defined callback function used to render the image. This parameter is required if the image type in <i>fuFlags</i> is DST_COMPLEX. It is optional and can be <b>NULL</b> if the image type is DST_TEXT. For all other image types, this parameter is ignored. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-drawstateproc">DrawStateProc</a> function.
@@ -16391,7 +12859,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawstatew
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawstatew
      * @since windows5.0
      */
     static DrawStateW(hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy, uFlags) {
@@ -16400,26 +12868,7 @@ class Gdi {
     }
 
     /**
-     * The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color. (ANSI)
-     * @remarks
-     * If the <i>nTabPositions</i> parameter is zero and the <i>lpnTabStopPositions</i> parameter is <b>NULL</b>, tabs are expanded to eight times the average character width.
-     * 
-     * If <i>nTabPositions</i> is 1, the tab stops are separated by the distance specified by the first value in the <i>lpnTabStopPositions</i> array.
-     * 
-     * If the <i>lpnTabStopPositions</i> array contains more than one value, a tab stop is set for each value in the array, up to the number specified by <i>nTabPositions</i>.
-     * 
-     * The <i>nTabOrigin</i> parameter allows an application to call the <b>TabbedTextOut</b> function several times for a single line. If the application calls <b>TabbedTextOut</b> more than once with the <i>nTabOrigin</i> set to the same value each time, the function expands all tabs relative to the position specified by <i>nTabOrigin</i>.
-     * 
-     * By default, the current position is not used or updated by the <b>TabbedTextOut</b> function. If an application needs to update the current position when it calls <b>TabbedTextOut</b>, the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>wFlags</i> parameter set to TA_UPDATECP. When this flag is set, the system ignores the <i>X</i> and <i>Y</i> parameters on subsequent calls to the <b>TabbedTextOut</b> function, using the current position instead.
-     * 
-     * <div class="alert"><b>Note</b>  For Windows Vista and later, <b>TabbedTextOut</b> ignores text alignment when it draws text. </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines TabbedTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate of the starting point of the string, in logical units.
      * @param {Integer} y The y-coordinate of the starting point of the string, in logical units.
@@ -16431,7 +12880,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tabbedtextouta
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-tabbedtextouta
      * @since windows5.0
      */
     static TabbedTextOutA(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
@@ -16442,26 +12891,7 @@ class Gdi {
     }
 
     /**
-     * The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color. (Unicode)
-     * @remarks
-     * If the <i>nTabPositions</i> parameter is zero and the <i>lpnTabStopPositions</i> parameter is <b>NULL</b>, tabs are expanded to eight times the average character width.
-     * 
-     * If <i>nTabPositions</i> is 1, the tab stops are separated by the distance specified by the first value in the <i>lpnTabStopPositions</i> array.
-     * 
-     * If the <i>lpnTabStopPositions</i> array contains more than one value, a tab stop is set for each value in the array, up to the number specified by <i>nTabPositions</i>.
-     * 
-     * The <i>nTabOrigin</i> parameter allows an application to call the <b>TabbedTextOut</b> function several times for a single line. If the application calls <b>TabbedTextOut</b> more than once with the <i>nTabOrigin</i> set to the same value each time, the function expands all tabs relative to the position specified by <i>nTabOrigin</i>.
-     * 
-     * By default, the current position is not used or updated by the <b>TabbedTextOut</b> function. If an application needs to update the current position when it calls <b>TabbedTextOut</b>, the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextalign">SetTextAlign</a> function with the <i>wFlags</i> parameter set to TA_UPDATECP. When this flag is set, the system ignores the <i>X</i> and <i>Y</i> parameters on subsequent calls to the <b>TabbedTextOut</b> function, using the current position instead.
-     * 
-     * <div class="alert"><b>Note</b>  For Windows Vista and later, <b>TabbedTextOut</b> ignores text alignment when it draws text. </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines TabbedTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The TabbedTextOut function writes a character string at a specified location, expanding tabs to the values specified in an array of tab-stop positions. Text is written in the currently selected font, background color, and text color.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Integer} x The x-coordinate of the starting point of the string, in logical units.
      * @param {Integer} y The y-coordinate of the starting point of the string, in logical units.
@@ -16473,7 +12903,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tabbedtextoutw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-tabbedtextoutw
      * @since windows5.0
      */
     static TabbedTextOutW(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
@@ -16484,22 +12914,7 @@ class Gdi {
     }
 
     /**
-     * The GetTabbedTextExtent function computes the width and height of a character string. (ANSI)
-     * @remarks
-     * The current clipping region does not affect the width and height returned by the <b>GetTabbedTextExtent</b> function.
-     * 
-     * Because some devices do not place characters in regular cell arrays (that is, they kern the characters), the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * If the <i>nTabPositions</i> parameter is zero and the <i>lpnTabStopPositions</i> parameter is <b>NULL</b>, tabs are expanded to eight times the average character width.
-     * 
-     * If <i>nTabPositions</i> is 1, the tab stops are separated by the distance specified by the first value in the array to which <i>lpnTabStopPositions</i> points.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines GetTabbedTextExtent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTabbedTextExtent function computes the width and height of a character string.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Byte>} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
@@ -16508,7 +12923,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettabbedtextextenta
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-gettabbedtextextenta
      * @since windows5.0
      */
     static GetTabbedTextExtentA(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
@@ -16519,22 +12934,7 @@ class Gdi {
     }
 
     /**
-     * The GetTabbedTextExtent function computes the width and height of a character string. (Unicode)
-     * @remarks
-     * The current clipping region does not affect the width and height returned by the <b>GetTabbedTextExtent</b> function.
-     * 
-     * Because some devices do not place characters in regular cell arrays (that is, they kern the characters), the sum of the extents of the characters in a string may not be equal to the extent of the string.
-     * 
-     * If the <i>nTabPositions</i> parameter is zero and the <i>lpnTabStopPositions</i> parameter is <b>NULL</b>, tabs are expanded to eight times the average character width.
-     * 
-     * If <i>nTabPositions</i> is 1, the tab stops are separated by the distance specified by the first value in the array to which <i>lpnTabStopPositions</i> points.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines GetTabbedTextExtent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetTabbedTextExtent function computes the width and height of a character string.
      * @param {Pointer<Void>} hdc A handle to the device context.
      * @param {Pointer<Char>} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
@@ -16543,7 +12943,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettabbedtextextentw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-gettabbedtextextentw
      * @since windows5.0
      */
     static GetTabbedTextExtentW(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
@@ -16559,7 +12959,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-updatewindow
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-updatewindow
      * @since windows5.0
      */
     static UpdateWindow(hWnd) {
@@ -16573,7 +12973,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-paintdesktop
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-paintdesktop
      * @since windows5.0
      */
     static PaintDesktop(hdc) {
@@ -16585,7 +12985,7 @@ class Gdi {
      * The WindowFromDC function returns a handle to the window associated with the specified display device context (DC). Output functions that use the specified device context draw into this window.
      * @param {Pointer<Void>} hDC Handle to the device context from which a handle to the associated window is to be retrieved.
      * @returns {Pointer<Void>} The return value is a handle to the window associated with the specified DC. If no window is associated with the specified DC, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-windowfromdc
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-windowfromdc
      * @since windows5.0
      */
     static WindowFromDC(hDC) {
@@ -16595,17 +12995,11 @@ class Gdi {
 
     /**
      * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
-     * @remarks
-     * The <b>GetDC</b> function retrieves a common, class, or private DC depending on the class style of the specified window. For class and private DCs, <b>GetDC</b> leaves the previously assigned attributes unchanged. However, for common DCs, <b>GetDC</b> assigns default attributes to the DC each time it is retrieved. For example, the default font is System, which is a bitmap font. Because of this, the handle to a common DC returned by <b>GetDC</b> does not tell you what font, color, or brush was used when the window was drawn. To determine the font, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextfacea">GetTextFace</a>.
-     * 
-     * Note that the handle to the DC can only be used by a single thread at any one time.
-     * 
-     * After painting with a common DC, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the DC. Class and private DCs do not have to be released. <b>ReleaseDC</b> must be called from the same thread that called <b>GetDC</b>. The number of DCs is limited only by available memory.
      * @param {Pointer<Void>} hWnd A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDC</b> retrieves the DC for the entire screen.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
      * @since windows5.0
      */
     static GetDC(hWnd) {
@@ -16615,17 +13009,13 @@ class Gdi {
 
     /**
      * The GetDCEx function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
-     * @remarks
-     * Unless the display DC belongs to a window class, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the DC after painting. Also, <b>ReleaseDC</b> must be called from the same thread that called <b>GetDCEx</b>. The number of DCs is limited only by available memory.
-     * 
-     * The function returns a handle to a DC that belongs to the window's class if CS_CLASSDC, CS_OWNDC or CS_PARENTDC was specified as a style in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure when the class was registered.
      * @param {Pointer<Void>} hWnd A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDCEx</b> retrieves the DC for the entire screen.
      * @param {Pointer<Void>} hrgnClip A clipping region that may be combined with the visible region of the DC. If the value of <i>flags</i> is DCX_INTERSECTRGN or DCX_EXCLUDERGN, then the operating system assumes ownership of the region and will automatically delete it when it is no longer needed. In this case, the application should not use or delete the region after a successful call to <b>GetDCEx</b>.
      * @param {Integer} flags 
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the DC for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>. An invalid value for the <i>hWnd</i> parameter will cause the function to fail.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdcex
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdcex
      * @since windows5.0
      */
     static GetDCEx(hWnd, hrgnClip, flags) {
@@ -16635,21 +13025,13 @@ class Gdi {
 
     /**
      * The GetWindowDC function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars.
-     * @remarks
-     * <b>GetWindowDC</b> is intended for special painting effects within a window's nonclient area. Painting in nonclient areas of any window is not recommended.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> function can be used to retrieve the dimensions of various parts of the nonclient area, such as the title bar, menu, and scroll bars.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function can be used to retrieve a device context for the entire screen.
-     * 
-     * After painting is complete, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the device context. Not releasing the window device context has serious effects on painting requested by applications.
      * @param {Pointer<Void>} hWnd A handle to the window with a device context that is to be retrieved. If this value is <b>NULL</b>, <b>GetWindowDC</b> retrieves the device context for the entire screen.
      * 
      * If this parameter is <b>NULL</b>, <b>GetWindowDC</b> retrieves the device context for the primary display monitor. To get the device context for other display monitors, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> functions.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a device context for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>, indicating an error or an invalid <i>hWnd</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdc
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindowdc
      * @since windows5.0
      */
     static GetWindowDC(hWnd) {
@@ -16659,16 +13041,12 @@ class Gdi {
 
     /**
      * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
-     * @remarks
-     * The application must call the <b>ReleaseDC</b> function for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowdc">GetWindowDC</a> function and for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function that retrieves a common DC.
-     * 
-     * An application cannot use the <b>ReleaseDC</b> function to release a DC that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> function; instead, it must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function. <b>ReleaseDC</b> must be called from the same thread that called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>.
      * @param {Pointer<Void>} hWnd A handle to the window whose DC is to be released.
      * @param {Pointer<Void>} hDC A handle to the DC to be released.
      * @returns {Integer} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
      * 
      * If the DC was not released, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-releasedc
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
      * @since windows5.0
      */
     static ReleaseDC(hWnd, hDC) {
@@ -16678,23 +13056,12 @@ class Gdi {
 
     /**
      * The BeginPaint function prepares the specified window for painting and fills a PAINTSTRUCT structure with information about the painting.
-     * @remarks
-     * The <b>BeginPaint</b> function automatically sets the clipping region of the device context to exclude any area outside the update region. The update region is set by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidaterect">InvalidateRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidatergn">InvalidateRgn</a> function and by the system after sizing, moving, creating, scrolling, or any other operation that affects the client area. If the update region is marked for erasing, <b>BeginPaint</b> sends a <b>WM_ERASEBKGND</b> message to the window.
-     * 
-     * An application should not call <b>BeginPaint</b> except in response to a <b>WM_PAINT</b> message. Each call to <b>BeginPaint</b> must have a corresponding call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-endpaint">EndPaint</a> function.
-     * 
-     * If the caret is in the area to be painted, <b>BeginPaint</b> automatically hides the caret to prevent it from being erased.
-     * 
-     * If the window's class has a background brush, <b>BeginPaint</b> uses that brush to erase the background of the update region before returning.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output returned is always in terms of physical pixels.
      * @param {Pointer<Void>} hWnd Handle to the window to be repainted.
      * @param {Pointer<PAINTSTRUCT>} lpPaint Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure that will receive painting information.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to a display device context for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>, indicating that no display device context is available.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-beginpaint
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-beginpaint
      * @since windows5.0
      */
     static BeginPaint(hWnd, lpPaint) {
@@ -16704,14 +13071,10 @@ class Gdi {
 
     /**
      * The EndPaint function marks the end of painting in the specified window. This function is required for each call to the BeginPaint function, but only after painting is complete.
-     * @remarks
-     * If the caret was hidden by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>, <b>EndPaint</b> restores the caret to the screen.
-     * 
-     * <b>EndPaint</b> releases the display device context that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> retrieved.
      * @param {Pointer<Void>} hWnd Handle to the window that has been repainted.
      * @param {Pointer<PAINTSTRUCT>} lpPaint Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure that contains the painting information retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>.
      * @returns {Integer} The return value is always nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-endpaint
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-endpaint
      * @since windows5.0
      */
     static EndPaint(hWnd, lpPaint) {
@@ -16721,11 +13084,6 @@ class Gdi {
 
     /**
      * The GetUpdateRect function retrieves the coordinates of the smallest rectangle that completely encloses the update region of the specified window.
-     * @remarks
-     * The update rectangle retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function is identical to that retrieved by <b>GetUpdateRect</b>.
-     * 
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> automatically validates the update region, so any call to <b>GetUpdateRect</b> made immediately after the call to <b>BeginPaint</b> retrieves an empty update region.
      * @param {Pointer<Void>} hWnd Handle to the window whose update region is to be retrieved.
      * @param {Pointer<RECT>} lpRect Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the coordinates, in device units, of the enclosing rectangle.
      * 
@@ -16734,7 +13092,7 @@ class Gdi {
      * @returns {Integer} If the update region is not empty, the return value is nonzero.
      * 
      * If there is no update region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getupdaterect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getupdaterect
      * @since windows5.0
      */
     static GetUpdateRect(hWnd, lpRect, bErase) {
@@ -16744,8 +13102,6 @@ class Gdi {
 
     /**
      * The GetUpdateRgn function retrieves the update region of a window by copying it into the specified region. The coordinates of the update region are relative to the upper-left corner of the window (that is, they are client coordinates).
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the update region, so any call to <b>GetUpdateRgn</b> made immediately after the call to <b>BeginPaint</b> retrieves an empty update region.
      * @param {Pointer<Void>} hWnd Handle to the window with an update region that is to be retrieved.
      * @param {Pointer<Void>} hRgn Handle to the region to receive the update region.
      * @param {Integer} bErase Specifies whether the window background should be erased and whether nonclient areas of child windows should be drawn. If this parameter is <b>FALSE</b>, no drawing is done.
@@ -16773,7 +13129,7 @@ class Gdi {
      * <td>Region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getupdatergn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getupdatergn
      * @since windows5.0
      */
     static GetUpdateRgn(hWnd, hRgn, bErase) {
@@ -16783,16 +13139,6 @@ class Gdi {
 
     /**
      * The SetWindowRgn function sets the window region of a window.
-     * @remarks
-     * When this function is called, the system sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanging">WM_WINDOWPOSCHANGING</a> and <b>WM_WINDOWPOSCHANGING</b> messages to the window.
-     * 
-     * The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.
-     * 
-     * <div class="alert"><b>Note</b>  If the window layout is right-to-left (RTL), the coordinates are relative to the upper-right corner of the window. See <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Layout and Mirroring</a>.</div>
-     * <div> </div>
-     * After a successful call to <b>SetWindowRgn</b>, the system owns the region specified by the region handle <i>hRgn</i>. The system does not make a copy of the region. Thus, you should not make any further function calls with this region handle. In particular, do not delete this region handle. The system deletes the region handle when it no longer needed.
-     * 
-     * To obtain the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowrgn">GetWindowRgn</a> function.
      * @param {Pointer<Void>} hWnd A handle to the window whose window region is to be set.
      * @param {Pointer<Void>} hRgn A handle to a region. The function sets the window region of the window to this region.
      * 
@@ -16803,7 +13149,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowrgn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setwindowrgn
      * @since windows5.0
      */
     static SetWindowRgn(hWnd, hRgn, bRedraw) {
@@ -16813,10 +13159,6 @@ class Gdi {
 
     /**
      * The GetWindowRgn function obtains a copy of the window region of a window.
-     * @remarks
-     * The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.
-     * 
-     * To set the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowrgn">SetWindowRgn</a> function.
      * @param {Pointer<Void>} hWnd Handle to the window whose window region is to be obtained.
      * @param {Pointer<Void>} hRgn Handle to the region which will be modified to represent the window region.
      * @returns {Integer} The return value specifies the type of the region that the function obtains. It can be one of the following values.
@@ -16871,7 +13213,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrgn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindowrgn
      * @since windows5.0
      */
     static GetWindowRgn(hWnd, hRgn) {
@@ -16881,10 +13223,6 @@ class Gdi {
 
     /**
      * The GetWindowRgnBox function retrieves the dimensions of the tightest bounding rectangle for the window region of a window.
-     * @remarks
-     * The window region determines the area within the window where the system permits drawing. The system does not display any portion of a window that lies outside of the window region. The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.
-     * 
-     * To set the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowrgn">SetWindowRgn</a> function.
      * @param {Pointer<Void>} hWnd Handle to the window.
      * @param {Pointer<RECT>} lprc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the rectangle dimensions, in device units relative to the upper-left corner of the window.
      * @returns {Integer} The return value specifies the type of the region that the function obtains. It can be one of the following values.
@@ -16911,7 +13249,7 @@ class Gdi {
      * <td>The region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrgnbox
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindowrgnbox
      * @since windows5.0
      */
     static GetWindowRgnBox(hWnd, lprc) {
@@ -16947,7 +13285,7 @@ class Gdi {
      * <td>Region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-excludeupdatergn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-excludeupdatergn
      * @since windows5.0
      */
     static ExcludeUpdateRgn(hDC, hWnd) {
@@ -16957,19 +13295,13 @@ class Gdi {
 
     /**
      * The InvalidateRect function adds a rectangle to the specified window's update region. The update region represents the portion of the window's client area that must be redrawn.
-     * @remarks
-     * The invalidated areas accumulate in the update region until the region is processed when the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message occurs or until the region is validated by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function.
-     * 
-     * The system sends a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.
-     * 
-     * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background is erased in the entire region, not just in the specified part.
      * @param {Pointer<Void>} hWnd A handle to the window whose update region has changed. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows, not just the windows for this application, and sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> and <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-ncpaint">WM_NCPAINT</a> messages before the function returns. Setting this parameter to <b>NULL</b> is not recommended.
      * @param {Pointer<RECT>} lpRect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the client coordinates of the rectangle to be added to the update region. If this parameter is <b>NULL</b>, the entire client area is added to the update region.
      * @param {Integer} bErase Specifies whether the background within the update region is to be erased when the update region is processed. If this parameter is <b>TRUE</b>, the background is erased when the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function is called. If this parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invalidaterect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-invalidaterect
      * @since windows5.0
      */
     static InvalidateRect(hWnd, lpRect, bErase) {
@@ -16979,16 +13311,12 @@ class Gdi {
 
     /**
      * The ValidateRect function validates the client area within a rectangle by removing the rectangle from the update region of the specified window.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the entire client area. Neither the <b>ValidateRect</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function should be called if a portion of the update region must be validated before the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message is generated.
-     * 
-     * The system continues to generate <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> messages until the current update region is validated.
      * @param {Pointer<Void>} hWnd Handle to the window whose update region is to be modified. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows and sends the <b>WM_ERASEBKGND</b> and <b>WM_NCPAINT</b> messages to the window procedure before the function returns.
      * @param {Pointer<RECT>} lpRect Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the client coordinates of the rectangle to be removed from the update region. If this parameter is <b>NULL</b>, the entire client area is removed.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-validaterect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-validaterect
      * @since windows5.0
      */
     static ValidateRect(hWnd, lpRect) {
@@ -16998,19 +13326,11 @@ class Gdi {
 
     /**
      * The InvalidateRgn function invalidates the client area within the specified region by adding it to the current update region of a window.
-     * @remarks
-     * Invalidated areas accumulate in the update region until the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message is processed or until the region is validated by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function.
-     * 
-     * The system sends a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.
-     * 
-     * The specified region must have been created by using one of the region functions.
-     * 
-     * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background in the entire region is erased, not just in the specified part.
      * @param {Pointer<Void>} hWnd A handle to the window with an update region that is to be modified.
      * @param {Pointer<Void>} hRgn A handle to the region to be added to the update region. The region is assumed to have client coordinates. If this parameter is <b>NULL</b>, the entire client area is added to the update region.
      * @param {Integer} bErase Specifies whether the background within the update region should be erased when the update region is processed. If this parameter is <b>TRUE</b>, the background is erased when the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function is called. If the parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {Integer} The return value is always nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invalidatergn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-invalidatergn
      * @since windows5.0
      */
     static InvalidateRgn(hWnd, hRgn, bErase) {
@@ -17020,16 +13340,12 @@ class Gdi {
 
     /**
      * The ValidateRgn function validates the client area within a region by removing the region from the current update region of the specified window.
-     * @remarks
-     * The specified region must have been created by a region function. The region coordinates are assumed to be client coordinates.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the entire client area. Neither the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> nor <b>ValidateRgn</b> function should be called if a portion of the update region must be validated before the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message is generated.
      * @param {Pointer<Void>} hWnd Handle to the window whose update region is to be modified.
      * @param {Pointer<Void>} hRgn Handle to a region that defines the area to be removed from the update region. If this parameter is <b>NULL</b>, the entire client area is removed.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-validatergn
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-validatergn
      * @since windows5.0
      */
     static ValidateRgn(hWnd, hRgn) {
@@ -17039,8 +13355,6 @@ class Gdi {
 
     /**
      * The RedrawWindow function updates the specified rectangle or region in a window's client area.
-     * @remarks
-     * When <b>RedrawWindow</b> is used to invalidate part of the desktop window, the desktop window does not receive a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message. To repaint the desktop, an application uses the RDW_ERASE flag to generate a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> message.
      * @param {Pointer<Void>} hWnd A handle to the window to be redrawn. If this parameter is <b>NULL</b>, the desktop window is updated.
      * @param {Pointer<RECT>} lprcUpdate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates, in device units, of the update rectangle. This parameter is ignored if the <i>hrgnUpdate</i> parameter identifies a region.
      * @param {Pointer<Void>} hrgnUpdate A handle to the update region. If both the <i>hrgnUpdate</i> and <i>lprcUpdate</i> parameters are <b>NULL</b>, the entire client area is added to the update region.
@@ -17207,7 +13521,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-redrawwindow
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-redrawwindow
      * @since windows5.0
      */
     static RedrawWindow(hWnd, lprcUpdate, hrgnUpdate, flags) {
@@ -17217,21 +13531,11 @@ class Gdi {
 
     /**
      * The LockWindowUpdate function disables or enables drawing in the specified window. Only one window can be locked at a time.
-     * @remarks
-     * The purpose of the <b>LockWindowUpdate</b> function is to permit drag/drop feedback to be drawn over a window without interference from the window itself. The intent is that the window is locked when feedback is drawn and unlocked when feedback is complete. <b>LockWindowUpdate</b> is not intended for general-purpose suppression of window redraw. Use the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-setredraw">WM_SETREDRAW</a> message to disable redrawing of a particular window.
-     * 
-     * If an application with a locked window (or any locked child windows) calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdcex">GetDCEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function, the called function returns a device context with a visible region that is empty. This will occur until the application unlocks the window by calling <b>LockWindowUpdate</b>, specifying a value of <b>NULL</b> for <i>hWndLock</i>.
-     * 
-     * If an application attempts to draw within a locked window, the system records the extent of the attempted operation in a bounding rectangle. When the window is unlocked, the system invalidates the area within this bounding rectangle, forcing an eventual <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to be sent to the previously locked window and its child windows. If no drawing has occurred while the window updates were locked, no area is invalidated.
-     * 
-     * <b>LockWindowUpdate</b> does not make the specified window invisible and does not clear the WS_VISIBLE style bit.
-     * 
-     * A locked window cannot be moved.
      * @param {Pointer<Void>} hWndLock The window in which drawing will be disabled. If this parameter is <b>NULL</b>, drawing in the locked window is enabled.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero, indicating that an error occurred or another window was already locked.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-lockwindowupdate
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-lockwindowupdate
      * @since windows5.0
      */
     static LockWindowUpdate(hWndLock) {
@@ -17241,16 +13545,12 @@ class Gdi {
 
     /**
      * The ClientToScreen function converts the client-area coordinates of a specified point to screen coordinates.
-     * @remarks
-     * The <b>ClientToScreen</b> function replaces the client-area coordinates in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure with the screen coordinates. The screen coordinates are relative to the upper-left corner of the screen. Note, a screen-coordinate point that is above the window's client area has a negative y-coordinate. Similarly, a screen coordinate to the left of a client area has a negative x-coordinate.
-     * 
-     * All coordinates are device coordinates.
      * @param {Pointer<Void>} hWnd A handle to the window whose client area is used for the conversion.
-     * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the client coordinates to be converted. The new screen coordinates are copied into this structure if the function succeeds.
+     * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the client coordinates to be converted. The new screen coordinates are copied into this structure if the function succeeds.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-clienttoscreen
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-clienttoscreen
      * @since windows5.0
      */
     static ClientToScreen(hWnd, lpPoint) {
@@ -17260,20 +13560,12 @@ class Gdi {
 
     /**
      * The ScreenToClient function converts the screen coordinates of a specified point on the screen to client-area coordinates.
-     * @remarks
-     * The function uses the window identified by the <i>hWnd</i> parameter and the screen coordinates given in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure to compute client coordinates. It then replaces the screen coordinates with the client coordinates. The new coordinates are relative to the upper-left corner of the specified window's client area.
-     * 
-     * The <b>ScreenToClient</b> function assumes the specified point is in screen coordinates.
-     * 
-     * All coordinates are in device units.
-     * 
-     * Do not use <b>ScreenToClient</b> when in a mirroring situation, that is, when changing from left-to-right layout to right-to-left layout. Instead, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapwindowpoints">MapWindowPoints</a>. For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
      * @param {Pointer<Void>} hWnd A handle to the window whose client area will be used for the conversion.
-     * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the screen coordinates to be converted.
+     * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the screen coordinates to be converted.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-screentoclient
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-screentoclient
      * @since windows5.0
      */
     static ScreenToClient(hWnd, lpPoint) {
@@ -17283,41 +13575,14 @@ class Gdi {
 
     /**
      * The MapWindowPoints function converts (maps) a set of points from a coordinate space relative to one window to a coordinate space relative to another window.
-     * @remarks
-     * If <i>hWndFrom</i> or <i>hWndTo</i> (or both) are mirrored windows (that is, have <b>WS_EX_LAYOUTRTL</b> extended style) and precisely two points are passed in <i>lpPoints</i>, <b>MapWindowPoints</b> will interpret those two points as a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> and possibly automatically swap the left and right fields of that rectangle to ensure that left is not greater than right. If any number of points other than 2 is passed in <i>lpPoints</i>, then <b>MapWindowPoints</b> will correctly map the coordinates of each of those points separately, so if you pass in a pointer to an array of more than one rectangle in <i>lpPoints</i>, the new rectangles may get their left field greater than right. Thus, to guarantee the correct transformation of rectangle coordinates, you must call <b>MapWindowPoints</b> with one <b>RECT</b> pointer at a time, as shown in the following example:
-     * 
-     * 
-     * ```cpp
-     * 
-     *    RECT        rc[10];
-     * 
-     *    for(int i = 0; i < (sizeof(rc)/sizeof(rc[0])); i++)
-     *    {
-     *        MapWindowPoints(hWnd1, hWnd2, (LPPOINT)(&rc[i]), (sizeof(RECT)/sizeof(POINT)) );
-     *    }
-     * 
-     * ```
-     * 
-     * 
-     * Also, if you need to map precisely two independent points and don't want the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> logic applied to them by <b>MapWindowPoints</b>, to guarantee the correct result you must call <b>MapWindowPoints</b> with one <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> pointer at a time, as shown in the following example:
-     * 
-     * 
-     * ```cpp
-     * 
-     *    POINT pt[2];
-     * 
-     *    MapWindowPoints(hWnd1, hWnd2, &pt[0], 1);
-     *    MapWindowPoints(hWnd1, hWnd2, &pt[1], 1);
-     * 
-     * ```
      * @param {Pointer<Void>} hWndFrom A handle to the window from which points are converted. If this parameter is <b>NULL</b> or HWND_DESKTOP, the points are presumed to be in screen coordinates.
      * @param {Pointer<Void>} hWndTo A handle to the window to which points are converted. If this parameter is <b>NULL</b> or HWND_DESKTOP, the points are converted to screen coordinates.
-     * @param {Pointer<POINT>} lpPoints A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contain the set of points to be converted. The points are in device units. This parameter can also point to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, in which case the <i>cPoints</i> parameter should be set to 2.
-     * @param {Integer} cPoints The number of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures in the array pointed to by the <i>lpPoints</i> parameter.
+     * @param {Pointer<POINT>} lpPoints A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contain the set of points to be converted. The points are in device units. This parameter can also point to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, in which case the <i>cPoints</i> parameter should be set to 2.
+     * @param {Integer} cPoints The number of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures in the array pointed to by the <i>lpPoints</i> parameter.
      * @returns {Integer} If the function succeeds, the low-order word of the return value is the number of pixels added to the horizontal coordinate of each source point in order to compute the horizontal coordinate of each destination point. (In addition to that, if precisely one of <i>hWndFrom</i> and <i>hWndTo</i> is mirrored, then each resulting horizontal coordinate is multiplied by -1.) The high-order word is the number of pixels added to the vertical coordinate of each source point in order to compute the vertical coordinate of each destination point.
      * 
-     * If the function fails, the return value is zero. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> prior to calling this method to differentiate an error return value from a legitimate "0" return value.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapwindowpoints
+     * If the function fails, the return value is zero. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> prior to calling this method to differentiate an error return value from a legitimate "0" return value.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-mapwindowpoints
      * @since windows5.0
      */
     static MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints) {
@@ -17327,21 +13592,15 @@ class Gdi {
 
     /**
      * Retrieves the current color of the specified display element.
-     * @remarks
-     * To display the component of the RGB  value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getrvalue">GetRValue</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getgvalue">GetGValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbvalue">GetBValue</a> macros.
-     * 
-     * System colors for monochrome displays are usually interpreted as shades of gray.
-     * 
-     * To paint with a system color brush, an application should use <c>GetSysColorBrush(nIndex)</code>, instead of <code>CreateSolidBrush(GetSysColor(nIndex))</c>, because <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> returns a cached brush, instead of allocating a new one.
-     * 
-     * Color is an important visual element of most user interfaces. For guidelines about using color in your applications, see <a href="https://docs.microsoft.com/windows/win32/uxguide/vis-color">Color - Win32</a> and <a href="https://docs.microsoft.com/windows/apps/design/signature-experiences/color">Color in Windows 11</a>.
      * @param {Integer} nIndex Type: <b>int</b>
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * The function returns the red, green, blue (RGB) color value of the given element.
      * 
-     * If the <i>nIndex</i> parameter is out of range, the return value is zero. Because zero is also a valid RGB value, you cannot use <b>GetSysColor</b> to determine whether a system color is supported by the current platform. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> function, which returns <b>NULL</b> if the color is not supported.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsyscolor
+     * If the <i>nIndex</i> parameter is out of range, the return value is zero. Because zero is also a valid RGB value, you cannot use 
+     * <b>GetSysColor</b> to determine whether a system color is supported by the current platform. Instead, use the 
+     * <a href="/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> function, which returns <b>NULL</b> if the color is not supported.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getsyscolor
      * @since windows5.0
      */
     static GetSysColor(nIndex) {
@@ -17351,19 +13610,9 @@ class Gdi {
 
     /**
      * The GetSysColorBrush function retrieves a handle identifying a logical brush that corresponds to the specified color index.
-     * @remarks
-     * A brush is a bitmap that the system uses to paint the interiors of filled shapes. An application can retrieve the current system colors by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> function. An application can set the current system colors by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setsyscolors">SetSysColors</a> function.
-     * 
-     * An application must not register a window class for a window using a system brush. To register a window class with a system color, see the documentation of the <b>hbrBackground</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structures.
-     * 
-     * System color brushes track changes in system colors. In other words, when the user changes a system color, the associated system color brush automatically changes to the new color.
-     * 
-     * To paint with a system color brush, an application should use <b>GetSysColorBrush</b> (nIndex) instead of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createsolidbrush">CreateSolidBrush</a> ( <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> (nIndex)), because <b>GetSysColorBrush</b> returns a cached brush instead of allocating a new one.
-     * 
-     * System color brushes are owned by the system so you don't need to destroy them. Although you don't need to delete the logical brush that <b>GetSysColorBrush</b> returns, no harm occurs by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
      * @param {Integer} nIndex A color index. This value corresponds to the color used to paint one of the window elements. See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> for system color index values.
      * @returns {Pointer<Void>} The return value identifies a logical brush if the <i>nIndex</i> parameter is supported by the current platform. Otherwise, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsyscolorbrush
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getsyscolorbrush
      * @since windows5.0
      */
     static GetSysColorBrush(nIndex) {
@@ -17373,13 +13622,6 @@ class Gdi {
 
     /**
      * Sets the colors for the specified display elements.
-     * @remarks
-     * The 
-     * <b>SetSysColors</b> function sends a 
-     * <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-syscolorchange">WM_SYSCOLORCHANGE</a> message to all windows to inform them of the change in color. It also directs the system to repaint the affected portions of all currently visible windows.
-     * 
-     * It is best to respect the color settings specified by the user. If you are writing an application to enable the user to change the colors, then it is appropriate to use this function. However, this 
-     * function affects only the current session. The new colors are not saved when the system terminates.
      * @param {Integer} cElements Type: <b>int</b>
      * 
      * The number of display elements in the <i>lpaElements</i> array.
@@ -17400,8 +13642,8 @@ class Gdi {
      * If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setsyscolors
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setsyscolors
      * @since windows5.0
      */
     static SetSysColors(cElements, lpaElements, lpaRgbValues) {
@@ -17416,20 +13658,12 @@ class Gdi {
 
     /**
      * The DrawFocusRect function draws a rectangle in the style used to indicate that the rectangle has the focus.
-     * @remarks
-     * <b>DrawFocusRect</b> works only in MM_TEXT mode.
-     * 
-     * Because <b>DrawFocusRect</b> is an XOR function, calling it a second time with the same rectangle removes the rectangle from the screen.
-     * 
-     * This function draws a rectangle that cannot be scrolled. To scroll an area containing a rectangle drawn by this function, call <b>DrawFocusRect</b> to remove the rectangle from the screen, scroll the area, and then call <b>DrawFocusRect</b> again to draw the rectangle in the new position.
-     * 
-     * <b>Windows XP:</b> The focus rectangle can now be thicker than 1 pixel, so it is more visible for high-resolution, high-density displays and accessibility needs. This is handled by the SPI_SETFOCUSBORDERWIDTH and SPI_SETFOCUSBORDERHEIGHT in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a>.
      * @param {Pointer<Void>} hDC A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the logical coordinates of the rectangle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawfocusrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-drawfocusrect
      * @since windows5.0
      */
     static DrawFocusRect(hDC, lprc) {
@@ -17439,27 +13673,13 @@ class Gdi {
 
     /**
      * The FillRect function fills a rectangle by using the specified brush. This function includes the left and top borders, but excludes the right and bottom borders of the rectangle.
-     * @remarks
-     * The brush identified by the <i>hbr</i> parameter may be either a handle to a logical brush or a color value. If specifying a handle to a logical brush, call one of the following functions to obtain the handle: <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createhatchbrush">CreateHatchBrush</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpatternbrush">CreatePatternBrush</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createsolidbrush">CreateSolidBrush</a>. Additionally, you may retrieve a handle to one of the stock brushes by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function. If specifying a color value for the <i>hbr</i> parameter, it must be one of the standard system colors (the value 1 must be added to the chosen color). For example:
-     * 
-     * 
-     * ```cpp
-     * 
-     * FillRect(hdc, &rect, (HBRUSH) (COLOR_WINDOW+1));
-     * 
-     * ```
-     * 
-     * 
-     * For a list of all the standard system colors, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a>.
-     * 
-     * When filling the specified rectangle, <b>FillRect</b> does not include the rectangle's right and bottom sides. GDI fills a rectangle up to, but not including, the right column and bottom row, regardless of the current mapping mode.
      * @param {Pointer<Void>} hDC A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle to be filled.
      * @param {Pointer<Void>} hbr A handle to the brush used to fill the rectangle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-fillrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-fillrect
      * @since windows5.0
      */
     static FillRect(hDC, lprc, hbr) {
@@ -17469,17 +13689,13 @@ class Gdi {
 
     /**
      * The FrameRect function draws a border around the specified rectangle by using the specified brush. The width and height of the border are always one logical unit.
-     * @remarks
-     * The brush identified by the <i>hbr</i> parameter must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createhatchbrush">CreateHatchBrush</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpatternbrush">CreatePatternBrush</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createsolidbrush">CreateSolidBrush</a> function, or retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function.
-     * 
-     * If the <b>bottom</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure is less than the <b>top</b> member, or if the <b>right</b> member is less than the <b>left</b> member, the function does not draw the rectangle.
      * @param {Pointer<Void>} hDC A handle to the device context in which the border is drawn.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the upper-left and lower-right corners of the rectangle.
      * @param {Pointer<Void>} hbr A handle to the brush used to draw the border.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-framerect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-framerect
      * @since windows5.0
      */
     static FrameRect(hDC, lprc, hbr) {
@@ -17489,14 +13705,12 @@ class Gdi {
 
     /**
      * The InvertRect function inverts a rectangle in a window by performing a logical NOT operation on the color values for each pixel in the rectangle's interior.
-     * @remarks
-     * On monochrome screens, <b>InvertRect</b> makes white pixels black and black pixels white. On color screens, the inversion depends on how colors are generated for the screen. Calling <b>InvertRect</b> twice for the same rectangle restores the display to its previous colors.
      * @param {Pointer<Void>} hDC A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle to be inverted.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invertrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-invertrect
      * @since windows5.0
      */
     static InvertRect(hDC, lprc) {
@@ -17506,8 +13720,6 @@ class Gdi {
 
     /**
      * The SetRect function sets the coordinates of the specified rectangle. This is equivalent to assigning the left, top, right, and bottom arguments to the appropriate members of the RECT structure.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle to be set.
      * @param {Integer} xLeft Specifies the x-coordinate of the rectangle's upper-left corner.
      * @param {Integer} yTop Specifies the y-coordinate of the rectangle's upper-left corner.
@@ -17516,7 +13728,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setrect
      * @since windows5.0
      */
     static SetRect(lprc, xLeft, yTop, xRight, yBottom) {
@@ -17526,13 +13738,11 @@ class Gdi {
 
     /**
      * The SetRectEmpty function creates an empty rectangle in which all coordinates are set to zero.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the rectangle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setrectempty
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setrectempty
      * @since windows5.0
      */
     static SetRectEmpty(lprc) {
@@ -17542,14 +13752,12 @@ class Gdi {
 
     /**
      * The CopyRect function copies the coordinates of one rectangle to another.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprcDst Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the logical coordinates of the source rectangle.
      * @param {Pointer<RECT>} lprcSrc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure whose coordinates are to be copied in logical units.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-copyrect
      * @since windows5.0
      */
     static CopyRect(lprcDst, lprcSrc) {
@@ -17559,15 +13767,13 @@ class Gdi {
 
     /**
      * The InflateRect function increases or decreases the width and height of the specified rectangle.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that increases or decreases in size.
      * @param {Integer} dx The amount to increase or decrease the rectangle width. This parameter must be negative to decrease the width.
      * @param {Integer} dy The amount to increase or decrease the rectangle height. This parameter must be negative to decrease the height.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-inflaterect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-inflaterect
      * @since windows5.0
      */
     static InflateRect(lprc, dx, dy) {
@@ -17577,15 +13783,13 @@ class Gdi {
 
     /**
      * The IntersectRect function calculates the intersection of two source rectangles and places the coordinates of the intersection rectangle into the destination rectangle.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprcDst A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that is to receive the intersection of the rectangles pointed to by the <i>lprcSrc1</i> and <i>lprcSrc2</i> parameters. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<RECT>} lprcSrc1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the first source rectangle.
      * @param {Pointer<RECT>} lprcSrc2 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the second source rectangle.
      * @returns {Integer} If the rectangles intersect, the return value is nonzero.
      * 
      * If the rectangles do not intersect, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-intersectrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-intersectrect
      * @since windows5.0
      */
     static IntersectRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -17595,17 +13799,13 @@ class Gdi {
 
     /**
      * The UnionRect function creates the union of two rectangles. The union is the smallest rectangle that contains both source rectangles.
-     * @remarks
-     * The system ignores the dimensions of an empty rectangle that is, a rectangle in which all coordinates are set to zero, so that it has no height or no width.
-     * 
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprcDst A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that will receive a rectangle containing the rectangles pointed to by the <i>lprcSrc1</i> and <i>lprcSrc2</i> parameters.
      * @param {Pointer<RECT>} lprcSrc1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the first source rectangle.
      * @param {Pointer<RECT>} lprcSrc2 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the second source rectangle.
      * @returns {Integer} If the specified structure contains a nonempty rectangle, the return value is nonzero.
      * 
      * If the specified structure does not contain a nonempty rectangle, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unionrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unionrect
      * @since windows5.0
      */
     static UnionRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -17615,17 +13815,13 @@ class Gdi {
 
     /**
      * The SubtractRect function determines the coordinates of a rectangle formed by subtracting one rectangle from another.
-     * @remarks
-     * The function only subtracts the rectangle specified by <i>lprcSrc2</i> from the rectangle specified by <i>lprcSrc1</i> when the rectangles intersect completely in either the x- or y-direction. For example, if *<i>lprcSrc1</i> has the coordinates (10,10,100,100) and *<i>lprcSrc2</i> has the coordinates (50,50,150,150), the function sets the coordinates of the rectangle pointed to by <i>lprcDst</i> to (10,10,100,100). If *<i>lprcSrc1</i> has the coordinates (10,10,100,100) and *<i>lprcSrc2</i> has the coordinates (50,10,150,150), however, the function sets the coordinates of the rectangle pointed to by <i>lprcDst</i> to (10,10,50,100). In other words, the resulting rectangle is the bounding box of the geometric difference.
-     * 
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprcDst A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the coordinates of the rectangle determined by subtracting the rectangle pointed to by <i>lprcSrc2</i> from the rectangle pointed to by <i>lprcSrc1</i>.
      * @param {Pointer<RECT>} lprcSrc1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure from which the function subtracts the rectangle pointed to by <i>lprcSrc2</i>.
      * @param {Pointer<RECT>} lprcSrc2 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that the function subtracts from the rectangle pointed to by <i>lprcSrc1</i>.
      * @returns {Integer} If the resulting rectangle is empty, the return value is zero.
      * 
      * If the resulting rectangle is not empty, the return value is nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-subtractrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-subtractrect
      * @since windows5.0
      */
     static SubtractRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -17635,15 +13831,13 @@ class Gdi {
 
     /**
      * The OffsetRect function moves the specified rectangle by the specified offsets.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle to be moved.
      * @param {Integer} dx Specifies the amount to move the rectangle left or right. This parameter must be a negative value to move the rectangle to the left.
      * @param {Integer} dy Specifies the amount to move the rectangle up or down. This parameter must be a negative value to move the rectangle up.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-offsetrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-offsetrect
      * @since windows5.0
      */
     static OffsetRect(lprc, dx, dy) {
@@ -17653,13 +13847,11 @@ class Gdi {
 
     /**
      * The IsRectEmpty function determines whether the specified rectangle is empty.
-     * @remarks
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle.
      * @returns {Integer} If the rectangle is empty, the return value is nonzero.
      * 
      * If the rectangle is not empty, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-isrectempty
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-isrectempty
      * @since windows5.0
      */
     static IsRectEmpty(lprc) {
@@ -17669,16 +13861,12 @@ class Gdi {
 
     /**
      * The EqualRect function determines whether the two specified rectangles are equal by comparing the coordinates of their upper-left and lower-right corners.
-     * @remarks
-     * The <b>EqualRect</b> function does not treat empty rectangles as equal if their coordinates are different.
-     * 
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc1 Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the first rectangle.
      * @param {Pointer<RECT>} lprc2 Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the second rectangle.
      * @returns {Integer} If the two rectangles are identical, the return value is nonzero.
      * 
      * If the two rectangles are not identical, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-equalrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-equalrect
      * @since windows5.0
      */
     static EqualRect(lprc1, lprc2) {
@@ -17688,16 +13876,12 @@ class Gdi {
 
     /**
      * The PtInRect function determines whether the specified point lies within the specified rectangle.
-     * @remarks
-     * The rectangle must be normalized before <b>PtInRect</b> is called. That is, lprc.right must be greater than lprc.left and lprc.bottom must be greater than lprc.top. If the rectangle is not normalized, a point is never considered inside of the rectangle.
-     * 
-     * Because applications can use rectangles for different purposes, the rectangle functions do not use an explicit unit of measure. Instead, all rectangle coordinates and dimensions are given in signed, logical values. The mapping mode and the function in which the rectangle is used determine the units of measure.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the specified rectangle.
-     * @param {Pointer} pt A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the specified point.
+     * @param {Pointer} pt A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the specified point.
      * @returns {Integer} If the specified point lies within the rectangle, the return value is nonzero.
      * 
      * If the specified point does not lie within the rectangle, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ptinrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-ptinrect
      * @since windows5.0
      */
     static PtInRect(lprc, pt) {
@@ -17706,101 +13890,13 @@ class Gdi {
     }
 
     /**
-     * The LoadBitmap function loads the specified bitmap resource from a module's executable file. (ANSI)
-     * @remarks
-     * If the bitmap pointed to by the <i>lpBitmapName</i> parameter does not exist or there is insufficient memory to load the bitmap, the function fails.
-     * 
-     * <b>LoadBitmap</b> creates a compatible bitmap of the display, which cannot be selected to a printer. To load a bitmap that you can select to a printer, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> and specify LR_CREATEDIBSECTION to create a DIB section. A DIB section can be selected to any device.
-     * 
-     * An application can use the <b>LoadBitmap</b> function to access predefined bitmaps. To do so, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpBitmapName</i> parameter to one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Bitmap name</th>
-     * <th>Bitmap name</th>
-     * </tr>
-     * <tr>
-     * <td>OBM_BTNCORNERS</td>
-     * <td>OBM_OLD_RESTORE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_BTSIZE</td>
-     * <td>OBM_OLD_RGARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CHECK</td>
-     * <td>OBM_OLD_UPARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CHECKBOXES</td>
-     * <td>OBM_OLD_ZOOM</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CLOSE</td>
-     * <td>OBM_REDUCE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_COMBO</td>
-     * <td>OBM_REDUCED</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROW</td>
-     * <td>OBM_RESTORE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROWD</td>
-     * <td>OBM_RESTORED</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROWI</td>
-     * <td>OBM_RGARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROW</td>
-     * <td>OBM_RGARROWD</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROWD</td>
-     * <td>OBM_RGARROWI</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROWI</td>
-     * <td>OBM_SIZE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_MNARROW</td>
-     * <td>OBM_UPARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_CLOSE</td>
-     * <td>OBM_UPARROWD</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_DNARROW</td>
-     * <td>OBM_UPARROWI</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_LFARROW</td>
-     * <td>OBM_ZOOM</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_REDUCE</td>
-     * <td>OBM_ZOOMD</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Bitmap names that begin with OBM_OLD represent bitmaps used by 16-bit versions of Windows earlier than 3.0.
-     * 
-     * For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.
-     * 
-     * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete each bitmap handle returned by the <b>LoadBitmap</b> function.
+     * The LoadBitmap function loads the specified bitmap resource from a module's executable file.
      * @param {Pointer<Void>} hInstance A handle to the instance of the module whose executable file contains the bitmap to be loaded.
      * @param {Pointer<Byte>} lpBitmapName A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can be used to create this value.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the specified bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadbitmapa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-loadbitmapa
      * @since windows5.0
      */
     static LoadBitmapA(hInstance, lpBitmapName) {
@@ -17811,101 +13907,13 @@ class Gdi {
     }
 
     /**
-     * The LoadBitmap function loads the specified bitmap resource from a module's executable file. (Unicode)
-     * @remarks
-     * If the bitmap pointed to by the <i>lpBitmapName</i> parameter does not exist or there is insufficient memory to load the bitmap, the function fails.
-     * 
-     * <b>LoadBitmap</b> creates a compatible bitmap of the display, which cannot be selected to a printer. To load a bitmap that you can select to a printer, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> and specify LR_CREATEDIBSECTION to create a DIB section. A DIB section can be selected to any device.
-     * 
-     * An application can use the <b>LoadBitmap</b> function to access predefined bitmaps. To do so, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpBitmapName</i> parameter to one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Bitmap name</th>
-     * <th>Bitmap name</th>
-     * </tr>
-     * <tr>
-     * <td>OBM_BTNCORNERS</td>
-     * <td>OBM_OLD_RESTORE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_BTSIZE</td>
-     * <td>OBM_OLD_RGARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CHECK</td>
-     * <td>OBM_OLD_UPARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CHECKBOXES</td>
-     * <td>OBM_OLD_ZOOM</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_CLOSE</td>
-     * <td>OBM_REDUCE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_COMBO</td>
-     * <td>OBM_REDUCED</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROW</td>
-     * <td>OBM_RESTORE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROWD</td>
-     * <td>OBM_RESTORED</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_DNARROWI</td>
-     * <td>OBM_RGARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROW</td>
-     * <td>OBM_RGARROWD</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROWD</td>
-     * <td>OBM_RGARROWI</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_LFARROWI</td>
-     * <td>OBM_SIZE</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_MNARROW</td>
-     * <td>OBM_UPARROW</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_CLOSE</td>
-     * <td>OBM_UPARROWD</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_DNARROW</td>
-     * <td>OBM_UPARROWI</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_LFARROW</td>
-     * <td>OBM_ZOOM</td>
-     * </tr>
-     * <tr>
-     * <td>OBM_OLD_REDUCE</td>
-     * <td>OBM_ZOOMD</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Bitmap names that begin with OBM_OLD represent bitmaps used by 16-bit versions of Windows earlier than 3.0.
-     * 
-     * For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.
-     * 
-     * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete each bitmap handle returned by the <b>LoadBitmap</b> function.
+     * The LoadBitmap function loads the specified bitmap resource from a module's executable file.
      * @param {Pointer<Void>} hInstance A handle to the instance of the module whose executable file contains the bitmap to be loaded.
      * @param {Pointer<Char>} lpBitmapName A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can be used to create this value.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to the specified bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadbitmapw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-loadbitmapw
      * @since windows5.0
      */
     static LoadBitmapW(hInstance, lpBitmapName) {
@@ -17916,41 +13924,7 @@ class Gdi {
     }
 
     /**
-     * The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode. (ANSI)
-     * @remarks
-     * To ensure that the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure passed to <b>ChangeDisplaySettings</b> is valid and contains only values supported by the display driver, use the <b>DEVMODE</b> returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> function.
-     * 
-     * When the display mode is changed dynamically, the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-displaychange">WM_DISPLAYCHANGE</a> message is sent to all running applications with the following message parameters.
-     * 
-     * <table>
-     * <tr>
-     * <th>Parameters</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>wParam</td>
-     * <td>New bits per pixel</td>
-     * </tr>
-     * <tr>
-     * <td>LOWORD(lParam)</td>
-     * <td>New pixel width</td>
-     * </tr>
-     * <tr>
-     * <td>HIWORD(lParam)</td>
-     * <td>New pixel height</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines ChangeDisplaySettings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode.
      * @param {Pointer<DEVMODEA>} lpDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure that describes the new graphics mode. If <i>lpDevMode</i> is <b>NULL</b>, all the values currently in the registry will be used for the display setting. Passing <b>NULL</b> for the <i>lpDevMode</i> parameter and 0 for the <i>dwFlags</i> parameter is the easiest way to return to the default mode after a dynamic mode change.
      * 
      * The <b>dmSize</b> member of <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> must be initialized to the size, in bytes, of the <b>DEVMODE</b> structure. The <b>dmDriverExtra</b> member of <b>DEVMODE</b> must be initialized to indicate the number of bytes of private driver data following the <b>DEVMODE</b> structure. In addition, you can use any or all of the following members of the <b>DEVMODE</b> structure.
@@ -18082,7 +14056,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changedisplaysettingsa
      * @since windows5.0
      */
     static ChangeDisplaySettingsA(lpDevMode, dwFlags) {
@@ -18091,41 +14065,7 @@ class Gdi {
     }
 
     /**
-     * The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode. (Unicode)
-     * @remarks
-     * To ensure that the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure passed to <b>ChangeDisplaySettings</b> is valid and contains only values supported by the display driver, use the <b>DEVMODE</b> returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> function.
-     * 
-     * When the display mode is changed dynamically, the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-displaychange">WM_DISPLAYCHANGE</a> message is sent to all running applications with the following message parameters.
-     * 
-     * <table>
-     * <tr>
-     * <th>Parameters</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>wParam</td>
-     * <td>New bits per pixel</td>
-     * </tr>
-     * <tr>
-     * <td>LOWORD(lParam)</td>
-     * <td>New pixel width</td>
-     * </tr>
-     * <tr>
-     * <td>HIWORD(lParam)</td>
-     * <td>New pixel height</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines ChangeDisplaySettings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ChangeDisplaySettings function changes the settings of the default display device to the specified graphics mode.
      * @param {Pointer<DEVMODEW>} lpDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure that describes the new graphics mode. If <i>lpDevMode</i> is <b>NULL</b>, all the values currently in the registry will be used for the display setting. Passing <b>NULL</b> for the <i>lpDevMode</i> parameter and 0 for the <i>dwFlags</i> parameter is the easiest way to return to the default mode after a dynamic mode change.
      * 
      * The <b>dmSize</b> member of <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> must be initialized to the size, in bytes, of the <b>DEVMODE</b> structure. The <b>dmDriverExtra</b> member of <b>DEVMODE</b> must be initialized to indicate the number of bytes of private driver data following the <b>DEVMODE</b> structure. In addition, you can use any or all of the following members of the <b>DEVMODE</b> structure.
@@ -18257,7 +14197,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changedisplaysettingsw
      * @since windows5.0
      */
     static ChangeDisplaySettingsW(lpDevMode, dwFlags) {
@@ -18266,55 +14206,7 @@ class Gdi {
     }
 
     /**
-     * The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode. (ANSI)
-     * @remarks
-     * To ensure that the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure passed to <b>ChangeDisplaySettingsEx</b> is valid and contains only values supported by the display driver, use the <b>DEVMODE</b> returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> function.
-     * 
-     * When adding a display monitor to a multiple-monitor system programmatically, set <b>DEVMODE.dmFields</b> to DM_POSITION and specify a position (in <b>DEVMODE.dmPosition</b>) for the monitor you are adding that is adjacent to at least one pixel of the display area of an existing monitor. To detach the monitor, set <b>DEVMODE.dmFields</b> to DM_POSITION but set <b>DEVMODE.dmPelsWidth</b> and <b>DEVMODE.dmPelsHeight</b> to zero. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors">Multiple Display Monitors</a>.
-     * 
-     * When the display mode is changed dynamically, the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-displaychange">WM_DISPLAYCHANGE</a> message is sent to all running applications with the following message parameters.
-     * 
-     * <table>
-     * <tr>
-     * <th>Parameters</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>wParam</td>
-     * <td>New bits per pixel</td>
-     * </tr>
-     * <tr>
-     * <td>LOWORD(lParam)</td>
-     * <td>New pixel width</td>
-     * </tr>
-     * <tr>
-     * <td>HIWORD(lParam)</td>
-     * <td>New pixel height</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * To change the settings for more than one display at the same time, first call <b>ChangeDisplaySettingsEx</b> for each device individually to update the registry without applying the changes. Then call <b>ChangeDisplaySettingsEx</b> once more, with a <b>NULL</b> device, to apply the changes. For example, to change the settings for two displays, do the following:
-     * 
-     * 
-     * ```cpp
-     * 
-     * ChangeDisplaySettingsEx (lpszDeviceName1, lpDevMode1, NULL, (CDS_UPDATEREGISTRY | CDS_NORESET), NULL);
-     * ChangeDisplaySettingsEx (lpszDeviceName2, lpDevMode2, NULL, (CDS_UPDATEREGISTRY | CDS_NORESET), NULL);
-     * ChangeDisplaySettingsEx (NULL, NULL, NULL, 0, NULL);
-     * 
-     * ```
-     * 
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines ChangeDisplaySettingsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode.
      * @param {Pointer<Byte>} lpszDeviceName A pointer to a null-terminated string that specifies the display device whose graphics mode will change. Only display device names as returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a> are valid. See <b>EnumDisplayDevices</b> for further information on the names associated with these display devices.
      * 
      * The <i>lpszDeviceName</i> parameter can be <b>NULL</b>. A <b>NULL</b> value specifies the default display device. The default device can be determined by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a> and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.
@@ -18450,7 +14342,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsexa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changedisplaysettingsexa
      * @since windows5.0
      */
     static ChangeDisplaySettingsExA(lpszDeviceName, lpDevMode, dwflags, lParam) {
@@ -18463,55 +14355,7 @@ class Gdi {
     }
 
     /**
-     * The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode. (Unicode)
-     * @remarks
-     * To ensure that the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure passed to <b>ChangeDisplaySettingsEx</b> is valid and contains only values supported by the display driver, use the <b>DEVMODE</b> returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> function.
-     * 
-     * When adding a display monitor to a multiple-monitor system programmatically, set <b>DEVMODE.dmFields</b> to DM_POSITION and specify a position (in <b>DEVMODE.dmPosition</b>) for the monitor you are adding that is adjacent to at least one pixel of the display area of an existing monitor. To detach the monitor, set <b>DEVMODE.dmFields</b> to DM_POSITION but set <b>DEVMODE.dmPelsWidth</b> and <b>DEVMODE.dmPelsHeight</b> to zero. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors">Multiple Display Monitors</a>.
-     * 
-     * When the display mode is changed dynamically, the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-displaychange">WM_DISPLAYCHANGE</a> message is sent to all running applications with the following message parameters.
-     * 
-     * <table>
-     * <tr>
-     * <th>Parameters</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>wParam</td>
-     * <td>New bits per pixel</td>
-     * </tr>
-     * <tr>
-     * <td>LOWORD(lParam)</td>
-     * <td>New pixel width</td>
-     * </tr>
-     * <tr>
-     * <td>HIWORD(lParam)</td>
-     * <td>New pixel height</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * To change the settings for more than one display at the same time, first call <b>ChangeDisplaySettingsEx</b> for each device individually to update the registry without applying the changes. Then call <b>ChangeDisplaySettingsEx</b> once more, with a <b>NULL</b> device, to apply the changes. For example, to change the settings for two displays, do the following:
-     * 
-     * 
-     * ```cpp
-     * 
-     * ChangeDisplaySettingsEx (lpszDeviceName1, lpDevMode1, NULL, (CDS_UPDATEREGISTRY | CDS_NORESET), NULL);
-     * ChangeDisplaySettingsEx (lpszDeviceName2, lpDevMode2, NULL, (CDS_UPDATEREGISTRY | CDS_NORESET), NULL);
-     * ChangeDisplaySettingsEx (NULL, NULL, NULL, 0, NULL);
-     * 
-     * ```
-     * 
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines ChangeDisplaySettingsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The ChangeDisplaySettingsEx function changes the settings of the specified display device to the specified graphics mode.
      * @param {Pointer<Char>} lpszDeviceName A pointer to a null-terminated string that specifies the display device whose graphics mode will change. Only display device names as returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a> are valid. See <b>EnumDisplayDevices</b> for further information on the names associated with these display devices.
      * 
      * The <i>lpszDeviceName</i> parameter can be <b>NULL</b>. A <b>NULL</b> value specifies the default display device. The default device can be determined by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a> and checking for the DISPLAY_DEVICE_PRIMARY_DEVICE flag.
@@ -18647,7 +14491,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsexw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changedisplaysettingsexw
      * @since windows5.0
      */
     static ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, lParam) {
@@ -18660,19 +14504,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplaySettings function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function. (ANSI)
-     * @remarks
-     * The function fails if <i>iModeNum</i> is greater than the index of the display device's last graphics mode. As noted in the description of the <i>iModeNum</i> parameter, you can use this behavior to enumerate all of a display device's graphics modes.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplaySettings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplaySettings function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function.
      * @param {Pointer<Byte>} lpszDeviceName A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.
      * 
      * This parameter is either <b>NULL</b> or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceName</b> returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>. A <b>NULL</b> value specifies the current display device on the computer on which the calling thread is running.
@@ -18691,7 +14523,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaysettingsa
      * @since windows5.0
      */
     static EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
@@ -18702,19 +14534,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplaySettings function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function. (Unicode)
-     * @remarks
-     * The function fails if <i>iModeNum</i> is greater than the index of the display device's last graphics mode. As noted in the description of the <i>iModeNum</i> parameter, you can use this behavior to enumerate all of a display device's graphics modes.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplaySettings as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplaySettings function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes of a display device, make a series of calls to this function.
      * @param {Pointer<Char>} lpszDeviceName A pointer to a null-terminated string that specifies the display device about whose graphics mode the function will obtain information.
      * 
      * This parameter is either <b>NULL</b> or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceName</b> returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>. A <b>NULL</b> value specifies the current display device on the computer on which the calling thread is running.
@@ -18733,7 +14553,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaysettingsw
      * @since windows5.0
      */
     static EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
@@ -18744,19 +14564,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplaySettingsEx function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes for a display device, make a series of calls to this function. (ANSI)
-     * @remarks
-     * The function fails if <i>iModeNum</i> is greater than the index of the display device's last graphics mode. As noted in the description of the <i>iModeNum</i> parameter, you can use this behavior to enumerate all of a display device's graphics modes.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplaySettingsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplaySettingsEx function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes for a display device, make a series of calls to this function.
      * @param {Pointer<Byte>} lpszDeviceName A pointer to a null-terminated string that specifies the display device about which graphics mode the function will obtain information.
      * 
      * This parameter is either <b>NULL</b> or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceName</b> returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>. A <b>NULL</b> value specifies the current display device on the computer that the calling thread is running on.
@@ -18805,7 +14613,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsexa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaysettingsexa
      * @since windows5.0
      */
     static EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
@@ -18816,19 +14624,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplaySettingsEx function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes for a display device, make a series of calls to this function. (Unicode)
-     * @remarks
-     * The function fails if <i>iModeNum</i> is greater than the index of the display device's last graphics mode. As noted in the description of the <i>iModeNum</i> parameter, you can use this behavior to enumerate all of a display device's graphics modes.
-     * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output given is always in terms of physical pixels, and is not related to the calling context.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplaySettingsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplaySettingsEx function retrieves information about one of the graphics modes for a display device. To retrieve information for all the graphics modes for a display device, make a series of calls to this function.
      * @param {Pointer<Char>} lpszDeviceName A pointer to a null-terminated string that specifies the display device about which graphics mode the function will obtain information.
      * 
      * This parameter is either <b>NULL</b> or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>. <b>DeviceName</b> returned from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>. A <b>NULL</b> value specifies the current display device on the computer that the calling thread is running on.
@@ -18877,7 +14673,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsexw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaysettingsexw
      * @since windows5.0
      */
     static EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
@@ -18888,22 +14684,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplayDevices function lets you obtain information about the display devices in the current session. (ANSI)
-     * @remarks
-     * To query all display devices in the current session, call this function in a loop, starting with <i>iDevNum</i> set to 0, and incrementing <i>iDevNum</i> until the function fails. To select all display devices in the desktop, use only the display devices that have the DISPLAY_DEVICE_ATTACHED_TO_DESKTOP flag in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a> structure.
-     * 
-     * To get information on the display adapter, call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <b>NULL</b>. For example, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceString</b> contains the adapter name.
-     * 
-     * To obtain information on a display monitor, first call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <b>NULL</b>. Then call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceName</b> from the first call to <b>EnumDisplayDevices</b> and with <i>iDevNum</i> set to zero. Then <b>DISPLAY_DEVICE</b>.<b>DeviceString</b> is the monitor name.
-     * 
-     * To query all monitor devices associated with an adapter, call <b>EnumDisplayDevices</b> in a loop with <i>lpDevice</i> set to the adapter name, <i>iDevNum</i> set to start at 0, and <i>iDevNum</i> set to increment until the function fails. Note that <b>DISPLAY_DEVICE.DeviceName</b> changes with each call for monitor information, so you must save the adapter name. The function fails when there are no more monitors for the adapter.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplayDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplayDevices function lets you obtain information about the display devices in the current session.
      * @param {Pointer<Byte>} lpDevice A pointer to the device name. If <b>NULL</b>, function returns information for the display adapter(s) on the machine, based on <i>iDevNum</i>.
      * 
      * For more information, see Remarks.
@@ -18917,7 +14698,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. The function fails if <i>iDevNum</i> is greater than the largest device index.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaydevicesa
      * @since windows5.0
      */
     static EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
@@ -18928,22 +14709,7 @@ class Gdi {
     }
 
     /**
-     * The EnumDisplayDevices function lets you obtain information about the display devices in the current session. (Unicode)
-     * @remarks
-     * To query all display devices in the current session, call this function in a loop, starting with <i>iDevNum</i> set to 0, and incrementing <i>iDevNum</i> until the function fails. To select all display devices in the desktop, use only the display devices that have the DISPLAY_DEVICE_ATTACHED_TO_DESKTOP flag in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a> structure.
-     * 
-     * To get information on the display adapter, call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <b>NULL</b>. For example, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceString</b> contains the adapter name.
-     * 
-     * To obtain information on a display monitor, first call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <b>NULL</b>. Then call <b>EnumDisplayDevices</b> with <i>lpDevice</i> set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-display_devicea">DISPLAY_DEVICE</a>.<b>DeviceName</b> from the first call to <b>EnumDisplayDevices</b> and with <i>iDevNum</i> set to zero. Then <b>DISPLAY_DEVICE</b>.<b>DeviceString</b> is the monitor name.
-     * 
-     * To query all monitor devices associated with an adapter, call <b>EnumDisplayDevices</b> in a loop with <i>lpDevice</i> set to the adapter name, <i>iDevNum</i> set to start at 0, and <i>iDevNum</i> set to increment until the function fails. Note that <b>DISPLAY_DEVICE.DeviceName</b> changes with each call for monitor information, so you must save the adapter name. The function fails when there are no more monitors for the adapter.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winuser.h header defines EnumDisplayDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The EnumDisplayDevices function lets you obtain information about the display devices in the current session.
      * @param {Pointer<Char>} lpDevice A pointer to the device name. If <b>NULL</b>, function returns information for the display adapter(s) on the machine, based on <i>iDevNum</i>.
      * 
      * For more information, see Remarks.
@@ -18957,7 +14723,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. The function fails if <i>iDevNum</i> is greater than the largest device index.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesw
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaydevicesw
      * @since windows5.0
      */
     static EnumDisplayDevicesW(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
@@ -18969,12 +14735,12 @@ class Gdi {
 
     /**
      * The MonitorFromPoint function retrieves a handle to the display monitor that contains a specified point.
-     * @param {Pointer} pt A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the point of interest in virtual-screen coordinates.
+     * @param {Pointer} pt A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the point of interest in virtual-screen coordinates.
      * @param {Integer} dwFlags Determines the function's return value if the point is not contained within any display monitor.
      * @returns {Pointer<Void>} If the point is contained by a display monitor, the return value is an <b>HMONITOR</b> handle to that display monitor.
      * 
      * If the point is not contained by a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfrompoint
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-monitorfrompoint
      * @since windows5.0
      */
     static MonitorFromPoint(pt, dwFlags) {
@@ -18989,7 +14755,7 @@ class Gdi {
      * @returns {Pointer<Void>} If the rectangle intersects one or more display monitor rectangles, the return value is an <b>HMONITOR</b> handle to the display monitor that has the largest area of intersection with the rectangle.
      * 
      * If the rectangle does not intersect a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfromrect
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-monitorfromrect
      * @since windows5.0
      */
     static MonitorFromRect(lprc, dwFlags) {
@@ -18999,14 +14765,12 @@ class Gdi {
 
     /**
      * The MonitorFromWindow function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window.
-     * @remarks
-     * If the window is currently minimized, <b>MonitorFromWindow</b> uses the rectangle of the window before it was minimized.
      * @param {Pointer<Void>} hwnd A handle to the window of interest.
      * @param {Integer} dwFlags Determines the function's return value if the window does not intersect any display monitor.
      * @returns {Pointer<Void>} If the window intersects one or more display monitor rectangles, the return value is an <b>HMONITOR</b> handle to the display monitor that has the largest area of intersection with the window.
      * 
      * If the window does not intersect a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfromwindow
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-monitorfromwindow
      * @since windows5.0
      */
     static MonitorFromWindow(hwnd, dwFlags) {
@@ -19015,10 +14779,7 @@ class Gdi {
     }
 
     /**
-     * The GetMonitorInfo function retrieves information about a display monitor. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines GetMonitorInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetMonitorInfo function retrieves information about a display monitor.
      * @param {Pointer<Void>} hMonitor A handle to the display monitor of interest.
      * @param {Pointer<MONITORINFO>} lpmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfoexa">MONITORINFOEX</a> structure that receives information about the specified display monitor.
      * 
@@ -19028,7 +14789,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmonitorinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmonitorinfoa
      * @since windows5.0
      */
     static GetMonitorInfoA(hMonitor, lpmi) {
@@ -19037,10 +14798,7 @@ class Gdi {
     }
 
     /**
-     * The GetMonitorInfo function retrieves information about a display monitor. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines GetMonitorInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetMonitorInfo function retrieves information about a display monitor.
      * @param {Pointer<Void>} hMonitor A handle to the display monitor of interest.
      * @param {Pointer<MONITORINFO>} lpmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfoexa">MONITORINFOEX</a> structure that receives information about the specified display monitor.
      * 
@@ -19050,7 +14808,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmonitorinfow
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmonitorinfow
      * @since windows5.0
      */
     static GetMonitorInfoW(hMonitor, lpmi) {
@@ -19060,54 +14818,6 @@ class Gdi {
 
     /**
      * The EnumDisplayMonitors function enumerates display monitors (including invisible pseudo-monitors associated with the mirroring drivers) that intersect a region formed by the intersection of a specified clipping rectangle and the visible region of a device context. EnumDisplayMonitors calls an application-defined MonitorEnumProc callback function once for each monitor that is enumerated. Note that GetSystemMetrics (SM_CMONITORS) counts only the display monitors.
-     * @remarks
-     * There are two reasons to call the <b>EnumDisplayMonitors</b> function:
-     * 
-     * <ul>
-     * <li>You want to draw optimally into a device context that spans several display monitors, and the monitors have different color formats.</li>
-     * <li>You want to obtain a handle and position rectangle for one or more display monitors.</li>
-     * </ul>
-     * To determine whether all the display monitors in a system share the same color format, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> (SM_SAMEDISPLAYFORMAT).
-     * 
-     * You do not need to use the <b>EnumDisplayMonitors</b> function when a window spans display monitors that have different color formats. You can continue to paint under the assumption that the entire screen has the color properties of the primary monitor. Your windows will look fine. <b>EnumDisplayMonitors</b> just lets you make them look better.
-     * 
-     * Setting the <i>hdc</i> parameter to <b>NULL</b> lets you use the <b>EnumDisplayMonitors</b> function to obtain a handle and position rectangle for one or more display monitors. The following table shows how the four combinations of <b>NULL</b> and non-<b>NULL</b><i>hdc</i> and <i>lprcClip</i> values affect the behavior of the <b>EnumDisplayMonitors</b> function.
-     * 
-     * <table>
-     * <tr>
-     * <th><i>hdc</i></th>
-     * <th><i>lprcRect</i></th>
-     * <th>EnumDisplayMonitors behavior</th>
-     * </tr>
-     * <tr>
-     * <td><b>NULL</b></td>
-     * <td><b>NULL</b></td>
-     * <td>Enumerates all display monitors.The callback function receives a <b>NULL</b> HDC.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td><b>NULL</b></td>
-     * <td>non-<b>NULL</b></td>
-     * <td>Enumerates all display monitors that intersect the clipping rectangle. Use virtual screen coordinates for the clipping rectangle.The callback function receives a <b>NULL</b> HDC.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>non-<b>NULL</b></td>
-     * <td><b>NULL</b></td>
-     * <td>Enumerates all display monitors that intersect the visible region of the device context.The callback function receives a handle to a DC for the specific display monitor.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>non-<b>NULL</b></td>
-     * <td>non-<b>NULL</b></td>
-     * <td>Enumerates all display monitors that intersect the visible region of the device context and the clipping rectangle. Use device context coordinates for the clipping rectangle.The callback function receives a handle to a DC for the specific display monitor.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} hdc A handle to a display device context that defines the visible region of interest.
      * 
      * If this parameter is <b>NULL</b>, the <i>hdcMonitor</i> parameter passed to the callback function will be <b>NULL</b>, and the visible region of interest is the virtual screen that encompasses all the displays on the desktop.
@@ -19121,7 +14831,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumdisplaymonitors
      * @since windows5.0
      */
     static EnumDisplayMonitors(hdc, lprcClip, lpfnEnum, dwData) {

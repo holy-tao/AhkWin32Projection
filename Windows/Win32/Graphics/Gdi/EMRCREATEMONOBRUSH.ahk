@@ -4,7 +4,7 @@
 
 /**
  * The EMRCREATEMONOBRUSH structure contains members for the CreatePatternBrush (when passed a monochrome bitmap) or CreateDIBPatternBrush (when passed a monochrome DIB) enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatemonobrush
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatemonobrush
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

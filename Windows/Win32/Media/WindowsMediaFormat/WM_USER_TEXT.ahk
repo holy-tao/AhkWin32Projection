@@ -3,7 +3,7 @@
 
 /**
  * The WM_USER_TEXT structure is used as the data item for the WM/Text complex metadata attribute.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_user_text
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_user_text
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

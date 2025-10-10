@@ -2,8 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a 3x3 matrix.
- * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milmatrix3x2d
+ * Specifies a 3x2 matrix that describes a transform.
+ * @remarks
+ * 
+  * In Windows Vista, this structure was named MIL_MATRIX3X2D. It was renamed in Windows 7.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ns-dwmapi-milmatrix3x2d
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
@@ -14,9 +19,7 @@ class MilMatrix3x2D extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b>DOUBLE</b>
-     * 
-     * The value of the first row and first column of the matrix.
+     * The value at the (1,1) position of the matrix (first row, first column).
      * @type {Float}
      */
     S_11 {
@@ -25,9 +28,7 @@ class MilMatrix3x2D extends Win32Struct
     }
 
     /**
-     * Type: <b>DOUBLE</b>
-     * 
-     * The value of the first row and first second of the matrix.
+     * The value at the (1,2) position of the matrix (first row, second column).
      * @type {Float}
      */
     S_12 {
@@ -36,9 +37,7 @@ class MilMatrix3x2D extends Win32Struct
     }
 
     /**
-     * Type: <b>DOUBLE</b>
-     * 
-     * The value of the second row and first column of the matrix.
+     * The value at the (2,1) position of the matrix (second row, first column).
      * @type {Float}
      */
     S_21 {
@@ -47,9 +46,7 @@ class MilMatrix3x2D extends Win32Struct
     }
 
     /**
-     * Type: <b>DOUBLE</b>
-     * 
-     * The value of the second row and second column of the matrix.
+     * The value at the (2,2) position of the matrix (second row, second column).
      * @type {Float}
      */
     S_22 {
@@ -58,7 +55,7 @@ class MilMatrix3x2D extends Win32Struct
     }
 
     /**
-     * Type: <b>DOUBLE</b>
+     * The value at the (3,1) position of the matrix (third row, first column).
      * @type {Float}
      */
     DX {
@@ -67,7 +64,7 @@ class MilMatrix3x2D extends Win32Struct
     }
 
     /**
-     * Type: <b>DOUBLE</b>
+     * The value at the (3,2) position of the matrix (third row, second column).
      * @type {Float}
      */
     DY {

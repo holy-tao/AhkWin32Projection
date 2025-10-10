@@ -2,7 +2,7 @@
 
 /**
  * Identifies the properties for requesting a security token from an issuer. It is used with WsRequestSecurityToken as part of the WS_REQUEST_SECURITY_TOKEN_PROPERTY* parameter.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_request_security_token_property_id
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_request_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

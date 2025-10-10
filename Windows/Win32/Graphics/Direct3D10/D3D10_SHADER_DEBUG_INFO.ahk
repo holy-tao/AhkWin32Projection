@@ -3,7 +3,7 @@
 
 /**
  * Describes the format of the ID3D10Blob Interface returned by D3D10GetShaderDebugInfo.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

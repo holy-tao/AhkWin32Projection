@@ -2,7 +2,7 @@
 
 /**
  * The TRANSLATEURL_IN_FLAGS enumerated values are used with the TranslateURL function to determine how it will execute.
- * @see https://learn.microsoft.com/windows/win32/api/intshcut/ne-intshcut-translateurl_in_flags
+ * @see https://docs.microsoft.com/windows/win32/api//intshcut/ne-intshcut-translateurl_in_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The PEER_EVENT_MEMBER_CHANGE_DATA structure contains data that describes a change in the status of a peer group member.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_member_change_data
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_member_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

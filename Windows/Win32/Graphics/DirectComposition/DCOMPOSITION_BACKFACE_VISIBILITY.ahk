@@ -2,7 +2,7 @@
 
 /**
  * Specifies the backface visibility to be applied to a visual.
- * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_backface_visibility
+ * @see https://docs.microsoft.com/windows/win32/api//dcomptypes/ne-dcomptypes-dcomposition_backface_visibility
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

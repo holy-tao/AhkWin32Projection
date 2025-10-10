@@ -2,7 +2,7 @@
 
 /**
  * Specifies the opacity of the object and the drawing aspects supported by the object.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-viewstatus
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-viewstatus
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

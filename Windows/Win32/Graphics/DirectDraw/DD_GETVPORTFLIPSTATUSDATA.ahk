@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTFLIPSTATUSDATA structure contains the flip status information for the specified surface.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportflipstatusdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportflipstatusdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

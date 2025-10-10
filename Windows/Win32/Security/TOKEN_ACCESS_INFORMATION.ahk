@@ -5,7 +5,7 @@
 
 /**
  * Specifies all the information in a token that is necessary to perform an access check.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_access_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_access_information
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

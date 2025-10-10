@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Describes an error for the IMofCompiler interface.
+ * @remarks
+ * 
+  * The   <i>ObjectNum</i>, <i>FirstLine</i>, and <i>LastLine</i> parameters only contain values for errors that relate to a particular class or instance in the file.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ns-wbemcli-wbem_compile_status_info
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -12,6 +19,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     static packingSize => 4
 
     /**
+     * TBD
      * @type {Integer}
      */
     lPhaseError {
@@ -20,6 +28,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
+     * The actual error code.
      * @type {HRESULT}
      */
     hRes {
@@ -28,6 +37,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
+     * Object that is at fault.
      * @type {Integer}
      */
     ObjectNum {
@@ -36,6 +46,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
+     * First line number of the object.
      * @type {Integer}
      */
     FirstLine {
@@ -44,6 +55,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
+     * Last line number of the object.
      * @type {Integer}
      */
     LastLine {
@@ -52,6 +64,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
+     * Reserved.
      * @type {Integer}
      */
     dwOutFlags {

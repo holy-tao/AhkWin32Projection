@@ -4,7 +4,7 @@
 
 /**
  * Defines the options for the DrawThemeBackgroundEx function.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dtbgopts
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-dtbgopts
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

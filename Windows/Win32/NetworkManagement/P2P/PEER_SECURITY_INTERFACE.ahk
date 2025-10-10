@@ -4,8 +4,11 @@
 /**
  * The PEER_SECURITY_INTERFACE structure specifies the security interfaces that calls to Peer Graphing APIs use to validate, secure, and free records.
  * @remarks
- * If you have developed your own SSP, your application must not call the Peer Graphing API to access data in the graphing database; doing so can lead to a deadlock situation.  Instead, the application should look at a cached copy of the information.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_security_interface
+ * 
+  * If you have developed your own SSP, your application must not call the Peer Graphing API to access data in the graphing database; doing so can lead to a deadlock situation.  Instead, the application should look at a cached copy of the information.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_security_interface
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

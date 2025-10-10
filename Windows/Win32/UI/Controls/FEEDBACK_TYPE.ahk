@@ -2,7 +2,7 @@
 
 /**
  * Specifies the visual feedback associated with an event.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-feedback_type
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-feedback_type
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

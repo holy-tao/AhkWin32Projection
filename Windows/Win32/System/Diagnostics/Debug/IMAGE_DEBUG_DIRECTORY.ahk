@@ -3,7 +3,7 @@
 
 /**
  * Represents the debug directory format.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_debug_directory
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_debug_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class IMAGE_DEBUG_DIRECTORY extends Win32Struct
     }
 
     /**
-     * The time and date the debugging information was created.
+     * The ime and date the debugging information was created.
      * @type {Integer}
      */
     TimeDateStamp {

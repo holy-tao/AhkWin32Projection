@@ -6,7 +6,7 @@
 
 /**
  * Contains a public key and its algorithm.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_public_key_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_public_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

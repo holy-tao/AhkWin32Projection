@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * An ImageCodecInfo object stores information about an image codec (encoder/decoder).
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusimaging/nl-gdiplusimaging-imagecodecinfo
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

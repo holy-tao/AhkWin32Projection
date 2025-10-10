@@ -2,7 +2,7 @@
 
 /**
  * Used to indicate whether a given writer has an associated alternate writer.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_alternate_writer_state
+ * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_alternate_writer_state
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

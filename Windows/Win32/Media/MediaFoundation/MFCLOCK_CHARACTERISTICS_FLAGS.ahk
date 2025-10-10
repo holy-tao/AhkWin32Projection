@@ -2,7 +2,7 @@
 
 /**
  * Contains flags that describe the characteristics of a clock.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfclock_characteristics_flags
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfclock_characteristics_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

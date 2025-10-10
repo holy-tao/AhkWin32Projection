@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The PropertyConditionFlags (uiautomationclient.h) enumeration contains values used in creating property conditions.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags
+ * Contains values used in creating property conditions.
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-propertyconditionflags
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

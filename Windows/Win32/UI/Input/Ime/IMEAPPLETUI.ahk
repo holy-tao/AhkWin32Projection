@@ -3,7 +3,7 @@
 
 /**
  * Used by IImePadApplet::CreateUI to specify applet window style.
- * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imeappletui
+ * @see https://docs.microsoft.com/windows/win32/api//imepad/ns-imepad-imeappletui
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

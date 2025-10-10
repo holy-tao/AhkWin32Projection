@@ -3,7 +3,7 @@
 
 /**
  * The WIA_FORMAT_INFO structure specifies valid format and media type pairs for a device.
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_format_info
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_format_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

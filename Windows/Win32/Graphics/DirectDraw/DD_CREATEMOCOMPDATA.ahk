@@ -4,7 +4,7 @@
 
 /**
  * The DD_CREATEMOCOMPDATA structure contains the data required to begin using motion compensation.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createmocompdata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_createmocompdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

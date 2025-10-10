@@ -3,7 +3,7 @@
 
 /**
  * Represents product data for a changer device. It is used by the IOCTL_CHANGER_GET_PRODUCT_DATA control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_product_data
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_product_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

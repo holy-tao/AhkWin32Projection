@@ -2,7 +2,7 @@
 
 /**
  * Specifies properties of the Interaction Context object.
- * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_context_property
+ * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-interaction_context_property
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

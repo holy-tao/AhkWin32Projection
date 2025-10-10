@@ -5,7 +5,7 @@
 
 /**
  * Carries information required to process the MCN_GETDAYSTATE notification code. All members of this structure are for input, except prgDayState, which the receiving application must set when processing MCN_GETDAYSTATE.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdaystate
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmdaystate
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

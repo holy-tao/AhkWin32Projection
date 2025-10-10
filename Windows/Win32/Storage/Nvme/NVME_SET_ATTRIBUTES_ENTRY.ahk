@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains fields that specify information for setting an attribute.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_set_attributes_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     static packingSize => 4
 
     /**
-     * Indicates the identifier of the attribute.
      * @type {Integer}
      */
     Identifier {
@@ -25,7 +20,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ENDGID {
@@ -34,7 +28,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * A reserved field.
      * @type {Integer}
      */
     Reserved1 {
@@ -43,7 +36,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Random4KBReadTypical {
@@ -52,7 +44,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * Indicates the optimal write size.
      * @type {Integer}
      */
     OptimalWriteSize {
@@ -61,7 +52,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * Indicates the total capacity.
      * @type {Array<Byte>}
      */
     TotalCapacity{
@@ -73,7 +63,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * Indicates the unallocated capacity.
      * @type {Array<Byte>}
      */
     UnallocatedCapacity{
@@ -85,7 +74,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<Byte>}
      */
     Reserved2{

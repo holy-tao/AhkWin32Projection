@@ -5,7 +5,7 @@
 
 /**
  * The GLYPHBITS structure is used to define a glyph bitmap.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphbits
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-glyphbits
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

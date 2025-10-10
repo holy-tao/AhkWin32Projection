@@ -4,7 +4,7 @@
 
 /**
  * The CERT_POLICY_QUALIFIER_INFO structure contains an object identifier (OID) specifying the qualifier and qualifier-specific supplemental information.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_qualifier_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policy_qualifier_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

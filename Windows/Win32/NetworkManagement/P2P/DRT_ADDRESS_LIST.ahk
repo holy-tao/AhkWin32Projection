@@ -5,7 +5,7 @@
 
 /**
  * DRT_ADDRESS_LIST structure contains a set of DRT_ADDRESS structures that represent the nodes contacted during a search for a key.
- * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_address_list
+ * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_address_list
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

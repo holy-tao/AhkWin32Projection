@@ -5,7 +5,7 @@
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmralphabitmap
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmralphabitmap
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

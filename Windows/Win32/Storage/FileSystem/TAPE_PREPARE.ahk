@@ -3,7 +3,7 @@
 
 /**
  * Describes how to prepare the tape.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_prepare
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_prepare
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

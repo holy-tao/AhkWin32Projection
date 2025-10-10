@@ -4,7 +4,7 @@
 
 /**
  * Specifies the type of ID that is being used.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_id_descriptor
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

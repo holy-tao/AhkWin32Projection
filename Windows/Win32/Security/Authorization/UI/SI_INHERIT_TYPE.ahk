@@ -3,7 +3,7 @@
 
 /**
  * Contains information about how access control entries (ACEs) can be inherited by child objects.
- * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-si_inherit_type
+ * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-si_inherit_type
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

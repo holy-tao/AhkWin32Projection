@@ -2,7 +2,7 @@
 
 /**
  * The VMRPresentationFlags enumeration type is a member of the VMRPRESENTATIONINFO structure .
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrpresentationflags
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrpresentationflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

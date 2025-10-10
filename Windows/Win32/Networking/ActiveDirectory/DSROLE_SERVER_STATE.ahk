@@ -2,7 +2,7 @@
 
 /**
  * Used with the DSROLE_UPGRADE_STATUS_INFO structure to indicate the role of a server.
- * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_server_state
+ * @see https://docs.microsoft.com/windows/win32/api//dsrole/ne-dsrole-dsrole_server_state
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

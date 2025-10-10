@@ -3,7 +3,7 @@
 
 /**
  * Used with IDXGIFactoryMedia::CreateDecodeSwapChainForCompositionSurfaceHandle to describe a decode swap chain.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_decode_swap_chain_desc
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/ns-dxgi1_3-dxgi_decode_swap_chain_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

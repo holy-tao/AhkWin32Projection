@@ -2,7 +2,7 @@
 
 /**
  * Specifies which time value associated with the cache item is to be used.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_item_time
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_item_time
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the nature of the render pass; for example, whether it is a suspending or a resuming render pass.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_flags
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_render_pass_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

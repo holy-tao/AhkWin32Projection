@@ -2,10 +2,12 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Extracts a single subregion (a "slice") of an input tensor. (DML_SLICE_OPERATOR_DESC)
+ * Extracts a single subregion (a "slice") of an input tensor.
  * @remarks
  * A newer version of this operator, [DML_SLICE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_slice_operator_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_slice_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

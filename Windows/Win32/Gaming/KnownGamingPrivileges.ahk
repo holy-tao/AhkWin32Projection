@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Do not use. This API is only supported for Xbox developers. (KnownGamingPrivileges)
- * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/ne-gamingtcui-knowngamingprivileges
+ * Do not use. This API is only supported for Xbox developers.
+ * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/ne-gamingtcui-knowngamingprivileges
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */

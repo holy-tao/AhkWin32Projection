@@ -4,7 +4,7 @@
 
 /**
  * Used with the DS_REPL_ATTR_VALUE_META_DATA structure to contain attribute value replication metadata.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_value_meta_data
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_value_meta_data
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

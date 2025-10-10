@@ -3,12 +3,15 @@
 /**
  * The ReadyState property retrieves the ReadyState of the MSWebDVD object.
  * @remarks
- * This property is read-only with no default value.
+ * 
+  * This property is read-only with no default value.
   * 
   * Returns an integer value representing the control's ReadyState.
   * 
   * Any object embedded in a Web page exposes the <c>ReadyState</c> property.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-readystate
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-readystate
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -4,10 +4,13 @@
 /**
  * Represents a result for a single command in a read batch.
  * @remarks
- * The pointers in the <b>CLUSTER_READ_BATCH_COMMAND</b> structure are valid until the read batch result handle is closed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
+ * 
+  * The pointers in the <b>CLUSTER_READ_BATCH_COMMAND</b> structure are valid until the read batch result handle is closed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
   * 
   * Errors from read commands are independent from each other.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_read_batch_command
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-cluster_read_batch_command
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Contains basic accounting and I/O accounting information for a job object.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_and_io_accounting_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_basic_and_io_accounting_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines which character set a specified string is encoded with.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_textcharset
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_textcharset
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

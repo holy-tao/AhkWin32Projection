@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list. (ANSI)
+ * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list.
  * @remarks
- * Each GPO could contain data that must be processed by multiple snap-in extensions. Therefore, the data in the <b>lpExtensions</b> member is organized as a series of <b>GUID</b>s that identify the extensions and snap-in extensions. The data format is as follows:
+ * 
+  * Each GPO could contain data that must be processed by multiple snap-in extensions. Therefore, the data in the <b>lpExtensions</b> member is organized as a series of <b>GUID</b>s that identify the extensions and snap-in extensions. The data format is as follows:
   * 
   * 
   * ```cpp
@@ -21,7 +22,9 @@
   * 
   * > [!NOTE]
   * > The userenv.h header defines GROUP_POLICY_OBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-group_policy_objecta
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//userenv/ns-userenv-group_policy_objecta
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  * @charset ANSI

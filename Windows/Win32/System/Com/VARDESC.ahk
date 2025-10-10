@@ -7,7 +7,7 @@
 
 /**
  * Describes a variable, constant, or data member.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-vardesc
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-vardesc
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

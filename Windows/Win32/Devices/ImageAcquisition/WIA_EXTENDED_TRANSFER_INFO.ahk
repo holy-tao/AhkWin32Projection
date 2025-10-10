@@ -3,7 +3,7 @@
 
 /**
  * The WIA_EXTENDED_TRANSFER_INFO structure specifies extended transfer information for the IWiaDataTransfer::idtGetExtendedTransferInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_extended_transfer_info
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_extended_transfer_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

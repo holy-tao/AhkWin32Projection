@@ -5,12 +5,15 @@
 /**
  * Used to store an IPsec quick mode proposal.
  * @remarks
- * The proposal describes the
+ * 
+  * The proposal describes the
   * various parameters of the IPsec SA that is potentially generated from this
   * proposal.
   * 
   * <b>IPSEC_PROPOSAL0</b> is a specific implementation of IPSEC_PROPOSAL. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_proposal0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_proposal0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

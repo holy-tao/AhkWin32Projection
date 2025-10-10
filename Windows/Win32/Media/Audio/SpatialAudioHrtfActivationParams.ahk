@@ -3,7 +3,7 @@
 
 /**
  * Specifies the activation parameters for an ISpatialAudioRenderStreamForHrtf.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfactivationparams
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfactivationparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

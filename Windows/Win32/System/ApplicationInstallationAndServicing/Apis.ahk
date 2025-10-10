@@ -3107,34 +3107,6 @@ class ApplicationInstallationAndServicing {
 ;@region Methods
     /**
      * The MsiCloseHandle function closes an open installation handle.
-     * @remarks
-     * <b>MsiCloseHandle</b> must be called from the same thread that requested the creation of the handle.
-     * 
-     * The following functions supply handles that should be closed after use by calling 
-     * <b>MsiCloseHandle</b>:
-     * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msicreaterecord">MsiCreateRecord</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetactivedatabase">MsiGetActiveDatabase</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseopenviewa">MsiDatabaseOpenView</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewfetch">MsiViewFetch</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewgetcolumninfo">MsiViewGetColumnInfo</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasegetprimarykeysa">MsiDatabaseGetPrimaryKeys</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetsummaryinformationa">MsiGetSummaryInformation</a>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msienableuipreview">MsiEnableUIPreview</a>
-     * Note that when writing custom actions, it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <b>MsiCloseHandle</b>.
-     * 
-     * For example, if you use code like this:
-     * 
-     * MSIHANDLE hRec = MsiCreateRecord(3);
-     * 
-     * Change it to:
-     * 
-     * PMSIHANDLE hRec = MsiCreateRecord(3);
      * @param {Integer} hAny Specifies any open installation handle.
      * @returns {Integer} <table>
      * <tr>
@@ -3168,7 +3140,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiclosehandle
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiclosehandle
      * @since windows8.0
      */
     static MsiCloseHandle(hAny) {
@@ -3178,14 +3150,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiCloseAllHandles function closes all open installation handles allocated by the current thread. This is a diagnostic function and should not be used for cleanup.
-     * @remarks
-     * <b>MsiCloseAllHandles</b> only closes handles allocated by the calling thread, and does not affect handles allocated by other threads, such as the install handle passed to custom actions.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> function opens a handle to a package and the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a> function opens a handle to a product. These function are for use with functions that access the product database.
      * @returns {Integer} This function returns 0 if all handles are closed. Otherwise, the function returns the number of handles open prior to its call.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicloseallhandles
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msicloseallhandles
      * @since windows8.0
      */
     static MsiCloseAllHandles() {
@@ -3195,15 +3161,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSetInternalUI function enables the installer's internal user interface. Then this user interface is used for all subsequent calls to user-interface-generating installer functions in this process. For more information, see User Interface Levels.
-     * @remarks
-     * The 
-     * <b>MsiSetInternalUI</b> function is useful when the installer must display a user interface. For example, if a feature is installed, but the source is a compact disc that must be inserted, the installer prompts the user for the compact disc. Depending on the nature of the installation, the application might also display progress indicators or query the user for information.
-     * 
-     * When Msi.dll is loaded, the user interface level is set to DEFAULT and the user interface owner is set to 0 (that is, the initial user interface owner is the desktop).
      * @param {Integer} dwUILevel 
      * @param {Pointer<Void>} phWnd Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is null, the owner of the user interface does not change.
-     * @returns {Integer} The previous user interface level is returned. If an invalid <i>dwUILevel </i> is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetinternalui
+     * @returns {Integer} The previous user interface level is returned. If an invalid <i>dwUILevel </i>is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisetinternalui
      * @since windows8.0
      */
     static MsiSetInternalUI(dwUILevel, phWnd) {
@@ -3212,27 +3173,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetExternalUI function enables an external user-interface handler. (ANSI)
-     * @remarks
-     * To restore the previous UI handler, second call is made to 
-     * <b>MsiSetExternalUI</b> using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handlera">INSTALLUI_HANDLER</a> returned by the first call to 
-     * <b>MsiSetExternalUI</b> and specifying zero (0) for dwMessageFilter.
-     * 
-     * The external user interface handler pointed to by the <i>puiHandler</i> parameter does not have full control over the external user interface unless 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> is called with the <i>dwUILevel</i> parameter set to INSTALLUILEVEL_NONE. If 
-     * <b>MsiSetInternalUI</b> is not called, the internal user interface level defaults to INSTALLUILEVEL_BASIC. As a result, any message not handled by the external user interface handler is handled by Windows Installer. The initial "Preparing to install. . ." dialog always appears even if the external user interface handler handles all messages.
-     * 
-     * <b>MsiSetExternalUI</b> should only be called from a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/bootstrapping">Bootstrapping</a> application. You cannot call 
-     * <b>MsiSetExternalUI</b> from a custom action.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSetExternalUI as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetExternalUI function enables an external user-interface handler.
      * @param {Pointer<INSTALLUI_HANDLERA>} puiHandler Specifies a callback function that conforms to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handlera">INSTALLUI_HANDLER</a> specification.
      * @param {Integer} dwMessageFilter Specifies which messages to handle using the external message handler. If the external handler returns a non-zero result, then that message will not be sent to the UI, instead the message will be logged if logging has been enabled. For more information, see 
@@ -3433,7 +3374,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Pointer<Void>} pvContext Pointer to an application context that is passed to the callback function. This parameter can be used for error checking.
      * @returns {Pointer<INSTALLUI_HANDLERA>} The return value is the previously set external handler, or zero (0) if there was no previously set handler.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluia
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisetexternaluia
      * @since windows8.0
      */
     static MsiSetExternalUIA(puiHandler, dwMessageFilter, pvContext) {
@@ -3442,27 +3383,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetExternalUI function enables an external user-interface handler. (Unicode)
-     * @remarks
-     * To restore the previous UI handler, second call is made to 
-     * <b>MsiSetExternalUI</b> using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handlera">INSTALLUI_HANDLER</a> returned by the first call to 
-     * <b>MsiSetExternalUI</b> and specifying zero (0) for dwMessageFilter.
-     * 
-     * The external user interface handler pointed to by the <i>puiHandler</i> parameter does not have full control over the external user interface unless 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> is called with the <i>dwUILevel</i> parameter set to INSTALLUILEVEL_NONE. If 
-     * <b>MsiSetInternalUI</b> is not called, the internal user interface level defaults to INSTALLUILEVEL_BASIC. As a result, any message not handled by the external user interface handler is handled by Windows Installer. The initial "Preparing to install. . ." dialog always appears even if the external user interface handler handles all messages.
-     * 
-     * <b>MsiSetExternalUI</b> should only be called from a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/bootstrapping">Bootstrapping</a> application. You cannot call 
-     * <b>MsiSetExternalUI</b> from a custom action.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSetExternalUI as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetExternalUI function enables an external user-interface handler.
      * @param {Pointer<INSTALLUI_HANDLERW>} puiHandler Specifies a callback function that conforms to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handlera">INSTALLUI_HANDLER</a> specification.
      * @param {Integer} dwMessageFilter Specifies which messages to handle using the external message handler. If the external handler returns a non-zero result, then that message will not be sent to the UI, instead the message will be logged if logging has been enabled. For more information, see 
@@ -3663,7 +3584,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Pointer<Void>} pvContext Pointer to an application context that is passed to the callback function. This parameter can be used for error checking.
      * @returns {Pointer<INSTALLUI_HANDLERW>} The return value is the previously set external handler, or zero (0) if there was no previously set handler.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluiw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisetexternaluiw
      * @since windows8.0
      */
     static MsiSetExternalUIW(puiHandler, dwMessageFilter, pvContext) {
@@ -3673,26 +3594,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSetExternalUIRecord function enables an external user-interface (UI) handler.
-     * @remarks
-     * This function cannot be called from <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-actions">Custom Actions</a>.
-     * 
-     * The external UI handler enabled by calling <b>MsiSetExternalUIRecord</b> receives messages in the format of a <a href="https://docs.microsoft.com/windows/desktop/Msi/record-object">Record Object</a>. The external UI handler enabled by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a> receives messages in the format of a string. An external UI is always called before the Windows Installer internal UI. An enabled record-based external UI is called before any string-based external UI. If the record-based external UI handler returns 0 (zero), the message is sent to any enabled string-based external UI handler. If the external UI handler returns a non-zero value, the internal Windows Installer UI handler is suppressed and the messages are considered handled.
-     * 
-     * 
-     * This function stores the external user interfaces it has set.  To replace the current external UI handler with a previous handler, call the function and specify the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handler_record">INSTALLUI_HANDLER_RECORD</a> as the <i>puiHandler</i> parameter and 0 (zero) as the <i>dwMessageFilter</i> parameter.
-     * 
-     * The external user interface handler pointed to by the <i>puiHandler</i> parameter does not have full control over the external user interface unless 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> is called with the <i>dwUILevel</i> parameter set to INSTALLUILEVEL_NONE. If 
-     * <b>MsiSetInternalUI</b> is not called, the internal user interface level defaults to INSTALLUILEVEL_BASIC. As a result, any message not handled by the external user interface handler is handled by Windows Installer. The initial "Preparing to install. . ." dialog always appears even if the external user interface handler handles all messages.
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a> should only be called from an 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/bootstrapping">Bootstrapping</a> application. You cannot call 
-     * <b>MsiSetExternalUI</b> from a custom action.
-     * 
-     * To disable this external UI handler, call <b>MsiSetExternalUIRecord</b> with a <b>NULL</b> value for the <i>puiHandler</i> parameter.
-     * 
-     * <b>Windows Installer 2.0 and Windows Installer 3.0:  </b>Not supported. The <b>MsiSetExternalUIRecord</b> function is available beginning with Windows Installer 3.1.
-     * 
-     * For more information about using a record-based external handler, see <a href="https://docs.microsoft.com/windows/desktop/Msi/monitoring-an-installation-using-msisetexternaluirecord">Monitoring an Installation Using MsiSetExternalUIRecord</a>.
      * @param {Pointer<PINSTALLUI_HANDLER_RECORD>} puiHandler Specifies a callback function that conforms to the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nc-msi-installui_handler_record">INSTALLUI_HANDLER_RECORD</a> specification.
      * 
      * To disable the current external UI handler, call the function with this parameter set to a <b>NULL</b> value.
@@ -3938,7 +3839,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluirecord
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisetexternaluirecord
      * @since windows8.0
      */
     static MsiSetExternalUIRecord(puiHandler, dwMessageFilter, pvContext, ppuiPrevHandler) {
@@ -3947,19 +3848,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process. (ANSI)
-     * @remarks
-     * For a description of the Logging policy, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/system-policy">System Policy</a>.
-     * 
-     * The path to the log file location must already exist when using this function. The Installer does not create the directory structure for the log file.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnableLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process.
      * @param {Integer} dwLogMode 
      * @param {Pointer<Byte>} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
      * @param {Integer} dwLogAttributes Specifies how frequently the log buffer is to be flushed.
@@ -4019,7 +3908,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienableloga
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienableloga
      * @since windows8.0
      */
     static MsiEnableLogA(dwLogMode, szLogFile, dwLogAttributes) {
@@ -4030,19 +3919,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process. (Unicode)
-     * @remarks
-     * For a description of the Logging policy, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/system-policy">System Policy</a>.
-     * 
-     * The path to the log file location must already exist when using this function. The Installer does not create the directory structure for the log file.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnableLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process.
      * @param {Integer} dwLogMode 
      * @param {Pointer<Char>} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
      * @param {Integer} dwLogAttributes Specifies how frequently the log buffer is to be flushed.
@@ -4102,7 +3979,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienablelogw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienablelogw
      * @since windows8.0
      */
     static MsiEnableLogW(dwLogMode, szLogFile, dwLogAttributes) {
@@ -4113,10 +3990,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryProductState function returns the installed state for a product. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryProductState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryProductState function returns the installed state for a product.
      * @param {Pointer<Byte>} szProduct Specifies the product code that identifies the product to be queried.
      * @returns {Integer} <table>
      * <tr>
@@ -4183,7 +4057,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryproductstatea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryproductstatea
      * @since windows8.0
      */
     static MsiQueryProductStateA(szProduct) {
@@ -4194,10 +4068,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryProductState function returns the installed state for a product. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryProductState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryProductState function returns the installed state for a product.
      * @param {Pointer<Char>} szProduct Specifies the product code that identifies the product to be queried.
      * @returns {Integer} <table>
      * <tr>
@@ -4264,7 +4135,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryproductstatew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryproductstatew
      * @since windows8.0
      */
     static MsiQueryProductStateW(szProduct) {
@@ -4275,26 +4146,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductInfo function returns product information for published and installed products. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductInfo</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, 
-     * <b>MsiGetProductInfo</b> returns ERROR_MORE_DATA and 
-     * <i>pcchValueBuf</i> contains the size of the string, in characters, without counting the null character.
-     * 
-     * <b>MsiGetProductInfo</b>(INSTALLPROPERTY_LOCALPACKAGE) does not necessarily return a path to the cached package. The cached package is for internal use only. Maintenance mode installations should be invoked through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproductexa">MsiConfigureProductEx</a> functions.
-     * 
-     * If you attempt to use <b>MsiGetProductInfo</b> to query an advertised product  for a property that is only available to installed products, the function returns   ERROR_UNKNOWN_PROPERTY. For example, if the application is advertised and not installed, a query for the INSTALLPROPERTY_INSTALLLOCATION property returns an error of ERROR_UNKNOWN_PROPERTY.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductInfo function returns product information for published and installed products.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product.
      * @param {Pointer<Byte>} szAttribute Specifies the property to be retrieved.  
      * 
@@ -4632,12 +4484,12 @@ class ApplicationInstallationAndServicing {
      * <td width="60%">
      * The property is unrecognized.
      * 
-     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function  returns   ERROR_UNKNOWN_PROPERTY if the application being queried is advertised and not installed.</div>
+     * <div class="alert"><b>Note</b>  The <a href="/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function  returns   ERROR_UNKNOWN_PROPERTY if the application being queried is advertised and not installed.</div>
      * <div> </div>
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfoa
      * @since windows8.0
      */
     static MsiGetProductInfoA(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -4650,26 +4502,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductInfo function returns product information for published and installed products. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductInfo</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, 
-     * <b>MsiGetProductInfo</b> returns ERROR_MORE_DATA and 
-     * <i>pcchValueBuf</i> contains the size of the string, in characters, without counting the null character.
-     * 
-     * <b>MsiGetProductInfo</b>(INSTALLPROPERTY_LOCALPACKAGE) does not necessarily return a path to the cached package. The cached package is for internal use only. Maintenance mode installations should be invoked through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproductexa">MsiConfigureProductEx</a> functions.
-     * 
-     * If you attempt to use <b>MsiGetProductInfo</b> to query an advertised product  for a property that is only available to installed products, the function returns   ERROR_UNKNOWN_PROPERTY. For example, if the application is advertised and not installed, a query for the INSTALLPROPERTY_INSTALLLOCATION property returns an error of ERROR_UNKNOWN_PROPERTY.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductInfo function returns product information for published and installed products.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product.
      * @param {Pointer<Char>} szAttribute Specifies the property to be retrieved.  
      * 
@@ -5007,12 +4840,12 @@ class ApplicationInstallationAndServicing {
      * <td width="60%">
      * The property is unrecognized.
      * 
-     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function  returns   ERROR_UNKNOWN_PROPERTY if the application being queried is advertised and not installed.</div>
+     * <div class="alert"><b>Note</b>  The <a href="/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function  returns   ERROR_UNKNOWN_PROPERTY if the application being queried is advertised and not installed.</div>
      * <div> </div>
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfow
      * @since windows8.0
      */
     static MsiGetProductInfoW(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -5025,26 +4858,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns product information for advertised and installed products. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductInfoEx</b> function returns, the <i>pcchValue</i> parameter contains the length of the string that is stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiGetProductInfoEx</b> returns <b>ERROR_MORE_DATA</b>, and 
-     * the <i>pcchValue</i> parameter contains the size of the string, in <b>TCHAR</b>, without counting the null character.
-     * 
-     * The <b>MsiGetProductInfoEx</b> function  (<b>INSTALLPROPERTY_LOCALPACKAGE</b>) returns a path to the cached package. The cached package is for internal use only. Maintenance mode installations must be invoked through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproductexa">MsiConfigureProductEx</a> functions.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.  For example, if the application is advertised and not installed, a query for <b>INSTALLPROPERTY_INSTALLLOCATION</b> returns an error of <b>ERROR_UNKNOWN_PROPERTY</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns product information for advertised and installed products.
      * @param {Pointer<Byte>} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
      * @param {Pointer<Byte>} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
      * 
@@ -5470,7 +5284,7 @@ class ApplicationInstallationAndServicing {
      * <td width="60%">
      * The property is unrecognized. 
      * 
-     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.</div>
+     * <div class="alert"><b>Note</b>  The <a href="/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.</div>
      * <div> </div>
      * </td>
      * </tr>
@@ -5486,7 +5300,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfoexa
      * @since windows8.0
      */
     static MsiGetProductInfoExA(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
@@ -5500,26 +5314,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns product information for advertised and installed products. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductInfoEx</b> function returns, the <i>pcchValue</i> parameter contains the length of the string that is stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiGetProductInfoEx</b> returns <b>ERROR_MORE_DATA</b>, and 
-     * the <i>pcchValue</i> parameter contains the size of the string, in <b>TCHAR</b>, without counting the null character.
-     * 
-     * The <b>MsiGetProductInfoEx</b> function  (<b>INSTALLPROPERTY_LOCALPACKAGE</b>) returns a path to the cached package. The cached package is for internal use only. Maintenance mode installations must be invoked through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproductexa">MsiConfigureProductEx</a> functions.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.  For example, if the application is advertised and not installed, a query for <b>INSTALLPROPERTY_INSTALLLOCATION</b> returns an error of <b>ERROR_UNKNOWN_PROPERTY</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns product information for advertised and installed products.
      * @param {Pointer<Char>} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
      * @param {Pointer<Char>} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
      * 
@@ -5945,7 +5740,7 @@ class ApplicationInstallationAndServicing {
      * <td width="60%">
      * The property is unrecognized. 
      * 
-     * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.</div>
+     * <div class="alert"><b>Note</b>  The <a href="/windows/desktop/api/msi/nf-msi-msigetproductinfoa">MsiGetProductInfo</a> function returns   <b>ERROR_UNKNOWN_PROPERTY</b> if the application being queried is advertised and not installed.</div>
      * <div> </div>
      * </td>
      * </tr>
@@ -5961,7 +5756,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfoexw
      * @since windows8.0
      */
     static MsiGetProductInfoExW(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
@@ -5975,28 +5770,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Installs or uninstalls a product. (MsiInstallProductA)
-     * @remarks
-     * The 
-     * <b>MsiInstallProduct</b> function displays the user interface with the current settings and log mode.
-     * 
-     * <ul>
-     * <li>You can change user interface settings by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a> functions.</li>
-     * <li>You can set the log mode by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienableloga">MsiEnableLog</a> function.</li>
-     * <li>You can completely remove a product by setting REMOVE=ALL in <i>szCommandLine</i>.</li>
-     * </ul>
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/remove">REMOVE</a> Property.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs or uninstalls a product.
      * @param {Pointer<Byte>} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
      * @param {Pointer<Byte>} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
@@ -6027,14 +5801,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6046,8 +5820,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallproducta
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallproducta
      * @since windows8.0
      */
     static MsiInstallProductA(szPackagePath, szCommandLine) {
@@ -6059,28 +5833,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Installs or uninstalls a product. (MsiInstallProductW)
-     * @remarks
-     * The 
-     * <b>MsiInstallProduct</b> function displays the user interface with the current settings and log mode.
-     * 
-     * <ul>
-     * <li>You can change user interface settings by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a> functions.</li>
-     * <li>You can set the log mode by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienableloga">MsiEnableLog</a> function.</li>
-     * <li>You can completely remove a product by setting REMOVE=ALL in <i>szCommandLine</i>.</li>
-     * </ul>
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/remove">REMOVE</a> Property.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs or uninstalls a product.
      * @param {Pointer<Char>} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
      * @param {Pointer<Char>} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
@@ -6111,14 +5864,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6130,8 +5883,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallproductw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallproductw
      * @since windows8.0
      */
     static MsiInstallProductW(szPackagePath, szCommandLine) {
@@ -6143,21 +5896,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiConfigureProduct function installs or uninstalls a product. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiConfigureProduct</b> function displays the user interface (UI) using the current settings. User interface settings can be changed by using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a>.
-     * 
-     * The <i>iInstallLevel</i> parameter is ignored, and all features of the product are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT. To control the installation of individual features when the <i>eInstallState</i> parameter is not set to INSTALLSTATE_DEFAULT, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiConfigureProduct function installs or uninstalls a product.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
      * @param {Integer} eInstallState 
@@ -6196,14 +5935,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6212,7 +5951,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproducta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigureproducta
      * @since windows8.0
      */
     static MsiConfigureProductA(szProduct, iInstallLevel, eInstallState) {
@@ -6223,21 +5962,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiConfigureProduct function installs or uninstalls a product. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiConfigureProduct</b> function displays the user interface (UI) using the current settings. User interface settings can be changed by using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a>.
-     * 
-     * The <i>iInstallLevel</i> parameter is ignored, and all features of the product are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT. To control the installation of individual features when the <i>eInstallState</i> parameter is not set to INSTALLSTATE_DEFAULT, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiConfigureProduct function installs or uninstalls a product.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
      * @param {Integer} eInstallState 
@@ -6276,14 +6001,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6292,7 +6017,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigureproductw
      * @since windows8.0
      */
     static MsiConfigureProductW(szProduct, iInstallLevel, eInstallState) {
@@ -6303,24 +6028,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Installs or uninstalls a product. (MsiConfigureProductExA)
-     * @remarks
-     * The command line passed in as <i>szCommandLine</i> can contain any of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/property-reference">Feature Installation Options Properties</a>. In this case, the <i>eInstallState</i> passed must be <b>INSTALLSTATE_DEFAULT</b>.
-     * 
-     * The <i>iInstallLevel</i> parameter is ignored and all features of the product are installed if the <i>eInstallState</i> parameter is set to any other value than <b>INSTALLSTATE_DEFAULT</b>. To control the installation of individual features when the <i>eInstallState</i> parameter is not set to <b>INSTALLSTATE_DEFAULT</b> use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * The 
-     * <b>MsiConfigureProductEx</b> function displays the user interface using the current settings. User interface settings can be changed with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs or uninstalls a product.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
      * @param {Integer} eInstallState 
@@ -6361,14 +6069,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6377,7 +6085,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigureproductexa
      * @since windows8.0
      */
     static MsiConfigureProductExA(szProduct, iInstallLevel, eInstallState, szCommandLine) {
@@ -6389,24 +6097,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Installs or uninstalls a product. (MsiConfigureProductExW)
-     * @remarks
-     * The command line passed in as <i>szCommandLine</i> can contain any of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/property-reference">Feature Installation Options Properties</a>. In this case, the <i>eInstallState</i> passed must be <b>INSTALLSTATE_DEFAULT</b>.
-     * 
-     * The <i>iInstallLevel</i> parameter is ignored and all features of the product are installed if the <i>eInstallState</i> parameter is set to any other value than <b>INSTALLSTATE_DEFAULT</b>. To control the installation of individual features when the <i>eInstallState</i> parameter is not set to <b>INSTALLSTATE_DEFAULT</b> use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * The 
-     * <b>MsiConfigureProductEx</b> function displays the user interface using the current settings. User interface settings can be changed with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluirecord">MsiSetExternalUIRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Installs or uninstalls a product.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
      * @param {Integer} eInstallState 
@@ -6447,14 +6138,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6463,7 +6154,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigureproductexw
      * @since windows8.0
      */
     static MsiConfigureProductExW(szProduct, iInstallLevel, eInstallState, szCommandLine) {
@@ -6475,10 +6166,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Reinstalls products. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiReinstallProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reinstalls products.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be reinstalled.
      * @param {Integer} szReinstallMode 
      * @returns {Integer} <table>
@@ -6567,8 +6255,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallproducta
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msireinstallproducta
      * @since windows8.0
      */
     static MsiReinstallProductA(szProduct, szReinstallMode) {
@@ -6579,10 +6267,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Reinstalls products. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiReinstallProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reinstalls products.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product to be reinstalled.
      * @param {Integer} szReinstallMode 
      * @returns {Integer} <table>
@@ -6671,8 +6356,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallproductw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msireinstallproductw
      * @since windows8.0
      */
     static MsiReinstallProductW(szProduct, szReinstallMode) {
@@ -6683,16 +6368,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer. (ANSI)
-     * @remarks
-     * Multiple instances through product code–changing transforms is only available for Windows Installer versions shipping with   Windows Server 2003  and Windows XP with SP1 and later.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer.
      * @param {Pointer<Byte>} szPackagePath The full path to the package of the product being advertised.
      * @param {Pointer<Byte>} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
@@ -6827,14 +6503,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6854,7 +6530,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertiseproductexa
      * @since windows8.0
      */
     static MsiAdvertiseProductExA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
@@ -6867,16 +6543,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer. (Unicode)
-     * @remarks
-     * Multiple instances through product code–changing transforms is only available for Windows Installer versions shipping with   Windows Server 2003  and Windows XP with SP1 and later.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer.
      * @param {Pointer<Char>} szPackagePath The full path to the package of the product being advertised.
      * @param {Pointer<Char>} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
@@ -7011,14 +6678,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7038,7 +6705,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertiseproductexw
      * @since windows8.0
      */
     static MsiAdvertiseProductExW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
@@ -7051,10 +6718,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer.
      * @param {Pointer<Byte>} szPackagePath The full path to the package of the product being advertised.
      * @param {Pointer<Byte>} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
@@ -7115,14 +6779,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7142,7 +6806,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproducta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertiseproducta
      * @since windows8.0
      */
     static MsiAdvertiseProductA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
@@ -7155,10 +6819,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer.
      * @param {Pointer<Char>} szPackagePath The full path to the package of the product being advertised.
      * @param {Pointer<Char>} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
@@ -7219,14 +6880,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7246,7 +6907,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertiseproductw
      * @since windows8.0
      */
     static MsiAdvertiseProductW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
@@ -7259,15 +6920,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations. (ANSI)
-     * @remarks
-     * The process calling this function must be running under the LocalSystem account. To advertise an application for per-user installation to a targeted user, the thread that calls this function must impersonate the targeted user. If the thread calling this function is not impersonating a targeted user, the application is advertised to all users for installation with elevated privileges.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProcessAdvertiseScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations.
      * @param {Pointer<Byte>} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
@@ -7311,14 +6964,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7342,7 +6995,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprocessadvertisescripta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprocessadvertisescripta
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptA(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
@@ -7354,15 +7007,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations. (Unicode)
-     * @remarks
-     * The process calling this function must be running under the LocalSystem account. To advertise an application for per-user installation to a targeted user, the thread that calls this function must impersonate the targeted user. If the thread calling this function is not impersonating a targeted user, the application is advertised to all users for installation with elevated privileges.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProcessAdvertiseScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations.
      * @param {Pointer<Char>} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
@@ -7406,14 +7051,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7437,7 +7082,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprocessadvertisescriptw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprocessadvertisescriptw
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptW(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
@@ -7449,16 +7094,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseScript function copies an advertised script file into the specified locations. (ANSI)
-     * @remarks
-     * The process calling this function must be running under the LocalSystem account. To advertise an application for per-user installation to a targeted user, the thread that calls this function must impersonate the targeted user. If the thread calling this function is not impersonating a targeted user, the application is advertised to all users for installation with elevated privileges.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseScript function copies an advertised script file into the specified locations.
      * @param {Pointer<Byte>} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
@@ -7505,14 +7141,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7536,7 +7172,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertisescripta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertisescripta
      * @since windows8.0
      */
     static MsiAdvertiseScriptA(szScriptFile, dwFlags, phRegData, fRemoveItems) {
@@ -7547,16 +7183,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiAdvertiseScript function copies an advertised script file into the specified locations. (Unicode)
-     * @remarks
-     * The process calling this function must be running under the LocalSystem account. To advertise an application for per-user installation to a targeted user, the thread that calls this function must impersonate the targeted user. If the thread calling this function is not impersonating a targeted user, the application is advertised to all users for installation with elevated privileges.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiAdvertiseScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiAdvertiseScript function copies an advertised script file into the specified locations.
      * @param {Pointer<Char>} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
@@ -7603,14 +7230,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -7634,7 +7261,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertisescriptw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiadvertisescriptw
      * @since windows8.0
      */
     static MsiAdvertiseScriptW(szScriptFile, dwFlags, phRegData, fRemoveItems) {
@@ -7645,10 +7272,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfoFromScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file.
      * @param {Pointer<Byte>} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {Pointer<Byte>} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
@@ -7719,7 +7343,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfofromscripta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfofromscripta
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptA(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
@@ -7733,10 +7357,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductInfoFromScript as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file.
      * @param {Pointer<Char>} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {Pointer<Char>} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
@@ -7807,7 +7428,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfofromscriptw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductinfofromscriptw
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptW(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
@@ -7821,16 +7442,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application. (ANSI)
-     * @remarks
-     * During initialization, an application must determine the product code under which it was installed. An application can be part of different products in different installations. For example, an application can be part of a suite of applications, or it can be installed by itself.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductCode as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application.
      * @param {Pointer<Byte>} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
      * @param {Pointer<Byte>} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
@@ -7898,7 +7510,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductcodea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductcodea
      * @since windows8.0
      */
     static MsiGetProductCodeA(szComponent, lpBuf39) {
@@ -7910,16 +7522,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application. (Unicode)
-     * @remarks
-     * During initialization, an application must determine the product code under which it was installed. An application can be part of different products in different installations. For example, an application can be part of a suite of applications, or it can be installed by itself.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductCode as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application.
      * @param {Pointer<Char>} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
      * @param {Pointer<Char>} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
@@ -7987,7 +7590,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductcodew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductcodew
      * @since windows8.0
      */
     static MsiGetProductCodeW(szComponent, lpBuf39) {
@@ -7999,21 +7602,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetUserInfo function returns the registered user information for an installed product. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiGetUserInfo</b> function returns, the <i>pcchNameBuf</i> parameter contains the length of the class string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, the 
-     * <b>MsiGetUserInfo</b> function returns USERINFOSTATE_MOREDATA, and 
-     * <b>MsiGetUserInfo</b> contains the size of the string, in characters, without counting the null character.
-     * 
-     * The user information is considered to be present even in the absence of a company name.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetUserInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetUserInfo function returns the registered user information for an installed product.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be queried.
      * @param {Pointer<Byte>} lpUserNameBuf Pointer to a variable that receives the name of the user.
      * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
@@ -8086,7 +7675,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetuserinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetuserinfoa
      * @since windows8.0
      */
     static MsiGetUserInfoA(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
@@ -8100,21 +7689,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetUserInfo function returns the registered user information for an installed product. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiGetUserInfo</b> function returns, the <i>pcchNameBuf</i> parameter contains the length of the class string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, the 
-     * <b>MsiGetUserInfo</b> function returns USERINFOSTATE_MOREDATA, and 
-     * <b>MsiGetUserInfo</b> contains the size of the string, in characters, without counting the null character.
-     * 
-     * The user information is considered to be present even in the absence of a company name.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetUserInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetUserInfo function returns the registered user information for an installed product.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product to be queried.
      * @param {Pointer<Char>} lpUserNameBuf Pointer to a variable that receives the name of the user.
      * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
@@ -8187,7 +7762,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetuserinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetuserinfow
      * @since windows8.0
      */
     static MsiGetUserInfoW(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
@@ -8201,25 +7776,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiCollectUserInfo</b> function is typically called by an application during the first run of the application. The application first calls 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetuserinfoa">MsiGetUserInfo</a>. If that call fails, the application calls 
-     * <b>MsiCollectUserInfo</b>. 
-     * <b>MsiCollectUserInfo</b> opens the product's installation package and invokes a wizard sequence that collects user information. Upon completion of the sequence, user information is registered. Since this API requires an authored user interface, the user interface level should be set to full by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> as INSTALLUILEVEL_FULL.
-     * 
-     * The 
-     * <b>MsiCollectUserInfo</b> invokes a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/firstrun-dialog">FirstRun Dialog</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiCollectUserInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard.
      * @param {Pointer<Byte>} szProduct Specifies the product code of the product for which the user information is collected.
      * @returns {Integer} <table>
      * <tr>
@@ -8256,14 +7813,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8276,7 +7833,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicollectuserinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msicollectuserinfoa
      * @since windows8.0
      */
     static MsiCollectUserInfoA(szProduct) {
@@ -8287,25 +7844,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiCollectUserInfo</b> function is typically called by an application during the first run of the application. The application first calls 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetuserinfoa">MsiGetUserInfo</a>. If that call fails, the application calls 
-     * <b>MsiCollectUserInfo</b>. 
-     * <b>MsiCollectUserInfo</b> opens the product's installation package and invokes a wizard sequence that collects user information. Upon completion of the sequence, user information is registered. Since this API requires an authored user interface, the user interface level should be set to full by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> as INSTALLUILEVEL_FULL.
-     * 
-     * The 
-     * <b>MsiCollectUserInfo</b> invokes a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/firstrun-dialog">FirstRun Dialog</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiCollectUserInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard.
      * @param {Pointer<Char>} szProduct Specifies the product code of the product for which the user information is collected.
      * @returns {Integer} <table>
      * <tr>
@@ -8342,14 +7881,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8362,7 +7901,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicollectuserinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msicollectuserinfow
      * @since windows8.0
      */
     static MsiCollectUserInfoW(szProduct) {
@@ -8373,20 +7912,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package. (ANSI)
-     * @remarks
-     * Because the list delimiter for transforms, sources, and patches is a semicolon, this character should not be used for file names or paths.
-     * 
-     * <div class="alert"><b>Note</b>  <p class="note">You must set the <a href="https://docs.microsoft.com/windows/desktop/Msi/reinstall">REINSTALL</a> property on the command line when applying a <a href="https://docs.microsoft.com/windows/desktop/Msi/small-updates">small update</a> or <a href="https://docs.microsoft.com/windows/desktop/Msi/minor-upgrades">minor upgrade</a> patch. Without this property, the patch is registered on the system but cannot update files.  For patches that do not use a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-51">Custom Action Type 51</a> to automatically set the <b>REINSTALL</b> and <a href="https://docs.microsoft.com/windows/desktop/Msi/reinstallmode">REINSTALLMODE</a> properties, the <b>REINSTALL</b> property must be explicitly set with the <i>szCommandLine</i> parameter. Set the <b>REINSTALL</b> property to list the features affected by the patch, or use a practical default setting of "REINSTALL=ALL". The default value of the <b>REINSTALLMODE</b> property is "omus". Beginning with Windows Installer version 3.0, the <b>REINSTALL</b> property is configured by the installer and does not need to be set on the command line.
-     * 
-     * </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiApplyPatch as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package.
      * @param {Pointer<Byte>} szPatchPackage A null-terminated string specifying the full path to the patch package.
      * @param {Pointer<Byte>} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
@@ -8489,14 +8015,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8505,7 +8031,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplypatcha
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiapplypatcha
      * @since windows8.0
      */
     static MsiApplyPatchA(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
@@ -8518,20 +8044,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package. (Unicode)
-     * @remarks
-     * Because the list delimiter for transforms, sources, and patches is a semicolon, this character should not be used for file names or paths.
-     * 
-     * <div class="alert"><b>Note</b>  <p class="note">You must set the <a href="https://docs.microsoft.com/windows/desktop/Msi/reinstall">REINSTALL</a> property on the command line when applying a <a href="https://docs.microsoft.com/windows/desktop/Msi/small-updates">small update</a> or <a href="https://docs.microsoft.com/windows/desktop/Msi/minor-upgrades">minor upgrade</a> patch. Without this property, the patch is registered on the system but cannot update files.  For patches that do not use a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-51">Custom Action Type 51</a> to automatically set the <b>REINSTALL</b> and <a href="https://docs.microsoft.com/windows/desktop/Msi/reinstallmode">REINSTALLMODE</a> properties, the <b>REINSTALL</b> property must be explicitly set with the <i>szCommandLine</i> parameter. Set the <b>REINSTALL</b> property to list the features affected by the patch, or use a practical default setting of "REINSTALL=ALL". The default value of the <b>REINSTALLMODE</b> property is "omus". Beginning with Windows Installer version 3.0, the <b>REINSTALL</b> property is configured by the installer and does not need to be set on the command line.
-     * 
-     * </div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiApplyPatch as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package.
      * @param {Pointer<Char>} szPatchPackage A null-terminated string specifying the full path to the patch package.
      * @param {Pointer<Char>} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
@@ -8634,14 +8147,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8650,7 +8163,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplypatchw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiapplypatchw
      * @since windows8.0
      */
     static MsiApplyPatchW(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
@@ -8663,20 +8176,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetPatchInfo function returns information about a patch. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiGetPatchInfo</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the class string stored in the buffer. The count returned does not include the terminating null character.
-     * 
-     * If the buffer is too small to hold the requested data, 
-     * <b>MsiGetPatchInfo</b> returns ERROR_MORE_DATA, and <i>pcchValueBuf</i> contains the number of characters copied to <i>lpValueBuf</i>, without counting the null character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetPatchInfo function returns information about a patch.
      * @param {Pointer<Byte>} szPatch Specifies the patch code for the patch package.
      * @param {Pointer<Byte>} szAttribute Specifies the attribute to be retrieved. 
      * 
@@ -8783,7 +8283,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchinfoa
      * @since windows8.0
      */
     static MsiGetPatchInfoA(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -8796,20 +8296,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetPatchInfo function returns information about a patch. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiGetPatchInfo</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the class string stored in the buffer. The count returned does not include the terminating null character.
-     * 
-     * If the buffer is too small to hold the requested data, 
-     * <b>MsiGetPatchInfo</b> returns ERROR_MORE_DATA, and <i>pcchValueBuf</i> contains the number of characters copied to <i>lpValueBuf</i>, without counting the null character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetPatchInfo function returns information about a patch.
      * @param {Pointer<Char>} szPatch Specifies the patch code for the patch package.
      * @param {Pointer<Char>} szAttribute Specifies the attribute to be retrieved. 
      * 
@@ -8916,7 +8403,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchinfow
      * @since windows8.0
      */
     static MsiGetPatchInfoW(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -8929,20 +8416,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumPatches function enumerates all of the patches that have been applied to a product. (ANSI)
-     * @remarks
-     * To enumerate patches, an application should initially call the 
-     * <b>MsiEnumPatches</b> function with the <i>iPatchIndex</i> parameter set to zero. The application should then increment the <i>iPatchIndex</i> parameter and call 
-     * <b>MsiEnumPatches</b> until there are no more products (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * If the buffer is too small to hold the requested data, 
-     * <b>MsiEnumPatches</b> returns ERROR_MORE_DATA and <i>pcchTransformsBuf</i> contains the number of characters copied to <i>lpTransformsBuf</i>, without counting the Null character.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumPatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumPatches function enumerates all of the patches that have been applied to a product.
      * @param {Pointer<Byte>} szProduct Specifies the product code of the product for which patches are to be enumerated.
      * @param {Integer} iPatchIndex Specifies the index of the patch to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
@@ -9010,7 +8484,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumpatchesa
      * @since windows8.0
      */
     static MsiEnumPatchesA(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
@@ -9023,20 +8497,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumPatches function enumerates all of the patches that have been applied to a product. (Unicode)
-     * @remarks
-     * To enumerate patches, an application should initially call the 
-     * <b>MsiEnumPatches</b> function with the <i>iPatchIndex</i> parameter set to zero. The application should then increment the <i>iPatchIndex</i> parameter and call 
-     * <b>MsiEnumPatches</b> until there are no more products (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * If the buffer is too small to hold the requested data, 
-     * <b>MsiEnumPatches</b> returns ERROR_MORE_DATA and <i>pcchTransformsBuf</i> contains the number of characters copied to <i>lpTransformsBuf</i>, without counting the Null character.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumPatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumPatches function enumerates all of the patches that have been applied to a product.
      * @param {Pointer<Char>} szProduct Specifies the product code of the product for which patches are to be enumerated.
      * @param {Integer} iPatchIndex Specifies the index of the patch to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
@@ -9104,7 +8565,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumpatchesw
      * @since windows8.0
      */
     static MsiEnumPatchesW(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
@@ -9117,16 +8578,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Removes one or more patches from a single product. (ANSI)
-     * @remarks
-     * See  <a href="https://docs.microsoft.com/windows/desktop/Msi/uninstalling-patches">Uninstalling Patches</a> for an example that demonstrates how an application can remove a patch from all products that are available to the user. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiRemovePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes one or more patches from a single product.
      * @param {Pointer<Byte>} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
      * @param {Pointer<Byte>} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
@@ -9197,7 +8649,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The product specified by <i>szProductList</i> is not installed either per-machine or per-user for the caller of <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiremovepatchesa">MsiRemovePatches</a>.
+     * The product specified by <i>szProductList</i> is not installed either per-machine or per-user for the caller of <a href="/windows/desktop/api/msi/nf-msi-msiremovepatchesa">MsiRemovePatches</a>.
      * 
      * </td>
      * </tr>
@@ -9268,7 +8720,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiremovepatchesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiremovepatchesa
      * @since windows8.0
      */
     static MsiRemovePatchesA(szPatchList, szProductCode, eUninstallType, szPropertyList) {
@@ -9281,16 +8733,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Removes one or more patches from a single product. (Unicode)
-     * @remarks
-     * See  <a href="https://docs.microsoft.com/windows/desktop/Msi/uninstalling-patches">Uninstalling Patches</a> for an example that demonstrates how an application can remove a patch from all products that are available to the user. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiRemovePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes one or more patches from a single product.
      * @param {Pointer<Char>} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
      * @param {Pointer<Char>} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
@@ -9361,7 +8804,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The product specified by <i>szProductList</i> is not installed either per-machine or per-user for the caller of <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiremovepatchesa">MsiRemovePatches</a>.
+     * The product specified by <i>szProductList</i> is not installed either per-machine or per-user for the caller of <a href="/windows/desktop/api/msi/nf-msi-msiremovepatchesa">MsiRemovePatches</a>.
      * 
      * </td>
      * </tr>
@@ -9432,7 +8875,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiremovepatchesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiremovepatchesw
      * @since windows8.0
      */
     static MsiRemovePatchesW(szPatchList, szProductCode, eUninstallType, szPropertyList) {
@@ -9445,16 +8888,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system. (ANSI)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-extractpatchxmldata">ExtractPatchXMLData</a> method of the <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-object">Installer</a> object uses the <b>MsiExtractPatchXMLData</b> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiExtractPatchXMLData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system.
      * @param {Pointer<Byte>} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
@@ -9549,7 +8983,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiextractpatchxmldataa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiextractpatchxmldataa
      * @since windows6.0.6000
      */
     static MsiExtractPatchXMLDataA(szPatchPath, szXMLData, pcchXMLData) {
@@ -9563,16 +8997,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system. (Unicode)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-extractpatchxmldata">ExtractPatchXMLData</a> method of the <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-object">Installer</a> object uses the <b>MsiExtractPatchXMLData</b> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiExtractPatchXMLData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system.
      * @param {Pointer<Char>} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
@@ -9667,7 +9092,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiextractpatchxmldataw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiextractpatchxmldataw
      * @since windows6.0.6000
      */
     static MsiExtractPatchXMLDataW(szPatchPath, szXMLData, pcchXMLData) {
@@ -9681,18 +9106,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Queries for information about the application of a patch to a specified instance of a product. (ANSI)
-     * @remarks
-     * <b>Windows Installer 2.0:  </b>Not supported. This function is available beginning with Windows Installer version 3.0.
-     * 
-     * A user may query patch data for any product instance that is visible. The administrator group can query patch data for any product instance and any user on the computer. Not all values are guaranteed to be available for per-user, non-managed applications if the user is not logged on.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Queries for information about the application of a patch to a specified instance of a product.
      * @param {Pointer<Byte>} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
@@ -9972,7 +9386,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchinfoexa
      * @since windows8.0
      */
     static MsiGetPatchInfoExA(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
@@ -9987,18 +9401,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Queries for information about the application of a patch to a specified instance of a product. (Unicode)
-     * @remarks
-     * <b>Windows Installer 2.0:  </b>Not supported. This function is available beginning with Windows Installer version 3.0.
-     * 
-     * A user may query patch data for any product instance that is visible. The administrator group can query patch data for any product instance and any user on the computer. Not all values are guaranteed to be available for per-user, non-managed applications if the user is not logged on.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Queries for information about the application of a patch to a specified instance of a product.
      * @param {Pointer<Char>} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
@@ -10278,7 +9681,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchinfoexw
      * @since windows8.0
      */
     static MsiGetPatchInfoExW(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
@@ -10293,10 +9696,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Applies one or more patches to products eligible to receive the patches. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiApplyMultiplePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Applies one or more patches to products eligible to receive the patches.
      * @param {Pointer<Byte>} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
      * @param {Pointer<Byte>} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
      * @param {Pointer<Byte>} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
@@ -10330,7 +9730,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The function completed and all  products are successfully patched. <b>ERROR_SUCCESS</b> is returned only if all the  products eligible for the patches are patched successfully. If none of the new patches are applicable, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a> returns <b>ERROR_SUCCESS</b> and product state remains unchanged.
+     * The function completed and all  products are successfully patched. <b>ERROR_SUCCESS</b> is returned only if all the  products eligible for the patches are patched successfully. If none of the new patches are applicable, <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a> returns <b>ERROR_SUCCESS</b> and product state remains unchanged.
      * 
      * </td>
      * </tr>
@@ -10341,7 +9741,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The restart initiated by the last transaction terminated this call to <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All the target products may not have been patched.
+     * The restart initiated by the last transaction terminated this call to <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All the target products may not have been patched.
      * 
      * </td>
      * </tr>
@@ -10352,7 +9752,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The restart required by the last transaction terminated this call to <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All target products may not have been patched.
+     * The restart required by the last transaction terminated this call to <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All target products may not have been patched.
      * 
      * </td>
      * </tr>
@@ -10401,7 +9801,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplymultiplepatchesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiapplymultiplepatchesa
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesA(szPatchPackages, szProductCode, szPropertiesList) {
@@ -10414,10 +9814,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Applies one or more patches to products eligible to receive the patches. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiApplyMultiplePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Applies one or more patches to products eligible to receive the patches.
      * @param {Pointer<Char>} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
      * @param {Pointer<Char>} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
      * @param {Pointer<Char>} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
@@ -10451,7 +9848,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The function completed and all  products are successfully patched. <b>ERROR_SUCCESS</b> is returned only if all the  products eligible for the patches are patched successfully. If none of the new patches are applicable, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a> returns <b>ERROR_SUCCESS</b> and product state remains unchanged.
+     * The function completed and all  products are successfully patched. <b>ERROR_SUCCESS</b> is returned only if all the  products eligible for the patches are patched successfully. If none of the new patches are applicable, <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a> returns <b>ERROR_SUCCESS</b> and product state remains unchanged.
      * 
      * </td>
      * </tr>
@@ -10462,7 +9859,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The restart initiated by the last transaction terminated this call to <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All the target products may not have been patched.
+     * The restart initiated by the last transaction terminated this call to <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All the target products may not have been patched.
      * 
      * </td>
      * </tr>
@@ -10473,7 +9870,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The restart required by the last transaction terminated this call to <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All target products may not have been patched.
+     * The restart required by the last transaction terminated this call to <a href="/windows/desktop/api/msi/nf-msi-msiapplymultiplepatchesa">MsiApplyMultiplePatches</a>. All target products may not have been patched.
      * 
      * </td>
      * </tr>
@@ -10522,7 +9919,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplymultiplepatchesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiapplymultiplepatchesw
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesW(szPatchPackages, szProductCode, szPropertiesList) {
@@ -10535,27 +9932,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product. (ANSI)
-     * @remarks
-     * Users that do not have administrator privileges  can call this function only in their own or machine context. Users that are administrators can call it for other users.
-     * 
-     * If this function is called from a custom action it fails and returns <b>ERROR_CALL_NOT_IMPLEMENTED</b>. The function requires MSXML version 3.0 to process XML and returns <b>ERROR_CALL_NOT_IMPLEMENTED</b> if MSXML 3.0 is not installed.
-     * 
-     * 
-     * The <b>MsiDeterminePatchSequence</b> function sets the <b>uStatus</b> and <b>dwOrder</b> members of each <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure pointed to by <i>pPatchInfo</i>. Each structure contains information about a particular patch.
-     * 
-     * If the function succeeds, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure of every patch that can be applied  to the product returns with a  <b>uStatus</b> of <b>ERROR_SUCCESS</b> and a <b>dwOrder</b> greater than or equal to zero. The values of <b>dwOrder</b>  greater than or equal to zero indicate the best application sequence for the patches starting with zero.
-     * 
-     * If the function succeeds, patches excluded from the best patching sequence return a <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure with a <b>dwOrder</b> equal to -1.  In these cases, a <b>uStatus</b> field of  <b>ERROR_SUCCESS</b> indicates a patch that is  obsolete or superseded for the product.   A <b>uStatus</b> field of <b>ERROR_PATCH_TARGET_NOT_FOUND</b> indicates a patch that is inapplicable to the product.
-     * 
-     * If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure for every patch  returns a  <b>dwOrder</b> equal to -1.  In this case, the <b>uStatus</b> fields  can contain errors with more information about individual patches. For example, <b>ERROR_PATCH_NO_SEQUENCE</b> is returned for patches that have circular sequencing information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiDeterminePatchSequence as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product.
      * @param {Pointer<Byte>} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
      * @param {Pointer<Byte>} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
@@ -10734,7 +10111,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID specified is not registered.
+     * The <a href="/windows/desktop/Msi/productcode">ProductCode</a> GUID specified is not registered.
      * 
      * </td>
      * </tr>
@@ -10756,7 +10133,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This error can be returned if the function was called from a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed.
+     * This error can be returned if the function was called from a <a href="/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed.
      * 
      * </td>
      * </tr>
@@ -10772,7 +10149,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msideterminepatchsequencea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msideterminepatchsequencea
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceA(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
@@ -10784,27 +10161,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product. (Unicode)
-     * @remarks
-     * Users that do not have administrator privileges  can call this function only in their own or machine context. Users that are administrators can call it for other users.
-     * 
-     * If this function is called from a custom action it fails and returns <b>ERROR_CALL_NOT_IMPLEMENTED</b>. The function requires MSXML version 3.0 to process XML and returns <b>ERROR_CALL_NOT_IMPLEMENTED</b> if MSXML 3.0 is not installed.
-     * 
-     * 
-     * The <b>MsiDeterminePatchSequence</b> function sets the <b>uStatus</b> and <b>dwOrder</b> members of each <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure pointed to by <i>pPatchInfo</i>. Each structure contains information about a particular patch.
-     * 
-     * If the function succeeds, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure of every patch that can be applied  to the product returns with a  <b>uStatus</b> of <b>ERROR_SUCCESS</b> and a <b>dwOrder</b> greater than or equal to zero. The values of <b>dwOrder</b>  greater than or equal to zero indicate the best application sequence for the patches starting with zero.
-     * 
-     * If the function succeeds, patches excluded from the best patching sequence return a <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure with a <b>dwOrder</b> equal to -1.  In these cases, a <b>uStatus</b> field of  <b>ERROR_SUCCESS</b> indicates a patch that is  obsolete or superseded for the product.   A <b>uStatus</b> field of <b>ERROR_PATCH_TARGET_NOT_FOUND</b> indicates a patch that is inapplicable to the product.
-     * 
-     * If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure for every patch  returns a  <b>dwOrder</b> equal to -1.  In this case, the <b>uStatus</b> fields  can contain errors with more information about individual patches. For example, <b>ERROR_PATCH_NO_SEQUENCE</b> is returned for patches that have circular sequencing information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiDeterminePatchSequence as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product.
      * @param {Pointer<Char>} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
      * @param {Pointer<Char>} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
@@ -10983,7 +10340,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID specified is not registered.
+     * The <a href="/windows/desktop/Msi/productcode">ProductCode</a> GUID specified is not registered.
      * 
      * </td>
      * </tr>
@@ -11005,7 +10362,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This error can be returned if the function was called from a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed.
+     * This error can be returned if the function was called from a <a href="/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed.
      * 
      * </td>
      * </tr>
@@ -11021,7 +10378,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msideterminepatchsequencew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msideterminepatchsequencew
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceW(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
@@ -11033,25 +10390,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence. (ANSI)
-     * @remarks
-     * If this function is called from a custom action it fails and returns ERROR_CALL_NOT_IMPLEMENTED.  The function requires MSXML version 3.0 to process XML and returns ERROR_CALL_NOT_IMPLEMENTED if MSXML 3.0 is not installed.
-     * 
-     * 
-     * The <b>MsiDetermineApplicablePatches</b> function sets the <b>uStatus</b> and <b>dwOrder</b> members of each <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure pointed to by <i>pPatchInfo</i>. Each structure contains information about a particular patch.
-     * 
-     * If the function succeeds, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure of every patch that can be applied  to the product returns with a  <b>uStatus</b> of ERROR_SUCCESS and a <b>dwOrder</b> greater than or equal to zero. The values of <b>dwOrder</b>  greater than or equal to zero indicate the best application sequence for the patches starting with zero.
-     * 
-     * If the function succeeds, patches excluded from the best patching sequence return a <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure with a <b>dwOrder</b> equal to -1.  In these cases, a <b>uStatus</b> field of  ERROR_SUCCESS indicates a patch that is  obsolete or superseded for the product.   A <b>uStatus</b> field of ERROR_PATCH_TARGET_NOT_FOUND indicates a patch that is inapplicable to the product.
-     * 
-     * If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure for every patch  returns a  <b>dwOrder</b> equal to -1.  In this case, the <b>uStatus</b> fields  can contain errors with more information about individual patches. For example, ERROR_PATCH_NO_SEQUENCE is returned for patches that have circular sequencing information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiDetermineApplicablePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence.
      * @param {Pointer<Byte>} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
      * @param {Integer} cPatchInfo Number of patches in the array. Must be greater than zero.
      * @param {Pointer<MSIPATCHSEQUENCEINFOA>} pPatchInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structures.
@@ -11158,12 +10497,12 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This error can be returned if the function was called from a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed. 
+     * This error can be returned if the function was called from a <a href="/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msidetermineapplicablepatchesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msidetermineapplicablepatchesa
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesA(szProductPackagePath, cPatchInfo, pPatchInfo) {
@@ -11174,25 +10513,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence. (Unicode)
-     * @remarks
-     * If this function is called from a custom action it fails and returns ERROR_CALL_NOT_IMPLEMENTED.  The function requires MSXML version 3.0 to process XML and returns ERROR_CALL_NOT_IMPLEMENTED if MSXML 3.0 is not installed.
-     * 
-     * 
-     * The <b>MsiDetermineApplicablePatches</b> function sets the <b>uStatus</b> and <b>dwOrder</b> members of each <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure pointed to by <i>pPatchInfo</i>. Each structure contains information about a particular patch.
-     * 
-     * If the function succeeds, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure of every patch that can be applied  to the product returns with a  <b>uStatus</b> of ERROR_SUCCESS and a <b>dwOrder</b> greater than or equal to zero. The values of <b>dwOrder</b>  greater than or equal to zero indicate the best application sequence for the patches starting with zero.
-     * 
-     * If the function succeeds, patches excluded from the best patching sequence return a <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure with a <b>dwOrder</b> equal to -1.  In these cases, a <b>uStatus</b> field of  ERROR_SUCCESS indicates a patch that is  obsolete or superseded for the product.   A <b>uStatus</b> field of ERROR_PATCH_TARGET_NOT_FOUND indicates a patch that is inapplicable to the product.
-     * 
-     * If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structure for every patch  returns a  <b>dwOrder</b> equal to -1.  In this case, the <b>uStatus</b> fields  can contain errors with more information about individual patches. For example, ERROR_PATCH_NO_SEQUENCE is returned for patches that have circular sequencing information.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiDetermineApplicablePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence.
      * @param {Pointer<Char>} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
      * @param {Integer} cPatchInfo Number of patches in the array. Must be greater than zero.
      * @param {Pointer<MSIPATCHSEQUENCEINFOW>} pPatchInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structures.
@@ -11299,12 +10620,12 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This error can be returned if the function was called from a <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed. 
+     * This error can be returned if the function was called from a <a href="/windows/desktop/Msi/custom-actions">custom action</a>  or if MSXML 3.0 is not installed. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msidetermineapplicablepatchesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msidetermineapplicablepatchesw
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesW(szProductPackagePath, cPatchInfo, pPatchInfo) {
@@ -11315,16 +10636,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Enumerates all patches in a specific context or across all contexts. (ANSI)
-     * @remarks
-     * Non-administrators can  enumerate patches within  their visibility only. Administrators can enumerate patches for other user contexts.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumPatchesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates all patches in a specific context or across all contexts.
      * @param {Pointer<Byte>} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
      * @param {Pointer<Byte>} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
      * 
@@ -11565,12 +10877,12 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This is returned when <i>pcchTargetUserSid</i> points to a buffer size less than required to copy the SID. In this case, the user can fix the buffer and call <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumpatchesexa">MsiEnumPatchesEx</a>  again for the same index value.
+     * This is returned when <i>pcchTargetUserSid</i> points to a buffer size less than required to copy the SID. In this case, the user can fix the buffer and call <a href="/windows/desktop/api/msi/nf-msi-msienumpatchesexa">MsiEnumPatchesEx</a>  again for the same index value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumpatchesexa
      * @since windows8.0
      */
     static MsiEnumPatchesExA(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
@@ -11585,16 +10897,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Enumerates all patches in a specific context or across all contexts. (Unicode)
-     * @remarks
-     * Non-administrators can  enumerate patches within  their visibility only. Administrators can enumerate patches for other user contexts.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumPatchesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates all patches in a specific context or across all contexts.
      * @param {Pointer<Char>} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
      * @param {Pointer<Char>} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
      * 
@@ -11835,12 +11138,12 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * This is returned when <i>pcchTargetUserSid</i> points to a buffer size less than required to copy the SID. In this case, the user can fix the buffer and call <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumpatchesexa">MsiEnumPatchesEx</a>  again for the same index value.
+     * This is returned when <i>pcchTargetUserSid</i> points to a buffer size less than required to copy the SID. In this case, the user can fix the buffer and call <a href="/windows/desktop/api/msi/nf-msi-msienumpatchesexa">MsiEnumPatchesEx</a>  again for the same index value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumpatchesexw
      * @since windows8.0
      */
     static MsiEnumPatchesExW(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
@@ -11855,17 +11158,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryFeatureState function returns the installed state for a product feature. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiQueryFeatureState</b> function does not validate that the feature is actually accessible.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryFeatureState function returns the installed state for a product feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature of interest.
      * @param {Pointer<Byte>} szFeature Identifies the feature of interest.
      * @returns {Integer} <table>
@@ -11944,7 +11237,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestatea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryfeaturestatea
      * @since windows8.0
      */
     static MsiQueryFeatureStateA(szProduct, szFeature) {
@@ -11956,17 +11249,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryFeatureState function returns the installed state for a product feature. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiQueryFeatureState</b> function does not validate that the feature is actually accessible.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryFeatureState function returns the installed state for a product feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature of interest.
      * @param {Pointer<Char>} szFeature Identifies the feature of interest.
      * @returns {Integer} <table>
@@ -12045,7 +11328,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestatew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryfeaturestatew
      * @since windows8.0
      */
     static MsiQueryFeatureStateW(szProduct, szFeature) {
@@ -12057,17 +11340,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryFeatureStateEx function returns the installed state for a product feature. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiQueryFeatureStateEx</b> function does not validate that the feature is actually accessible. The <b>MsiQueryFeatureStateEx</b> function does not validate the  feature ID. <b>ERROR_UNKNOWN_FEATURE</b> is returned for any unknown feature ID. When the query is made on a product installed under the per-user-unmanaged context  for a user account other than the current user, the function fails.  In this case the function returns <b>ERROR_UNKNOWN_FEATURE</b>, or if the product is advertised only  (not installed),   <b>ERROR_UNKNOWN_PRODUCT</b> is returned.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryFeatureStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryFeatureStateEx function returns the installed state for a product feature.
      * @param {Pointer<Byte>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
      * @param {Pointer<Byte>} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
      * 
@@ -12268,8 +11541,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      *  For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestateexa
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryfeaturestateexa
      * @since windows8.0
      */
     static MsiQueryFeatureStateExA(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
@@ -12282,17 +11555,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryFeatureStateEx function returns the installed state for a product feature. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiQueryFeatureStateEx</b> function does not validate that the feature is actually accessible. The <b>MsiQueryFeatureStateEx</b> function does not validate the  feature ID. <b>ERROR_UNKNOWN_FEATURE</b> is returned for any unknown feature ID. When the query is made on a product installed under the per-user-unmanaged context  for a user account other than the current user, the function fails.  In this case the function returns <b>ERROR_UNKNOWN_FEATURE</b>, or if the product is advertised only  (not installed),   <b>ERROR_UNKNOWN_PRODUCT</b> is returned.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryFeatureStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryFeatureStateEx function returns the installed state for a product feature.
      * @param {Pointer<Char>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
      * @param {Pointer<Char>} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
      * 
@@ -12493,8 +11756,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      *  For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestateexw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiqueryfeaturestateexw
      * @since windows8.0
      */
     static MsiQueryFeatureStateExW(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
@@ -12507,20 +11770,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiUseFeature</b> function should only be used on features known to be published. INSTALLSTATE_UNKNOWN indicates that the program is trying to use a feature that is not published. The application should determine whether the feature is published before calling 
-     * <b>MsiUseFeature</b> by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application should make these calls while it initializes. An application should only use features that are known to be published.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiUseFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {Pointer<Byte>} szFeature Identifies the feature to be used.
      * @returns {Integer} <table>
@@ -12610,7 +11860,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeaturea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiusefeaturea
      * @since windows8.0
      */
     static MsiUseFeatureA(szProduct, szFeature) {
@@ -12622,20 +11872,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiUseFeature</b> function should only be used on features known to be published. INSTALLSTATE_UNKNOWN indicates that the program is trying to use a feature that is not published. The application should determine whether the feature is published before calling 
-     * <b>MsiUseFeature</b> by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application should make these calls while it initializes. An application should only use features that are known to be published.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiUseFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {Pointer<Char>} szFeature Identifies the feature to be used.
      * @returns {Integer} <table>
@@ -12725,7 +11962,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeaturew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiusefeaturew
      * @since windows8.0
      */
     static MsiUseFeatureW(szProduct, szFeature) {
@@ -12737,20 +11974,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiUseFeatureEx</b> function should only be used on features known to be published. INSTALLSTATE_UNKNOWN indicates that the program is trying to use a feature that is not published. The application should determine whether the feature is published before calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application should make these calls while it initializes. An application should only use features that are known to be published.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiUseFeatureEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {Pointer<Byte>} szFeature Identifies the feature to be used.
      * @param {Integer} dwInstallMode This parameter can have the following value. 
@@ -12834,7 +12058,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeatureexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiusefeatureexa
      * @since windows8.0
      */
     static MsiUseFeatureExA(szProduct, szFeature, dwInstallMode) {
@@ -12848,20 +12072,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiUseFeatureEx</b> function should only be used on features known to be published. INSTALLSTATE_UNKNOWN indicates that the program is trying to use a feature that is not published. The application should determine whether the feature is published before calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application should make these calls while it initializes. An application should only use features that are known to be published.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiUseFeatureEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {Pointer<Char>} szFeature Identifies the feature to be used.
      * @param {Integer} dwInstallMode This parameter can have the following value. 
@@ -12945,7 +12156,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeatureexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiusefeatureexw
      * @since windows8.0
      */
     static MsiUseFeatureExW(szProduct, szFeature, dwInstallMode) {
@@ -12959,10 +12170,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureUsage function returns the usage metrics for a product feature. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFeatureUsage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature.
      * @param {Pointer<Byte>} szFeature Specifies the feature code for the feature for which metrics are to be returned.
      * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
@@ -13051,7 +12259,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureusagea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfeatureusagea
      * @since windows8.0
      */
     static MsiGetFeatureUsageA(szProduct, szFeature, pdwUseCount, pwDateUsed) {
@@ -13063,10 +12271,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureUsage function returns the usage metrics for a product feature. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFeatureUsage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature.
      * @param {Pointer<Char>} szFeature Specifies the feature code for the feature for which metrics are to be returned.
      * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
@@ -13155,7 +12360,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureusagew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfeatureusagew
      * @since windows8.0
      */
     static MsiGetFeatureUsageW(szProduct, szFeature, pdwUseCount, pwDateUsed) {
@@ -13167,10 +12372,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiConfigureFeature function configures the installed state for a product feature. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiConfigureFeature function configures the installed state for a product feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
      * @param {Pointer<Byte>} szFeature Specifies the feature ID for the feature to be configured.
      * @param {Integer} eInstallState 
@@ -13209,14 +12411,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -13225,7 +12427,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigurefeaturea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigurefeaturea
      * @since windows8.0
      */
     static MsiConfigureFeatureA(szProduct, szFeature, eInstallState) {
@@ -13237,10 +12439,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiConfigureFeature function configures the installed state for a product feature. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiConfigureFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiConfigureFeature function configures the installed state for a product feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
      * @param {Pointer<Char>} szFeature Specifies the feature ID for the feature to be configured.
      * @param {Integer} eInstallState 
@@ -13279,14 +12478,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -13295,7 +12494,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigurefeaturew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiconfigurefeaturew
      * @since windows8.0
      */
     static MsiConfigureFeatureW(szProduct, szFeature, eInstallState) {
@@ -13307,10 +12506,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Reinstalls features. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiReinstallFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reinstalls features.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
      * @param {Pointer<Byte>} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
      * @param {Integer} dwReinstallMode 
@@ -13411,8 +12607,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallfeaturea
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msireinstallfeaturea
      * @since windows8.0
      */
     static MsiReinstallFeatureA(szProduct, szFeature, dwReinstallMode) {
@@ -13424,10 +12620,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Reinstalls features. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiReinstallFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reinstalls features.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
      * @param {Pointer<Char>} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
      * @param {Integer} dwReinstallMode 
@@ -13528,8 +12721,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallfeaturew
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msireinstallfeaturew
      * @since windows8.0
      */
     static MsiReinstallFeatureW(szProduct, szFeature, dwReinstallMode) {
@@ -13541,35 +12734,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature. (ANSI)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideComponent</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The 
-     * <b>MsiProvideComponent</b> function combines the functionality of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetcomponentpatha">MsiGetComponentPath</a>. You can use the 
-     * <b>MsiProvideComponent</b> function to simplify the calling sequence. However, because this function increments the usage count, use it with caution to prevent inaccurate usage counts. The 
-     * <b>MsiProvideComponent</b> function also provides less flexibility than the series of individual calls.
-     * 
-     * If the application is recovering from an unexpected situation, the application has probably already called 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and incremented the usage count. In this case, the application should call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a> instead of 
-     * <b>MsiProvideComponent</b> to avoid incrementing the count again.
-     * 
-     * The INSTALLMODE_EXISTING option cannot be used in combination with the REINSTALLMODE flag.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature with the necessary component.
      * @param {Pointer<Byte>} szFeature Specifies the feature ID of the feature with the necessary component.
      * @param {Pointer<Byte>} szComponent Specifies the component code of the necessary component.
@@ -13711,8 +12876,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponenta
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidecomponenta
      * @since windows8.0
      */
     static MsiProvideComponentA(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -13726,35 +12891,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature. (Unicode)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideComponent</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The 
-     * <b>MsiProvideComponent</b> function combines the functionality of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetcomponentpatha">MsiGetComponentPath</a>. You can use the 
-     * <b>MsiProvideComponent</b> function to simplify the calling sequence. However, because this function increments the usage count, use it with caution to prevent inaccurate usage counts. The 
-     * <b>MsiProvideComponent</b> function also provides less flexibility than the series of individual calls.
-     * 
-     * If the application is recovering from an unexpected situation, the application has probably already called 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and incremented the usage count. In this case, the application should call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a> instead of 
-     * <b>MsiProvideComponent</b> to avoid incrementing the count again.
-     * 
-     * The INSTALLMODE_EXISTING option cannot be used in combination with the REINSTALLMODE flag.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature with the necessary component.
      * @param {Pointer<Char>} szFeature Specifies the feature ID of the feature with the necessary component.
      * @param {Pointer<Char>} szComponent Specifies the component code of the necessary component.
@@ -13896,8 +13033,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponentw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidecomponentw
      * @since windows8.0
      */
     static MsiProvideComponentW(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -13911,20 +13048,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature. (ANSI)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideQualifiedComponent</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideQualifiedComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature.
      * @param {Pointer<Byte>} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
      * @param {Pointer<Byte>} szQualifier Specifies a qualifier into a list of advertising components (from 
@@ -13994,14 +13118,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -14010,7 +13134,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponenta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidequalifiedcomponenta
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentA(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -14023,20 +13147,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature. (Unicode)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideQualifiedComponent</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideQualifiedComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature.
      * @param {Pointer<Char>} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
      * @param {Pointer<Char>} szQualifier Specifies a qualifier into a list of advertising components (from 
@@ -14106,14 +13217,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -14122,7 +13233,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidequalifiedcomponentw
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentW(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -14135,20 +13246,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation. (ANSI)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideQualifiedComponentEx</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideQualifiedComponentEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation.
      * @param {Pointer<Byte>} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
      * @param {Pointer<Byte>} szQualifier Specifies a qualifier into a list of advertising components (from 
@@ -14220,14 +13318,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -14236,7 +13334,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidequalifiedcomponentexa
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentExA(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
@@ -14252,20 +13350,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation. (Unicode)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiProvideQualifiedComponentEx</b> function, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * Features with components containing a corrupted file or the wrong version of a file must be explicitly reinstalled by the user or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideQualifiedComponentEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation.
      * @param {Pointer<Char>} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
      * @param {Pointer<Char>} szQualifier Specifies a qualifier into a list of advertising components (from 
@@ -14337,14 +13422,14 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-codes">Error Codes</a>.
+     * <a href="/windows/desktop/Msi/error-codes">Error Codes</a>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
+     * <dt><b><a href="/windows/desktop/Msi/initialization-errors">Initialization Error</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -14353,7 +13438,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovidequalifiedcomponentexw
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentExW(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
@@ -14369,40 +13454,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned. (ANSI)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiGetComponentPath</b> function, the <i>pcchBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The 
-     * <b>MsiGetComponentPath</b> function might return INSTALLSTATE_ABSENT or INSTALL_STATE_UNKNOWN, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetComponentPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the client product.
      * @param {Pointer<Byte>} szComponent Specifies the component ID of the component to be located.
      * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
@@ -14554,7 +13606,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpatha
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetcomponentpatha
      * @since windows8.0
      */
     static MsiGetComponentPathA(szProduct, szComponent, lpPathBuf, pcchBuf) {
@@ -14567,40 +13619,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned. (Unicode)
-     * @remarks
-     * Upon success of the 
-     * <b>MsiGetComponentPath</b> function, the <i>pcchBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The 
-     * <b>MsiGetComponentPath</b> function might return INSTALLSTATE_ABSENT or INSTALL_STATE_UNKNOWN, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetComponentPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned.
      * @param {Pointer<Char>} szProduct Specifies the product code for the client product.
      * @param {Pointer<Char>} szComponent Specifies the component ID of the component to be located.
      * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
@@ -14752,7 +13771,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetcomponentpathw
      * @since windows8.0
      */
     static MsiGetComponentPathW(szProduct, szComponent, lpPathBuf, pcchBuf) {
@@ -14765,37 +13784,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns the full path to an installed component. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiGetComponentPathEx</b> function might return <b>INSTALLSTATE_ABSENT</b> or <b>INSTALL_STATE_UNKNOWN</b>, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetComponentPathEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the full path to an installed component.
      * @param {Pointer<Byte>} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
      * @param {Pointer<Byte>} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
      * @param {Pointer<Byte>} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
@@ -15007,7 +13996,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetcomponentpathexa
      * @since windows8.0
      */
     static MsiGetComponentPathExA(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
@@ -15021,37 +14010,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns the full path to an installed component. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiGetComponentPathEx</b> function might return <b>INSTALLSTATE_ABSENT</b> or <b>INSTALL_STATE_UNKNOWN</b>, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetComponentPathEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns the full path to an installed component.
      * @param {Pointer<Char>} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
      * @param {Pointer<Char>} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
      * @param {Pointer<Char>} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
@@ -15263,7 +14222,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetcomponentpathexw
      * @since windows8.0
      */
     static MsiGetComponentPathExW(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
@@ -15277,22 +14236,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiProvideAssembly</b> function succeeds, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The INSTALLMODE_EXISTING option cannot be used in combination with the REINSTALLMODE flag.
-     * 
-     * Features with components that contain a corrupted file or the wrong version of a file must be explicitly reinstalled by the user, or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideAssembly as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature.
      * @param {Pointer<Byte>} szAssemblyName The assembly name as a string.
      * @param {Pointer<Byte>} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
@@ -15456,8 +14400,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovideassemblya
      * @since windows8.0
      */
     static MsiProvideAssemblyA(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
@@ -15470,22 +14414,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiProvideAssembly</b> function succeeds, the <i>pcchPathBuf</i> parameter contains the length of the string in <i>lpPathBuf</i>.
-     * 
-     * The INSTALLMODE_EXISTING option cannot be used in combination with the REINSTALLMODE flag.
-     * 
-     * Features with components that contain a corrupted file or the wrong version of a file must be explicitly reinstalled by the user, or by having the application call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallfeaturea">MsiReinstallFeature</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiProvideAssembly as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature.
      * @param {Pointer<Char>} szAssemblyName The assembly name as a string.
      * @param {Pointer<Char>} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
@@ -15649,8 +14578,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblyw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiprovideassemblyw
      * @since windows8.0
      */
     static MsiProvideAssemblyW(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
@@ -15663,10 +14592,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryComponentState function returns the installed state for a component. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryComponentState function returns the installed state for a component.
      * @param {Pointer<Byte>} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
      * @param {Pointer<Byte>} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
      * 
@@ -15866,8 +14792,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiquerycomponentstatea
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiquerycomponentstatea
      * @since windows8.0
      */
     static MsiQueryComponentStateA(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
@@ -15880,10 +14806,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiQueryComponentState function returns the installed state for a component. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiQueryComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiQueryComponentState function returns the installed state for a component.
      * @param {Pointer<Char>} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
      * @param {Pointer<Char>} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
      * 
@@ -16083,8 +15006,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiquerycomponentstatew
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiquerycomponentstatew
      * @since windows8.0
      */
     static MsiQueryComponentStateW(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
@@ -16097,21 +15020,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated. (ANSI)
-     * @remarks
-     * To enumerate products, an application should initially call the 
-     * <b>MsiEnumProducts</b> function with the <i>iProductIndex</i> parameter set to zero. The application should then increment the <i>iProductIndex</i> parameter and call 
-     * <b>MsiEnumProducts</b> until there are no more products (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumProducts</b> to enumerate all of the products, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumProducts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated.
      * @param {Integer} iProductIndex Specifies the index of the product to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumProducts</b> function and then incremented for subsequent calls. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {Pointer<Byte>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
@@ -16176,7 +15085,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumproductsa
      * @since windows8.0
      */
     static MsiEnumProductsA(iProductIndex, lpProductBuf) {
@@ -16187,21 +15096,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated. (Unicode)
-     * @remarks
-     * To enumerate products, an application should initially call the 
-     * <b>MsiEnumProducts</b> function with the <i>iProductIndex</i> parameter set to zero. The application should then increment the <i>iProductIndex</i> parameter and call 
-     * <b>MsiEnumProducts</b> until there are no more products (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumProducts</b> to enumerate all of the products, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumProducts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated.
      * @param {Integer} iProductIndex Specifies the index of the product to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumProducts</b> function and then incremented for subsequent calls. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {Pointer<Char>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
@@ -16266,7 +15161,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumproductsw
      * @since windows8.0
      */
     static MsiEnumProductsW(iProductIndex, lpProductBuf) {
@@ -16277,22 +15172,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts. (ANSI)
-     * @remarks
-     * To enumerate products, an application must initially call the <b>MsiEnumProductsEx</b> function with the <i>iIndex</i> parameter set to zero. The application must then increment the <i>iProductIndex</i> parameter and call <b>MsiEnumProductsEx</b> until it returns <b>ERROR_NO_MORE_ITEMS</b> and there are no more products to enumerate.
-     * 
-     * When making multiple calls to <b>MsiEnumProductsEx</b> to enumerate all of the products, each call must be made from the same thread.
-     * 
-     * A user must have administrator privileges to enumerate products across all user accounts or a user account other than the current user account. The enumeration skips products that are advertised only (such as products  not installed) in the per-user-unmanaged context when enumerating across all users or a user other than the current user.
-     * 
-     * Use <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoexa">MsiGetProductInfoEx</a> to get the state or other information about each product instance enumerated by <b>MsiEnumProductsEx</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumProductsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts.
      * @param {Pointer<Byte>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
      * @param {Pointer<Byte>} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
      * 
@@ -16486,7 +15366,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumproductsexa
      * @since windows8.0
      */
     static MsiEnumProductsExA(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
@@ -16500,22 +15380,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts. (Unicode)
-     * @remarks
-     * To enumerate products, an application must initially call the <b>MsiEnumProductsEx</b> function with the <i>iIndex</i> parameter set to zero. The application must then increment the <i>iProductIndex</i> parameter and call <b>MsiEnumProductsEx</b> until it returns <b>ERROR_NO_MORE_ITEMS</b> and there are no more products to enumerate.
-     * 
-     * When making multiple calls to <b>MsiEnumProductsEx</b> to enumerate all of the products, each call must be made from the same thread.
-     * 
-     * A user must have administrator privileges to enumerate products across all user accounts or a user account other than the current user account. The enumeration skips products that are advertised only (such as products  not installed) in the per-user-unmanaged context when enumerating across all users or a user other than the current user.
-     * 
-     * Use <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetproductinfoexa">MsiGetProductInfoEx</a> to get the state or other information about each product instance enumerated by <b>MsiEnumProductsEx</b>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumProductsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts.
      * @param {Pointer<Char>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
      * @param {Pointer<Char>} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
      * 
@@ -16709,7 +15574,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumproductsexw
      * @since windows8.0
      */
     static MsiEnumProductsExW(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
@@ -16723,23 +15588,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table. (ANSI)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/upgradecode">UpgradeCode</a> property.
-     * 
-     * To enumerate currently installed and advertised products that have a specific upgrade code, an application should initially call the 
-     * <b>MsiEnumRelatedProducts</b> function with the <i>iProductIndex</i> parameter set to zero. The application should then increment the <i>iProductIndex</i> parameter and call 
-     * <b>MsiEnumRelatedProducts</b> until the function returns ERROR_NO_MORE_ITEMS, which means there are no more products with the specified upgrade code.
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumRelatedProducts</b> to enumerate all of the related products, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumRelatedProducts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table.
      * @param {Pointer<Byte>} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
      * @param {Integer} iProductIndex The zero-based index into the registered products.
      * @param {Pointer<Byte>} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
@@ -16805,7 +15654,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumrelatedproductsa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumrelatedproductsa
      * @since windows8.0
      */
     static MsiEnumRelatedProductsA(lpUpgradeCode, iProductIndex, lpProductBuf) {
@@ -16819,23 +15668,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table. (Unicode)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/upgradecode">UpgradeCode</a> property.
-     * 
-     * To enumerate currently installed and advertised products that have a specific upgrade code, an application should initially call the 
-     * <b>MsiEnumRelatedProducts</b> function with the <i>iProductIndex</i> parameter set to zero. The application should then increment the <i>iProductIndex</i> parameter and call 
-     * <b>MsiEnumRelatedProducts</b> until the function returns ERROR_NO_MORE_ITEMS, which means there are no more products with the specified upgrade code.
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumRelatedProducts</b> to enumerate all of the related products, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumRelatedProducts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table.
      * @param {Pointer<Char>} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
      * @param {Integer} iProductIndex The zero-based index into the registered products.
      * @param {Pointer<Char>} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
@@ -16901,7 +15734,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumrelatedproductsw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumrelatedproductsw
      * @since windows8.0
      */
     static MsiEnumRelatedProductsW(lpUpgradeCode, iProductIndex, lpProductBuf) {
@@ -16915,18 +15748,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called. (ANSI)
-     * @remarks
-     * To enumerate features, an application should initially call the 
-     * <b>MsiEnumFeatures</b> function with the <i>iFeatureIndex</i> parameter set to zero. The application should then increment the <i>iFeatureIndex</i> parameter and call 
-     * <b>MsiEnumFeatures</b> until there are no more features (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumFeatures as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called.
      * @param {Pointer<Byte>} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
      * @param {Integer} iFeatureIndex Specifies the index of the feature to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumFeatures</b> function and then incremented for subsequent calls. Because features are not ordered, any new feature has an arbitrary index. This means that the function can return features in any order.
@@ -17008,7 +15830,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumfeaturesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumfeaturesa
      * @since windows8.0
      */
     static MsiEnumFeaturesA(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
@@ -17021,18 +15843,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called. (Unicode)
-     * @remarks
-     * To enumerate features, an application should initially call the 
-     * <b>MsiEnumFeatures</b> function with the <i>iFeatureIndex</i> parameter set to zero. The application should then increment the <i>iFeatureIndex</i> parameter and call 
-     * <b>MsiEnumFeatures</b> until there are no more features (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumFeatures as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called.
      * @param {Pointer<Char>} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
      * @param {Integer} iFeatureIndex Specifies the index of the feature to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumFeatures</b> function and then incremented for subsequent calls. Because features are not ordered, any new feature has an arbitrary index. This means that the function can return features in any order.
@@ -17114,7 +15925,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumfeaturesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumfeaturesw
      * @since windows8.0
      */
     static MsiEnumFeaturesW(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
@@ -17127,21 +15938,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called. (ANSI)
-     * @remarks
-     * To enumerate components, an application should initially call the 
-     * <b>MsiEnumComponents</b> function with the <i>iComponentIndex</i> parameter set to zero. The application should then increment the <i>iComponentIndex</i> parameter and call 
-     * <b>MsiEnumComponents</b> until there are no more components (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumComponents</b> to enumerate all of the product's components, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponents as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called.
      * @param {Integer} iComponentIndex Specifies the index of the component to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponents</b> function and then incremented for subsequent calls. Because components are not ordered, any new component has an arbitrary index. This means that the function can return components in any order.
      * @param {Pointer<Byte>} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
@@ -17211,7 +16008,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentsa
      * @since windows8.0
      */
     static MsiEnumComponentsA(iComponentIndex, lpComponentBuf) {
@@ -17222,21 +16019,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called. (Unicode)
-     * @remarks
-     * To enumerate components, an application should initially call the 
-     * <b>MsiEnumComponents</b> function with the <i>iComponentIndex</i> parameter set to zero. The application should then increment the <i>iComponentIndex</i> parameter and call 
-     * <b>MsiEnumComponents</b> until there are no more components (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumComponents</b> to enumerate all of the product's components, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponents as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called.
      * @param {Integer} iComponentIndex Specifies the index of the component to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponents</b> function and then incremented for subsequent calls. Because components are not ordered, any new component has an arbitrary index. This means that the function can return components in any order.
      * @param {Pointer<Char>} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
@@ -17306,7 +16089,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentsw
      * @since windows8.0
      */
     static MsiEnumComponentsW(iComponentIndex, lpComponentBuf) {
@@ -17317,10 +16100,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponentsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language.
      * @param {Pointer<Byte>} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
      * 
      * <table>
@@ -17493,7 +16273,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSid</i> is also <b>NULL</b>, otherwise the function returns <b>ERROR_INVALID_PARAMETER</b>. If <i>szSid</i> and <i>pcchSid</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the SID exists, without retrieving the SID value.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumproductsexa">MsiEnumProductsEx</a> function returns one of the following values.
+     * @returns {Integer} The <a href="/windows/desktop/api/msi/nf-msi-msienumproductsexa">MsiEnumProductsEx</a> function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -17578,7 +16358,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentsexa
      * @since windows8.0
      */
     static MsiEnumComponentsExA(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
@@ -17591,10 +16371,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponentsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language.
      * @param {Pointer<Char>} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
      * 
      * <table>
@@ -17767,7 +16544,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSid</i> is also <b>NULL</b>, otherwise the function returns <b>ERROR_INVALID_PARAMETER</b>. If <i>szSid</i> and <i>pcchSid</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the SID exists, without retrieving the SID value.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumproductsexa">MsiEnumProductsEx</a> function returns one of the following values.
+     * @returns {Integer} The <a href="/windows/desktop/api/msi/nf-msi-msienumproductsexa">MsiEnumProductsEx</a> function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -17852,7 +16629,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentsexw
      * @since windows8.0
      */
     static MsiEnumComponentsExW(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
@@ -17865,21 +16642,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called. (ANSI)
-     * @remarks
-     * To enumerate clients, an application should initially call the 
-     * <b>MsiEnumClients</b> function with the<i> iProductIndex</i> parameter set to zero. The application should then increment the <i> iProductIndex</i> parameter and call 
-     * <b>MsiEnumClients</b> until there are no more clients (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumClients</b> to enumerate all of the component's clients, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumClients as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called.
      * @param {Pointer<Byte>} szComponent Specifies the component whose clients are to be enumerated.
      * @param {Integer} iProductIndex Specifies the index of the client to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumClients</b> function and then incremented for subsequent calls. Because clients are not ordered, any new client has an arbitrary index. This means that the function can return clients in any order.
@@ -17956,7 +16719,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumclientsa
      * @since windows8.0
      */
     static MsiEnumClientsA(szComponent, iProductIndex, lpProductBuf) {
@@ -17968,21 +16731,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called. (Unicode)
-     * @remarks
-     * To enumerate clients, an application should initially call the 
-     * <b>MsiEnumClients</b> function with the<i> iProductIndex</i> parameter set to zero. The application should then increment the <i> iProductIndex</i> parameter and call 
-     * <b>MsiEnumClients</b> until there are no more clients (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumClients</b> to enumerate all of the component's clients, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumClients as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called.
      * @param {Pointer<Char>} szComponent Specifies the component whose clients are to be enumerated.
      * @param {Integer} iProductIndex Specifies the index of the client to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumClients</b> function and then incremented for subsequent calls. Because clients are not ordered, any new client has an arbitrary index. This means that the function can return clients in any order.
@@ -18059,7 +16808,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumclientsw
      * @since windows8.0
      */
     static MsiEnumClientsW(szComponent, iProductIndex, lpProductBuf) {
@@ -18071,10 +16820,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumClientsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called.
      * @param {Pointer<Byte>} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
      * @param {Pointer<Byte>} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
      * 
@@ -18177,7 +16923,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * Administratator privileges are required to enumerate components of applications installed by users other than the current user. 
+     * Administrtator privileges are required to enumerate components of applications installed by users other than the current user. 
      * 
      * </td>
      * </tr>
@@ -18248,7 +16994,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumclientsexa
      * @since windows8.0
      */
     static MsiEnumClientsExA(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
@@ -18262,10 +17008,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumClientsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called.
      * @param {Pointer<Char>} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
      * @param {Pointer<Char>} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
      * 
@@ -18368,7 +17111,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * Administratator privileges are required to enumerate components of applications installed by users other than the current user. 
+     * Administrtator privileges are required to enumerate components of applications installed by users other than the current user. 
      * 
      * </td>
      * </tr>
@@ -18439,7 +17182,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumclientsexw
      * @since windows8.0
      */
     static MsiEnumClientsExW(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
@@ -18453,33 +17196,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called. (ANSI)
-     * @remarks
-     * To enumerate qualifiers, an application should initially call the 
-     * <b>MsiEnumComponentQualifiers</b> function with the<i> iIndex </i> parameter set to zero. The application should then increment the <i> iIndex </i> parameter and call 
-     * <b>MsiEnumComponentQualifiers</b> until there are no more qualifiers (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When 
-     * <b>MsiEnumComponentQualifiers</b> returns, the <i>pcchQualifierBuf</i> parameter contains the length of the qualifier string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiEnumComponentQualifiers</b> returns ERROR_MORE_DATA, and this parameter contains the size of the string, in characters, without counting the null character. The same mechanism applies to <i>pcchDescriptionBuf</i>.
-     * 			
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumComponentQualifiers</b> to enumerate all of the component's advertised qualifiers, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponentQualifiers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called.
      * @param {Pointer<Byte>} szComponent Specifies component whose qualifiers are to be enumerated.
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
      * @param {Pointer<Byte>} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
      * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
      * @param {Pointer<Byte>} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i> parameter is null.
+     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18514,7 +17238,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * A buffer is too small to hold the requested data.
+     * A buffer is to small to hold the requested data.
      * 
      * </td>
      * </tr>
@@ -18563,7 +17287,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentqualifiersa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentqualifiersa
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersA(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
@@ -18576,33 +17300,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called. (Unicode)
-     * @remarks
-     * To enumerate qualifiers, an application should initially call the 
-     * <b>MsiEnumComponentQualifiers</b> function with the<i> iIndex </i> parameter set to zero. The application should then increment the <i> iIndex </i> parameter and call 
-     * <b>MsiEnumComponentQualifiers</b> until there are no more qualifiers (that is, until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * When 
-     * <b>MsiEnumComponentQualifiers</b> returns, the <i>pcchQualifierBuf</i> parameter contains the length of the qualifier string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiEnumComponentQualifiers</b> returns ERROR_MORE_DATA, and this parameter contains the size of the string, in characters, without counting the null character. The same mechanism applies to <i>pcchDescriptionBuf</i>.
-     * 			
-     * 
-     * When making multiple calls to 
-     * <b>MsiEnumComponentQualifiers</b> to enumerate all of the component's advertised qualifiers, each call should be made from the same thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiEnumComponentQualifiers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called.
      * @param {Pointer<Char>} szComponent Specifies component whose qualifiers are to be enumerated.
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
      * @param {Pointer<Char>} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
      * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
      * @param {Pointer<Char>} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i> parameter is null.
+     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18637,7 +17342,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * A buffer is too small to hold the requested data.
+     * A buffer is to small to hold the requested data.
      * 
      * </td>
      * </tr>
@@ -18686,7 +17391,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentqualifiersw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msienumcomponentqualifiersw
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersW(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
@@ -18699,10 +17404,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed.
      * @param {Pointer<Byte>} szProduct Specifies the product code of the product to be opened.
      * @param {Pointer<UInt32>} hProduct Pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
@@ -18781,7 +17483,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenproducta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenproducta
      * @since windows8.0
      */
     static MsiOpenProductA(szProduct, hProduct) {
@@ -18792,10 +17494,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed.
      * @param {Pointer<Char>} szProduct Specifies the product code of the product to be opened.
      * @param {Pointer<UInt32>} hProduct Pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
@@ -18874,7 +17573,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenproductw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenproductw
      * @since windows8.0
      */
     static MsiOpenProductW(szProduct, hProduct) {
@@ -18885,16 +17584,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenPackage function opens a package to use with the functions that access the product database. (ANSI)
-     * @remarks
-     * MsiOpenPackage can accept an opened database handle in the form "#nnnn", where nnnn is the database handle in string form, i.e. #123, instead of a path to the package. This is intended for development tasks such as running validation actions, or for use with database management tools.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenPackage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenPackage function opens a package to use with the functions that access the product database.
      * @param {Pointer<Byte>} szPackagePath The path to the package.
      * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
@@ -18961,8 +17651,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * If this function fails, it may return a system error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackagea
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenpackagea
      * @since windows8.0
      */
     static MsiOpenPackageA(szPackagePath, hProduct) {
@@ -18973,16 +17663,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenPackage function opens a package to use with the functions that access the product database. (Unicode)
-     * @remarks
-     * MsiOpenPackage can accept an opened database handle in the form "#nnnn", where nnnn is the database handle in string form, i.e. #123, instead of a path to the package. This is intended for development tasks such as running validation actions, or for use with database management tools.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenPackage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenPackage function opens a package to use with the functions that access the product database.
      * @param {Pointer<Char>} szPackagePath The path to the package.
      * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
@@ -19049,8 +17730,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * If this function fails, it may return a system error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackagew
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenpackagew
      * @since windows8.0
      */
     static MsiOpenPackageW(szPackagePath, hProduct) {
@@ -19061,86 +17742,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenPackageEx function opens a package to use with functions that access the product database. (ANSI)
-     * @remarks
-     * To create a restricted product handle that is independent of the current machine state and incapable of changing the current machine state, use 
-     * <b>MsiOpenPackageEx</b> with MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE set in <i>dwOptions</i>.
-     * 
-     * Note that if <i>dwOptions</i> is MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE or 1, 
-     * <b>MsiOpenPackageEx</b> ignores the current machine state when creating the product handle. If the value of <i>dwOptions</i> is 0, 
-     * <b>MsiOpenPackageEx</b> is the same as 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> and creates a product handle that is dependent upon whether the package specified by <i>szPackagePath</i> is already installed on the computer.
-     * 
-     * The restricted handle created by using 
-     * <b>MsiOpenPackageEx</b> with MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE only permits execution of dialogs, a subset of the standard actions, and custom actions that set properties (
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-35">Custom Action Type 35</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-51">Custom Action Type 51</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-19">Custom Action Type 19</a>). The restricted handle prevents the use of custom actions that run 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/dynamic-link-libraries">Dynamic-Link Libraries</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/executable-files">Executable Files</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/scripts">Scripts</a>.
-     * 
-     * You can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidoactiona">MsiDoAction</a> on the following standard actions using the restricted handle. All other actions return ERROR_FUNCTION_NOT_CALLED if called with the restricted handle.
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/admin-action">ADMIN</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/advertise-action">ADVERTISE</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/install-action">INSTALL</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/sequence-action">SEQUENCE</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch action</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/ccpsearch-action">CCPSearch</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/findrelatedproducts-action">FindRelatedProducts</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/isolatecomponents-action">IsolateComponents action</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/launchconditions-action">LaunchConditions</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/migratefeaturestates-action">MigrateFeatureStates</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/resolvesource-action">ResolveSource</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/rmccpsearch-action">RMCCPSearch</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/validateproductid-action">ValidateProductID</a>
-     * </li>
-     * </ul>
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function must be called when the handle is not needed.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenPackageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenPackageEx function opens a package to use with functions that access the product database.
      * @param {Pointer<Byte>} szPackagePath The path to the package.
      * @param {Integer} dwOptions The bit flags to indicate whether or not to ignore the computer state. Pass in 0 (zero) to use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> behavior. 
@@ -19229,8 +17831,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * If this function fails, it may return a system error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackageexa
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenpackageexa
      * @since windows8.0
      */
     static MsiOpenPackageExA(szPackagePath, dwOptions, hProduct) {
@@ -19241,86 +17843,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenPackageEx function opens a package to use with functions that access the product database. (Unicode)
-     * @remarks
-     * To create a restricted product handle that is independent of the current machine state and incapable of changing the current machine state, use 
-     * <b>MsiOpenPackageEx</b> with MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE set in <i>dwOptions</i>.
-     * 
-     * Note that if <i>dwOptions</i> is MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE or 1, 
-     * <b>MsiOpenPackageEx</b> ignores the current machine state when creating the product handle. If the value of <i>dwOptions</i> is 0, 
-     * <b>MsiOpenPackageEx</b> is the same as 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> and creates a product handle that is dependent upon whether the package specified by <i>szPackagePath</i> is already installed on the computer.
-     * 
-     * The restricted handle created by using 
-     * <b>MsiOpenPackageEx</b> with MSIOPENPACKAGEFLAGS_IGNOREMACHINESTATE only permits execution of dialogs, a subset of the standard actions, and custom actions that set properties (
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-35">Custom Action Type 35</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-51">Custom Action Type 51</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/custom-action-type-19">Custom Action Type 19</a>). The restricted handle prevents the use of custom actions that run 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/dynamic-link-libraries">Dynamic-Link Libraries</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/executable-files">Executable Files</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/scripts">Scripts</a>.
-     * 
-     * You can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidoactiona">MsiDoAction</a> on the following standard actions using the restricted handle. All other actions return ERROR_FUNCTION_NOT_CALLED if called with the restricted handle.
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/admin-action">ADMIN</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/advertise-action">ADVERTISE</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/install-action">INSTALL</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/sequence-action">SEQUENCE</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch action</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/ccpsearch-action">CCPSearch</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/findrelatedproducts-action">FindRelatedProducts</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/isolatecomponents-action">IsolateComponents action</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/launchconditions-action">LaunchConditions</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/migratefeaturestates-action">MigrateFeatureStates</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/resolvesource-action">ResolveSource</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/rmccpsearch-action">RMCCPSearch</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/validateproductid-action">ValidateProductID</a>
-     * </li>
-     * </ul>
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function must be called when the handle is not needed.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiOpenPackageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenPackageEx function opens a package to use with functions that access the product database.
      * @param {Pointer<Char>} szPackagePath The path to the package.
      * @param {Integer} dwOptions The bit flags to indicate whether or not to ignore the computer state. Pass in 0 (zero) to use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> behavior. 
@@ -19409,8 +17932,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * If this function fails, it may return a system error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackageexw
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiopenpackageexw
      * @since windows8.0
      */
     static MsiOpenPackageExW(szPackagePath, dwOptions, hProduct) {
@@ -19421,25 +17944,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches. (ANSI)
-     * @remarks
-     * For example, <i>szPatchList</i> could have the value: "c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp".
-     * 
-     * This function runs in the context of the caller. The product code is searched in the order of user-unmanaged context, user-managed context, and machine context.
-     * 
-     * You must close all MSIHANDLE objects that are returned by this function by calling 
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function.
-     * 
-     * If the function fails, you can obtain extended error information by using the <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a> function.
-     * 
-     * For more information about using the <b>MsiGetPatchFileList</b> function  see <a href="https://docs.microsoft.com/windows/desktop/Msi/listing-the-files-that-can-be-updated">Listing the Files that can be Updated</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchFileList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
      * @param {Pointer<Byte>} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
      * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
@@ -19485,7 +17990,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchfilelista
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchfilelista
      * @since windows8.0
      */
     static MsiGetPatchFileListA(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
@@ -19497,25 +18002,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches. (Unicode)
-     * @remarks
-     * For example, <i>szPatchList</i> could have the value: "c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp".
-     * 
-     * This function runs in the context of the caller. The product code is searched in the order of user-unmanaged context, user-managed context, and machine context.
-     * 
-     * You must close all MSIHANDLE objects that are returned by this function by calling 
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function.
-     * 
-     * If the function fails, you can obtain extended error information by using the <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a> function.
-     * 
-     * For more information about using the <b>MsiGetPatchFileList</b> function  see <a href="https://docs.microsoft.com/windows/desktop/Msi/listing-the-files-that-can-be-updated">Listing the Files that can be Updated</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetPatchFileList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
      * @param {Pointer<Char>} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
      * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
@@ -19561,7 +18048,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchfilelistw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetpatchfilelistw
      * @since windows8.0
      */
     static MsiGetPatchFileListW(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
@@ -19573,19 +18060,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductProperty function retrieves product properties. These properties are in the product database. (ANSI)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductProperty</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiGetProductProperty</b> returns ERROR_MORE_DATA, and 
-     * <b>MsiGetProductProperty</b> contains the size of the string, in characters, without counting the null character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductProperty function retrieves product properties. These properties are in the product database.
      * @param {Integer} hProduct Handle to the product obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szProperty Specifies the property to retrieve. This is case-sensitive.
@@ -19653,7 +18128,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductpropertya
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductpropertya
      * @since windows8.0
      */
     static MsiGetProductPropertyA(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
@@ -19665,19 +18140,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProductProperty function retrieves product properties. These properties are in the product database. (Unicode)
-     * @remarks
-     * When the 
-     * <b>MsiGetProductProperty</b> function returns, the <i>pcchValueBuf</i> parameter contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not big enough, 
-     * <b>MsiGetProductProperty</b> returns ERROR_MORE_DATA, and 
-     * <b>MsiGetProductProperty</b> contains the size of the string, in characters, without counting the null character.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetProductProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProductProperty function retrieves product properties. These properties are in the product database.
      * @param {Integer} hProduct Handle to the product obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szProperty Specifies the property to retrieve. This is case-sensitive.
@@ -19745,7 +18208,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductpropertyw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetproductpropertyw
      * @since windows8.0
      */
     static MsiGetProductPropertyW(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
@@ -19757,10 +18220,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiVerifyPackage function verifies that the given file is an installation package. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiVerifyPackage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiVerifyPackage function verifies that the given file is an installation package.
      * @param {Pointer<Byte>} szPackagePath Specifies the path and file name of the package.
      * @returns {Integer} <table>
      * <tr>
@@ -19816,7 +18276,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiverifypackagea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiverifypackagea
      * @since windows8.0
      */
     static MsiVerifyPackageA(szPackagePath) {
@@ -19827,10 +18287,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiVerifyPackage function verifies that the given file is an installation package. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiVerifyPackage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiVerifyPackage function verifies that the given file is an installation package.
      * @param {Pointer<Char>} szPackagePath Specifies the path and file name of the package.
      * @returns {Integer} <table>
      * <tr>
@@ -19886,7 +18343,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiverifypackagew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiverifypackagew
      * @since windows8.0
      */
     static MsiVerifyPackageW(szPackagePath) {
@@ -19897,18 +18354,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns descriptive information for a feature. (ANSI)
-     * @remarks
-     * The buffer sizes for the 
-     * <b>MsiGetFeatureInfo</b> function should include an extra character for the terminating null character. If a buffer is too small, the returned string is truncated with null, and the buffer size contains the number of characters in the whole string, not including the terminating null character. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFeatureInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns descriptive information for a feature.
      * @param {Integer} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Feature code for the feature about which information should be returned.
@@ -19981,7 +18427,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfeatureinfoa
      * @since windows8.0
      */
     static MsiGetFeatureInfoA(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
@@ -19994,18 +18440,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Returns descriptive information for a feature. (Unicode)
-     * @remarks
-     * The buffer sizes for the 
-     * <b>MsiGetFeatureInfo</b> function should include an extra character for the terminating null character. If a buffer is too small, the returned string is truncated with null, and the buffer size contains the number of characters in the whole string, not including the terminating null character. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFeatureInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Returns descriptive information for a feature.
      * @param {Integer} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Feature code for the feature about which information should be returned.
@@ -20078,7 +18513,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfeatureinfow
      * @since windows8.0
      */
     static MsiGetFeatureInfoW(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
@@ -20091,17 +18526,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiInstallMissingComponent function installs files that are unexpectedly missing. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiInstallMissingComponent</b> function resolves the feature(s) that the component belongs to. Then, the product feature that requires the least additional disk space is installed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallMissingComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiInstallMissingComponent function installs files that are unexpectedly missing.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the component to be installed.
      * @param {Pointer<Byte>} szComponent Identifies the component to be installed.
      * @param {Integer} eInstallState 
@@ -20202,8 +18627,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information about error messages, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingcomponenta
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallmissingcomponenta
      * @since windows8.0
      */
     static MsiInstallMissingComponentA(szProduct, szComponent, eInstallState) {
@@ -20215,17 +18640,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiInstallMissingComponent function installs files that are unexpectedly missing. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiInstallMissingComponent</b> function resolves the feature(s) that the component belongs to. Then, the product feature that requires the least additional disk space is installed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallMissingComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiInstallMissingComponent function installs files that are unexpectedly missing.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the component to be installed.
      * @param {Pointer<Char>} szComponent Identifies the component to be installed.
      * @param {Integer} eInstallState 
@@ -20326,8 +18741,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information about error messages, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingcomponentw
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallmissingcomponentw
      * @since windows8.0
      */
     static MsiInstallMissingComponentW(szProduct, szComponent, eInstallState) {
@@ -20339,17 +18754,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiInstallMissingFile function installs files that are unexpectedly missing. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiInstallMissingFile</b> function obtains the component that the file belongs to from the file table. Then, the product feature that requires the least additional disk space is installed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallMissingFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiInstallMissingFile function installs files that are unexpectedly missing.
      * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the file to be installed.
      * @param {Pointer<Byte>} szFile Specifies the file to be installed.
      * @returns {Integer} <table>
@@ -20449,8 +18854,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information about error messages, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingfilea
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallmissingfilea
      * @since windows8.0
      */
     static MsiInstallMissingFileA(szProduct, szFile) {
@@ -20462,17 +18867,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiInstallMissingFile function installs files that are unexpectedly missing. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiInstallMissingFile</b> function obtains the component that the file belongs to from the file table. Then, the product feature that requires the least additional disk space is installed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiInstallMissingFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiInstallMissingFile function installs files that are unexpectedly missing.
      * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the file to be installed.
      * @param {Pointer<Char>} szFile Specifies the file to be installed.
      * @returns {Integer} <table>
@@ -20572,8 +18967,8 @@ class ApplicationInstallationAndServicing {
      *  
      * 
      * For more information about error messages, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingfilew
+     * <a href="/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiinstallmissingfilew
      * @since windows8.0
      */
     static MsiInstallMissingFileW(szProduct, szFile) {
@@ -20585,37 +18980,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiLocateComponent function returns the full path to an installed component without a product code. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiLocateComponent</b> function might return INSTALLSTATE_ABSENT or INSTALL_STATE_UNKNOWN, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiLocateComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiLocateComponent function returns the full path to an installed component without a product code.
      * @param {Pointer<Byte>} szComponent Specifies the component ID of the component to be located.
      * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
      * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
@@ -20719,7 +19084,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msilocatecomponenta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msilocatecomponenta
      * @since windows8.0
      */
     static MsiLocateComponentA(szComponent, lpPathBuf, pcchBuf) {
@@ -20731,37 +19096,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiLocateComponent function returns the full path to an installed component without a product code. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiLocateComponent</b> function might return INSTALLSTATE_ABSENT or INSTALL_STATE_UNKNOWN, for the following reasons:
-     * 
-     * <ul>
-     * <li>INSTALLSTATE_ABSENT 
-     * 
-     * 
-     * The application did not properly ensure that the feature was installed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> and, if necessary, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigurefeaturea">MsiConfigureFeature</a>.
-     * 
-     * </li>
-     * <li>INSTALLSTATE_UNKNOWN 
-     * 
-     * 
-     * The feature is not published. The application should have determined this earlier by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiqueryfeaturestatea">MsiQueryFeatureState</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msienumfeaturesa">MsiEnumFeatures</a>. The application makes these calls while it initializes. An application should only use features that are known to be published. Since INSTALLSTATE_UNKNOWN should have been returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiusefeaturea">MsiUseFeature</a> as well, either 
-     * <b>MsiUseFeature</b> was not called, or its return value was not properly checked.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiLocateComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiLocateComponent function returns the full path to an installed component without a product code.
      * @param {Pointer<Char>} szComponent Specifies the component ID of the component to be located.
      * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
      * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
@@ -20865,7 +19200,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msilocatecomponentw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msilocatecomponentw
      * @since windows8.0
      */
     static MsiLocateComponentW(szComponent, lpPathBuf, pcchBuf) {
@@ -20877,27 +19212,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency. (ANSI)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed)per-user installations.  Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * If a network source is the current source for the product, this function forces the installer to search the source list for a valid source the next time a source is needed. If the current source is media or a URL source, it is still valid after this call and the source list is not searched unless <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistforceresolutiona">MsiSourceListForceResolution</a> is also called.
-     * 
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed as per-user only, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * This function cannot modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearAll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency.
      * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Byte>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
      * 
@@ -20999,7 +19314,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearalla
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearalla
      * @since windows8.0
      */
     static MsiSourceListClearAllA(szProduct, szUserName) {
@@ -21013,27 +19328,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency. (Unicode)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed)per-user installations.  Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * If a network source is the current source for the product, this function forces the installer to search the source list for a valid source the next time a source is needed. If the current source is media or a URL source, it is still valid after this call and the source list is not searched unless <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistforceresolutiona">MsiSourceListForceResolution</a> is also called.
-     * 
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed as per-user only, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * This function cannot modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearAll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency.
      * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Char>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
      * 
@@ -21135,7 +19430,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearallw
      * @since windows8.0
      */
     static MsiSourceListClearAllW(szProduct, szUserName) {
@@ -21149,34 +19444,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context. (ANSI)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed)per-user installations.  Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * Note that this function merely adds the new source  to the list of valid sources. If another source was used to install the product, the new source is not used until the current source is unavailable.
-     * 
-     * 
-     * 
-     * It is the responsibility of the caller to ensure that the provided source is a valid source image for the product.
-     * 
-     * 
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed only in the per-user state, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * This function can  not modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context.
      * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Byte>} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
      * 
@@ -21276,7 +19544,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourcea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddsourcea
      * @since windows8.0
      */
     static MsiSourceListAddSourceA(szProduct, szUserName, szSource) {
@@ -21291,34 +19559,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context. (Unicode)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed)per-user installations.  Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * Note that this function merely adds the new source  to the list of valid sources. If another source was used to install the product, the new source is not used until the current source is unavailable.
-     * 
-     * 
-     * 
-     * It is the responsibility of the caller to ensure that the provided source is a valid source image for the product.
-     * 
-     * 
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed only in the per-user state, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * This function can  not modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context.
      * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Char>} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
      * 
@@ -21418,7 +19659,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourcew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddsourcew
      * @since windows8.0
      */
     static MsiSourceListAddSourceW(szProduct, szUserName, szSource) {
@@ -21433,24 +19674,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required. (ANSI)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed) per-user installations.  
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed as per-user only, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * This function can  not modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListForceResolution as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required.
      * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Byte>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
      * 
@@ -21551,7 +19775,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutiona
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistforceresolutiona
      * @since windows8.0
      */
     static MsiSourceListForceResolutionA(szProduct, szUserName) {
@@ -21565,24 +19789,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required. (Unicode)
-     * @remarks
-     * An administrator can modify per-machine installations, their own per-user non-managed installations, and the per-user managed installations for any user. A non-administrator can only modify per-machine installations and their own (managed or non-managed) per-user installations.  
-     * 
-     * If the user name is an empty string or <b>NULL</b>, the function operates on the per-machine installation of the product. In this case, if the product is installed as per-user only, the function returns ERROR_UNKNOWN_PRODUCT. 
-     * 
-     * 
-     * 
-     * If the user name is not an empty string or <b>NULL</b>, it specifies the name of the user whose product installation is modified. If the user name is the current user name, the function first attempts to modify a non-managed installation of the product. If no non-managed installation of the product can be found, the function then tries to modify a managed per-user installation of the product. If no managed or unmanaged per-user installations of the product can be found, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * This function can  not modify a non-managed installation for any user besides the current user. If the user name is not an empty string or <b>NULL</b>, but is not the current user, the function only checks for a managed per-user installation of the product for the specified user. If the product is not installed as managed per-user for the specified user, the function returns ERROR_UNKNOWN_PRODUCT, even if the product is installed per-machine.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListForceResolution as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required.
      * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
      * @param {Pointer<Char>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
      * 
@@ -21683,7 +19890,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistforceresolutionw
      * @since windows8.0
      */
     static MsiSourceListForceResolutionW(szProduct, szUserName) {
@@ -21697,18 +19904,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddSourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -21887,7 +20083,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourceexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddsourceexa
      * @since windows8.0
      */
     static MsiSourceListAddSourceExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
@@ -21900,18 +20096,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddSourceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -22090,7 +20275,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourceexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddsourceexw
      * @since windows8.0
      */
     static MsiSourceListAddSourceExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
@@ -22103,18 +20288,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownmedia">AllowLockDownMedia</a> and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddMediaDisk as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
      * 
@@ -22284,7 +20458,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddmediadiska
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddmediadiska
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
@@ -22298,18 +20472,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownmedia">AllowLockDownMedia</a> and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListAddMediaDisk as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
      * 
@@ -22479,7 +20642,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddmediadiskw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistaddmediadiskw
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
@@ -22493,18 +20656,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Removes an existing source for a product or patch in a specified context. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes an existing source for a product or patch in a specified context.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -22687,7 +20839,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearsourcea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearsourcea
      * @since windows8.0
      */
     static MsiSourceListClearSourceA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
@@ -22700,18 +20852,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Removes an existing source for a product or patch in a specified context. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearSource as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes an existing source for a product or patch in a specified context.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -22894,7 +21035,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearsourcew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearsourcew
      * @since windows8.0
      */
     static MsiSourceListClearSourceW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
@@ -22907,18 +21048,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearMediaDisk as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
      * 
@@ -23085,7 +21215,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearmediadiska
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearmediadiska
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
@@ -23097,18 +21227,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearMediaDisk as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
      * 
@@ -23275,7 +21394,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearmediadiskw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearmediadiskw
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
@@ -23287,18 +21406,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy, for more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearAllEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
@@ -23458,7 +21566,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearallexa
      * @since windows8.0
      */
     static MsiSourceListClearAllExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23470,18 +21578,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy, for more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListClearAllEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
@@ -23641,7 +21738,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistclearallexw
      * @since windows8.0
      */
     static MsiSourceListClearAllExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23653,18 +21750,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy, for more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListForceResolutionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
@@ -23797,7 +21883,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionexa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistforceresolutionexa
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23809,18 +21895,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy, for more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListForceResolutionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
@@ -23953,7 +22028,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionexw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistforceresolutionexw
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23965,20 +22040,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Sets information about the source list for a product or patch in a specific context. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * An exception to the above rule is setting "LastUsedSource" to one of the registered sources. If the source is already registered, a non-administrator can set "LastUsedSource" to their own installations (managed or non-managed) and per-machine installations, irrespective of policies. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListSetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets information about the source list for a product or patch in a specific context.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -24174,7 +22236,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistsetinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistsetinfoa
      * @since windows8.0
      */
     static MsiSourceListSetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
@@ -24188,20 +22250,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Sets information about the source list for a product or patch in a specific context. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context. 
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * An exception to the above rule is setting "LastUsedSource" to one of the registered sources. If the source is already registered, a non-administrator can set "LastUsedSource" to their own installations (managed or non-managed) and per-machine installations, irrespective of policies. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListSetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets information about the source list for a product or patch in a specific context.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
@@ -24397,7 +22446,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistsetinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistsetinfow
      * @since windows8.0
      */
     static MsiSourceListSetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
@@ -24411,18 +22460,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context. (ANSI)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context.
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListGetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
      * 
@@ -24610,7 +22648,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistgetinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistgetinfoa
      * @since windows8.0
      */
     static MsiSourceListGetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
@@ -24624,18 +22662,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context. (Unicode)
-     * @remarks
-     * Administrators can modify the installation  of   a product or patch   instance that exists  under the machine context or under their own per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under any user's per-user-managed context.  Administrators cannot modify another user's installation of a product or patch instance  that exists  under that other user's per-user-unmanaged context.
-     * 
-     * Non-administrators cannot  modify the installation of  a product or patch instance that exists under another user's per-user context (managed or unmanaged.) They can modify the installation of  a product or patch instance that exists under their own per-user-unmanaged context.  They can modify the installation of a product or patch instance under the machine context or their own per-user-managed context only if they are enabled to browse for a product or patch source. Users can be enabled to browse for sources by setting policy. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/disablebrowse">DisableBrowse</a>, <a href="https://docs.microsoft.com/windows/desktop/Msi/allowlockdownbrowse">AllowLockdownBrowse</a>, and <a href="https://docs.microsoft.com/windows/desktop/Msi/alwaysinstallelevated">AlwaysInstallElevated</a> policies.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListGetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
      * 
@@ -24823,7 +22850,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistgetinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistgetinfow
      * @since windows8.0
      */
     static MsiSourceListGetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
@@ -24837,21 +22864,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product. (ANSI)
-     * @remarks
-     * When making multiple calls to <b>MsiSourceListEnumSources</b> to enumerate all sources for a single product instance, each call must be made from the same thread.
-     * 
-     * An administrator can enumerate per-user unmanaged and managed installations for themselves, 		
-     * 		per-machine installations, and per-user managed installations for any user. An administrator cannot 			
-     * 		enumerate per-user unmanaged installations for other users. Non-administrators can only enumerate 		
-     * 		their own per-user unmanaged and managed installations and per-machine installations.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListEnumSources as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
@@ -25066,7 +23079,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenumsourcesa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistenumsourcesa
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
@@ -25079,21 +23092,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product. (Unicode)
-     * @remarks
-     * When making multiple calls to <b>MsiSourceListEnumSources</b> to enumerate all sources for a single product instance, each call must be made from the same thread.
-     * 
-     * An administrator can enumerate per-user unmanaged and managed installations for themselves, 		
-     * 		per-machine installations, and per-user managed installations for any user. An administrator cannot 			
-     * 		enumerate per-user unmanaged installations for other users. Non-administrators can only enumerate 		
-     * 		their own per-user unmanaged and managed installations and per-machine installations.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListEnumSources as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
@@ -25308,7 +23307,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenumsourcesw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistenumsourcesw
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
@@ -25321,21 +23320,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product. (ANSI)
-     * @remarks
-     * When making multiple calls to <b>MsiSourceListEnumMediaDisks</b> to enumerate all the sources for a single product instance, each call must be made from the same thread.
-     * 
-     * An administrator can enumerate per-user unmanaged and managed installations for themselves, 		
-     * 		per-machine installations, and per-user managed installations for any user. An administrator cannot 			
-     * 		enumerate per-user unmanaged installations for other users. Non-administrators can only enumerate 		
-     * 		their own per-user unmanaged and managed installations and per-machine installations.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListEnumMediaDisks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product.
      * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
@@ -25539,7 +23524,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenummediadisksa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistenummediadisksa
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
@@ -25553,21 +23538,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product. (Unicode)
-     * @remarks
-     * When making multiple calls to <b>MsiSourceListEnumMediaDisks</b> to enumerate all the sources for a single product instance, each call must be made from the same thread.
-     * 
-     * An administrator can enumerate per-user unmanaged and managed installations for themselves, 		
-     * 		per-machine installations, and per-user managed installations for any user. An administrator cannot 			
-     * 		enumerate per-user unmanaged installations for other users. Non-administrators can only enumerate 		
-     * 		their own per-user unmanaged and managed installations and per-machine installations.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiSourceListEnumMediaDisks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product.
      * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
@@ -25771,7 +23742,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenummediadisksw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisourcelistenummediadisksw
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
@@ -25785,10 +23756,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileVersion as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database.
      * @param {Pointer<Byte>} szFilePath Specifies the path to the file.
      * @param {Pointer<Byte>} lpVersionBuf Returns the file version. 
      * 
@@ -25874,7 +23842,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfileversiona
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfileversiona
      * @since windows8.0
      */
     static MsiGetFileVersionA(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
@@ -25887,10 +23855,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileVersion as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database.
      * @param {Pointer<Char>} szFilePath Specifies the path to the file.
      * @param {Pointer<Char>} lpVersionBuf Returns the file version. 
      * 
@@ -25976,7 +23941,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfileversionw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfileversionw
      * @since windows8.0
      */
     static MsiGetFileVersionW(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
@@ -25989,22 +23954,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table. (ANSI)
-     * @remarks
-     * The entire 128-bit file hash is returned as four 32-bit fields. The numbering of the four fields is zero-based. The values returned by 
-     * <b>MsiGetFileHash</b> correspond to the four fields of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msifilehashinfo">MSIFILEHASHINFO</a> structure. The first field corresponds to the HashPart1 column of the MsiFileHash table, the second field corresponds to the HashPart2 column, the third field corresponds to the HashPart3 column, and the fourth field corresponds to the HashPart4 column.
-     * 
-     * The hash information entered into the MsiFileHash table must be obtained by calling 
-     * <b>MsiGetFileHash</b> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-filehash">FileHash</a> method. Do not attempt to use other methods to generate the file hash.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileHash as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table.
      * @param {Pointer<Byte>} szFilePath Path to file that is to be hashed.
      * @param {Integer} dwOptions The value in this column must be 0. This parameter is reserved for future use.
      * @param {Pointer<MSIFILEHASHINFO>} pHash Pointer to the returned file hash information.
@@ -26062,7 +24012,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilehasha
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilehasha
      * @since windows8.0
      */
     static MsiGetFileHashA(szFilePath, dwOptions, pHash) {
@@ -26073,22 +24023,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table. (Unicode)
-     * @remarks
-     * The entire 128-bit file hash is returned as four 32-bit fields. The numbering of the four fields is zero-based. The values returned by 
-     * <b>MsiGetFileHash</b> correspond to the four fields of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msifilehashinfo">MSIFILEHASHINFO</a> structure. The first field corresponds to the HashPart1 column of the MsiFileHash table, the second field corresponds to the HashPart2 column, the third field corresponds to the HashPart3 column, and the fourth field corresponds to the HashPart4 column.
-     * 
-     * The hash information entered into the MsiFileHash table must be obtained by calling 
-     * <b>MsiGetFileHash</b> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-filehash">FileHash</a> method. Do not attempt to use other methods to generate the file hash.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileHash as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table.
      * @param {Pointer<Char>} szFilePath Path to file that is to be hashed.
      * @param {Integer} dwOptions The value in this column must be 0. This parameter is reserved for future use.
      * @param {Pointer<MSIFILEHASHINFO>} pHash Pointer to the returned file hash information.
@@ -26146,7 +24081,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilehashw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilehashw
      * @since windows8.0
      */
     static MsiGetFileHashW(szFilePath, dwOptions, pHash) {
@@ -26157,22 +24092,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash. (ANSI)
-     * @remarks
-     * When requesting only the certificate context, an invalid hash in the digital signature does not cause 
-     * <b>MsiGetFileSignatureInformation</b> to return a fatal error. To return a fatal error for an invalid hash, set the MSI_INVALID_HASH_IS_FATAL flag in the <i>dwFlags</i> parameter.
-     * 
-     * The certificate context and hash information is extracted from the file by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a>. The <i>ppcCertContext</i> parameter is a duplicate of the signer certificate context from the signature. It is the responsibility of the caller to call <i>CertFreeCertificateContext</i> to free the certificate context when finished.
-     * 
-     * Note that 
-     * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileSignatureInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash.
      * @param {Pointer<Byte>} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
      * @param {Integer} dwFlags Special error case flags. 
      * 
@@ -26239,7 +24159,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
+     * <a href="/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
      * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
      * 
      * </td>
@@ -26341,7 +24261,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <b>MsiGetFileSignatureInformation</b> also returns all the Win32 error values mapped to their equivalent <b>HRESULT</b> data type by 
      * <b>HRESULT_FROM_WIN32</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationa
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilesignatureinformationa
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
@@ -26355,22 +24275,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash. (Unicode)
-     * @remarks
-     * When requesting only the certificate context, an invalid hash in the digital signature does not cause 
-     * <b>MsiGetFileSignatureInformation</b> to return a fatal error. To return a fatal error for an invalid hash, set the MSI_INVALID_HASH_IS_FATAL flag in the <i>dwFlags</i> parameter.
-     * 
-     * The certificate context and hash information is extracted from the file by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a>. The <i>ppcCertContext</i> parameter is a duplicate of the signer certificate context from the signature. It is the responsibility of the caller to call <i>CertFreeCertificateContext</i> to free the certificate context when finished.
-     * 
-     * Note that 
-     * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetFileSignatureInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash.
      * @param {Pointer<Char>} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
      * @param {Integer} dwFlags Special error case flags. 
      * 
@@ -26437,7 +24342,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
+     * <a href="/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> is not available on the system. 
      * <b>MsiGetFileSignatureInformation</b> requires the presence of the Wintrust.dll file on the system.
      * 
      * </td>
@@ -26539,7 +24444,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <b>MsiGetFileSignatureInformation</b> also returns all the Win32 error values mapped to their equivalent <b>HRESULT</b> data type by 
      * <b>HRESULT_FROM_WIN32</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetfilesignatureinformationw
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
@@ -26553,19 +24458,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available. (ANSI)
-     * @remarks
-     * If the function fails, and the shortcut exists, the regular contents of the shortcut may be accessed through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> interface.
-     * 
-     * Otherwise, the state of the target may be determined by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/database-functions">Installer Selection Functions</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetShortcutTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available.
      * @param {Pointer<Byte>} szShortcutPath A null-terminated string specifying the full path to a shortcut.
      * @param {Pointer<Byte>} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
@@ -26573,7 +24466,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Byte>} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetshortcuttargeta
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetshortcuttargeta
      * @since windows8.0
      */
     static MsiGetShortcutTargetA(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
@@ -26587,19 +24480,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available. (Unicode)
-     * @remarks
-     * If the function fails, and the shortcut exists, the regular contents of the shortcut may be accessed through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> interface.
-     * 
-     * Otherwise, the state of the target may be determined by using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/database-functions">Installer Selection Functions</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiGetShortcutTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available.
      * @param {Pointer<Char>} szShortcutPath A null-terminated string specifying the full path to a shortcut.
      * @param {Pointer<Char>} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
@@ -26607,7 +24488,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Char>} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetshortcuttargetw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetshortcuttargetw
      * @since windows8.0
      */
     static MsiGetShortcutTargetW(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
@@ -26621,10 +24502,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiIsProductElevated function returns whether or not the product is managed. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiIsProductElevated as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiIsProductElevated function returns whether or not the product is managed.
      * @param {Pointer<Byte>} szProduct The full product code GUID of the product. 
      * 
      * This parameter is required and cannot be <b>NULL</b> or empty.
@@ -26696,7 +24574,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiisproductelevateda
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiisproductelevateda
      * @since windows8.0
      */
     static MsiIsProductElevatedA(szProduct, pfElevated) {
@@ -26707,10 +24585,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiIsProductElevated function returns whether or not the product is managed. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiIsProductElevated as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiIsProductElevated function returns whether or not the product is managed.
      * @param {Pointer<Char>} szProduct The full product code GUID of the product. 
      * 
      * This parameter is required and cannot be <b>NULL</b> or empty.
@@ -26782,7 +24657,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiisproductelevatedw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiisproductelevatedw
      * @since windows8.0
      */
     static MsiIsProductElevatedW(szProduct, pfElevated) {
@@ -26793,16 +24668,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs. (ANSI)
-     * @remarks
-     * <b>Windows Installer 2.0 and Windows Installer 3.0:  </b>Not supported. This function is available beginning with Windows Installer 3.1.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiNotifySidChange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs.
      * @param {Pointer<Byte>} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
      * @param {Pointer<Byte>} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
      * @returns {Integer} <table>
@@ -26857,7 +24723,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msinotifysidchangea
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msinotifysidchangea
      * @since windows8.0
      */
     static MsiNotifySidChangeA(pOldSid, pNewSid) {
@@ -26869,16 +24735,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs. (Unicode)
-     * @remarks
-     * <b>Windows Installer 2.0 and Windows Installer 3.0:  </b>Not supported. This function is available beginning with Windows Installer 3.1.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msi.h header defines MsiNotifySidChange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs.
      * @param {Pointer<Char>} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
      * @param {Pointer<Char>} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
      * @returns {Integer} <table>
@@ -26933,7 +24790,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msinotifysidchangew
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msinotifysidchangew
      * @since windows8.0
      */
     static MsiNotifySidChangeW(pOldSid, pNewSid) {
@@ -26945,10 +24802,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiBeginTransaction as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction.
      * @param {Pointer<Byte>} szName Name of the multiple-package installation.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation. 
      * 
@@ -27031,12 +24885,12 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/rollback-installation">Rollback Installations</a> have been disabled by the <a href="https://docs.microsoft.com/windows/desktop/Msi/-disablerollback">DISABLEROLLBACK</a> property or <a href="https://docs.microsoft.com/windows/desktop/Msi/disablerollback">DisableRollback</a> policy.     
+     * <a href="/windows/desktop/Msi/rollback-installation">Rollback Installations</a> have been disabled by the <a href="/windows/desktop/Msi/-disablerollback">DISABLEROLLBACK</a> property or <a href="/windows/desktop/Msi/disablerollback">DisableRollback</a> policy.     
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msibegintransactiona
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msibegintransactiona
      * @since windows8.0
      */
     static MsiBeginTransactionA(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
@@ -27047,10 +24901,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msi.h header defines MsiBeginTransaction as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction.
      * @param {Pointer<Char>} szName Name of the multiple-package installation.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation. 
      * 
@@ -27133,12 +24984,12 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/rollback-installation">Rollback Installations</a> have been disabled by the <a href="https://docs.microsoft.com/windows/desktop/Msi/-disablerollback">DISABLEROLLBACK</a> property or <a href="https://docs.microsoft.com/windows/desktop/Msi/disablerollback">DisableRollback</a> policy.     
+     * <a href="/windows/desktop/Msi/rollback-installation">Rollback Installations</a> have been disabled by the <a href="/windows/desktop/Msi/-disablerollback">DISABLEROLLBACK</a> property or <a href="/windows/desktop/Msi/disablerollback">DisableRollback</a> policy.     
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msibegintransactionw
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msibegintransactionw
      * @since windows8.0
      */
     static MsiBeginTransactionW(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
@@ -27228,12 +25079,12 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * An installation belonging to the transaction did not complete. During the installation, the <a href="https://docs.microsoft.com/windows/desktop/Msi/disablerollback-action">DisableRollback</a> action disabled <a href="https://docs.microsoft.com/windows/desktop/Msi/rollback-installation">rollback installations</a> of the package. The installer rolls back the installation up to the point where rollback was disabled, and the function returns this error.
+     * An installation belonging to the transaction did not complete. During the installation, the <a href="/windows/desktop/Msi/disablerollback-action">DisableRollback</a> action disabled <a href="/windows/desktop/Msi/rollback-installation">rollback installations</a> of the package. The installer rolls back the installation up to the point where rollback was disabled, and the function returns this error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiendtransaction
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msiendtransaction
      * @since windows8.0
      */
     static MsiEndTransaction(dwTransactionState) {
@@ -27243,10 +25094,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiJoinTransaction function requests that the Windows Installer make the current process the owner of the transaction installing the multiple-package installation.
-     * @remarks
-     * Because a transaction can be owned by no more than one process at a time, the functions authored into the <a href="https://docs.microsoft.com/windows/desktop/Msi/msiembeddedchainer-table">MsiEmbeddedChainer table</a> can use <b>MsiJoinTransaction</b> to request ownership of the transaction before using the Windows Installer API to configure or install an application. The installer verifies that there is no installation in progress. The installer verifies that the process requesting ownership and the process that currently owns the transaction share a parent process in the same process tree.  If the function succeeds, the process that calls <b>MsiJoinTransaction</b> becomes the current owner of the transaction.
-     * 
-     * <b>MsiJoinTransaction</b> sets the internal UI of the new installation to the UI level of the original installation. After the new installation owns the transaction, it can call <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetinternalui">MsiSetInternalUI</a> to change the UI level.  This enables the new installation to run at a higher UI level than the original installation.
      * @param {Integer} hTransactionHandle The transaction ID, which identifies the transaction and is the identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msibegintransactiona">MsiBeginTransaction</a> function.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation.
      * 
@@ -27343,7 +25190,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msijointransaction
+     * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msijointransaction
      * @since windows8.0
      */
     static MsiJoinTransaction(hTransactionHandle, dwTransactionAttributes, phChangeOfOwnerEvent) {
@@ -27352,36 +25199,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiDatabaseOpenView</b> function opens a view object for a database. You must open a view object for a database before performing any execution or fetching.
-     * 
-     * If an error occurs, you can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a> for more information.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseOpenView as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Byte>} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
      * @param {Pointer<UInt32>} phView Pointer to a handle for the returned view.
      * @returns {Integer} The 
-     * <b>MsiDatabaseOpenView</b> function returns one of the following values:
-     * 
-     * ERROR_SUCCESS if successful, and the view handle which the phView [out] parameter points to is set.
-     * 
-     * ERROR_INVALID_HANDLE, ERROR_INVALID_HANDLE_STATE, ERROR_BAD_QUERY_SYNTAX or ERROR_GEN_FAILURE if failure, and sets the error record, accessible via MsiGetLastErrorRecord.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseopenviewa
+     * <b>MsiDatabaseOpenView</b> function  returns one of the following values:
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseopenviewa
      * @since windows8.0
      */
     static MsiDatabaseOpenViewA(hDatabase, szQuery, phView) {
@@ -27392,32 +25217,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiDatabaseOpenView</b> function opens a view object for a database. You must open a view object for a database before performing any execution or fetching.
-     * 
-     * If an error occurs, you can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a> for more information.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseOpenView as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Char>} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
      * @param {Pointer<UInt32>} phView Pointer to a handle for the returned view.
      * @returns {Integer} The 
      * <b>MsiDatabaseOpenView</b> function  returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseopenvieww
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseopenvieww
      * @since windows8.0
      */
     static MsiDatabaseOpenViewW(hDatabase, szQuery, phView) {
@@ -27428,22 +25235,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiViewGetError function returns the error that occurred in the MsiViewModify function. (ANSI)
-     * @remarks
-     * You should only call the 
-     * <b>MsiViewGetError</b> function when 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewmodify">MsiViewModify</a> returns ERROR_INVALID_DATA, indicating that the data is invalid. Errors are only recorded for MSIMODIFY_VALIDATE, MSIMODIFY_VALIDATE_NEW, and MSIMODIFY_VALIDATEFIELD.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter that  is a pointer gives the size of the buffer required to hold the string. Upon success, it gives the number of characters written to the string buffer. Therefore you can get the required size of the buffer by passing a small buffer (one character minimum) and examining the value at <i>pcchPathBuf</i> when the function returns MSIDBERROR_MOREDATA. Do not attempt to determine the size of the buffer by passing in null as <i>szColumnNameBuffer</i> or a buffer size of 0 in the <b>DWORD</b> referenced by <i>pcchBuf</i>.
-     * 
-     * Once MSIDBERROR_NOERROR is returned, no more validation errors remain. The MSIDBERROR return value indicates the type of validation error that occurred for the value located in the column identified by the <i>szColumnNameBuffer</i>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiViewGetError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
      * @param {Integer} hView Handle to the view.
      * @param {Pointer<Byte>} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
@@ -27693,7 +25485,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * An invalid string was supplied in the DefaultDir column of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory</a> table.
+     * <a href="/windows/desktop/Msi/directory-table">Directory</a> table.
      * 
      * </td>
      * </tr>
@@ -27716,7 +25508,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * An invalid string was supplied in the CustomSource column of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/customaction-table">CustomAction</a> table.
+     * <a href="/windows/desktop/Msi/customaction-table">CustomAction</a> table.
      * 
      * </td>
      * </tr>
@@ -27739,7 +25531,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table is missing a reference to a column.
+     * <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table is missing a reference to a column.
      * 
      * </td>
      * </tr>
@@ -27750,7 +25542,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The category column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table for the column is invalid.
+     * The category column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table for the column is invalid.
      * 
      * </td>
      * </tr>
@@ -27772,7 +25564,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The table in the Keytable column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table was not found or loaded.
+     * The table in the Keytable column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table was not found or loaded.
      * 
      * </td>
      * </tr>
@@ -27783,7 +25575,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The value in the MaxValue column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table is less than the value in the MinValue column.
+     * The value in the MaxValue column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table is less than the value in the MinValue column.
      * 
      * </td>
      * </tr>
@@ -27828,7 +25620,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgeterrora
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewgeterrora
      * @since windows8.0
      */
     static MsiViewGetErrorA(hView, szColumnNameBuffer, pcchBuf) {
@@ -27839,22 +25631,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiViewGetError function returns the error that occurred in the MsiViewModify function. (Unicode)
-     * @remarks
-     * You should only call the 
-     * <b>MsiViewGetError</b> function when 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewmodify">MsiViewModify</a> returns ERROR_INVALID_DATA, indicating that the data is invalid. Errors are only recorded for MSIMODIFY_VALIDATE, MSIMODIFY_VALIDATE_NEW, and MSIMODIFY_VALIDATEFIELD.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter that  is a pointer gives the size of the buffer required to hold the string. Upon success, it gives the number of characters written to the string buffer. Therefore you can get the required size of the buffer by passing a small buffer (one character minimum) and examining the value at <i>pcchPathBuf</i> when the function returns MSIDBERROR_MOREDATA. Do not attempt to determine the size of the buffer by passing in null as <i>szColumnNameBuffer</i> or a buffer size of 0 in the <b>DWORD</b> referenced by <i>pcchBuf</i>.
-     * 
-     * Once MSIDBERROR_NOERROR is returned, no more validation errors remain. The MSIDBERROR return value indicates the type of validation error that occurred for the value located in the column identified by the <i>szColumnNameBuffer</i>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiViewGetError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
      * @param {Integer} hView Handle to the view.
      * @param {Pointer<Char>} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
@@ -28104,7 +25881,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * An invalid string was supplied in the DefaultDir column of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory</a> table.
+     * <a href="/windows/desktop/Msi/directory-table">Directory</a> table.
      * 
      * </td>
      * </tr>
@@ -28127,7 +25904,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * An invalid string was supplied in the CustomSource column of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/customaction-table">CustomAction</a> table.
+     * <a href="/windows/desktop/Msi/customaction-table">CustomAction</a> table.
      * 
      * </td>
      * </tr>
@@ -28150,7 +25927,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table is missing a reference to a column.
+     * <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table is missing a reference to a column.
      * 
      * </td>
      * </tr>
@@ -28161,7 +25938,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The category column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table for the column is invalid.
+     * The category column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table for the column is invalid.
      * 
      * </td>
      * </tr>
@@ -28183,7 +25960,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The table in the Keytable column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table was not found or loaded.
+     * The table in the Keytable column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table was not found or loaded.
      * 
      * </td>
      * </tr>
@@ -28194,7 +25971,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * The value in the MaxValue column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation</a> table is less than the value in the MinValue column.
+     * The value in the MaxValue column of the <a href="/windows/desktop/Msi/-validation-table">_Validation</a> table is less than the value in the MinValue column.
      * 
      * </td>
      * </tr>
@@ -28239,7 +26016,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgeterrorw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewgeterrorw
      * @since windows8.0
      */
     static MsiViewGetErrorW(hView, szColumnNameBuffer, pcchBuf) {
@@ -28251,31 +26028,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiViewExecute function executes a SQL view query and supplies any required parameters.
-     * @remarks
-     * The 
-     * <b>MsiViewExecute</b> function must be called before any calls to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewfetch">MsiViewFetch</a>.
-     * 
-     * If the SQL query specifies values with parameter markers (?), a record must be supplied that contains all of the replacement values in the exact order and of compatible data types. When used with INSERT and UPDATE queries all the parameterized values must precede all nonparameterized values.
-     * 
-     * For example, these queries are valid.
-     * 
-     * UPDATE {table-list} SET {column}= ? , {column}= {constant}
-     * 
-     * INSERT INTO {table} ({column-list}) VALUES (?, {constant-list})
-     * 
-     * However these queries are invalid.
-     * 
-     * UPDATE {table-list} SET {column}= {constant}, {column}=?
-     * 
-     * INSERT INTO {table} ({column-list}) VALUES ({constant-list}, ? )
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
      * @param {Integer} hView Handle to the view upon which to execute the query.
      * @param {Integer} hRecord Handle to a record that supplies the parameters. This parameter contains values to replace the parameter tokens in the SQL query. It is optional, so <i>hRecord</i> can be zero. For a reference on syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewexecute
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewexecute
      * @since windows8.0
      */
     static MsiViewExecute(hView, hRecord) {
@@ -28285,18 +26042,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiViewFetch function fetches the next sequential record from the view. This function returns a handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * If the 
-     * <b>MsiViewFetch</b> function returns ERROR_FUNCTION_FAILED, it is possible that the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewexecute">MsiViewExecute</a> function was not called first. If more rows are available in the result set, 
-     * <b>MsiViewFetch</b> returns <i>phRecord</i> as a handle to a record containing the requested column data, or <i>phRecord</i> is 0. For maximum performance, the same record should be used for all retrievals, or the record should be released by going out of scope.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {Integer} hView Handle to the view to fetch from.
      * @param {Pointer<UInt32>} phRecord Pointer to the handle for the fetched record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewfetch
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewfetch
      * @since windows8.0
      */
     static MsiViewFetch(hView, phRecord) {
@@ -28306,23 +26055,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiViewModify function updates a fetched record.
-     * @remarks
-     * The MSIMODIFY_VALIDATE, MSIMODIFY_VALIDATE_NEW, MSIMODIFY_VALIDATE_FIELD, and MSIMODIFY_VALIDATE_DELETE values of the 
-     * <b>MsiViewModify</b> function do not perform actual updates; they ensure that the data in the record is valid. Use of these validation enumerations requires that the database contains the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-validation-table">_Validation table</a>.
-     * 
-     * You can call MSIMODIFY_UPDATE or MSIMODIFY_DELETE with a record immediately after using MSIMODIFY_INSERT, MSIMODIFY_INSERT_TEMPORARY, or MSIMODIFY_SEEK provided you have NOT modified the 0th field of the inserted or sought record.
-     * 
-     * To execute any SQL statement, a view must be created. However, a view that does not create a result set, such as CREATE TABLE, or INSERT INTO, cannot be used with 
-     * <b>MsiViewModify</b> to update tables though the view.
-     * 
-     * You cannot fetch a record that contains binary data from one database and then use that record to insert the data into another database. To move binary data from one database to another, you should export the data to a file and then import it into the new database using a query and the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msirecordsetstreama">MsiRecordSetStream</a>. This ensures that each database has its own copy of the binary data.
-     * 
-     * Note that custom actions can only add, modify, or remove temporary rows, columns, or tables from a database. Custom actions cannot modify persistent data in a database, such as data that is a part of the database stored on disk. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/accessing-the-current-installer-session-from-inside-a-custom-action">Accessing the Current Installer Session from Inside a Custom Action</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
      * @param {Integer} hView Handle to a view.
      * @param {Integer} eModifyMode 
      * @param {Integer} hRecord Handle to the record to modify.
@@ -28330,7 +26062,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiViewModify</b> function returns the following values:
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewmodify
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewmodify
      * @since windows8.0
      */
     static MsiViewModify(hView, eModifyMode, hRecord) {
@@ -28340,18 +26072,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiViewGetColumnInfo function returns a record containing column names or definitions. This function returns a handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * The column description returned by 
-     * <b>MsiViewGetColumnInfo</b> is in the format described in the section: 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/column-definition-format">Column Definition Format</a>. Each column is described by a string in the corresponding record field. The definition string consists of a single letter representing the data type followed by the width of the column (in characters when applicable, bytes otherwise). A width of zero designates an unbounded width (for example, long text fields and streams). An uppercase letter indicates that null values are allowed in the column.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {Integer} hView Handle to the view from which to obtain column information.
      * @param {Integer} eColumnInfo 
      * @param {Pointer<UInt32>} phRecord Pointer to a handle to receive the column information data record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgetcolumninfo
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewgetcolumninfo
      * @since windows8.0
      */
     static MsiViewGetColumnInfo(hView, eColumnInfo, phRecord) {
@@ -28361,14 +26086,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiViewClose function releases the result set for an executed view.
-     * @remarks
-     * The 
-     * <b>MsiViewClose</b> function must be called before the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewexecute">MsiViewExecute</a> function is called again on the view, unless all rows of the result set have been obtained with the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewfetch">MsiViewFetch</a> function.
      * @param {Integer} hView Handle to a view that is set to release.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewclose
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewclose
      * @since windows8.0
      */
     static MsiViewClose(hView) {
@@ -28377,30 +26097,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle. (ANSI)
-     * @remarks
-     * The field count of the returned record is the count of primary key columns returned by the 
-     * <b>MsiDatabaseGetPrimaryKeys</b> function. The returned record contains the table name in Field (0) and the column names that make up the primary key names in succeeding fields. These primary key names correspond to the column numbers for the fields.
-     * 
-     * This function cannot be used with the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-tables-table">_Tables table</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-columns-table">_Columns table</a>.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseGetPrimaryKeys as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Byte>} szTableName Specifies the name of the table from which to obtain primary key names.
      * @param {Pointer<UInt32>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegetprimarykeysa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegetprimarykeysa
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysA(hDatabase, szTableName, phRecord) {
@@ -28411,30 +26114,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle. (Unicode)
-     * @remarks
-     * The field count of the returned record is the count of primary key columns returned by the 
-     * <b>MsiDatabaseGetPrimaryKeys</b> function. The returned record contains the table name in Field (0) and the column names that make up the primary key names in succeeding fields. These primary key names correspond to the column numbers for the fields.
-     * 
-     * This function cannot be used with the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-tables-table">_Tables table</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/-columns-table">_Columns table</a>.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseGetPrimaryKeys as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Char>} szTableName Specifies the name of the table from which to obtain primary key names.
      * @param {Pointer<UInt32>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegetprimarykeysw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegetprimarykeysw
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysW(hDatabase, szTableName, phRecord) {
@@ -28445,14 +26131,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseIsTablePersistent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table.
      * @param {Integer} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Byte>} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistenta
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseistablepersistenta
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentA(hDatabase, szTableName) {
@@ -28463,14 +26146,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseIsTablePersistent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table.
      * @param {Integer} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {Pointer<Char>} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistentw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseistablepersistentw
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentW(hDatabase, szTableName) {
@@ -28481,36 +26161,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle. (ANSI)
-     * @remarks
-     * If the database specified by the 
-     * <b>MsiGetSummaryInformation</b> function is not open, you must specify 0 for <i>hDatabase</i> and specify the path to the database in <i>szDatabasePath</i>. If the database is open, you must set <i>szDatabasePath</i> to 0.
-     * 
-     * If a value of <i>uiUpdateCount</i> greater than 0 is used to open an existing summary information stream, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisummaryinfopersist">MsiSummaryInfoPersist</a> must be called before closing the <i>phSummaryInfo</i> handle. Failing to do this will lose the existing stream information.
-     * 
-     * To view the summary information of a patch using <b>MsiGetSummaryInformation</b>, set <i>szDatabasePath</i> to the path to the patch. Alternately, you can create a handle to the patch using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> and then pass that handle to 
-     * <b>MsiGetSummaryInformation</b> as the <i>hDatabase</i> parameter.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetSummaryInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database.
      * @param {Pointer<Byte>} szDatabasePath Specifies the path to the database.
      * @param {Integer} uiUpdateCount Specifies the maximum number of updated values.
      * @param {Pointer<UInt32>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsummaryinformationa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsummaryinformationa
      * @since windows8.0
      */
     static MsiGetSummaryInformationA(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
@@ -28521,36 +26179,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle. (Unicode)
-     * @remarks
-     * If the database specified by the 
-     * <b>MsiGetSummaryInformation</b> function is not open, you must specify 0 for <i>hDatabase</i> and specify the path to the database in <i>szDatabasePath</i>. If the database is open, you must set <i>szDatabasePath</i> to 0.
-     * 
-     * If a value of <i>uiUpdateCount</i> greater than 0 is used to open an existing summary information stream, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisummaryinfopersist">MsiSummaryInfoPersist</a> must be called before closing the <i>phSummaryInfo</i> handle. Failing to do this will lose the existing stream information.
-     * 
-     * To view the summary information of a patch using <b>MsiGetSummaryInformation</b>, set <i>szDatabasePath</i> to the path to the patch. Alternately, you can create a handle to the patch using 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> and then pass that handle to 
-     * <b>MsiGetSummaryInformation</b> as the <i>hDatabase</i> parameter.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetSummaryInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} hDatabase Handle to the database.
      * @param {Pointer<Char>} szDatabasePath Specifies the path to the database.
      * @param {Integer} uiUpdateCount Specifies the maximum number of updated values.
      * @param {Pointer<UInt32>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsummaryinformationw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsummaryinformationw
      * @since windows8.0
      */
     static MsiGetSummaryInformationW(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
@@ -28565,7 +26201,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @param {Pointer<UInt32>} puiPropertyCount Location to receive the total property count.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertycount
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertycount
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyCount(hSummaryInfo, puiPropertyCount) {
@@ -28574,10 +26210,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSummaryInfoSetProperty function sets a single summary information property. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSummaryInfoSetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSummaryInfoSetProperty function sets a single summary information property.
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property being set. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not set values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Integer} uiDataType Specifies the type of property to set. This parameter can be a type listed in the 
@@ -28587,7 +26220,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Byte>} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfosetpropertya
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfosetpropertya
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyA(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
@@ -28598,10 +26231,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSummaryInfoSetProperty function sets a single summary information property. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSummaryInfoSetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSummaryInfoSetProperty function sets a single summary information property.
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property being set. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not set values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Integer} uiDataType Specifies the type of property to set. This parameter can be a type listed in the 
@@ -28611,7 +26241,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Char>} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfosetpropertyw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfosetpropertyw
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyW(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
@@ -28622,21 +26252,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream. (ANSI)
-     * @remarks
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * Windows Installer functions that return data in a user provided memory location should not be called with null as the value for the pointer. These functions return a string or return data as integer pointers, but return inconsistent values when passing null as the value for the output argument. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/passing-null-as-the-argument-of-windows-installer-functions">Passing Null as the Argument of Windows Installer Functions</a>.
-     * 
-     * The property information returned by the <b>MsiSummaryInfoGetProperty</b> function is received by the <i>piValue</i>, <i>pftValue</i>, or  <i>szValueBuf</i> parameter depending upon the type of property value that has been specified in the <i>puiDataType</i> parameter.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSummaryInfoGetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
@@ -28647,7 +26263,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertya
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertya
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyA(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
@@ -28658,21 +26274,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream. (Unicode)
-     * @remarks
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * Windows Installer functions that return data in a user provided memory location should not be called with null as the value for the pointer. These functions return a string or return data as integer pointers, but return inconsistent values when passing null as the value for the output argument. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/passing-null-as-the-argument-of-windows-installer-functions">Passing Null as the Argument of Windows Installer Functions</a>.
-     * 
-     * The property information returned by the <b>MsiSummaryInfoGetProperty</b> function is received by the <i>piValue</i>, <i>pftValue</i>, or  <i>szValueBuf</i> parameter depending upon the type of property value that has been specified in the <i>puiDataType</i> parameter.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSummaryInfoGetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
@@ -28683,7 +26285,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertyw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertyw
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyW(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
@@ -28697,7 +26299,7 @@ class ApplicationInstallationAndServicing {
      * The MsiSummaryInfoPersist function writes changed summary information back to the summary information stream.
      * @param {Integer} hSummaryInfo Handle to summary information.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfopersist
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfopersist
      * @since windows8.0
      */
     static MsiSummaryInfoPersist(hSummaryInfo) {
@@ -28706,31 +26308,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle. (ANSI)
-     * @remarks
-     * To make and save changes to a database first open the database in transaction (MSIDBOPEN_TRANSACT), create (MSIDBOPEN_CREATE or MSIDBOPEN_CREATEDIRECT), or direct (MSIDBOPEN_DIRECT) mode. After making the changes, always call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasecommit">MsiDatabaseCommit</a> before closing the database handle. 
-     * <b>MsiDatabaseCommit</b> flushes all buffers.
-     * 
-     * Always call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasecommit">MsiDatabaseCommit</a> on a database that has been opened in direct mode (MSIDBOPEN_DIRECT or MSIDBOPEN_CREATEDIRECT) before closing the database's handle. Failure to do this may corrupt the database.
-     * 
-     * Because 
-     * <b>MsiOpenDatabase</b> initiates database access, it cannot be used with a running installation.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * <div class="alert"><b>Note</b>  When a database is opened as the output of another database, the summary information stream of the output database is actually a read-only mirror of the original database, and, thus, cannot be changed. Additionally, it is not persisted with the database. To create or modify the summary information for the output database, it must be closed and reopened.</div>
-     * <div> </div>
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiOpenDatabase as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Pointer<Byte>} szDatabasePath Specifies the full path or relative path to the database file.
      * @param {Pointer<Byte>} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
      * 
@@ -28803,7 +26381,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiopendatabasea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiopendatabasea
      * @since windows8.0
      */
     static MsiOpenDatabaseA(szDatabasePath, szPersist, phDatabase) {
@@ -28815,31 +26393,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle. (Unicode)
-     * @remarks
-     * To make and save changes to a database first open the database in transaction (MSIDBOPEN_TRANSACT), create (MSIDBOPEN_CREATE or MSIDBOPEN_CREATEDIRECT), or direct (MSIDBOPEN_DIRECT) mode. After making the changes, always call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasecommit">MsiDatabaseCommit</a> before closing the database handle. 
-     * <b>MsiDatabaseCommit</b> flushes all buffers.
-     * 
-     * Always call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasecommit">MsiDatabaseCommit</a> on a database that has been opened in direct mode (MSIDBOPEN_DIRECT or MSIDBOPEN_CREATEDIRECT) before closing the database's handle. Failure to do this may corrupt the database.
-     * 
-     * Because 
-     * <b>MsiOpenDatabase</b> initiates database access, it cannot be used with a running installation.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * <div class="alert"><b>Note</b>  When a database is opened as the output of another database, the summary information stream of the output database is actually a read-only mirror of the original database, and, thus, cannot be changed. Additionally, it is not persisted with the database. To create or modify the summary information for the output database, it must be closed and reopened.</div>
-     * <div> </div>
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiOpenDatabase as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Pointer<Char>} szDatabasePath Specifies the full path or relative path to the database file.
      * @param {Pointer<Char>} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
      * 
@@ -28912,7 +26466,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiopendatabasew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiopendatabasew
      * @since windows8.0
      */
     static MsiOpenDatabaseW(szDatabasePath, szPersist, phDatabase) {
@@ -28924,31 +26478,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseImport function imports an installer text archive file into an open database table. (ANSI)
-     * @remarks
-     * When you use the 
-     * <b>MsiDatabaseImport</b> function to import a text archive table named _SummaryInformation into an installer database, you write the "05SummaryInformation" stream. This stream contains standard properties that can be viewed using Windows Explorer and are defined by COM. The rows of the table are written to the property stream as pairs of property ID numbers and corresponding data values. See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>. Date and time in _SummaryInformation are in the format: YYYY/MM/DD hh::mm::ss. For example, 1999/03/22 15:25:45. If the table contains binary streams, the name of the stream is in the data field, and the actual stream is retrieved from a file of that name in a subfolder with the same name as the table.
-     * 
-     * Text archive files that are exported from a database by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseexporta">MsiDatabaseExport</a> are intended for use with version control systems, and are not intended to be used as a means of editing data. Use the database API functions and tools designed for that purpose. Note that control characters in text archive files are translated to avoid conflicts with file delimiters. If a text archive file contains non-ASCII data, it is stamped with the code page of the data, and can only be imported into a database of that exact code page, or into a neutral database. Neutral databases are set to the code page of the imported file. A database can be unconditionally set to a particular code page by importing a pseudo table named: _ForceCodepage. The format of such a file is: Two blank lines, followed by a line that contains the numeric code page, a tab delimiter and the exact string: _ForceCodepage
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseImport as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseImport function imports an installer text archive file into an open database table.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Pointer<Byte>} szFolderPath Specifies the path to the folder that contains archive files.
      * @param {Pointer<Byte>} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseimporta
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseimporta
      * @since windows8.0
      */
     static MsiDatabaseImportA(hDatabase, szFolderPath, szFileName) {
@@ -28960,31 +26496,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseImport function imports an installer text archive file into an open database table. (Unicode)
-     * @remarks
-     * When you use the 
-     * <b>MsiDatabaseImport</b> function to import a text archive table named _SummaryInformation into an installer database, you write the "05SummaryInformation" stream. This stream contains standard properties that can be viewed using Windows Explorer and are defined by COM. The rows of the table are written to the property stream as pairs of property ID numbers and corresponding data values. See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>. Date and time in _SummaryInformation are in the format: YYYY/MM/DD hh::mm::ss. For example, 1999/03/22 15:25:45. If the table contains binary streams, the name of the stream is in the data field, and the actual stream is retrieved from a file of that name in a subfolder with the same name as the table.
-     * 
-     * Text archive files that are exported from a database by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseexporta">MsiDatabaseExport</a> are intended for use with version control systems, and are not intended to be used as a means of editing data. Use the database API functions and tools designed for that purpose. Note that control characters in text archive files are translated to avoid conflicts with file delimiters. If a text archive file contains non-ASCII data, it is stamped with the code page of the data, and can only be imported into a database of that exact code page, or into a neutral database. Neutral databases are set to the code page of the imported file. A database can be unconditionally set to a particular code page by importing a pseudo table named: _ForceCodepage. The format of such a file is: Two blank lines, followed by a line that contains the numeric code page, a tab delimiter and the exact string: _ForceCodepage
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseImport as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseImport function imports an installer text archive file into an open database table.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Pointer<Char>} szFolderPath Specifies the path to the folder that contains archive files.
      * @param {Pointer<Char>} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseimportw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseimportw
      * @since windows8.0
      */
     static MsiDatabaseImportW(hDatabase, szFolderPath, szFileName) {
@@ -28996,24 +26514,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File. (ANSI)
-     * @remarks
-     * If a table contains streams, 
-     * <b>MsiDatabaseExport</b> exports each stream to a separate file.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseimporta">MsiDatabaseImport</a>.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can get extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseExport as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File.
      * @param {Integer} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Pointer<Byte>} szTableName The name of the table to export.
      * @param {Pointer<Byte>} szFolderPath The name of the folder that contains archive files.
@@ -29082,7 +26583,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseexporta
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseexporta
      * @since windows8.0
      */
     static MsiDatabaseExportA(hDatabase, szTableName, szFolderPath, szFileName) {
@@ -29095,24 +26596,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File. (Unicode)
-     * @remarks
-     * If a table contains streams, 
-     * <b>MsiDatabaseExport</b> exports each stream to a separate file.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseimporta">MsiDatabaseImport</a>.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can get extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseExport as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File.
      * @param {Integer} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Pointer<Char>} szTableName The name of the table to export.
      * @param {Pointer<Char>} szFolderPath The name of the folder that contains archive files.
@@ -29181,7 +26665,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseexportw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseexportw
      * @since windows8.0
      */
     static MsiDatabaseExportW(hDatabase, szTableName, szFolderPath, szFileName) {
@@ -29194,62 +26678,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows. (ANSI)
-     * @remarks
-     * The <b>MsiDatabaseMerge</b> function and the <a href="https://docs.microsoft.com/windows/desktop/Msi/database-merge">Merge</a> method of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/database-object">Database</a> object cannot be used to merge a module that is included in the installation package. They should not be used to merge 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/merge-modules">Merge Modules</a> into a Windows Installer package.  To include a merge module in an installation package, authors of installation packages should follow the guidelines that are described in the <a href="https://docs.microsoft.com/windows/desktop/Msi/applying-merge-modules">Applying Merge Modules</a> topic.
-     * 
-     * <b>MsiDatabaseMerge</b> does not copy over embedded 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/cabinet-files">Cabinet Files</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/embedded-transforms">embedded transforms</a> from the reference database into the target database. Embedded data streams that are listed in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/binary-table">Binary Table</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/icon-table">Icon Table</a> are copied from the reference database to the target database. Storage embedded in the reference database are not copied to the target database.
-     * 
-     * The 
-     * <b>MsiDatabaseMerge</b> function merges the data of two databases. These databases must have the same code page. 
-     * <b>MsiDatabaseMerge</b> fails if any tables or rows in the databases conflict. A conflict exists if the data in any row in the first database differs from the data in the corresponding row of the second database. Corresponding rows are in the same table of both databases and have the same primary key in both databases. The tables of non-conflicting databases must have the same number of primary keys, same number of columns, same column types, same column names, and the same data in rows with identical primary keys. Temporary columns however don't matter in the column count and corresponding tables can have a different number of temporary columns without creating conflict as long as the persistent columns match.
-     * 
-     * If the number, type, or name of columns in corresponding tables are different, the schema of the two databases are incompatible and the installer stops processing tables and the merge fails. The installer checks that the two databases have the same schema before checking for row merge conflicts. If ERROR_DATATYPE_MISMATCH is returned, you are guaranteed that the databases have not been changed.
-     * 
-     * If the data in particular rows differ, this is a row merge conflict, the installer returns ERROR_FUNCTION_FAILED and creates a new table named <i>szTableName</i>. The first column of this table is the name of the table having the conflict. The second column gives the number of rows in the table having the conflict. The table that reports conflicts appears as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Column</th>
-     * <th>Type</th>
-     * <th>Key</th>
-     * <th>Nullable</th>
-     * </tr>
-     * <tr>
-     * <td>Table</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/text">Text</a>
-     * </td>
-     * <td>Y</td>
-     * <td>N</td>
-     * </tr>
-     * <tr>
-     * <td>NumRowMergeConflicts</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/integer">Integer</a>
-     * </td>
-     * <td> </td>
-     * <td>N</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseMerge as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows.
      * @param {Integer} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Integer} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
      * @param {Pointer<Byte>} szTableName The name of the table to receive merge conflict information.
@@ -29318,7 +26747,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasemergea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasemergea
      * @since windows8.0
      */
     static MsiDatabaseMergeA(hDatabase, hDatabaseMerge, szTableName) {
@@ -29329,62 +26758,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows. (Unicode)
-     * @remarks
-     * The <b>MsiDatabaseMerge</b> function and the <a href="https://docs.microsoft.com/windows/desktop/Msi/database-merge">Merge</a> method of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/database-object">Database</a> object cannot be used to merge a module that is included in the installation package. They should not be used to merge 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/merge-modules">Merge Modules</a> into a Windows Installer package.  To include a merge module in an installation package, authors of installation packages should follow the guidelines that are described in the <a href="https://docs.microsoft.com/windows/desktop/Msi/applying-merge-modules">Applying Merge Modules</a> topic.
-     * 
-     * <b>MsiDatabaseMerge</b> does not copy over embedded 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/cabinet-files">Cabinet Files</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/embedded-transforms">embedded transforms</a> from the reference database into the target database. Embedded data streams that are listed in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/binary-table">Binary Table</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/icon-table">Icon Table</a> are copied from the reference database to the target database. Storage embedded in the reference database are not copied to the target database.
-     * 
-     * The 
-     * <b>MsiDatabaseMerge</b> function merges the data of two databases. These databases must have the same code page. 
-     * <b>MsiDatabaseMerge</b> fails if any tables or rows in the databases conflict. A conflict exists if the data in any row in the first database differs from the data in the corresponding row of the second database. Corresponding rows are in the same table of both databases and have the same primary key in both databases. The tables of non-conflicting databases must have the same number of primary keys, same number of columns, same column types, same column names, and the same data in rows with identical primary keys. Temporary columns however don't matter in the column count and corresponding tables can have a different number of temporary columns without creating conflict as long as the persistent columns match.
-     * 
-     * If the number, type, or name of columns in corresponding tables are different, the schema of the two databases are incompatible and the installer stops processing tables and the merge fails. The installer checks that the two databases have the same schema before checking for row merge conflicts. If ERROR_DATATYPE_MISMATCH is returned, you are guaranteed that the databases have not been changed.
-     * 
-     * If the data in particular rows differ, this is a row merge conflict, the installer returns ERROR_FUNCTION_FAILED and creates a new table named <i>szTableName</i>. The first column of this table is the name of the table having the conflict. The second column gives the number of rows in the table having the conflict. The table that reports conflicts appears as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Column</th>
-     * <th>Type</th>
-     * <th>Key</th>
-     * <th>Nullable</th>
-     * </tr>
-     * <tr>
-     * <td>Table</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/text">Text</a>
-     * </td>
-     * <td>Y</td>
-     * <td>N</td>
-     * </tr>
-     * <tr>
-     * <td>NumRowMergeConflicts</td>
-     * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/integer">Integer</a>
-     * </td>
-     * <td> </td>
-     * <td>N</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseMerge as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows.
      * @param {Integer} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @param {Integer} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
      * @param {Pointer<Char>} szTableName The name of the table to receive merge conflict information.
@@ -29453,7 +26827,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasemergew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasemergew
      * @since windows8.0
      */
     static MsiDatabaseMergeW(hDatabase, hDatabaseMerge, szTableName) {
@@ -29464,30 +26838,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases. (ANSI)
-     * @remarks
-     * To generate a difference file between two databases, use the 
-     * <b>MsiDatabaseGenerateTransform</b> function. A transform contains information regarding insertion and deletion of columns and rows. The validation flags are stored in the summary information stream of the transform file.
-     * 
-     * For tables that exist in both databases, the only difference between the two schemas that is allowed is the addition of columns to the end of the reference table. You cannot add primary key columns to a table or change the order or names or column definitions of the existing columns as defined in the base table. In other words, if neither table contains data and columns are removed from the reference table, the resulting table is identical to the base table.
-     * 
-     * Because the list delimiter for transforms, sources and patches is a semicolon, this character should not be used for filenames or paths.
-     * 
-     * This function does not generate a Summary Information stream. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa">MsiCreateTransformSummaryInfo</a> to create the stream for an existing transform.
-     * 
-     * If <i>szTransformFile</i> is null, you can test whether two databases are identical without creating a transform. If the databases are identical, ERROR_NO_DATA is returned, NOERROR is returned if differences are found.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseGenerateTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
      * @param {Integer} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
      * @param {Pointer<Byte>} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
@@ -29496,7 +26847,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransforma
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegeneratetransforma
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
@@ -29507,30 +26858,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases. (Unicode)
-     * @remarks
-     * To generate a difference file between two databases, use the 
-     * <b>MsiDatabaseGenerateTransform</b> function. A transform contains information regarding insertion and deletion of columns and rows. The validation flags are stored in the summary information stream of the transform file.
-     * 
-     * For tables that exist in both databases, the only difference between the two schemas that is allowed is the addition of columns to the end of the reference table. You cannot add primary key columns to a table or change the order or names or column definitions of the existing columns as defined in the base table. In other words, if neither table contains data and columns are removed from the reference table, the resulting table is identical to the base table.
-     * 
-     * Because the list delimiter for transforms, sources and patches is a semicolon, this character should not be used for filenames or paths.
-     * 
-     * This function does not generate a Summary Information stream. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa">MsiCreateTransformSummaryInfo</a> to create the stream for an existing transform.
-     * 
-     * If <i>szTransformFile</i> is null, you can test whether two databases are identical without creating a transform. If the databases are identical, ERROR_NO_DATA is returned, NOERROR is returned if differences are found.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseGenerateTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
      * @param {Integer} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
      * @param {Pointer<Char>} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
@@ -29539,7 +26867,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransformw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegeneratetransformw
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
@@ -29550,26 +26878,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseApplyTransform function applies a transform to a database. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiDatabaseApplyTransform</b> function delays transforming tables until it is necessary. Any tables to be added or dropped are processed immediately. However, changes to the existing table are delayed until the table is loaded or the database is committed.
-     * 
-     * An error occurs if 
-     * <b>MsiDatabaseApplyTransform</b> is called when tables have already been loaded and saved to storage.
-     * 
-     * Because the list delimiter for transforms, sources and patches is a semicolon, this character should not be used for filenames or paths.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseApplyTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseApplyTransform function applies a transform to a database.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
      * @param {Pointer<Byte>} szTransformFile Specifies the name of the transform file to apply.
      * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
@@ -29662,7 +26971,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @returns {Integer} The 
      * <b>MsiDatabaseApplyTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseapplytransforma
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseapplytransforma
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformA(hDatabase, szTransformFile, iErrorConditions) {
@@ -29673,26 +26982,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDatabaseApplyTransform function applies a transform to a database. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiDatabaseApplyTransform</b> function delays transforming tables until it is necessary. Any tables to be added or dropped are processed immediately. However, changes to the existing table are delayed until the table is loaded or the database is committed.
-     * 
-     * An error occurs if 
-     * <b>MsiDatabaseApplyTransform</b> is called when tables have already been loaded and saved to storage.
-     * 
-     * Because the list delimiter for transforms, sources and patches is a semicolon, this character should not be used for filenames or paths.
-     * 
-     * This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDatabaseApplyTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDatabaseApplyTransform function applies a transform to a database.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
      * @param {Pointer<Char>} szTransformFile Specifies the name of the transform file to apply.
      * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
@@ -29785,7 +27075,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @returns {Integer} The 
      * <b>MsiDatabaseApplyTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseapplytransformw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseapplytransformw
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformW(hDatabase, szTransformFile, iErrorConditions) {
@@ -29796,31 +27086,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord. (ANSI)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> Property and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/productversion">ProductVersion</a> Property  must be defined in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/property-table">Property Table</a> of both the base and reference databases. If MSITRANSFORM_VALIDATE_UPGRADECODE is used, the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/upgradecode">UpgradeCode</a> Property must also be defined in both databases. If these conditions are not met, 
-     * <b>MsiCreateTransformSummaryInfo</b> returns ERROR_INSTALL_PACKAGE_INVALID.
-     * 
-     * <ul>
-     * <li>Do not use the semicolon for filenames or paths, because it is used as a list delimiter for transforms, sources, and patches.</li>
-     * <li>This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiCreateTransformSummaryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord.
      * @param {Integer} hDatabase The handle to the database that contains the new database summary information.
      * @param {Integer} hDatabaseReference The handle to the database that contains the original summary information.
      * @param {Pointer<Byte>} szTransformFile The name of the transform to which the summary information is added.
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msicreatetransformsummaryinfoa
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoA(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
@@ -29831,31 +27104,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord. (Unicode)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> Property and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/productversion">ProductVersion</a> Property  must be defined in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/property-table">Property Table</a> of both the base and reference databases. If MSITRANSFORM_VALIDATE_UPGRADECODE is used, the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/upgradecode">UpgradeCode</a> Property must also be defined in both databases. If these conditions are not met, 
-     * <b>MsiCreateTransformSummaryInfo</b> returns ERROR_INSTALL_PACKAGE_INVALID.
-     * 
-     * <ul>
-     * <li>Do not use the semicolon for filenames or paths, because it is used as a list delimiter for transforms, sources, and patches.</li>
-     * <li>This function cannot be called from custom actions. A call to this function from a custom action causes the function to fail.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiCreateTransformSummaryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord.
      * @param {Integer} hDatabase The handle to the database that contains the new database summary information.
      * @param {Integer} hDatabaseReference The handle to the database that contains the original summary information.
      * @param {Pointer<Char>} szTransformFile The name of the transform to which the summary information is added.
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfow
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msicreatetransformsummaryinfow
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoW(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
@@ -29867,16 +27123,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiDatabaseCommit function commits changes to a database.
-     * @remarks
-     * The 
-     * <b>MsiDatabaseCommit</b> function finalizes the persistent form of the database. All persistent data is then written to the writable database. No temporary columns or rows are written. The 
-     * <b>MsiDatabaseCommit</b> function has no effect on a database that is opened as read-only. You can call this function multiple times to save the current state of tables loaded into memory. When the database is finally closed, any changes made after the database is committed are rolled back. This function is normally called prior to shutdown when all database changes have been finalized.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} The 
      * <b>MsiDatabaseCommit</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasecommit
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasecommit
      * @since windows8.0
      */
     static MsiDatabaseCommit(hDatabase) {
@@ -29886,12 +27136,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetDatabaseState function returns the state of the database.
-     * @remarks
-     * The 
-     * <b>MsiGetDatabaseState</b> function returns the update state of the database.
      * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} This function returns MSIDBSTATE.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetdatabasestate
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetdatabasestate
      * @since windows8.0
      */
     static MsiGetDatabaseState(hDatabase) {
@@ -29901,17 +27148,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiCreateRecord function creates a new record object with the specified number of fields. This function returns a handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * Field 0 of the record object created by the 
-     * <b>MsiCreateRecord</b> function is used for format strings and operation codes and is not included in the count specified by <i>cParams</i>. All fields are initialized to null.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {Integer} cParams Specifies the number of fields the record will have. The maximum number of fields in a record is limited to 65535.
      * @returns {Integer} If the function succeeds, the return value is handle to a new record object.
      * 
      * If the function fails, the return value is null.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreaterecord
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msicreaterecord
      * @since windows8.0
      */
     static MsiCreateRecord(cParams) {
@@ -29921,12 +27162,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Reports a null record field.
-     * @remarks
-     * The <i>iField</i> parameter is based on 1 (one).
      * @param {Integer} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field to check.
      * @returns {Integer} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordisnull
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordisnull
      * @since windows8.0
      */
     static MsiRecordIsNull(hRecord, iField) {
@@ -29946,7 +27185,7 @@ class ApplicationInstallationAndServicing {
      * If the data is in string format, the function returns the character count (not including the null character).
      * 
      * If the data is in stream format, the function returns the byte count.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecorddatasize
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecorddatasize
      * @since windows8.0
      */
     static MsiRecordDataSize(hRecord, iField) {
@@ -29956,30 +27195,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Sets a record field to an integer field.
-     * @remarks
-     * In the 
-     * <b>MsiRecordSetInteger</b> function, attempting to store a value in a nonexistent field causes an error. Note that the following code returns <b>ERROR_INVALID_PARAMETER</b>.
-     * 
-     * 
-     * ```cpp
-     * MSIHANDLE hRecord;
-     * UINT lReturn;  
-     * 
-     * //create an msirecord with no fields
-     * hRecord = MsiCreateRecord(0); 
-     * 
-     * //attempting to set the first field's value gives you ERROR_INVALID_PARAMETER 
-     * lReturn = MsiRecordSetInteger(hRecord, 1, 0);  
-     * 
-     * ```
-     * 
-     * 
-     * To set a record integer field to <b>NULL_INTEGER</b>, set <i>iValue</i> to <b>MSI_NULL_INTEGER</b>.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Integer} iValue Specifies the value to which to set the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetinteger
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetinteger
      * @since windows8.0
      */
     static MsiRecordSetInteger(hRecord, iField, iValue) {
@@ -29988,24 +27208,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordSetString function copies a string into the designated field. (ANSI)
-     * @remarks
-     * In the 
-     * <b>MsiRecordSetString</b> function, a null string pointer and an empty string both set the field to null. Attempting to store a value in a nonexistent field causes an error.
-     * 
-     * To set a record string field to null, set szValue to either a null string or an empty string.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordSetString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordSetString function copies a string into the designated field.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Pointer<Byte>} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstringa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstringa
      * @since windows8.0
      */
     static MsiRecordSetStringA(hRecord, iField, szValue) {
@@ -30016,24 +27224,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordSetString function copies a string into the designated field. (Unicode)
-     * @remarks
-     * In the 
-     * <b>MsiRecordSetString</b> function, a null string pointer and an empty string both set the field to null. Attempting to store a value in a nonexistent field causes an error.
-     * 
-     * To set a record string field to null, set szValue to either a null string or an empty string.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordSetString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordSetString function copies a string into the designated field.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Pointer<Char>} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstringw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstringw
      * @since windows8.0
      */
     static MsiRecordSetStringW(hRecord, iField, szValue) {
@@ -30045,13 +27241,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiRecordGetInteger function returns the integer value from a record field.
-     * @remarks
-     * The 
-     * <b>MsiRecordGetInteger</b> function returns <b>MSI_NULL_INTEGER</b> if the field is null or if the field is a string that cannot be converted to an integer.
      * @param {Integer} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field of the record from which to obtain the value.
      * @returns {Integer} If the function succeeds, the return value is the integer value of the field.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetinteger
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetinteger
      * @since windows8.0
      */
     static MsiRecordGetInteger(hRecord, iField) {
@@ -30060,23 +27253,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordGetString function returns the string value of a record field. (ANSI)
-     * @remarks
-     * If <b>ERROR_MORE_DATA</b> is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If <b>ERROR_SUCCESS</b> is returned, it gives the number of characters written to the string buffer. To get the size of the buffer, pass in the address of a 1 character buffer as <i>szValueBuf</i> and specify the size of the buffer with <i>pcchValueBuf</i> as 0. This ensures that no string value returned by the function fits into the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordGetString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordGetString function returns the string value of a record field.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
      * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetstringa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetstringa
      * @since windows8.0
      */
     static MsiRecordGetStringA(hRecord, iField, szValueBuf, pcchValueBuf) {
@@ -30087,23 +27271,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordGetString function returns the string value of a record field. (Unicode)
-     * @remarks
-     * If <b>ERROR_MORE_DATA</b> is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If <b>ERROR_SUCCESS</b> is returned, it gives the number of characters written to the string buffer. To get the size of the buffer, pass in the address of a 1 character buffer as <i>szValueBuf</i> and specify the size of the buffer with <i>pcchValueBuf</i> as 0. This ensures that no string value returned by the function fits into the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordGetString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordGetString function returns the string value of a record field.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
      * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetstringw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetstringw
      * @since windows8.0
      */
     static MsiRecordGetStringW(hRecord, iField, szValueBuf, pcchValueBuf) {
@@ -30115,12 +27290,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns the number of fields in a record.
-     * @remarks
-     * The count returned by the 
-     * <b>MsiRecordGetFieldCount</b> parameter does not include field 0. Read access to fields beyond this count returns null values. Write access fails.
      * @param {Integer} hRecord Handle to a record.
      * @returns {Integer} If the function succeeds, the return value is the number of fields in the record.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetfieldcount
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetfieldcount
      * @since windows8.0
      */
     static MsiRecordGetFieldCount(hRecord) {
@@ -30129,30 +27301,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields. (ANSI)
-     * @remarks
-     * The contents of the file specified in the 
-     * <b>MsiRecordSetStream</b> function is read into a stream object. The stream persists if the record is inserted into the database and the database is committed.
-     * 
-     * To reset the stream to its beginning you must pass in a Null pointer for <i>szFilePath</i>. Do not pass a pointer to an empty string, "", to reset the stream.
-     * 
-     * See also 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/ole-limitations-on-streams">OLE Limitations on Streams</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordSetStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Pointer<Byte>} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstreama
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstreama
      * @since windows8.0
      */
     static MsiRecordSetStreamA(hRecord, iField, szFilePath) {
@@ -30163,30 +27318,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields. (Unicode)
-     * @remarks
-     * The contents of the file specified in the 
-     * <b>MsiRecordSetStream</b> function is read into a stream object. The stream persists if the record is inserted into the database and the database is committed.
-     * 
-     * To reset the stream to its beginning you must pass in a Null pointer for <i>szFilePath</i>. Do not pass a pointer to an empty string, "", to reset the stream.
-     * 
-     * See also 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/ole-limitations-on-streams">OLE Limitations on Streams</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiRecordSetStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Pointer<Char>} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstreamw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstreamw
      * @since windows8.0
      */
     static MsiRecordSetStreamW(hRecord, iField, szFilePath) {
@@ -30198,41 +27336,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiRecordReadStream function reads bytes from a record stream field into a buffer.
-     * @remarks
-     * To read a stream, set <i>pcbDataBuf</i> to the number of bytes that are to be transferred from stream to buffer each time the function is called. On return, the 
-     * <b>MsiRecordReadStream</b> resets <i>pcbDataBuf </i> to the number of bytes that were actually transferred. If the buffer is smaller than the stream, the stream is repositioned when the buffer becomes full such that the next data in the stream is transferred by the next call to the function. When no more bytes are available, 
-     * <b>MsiRecordReadStream</b> returns ERROR_SUCCESS.
-     * 
-     * If you pass 0 for <i>szDataBuf</i> then <i>pcbDataBuf</i> is reset to the number of bytes in the stream remaining to be read.
-     * 
-     * The following code sample reads from a stream that is in field 1 of a record specified by hRecord and reads the entire stream 8 bytes at a time.
-     * 
-     * 
-     * ```cpp
-     * char szBuffer[8];
-     * PMSIHANDLE hRecord;
-     * DWORD cbBuf = sizeof(szBuffer);
-     * do 
-     * {
-     *     if (MsiRecordReadStream(hRecord, 1, szBuffer, 
-     *         &cbBuf) != ERROR_SUCCESS)
-     *         break; // error 
-     * }
-     * while (cbBuf == 8);  //continue reading the stream while you receive a full buffer
-     * //cbBuf will be less once you reach the end of the stream and cannot fill your 
-     * //buffer with stream data
-     * 
-     * ```
-     * 
-     * 
-     * See also 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/ole-limitations-on-streams">OLE Limitations on Streams</a>.
      * @param {Integer} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record.
      * @param {Pointer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
      * @param {Pointer<UInt32>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordreadstream
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordreadstream
      * @since windows8.0
      */
     static MsiRecordReadStream(hRecord, iField, szDataBuf, pcbDataBuf) {
@@ -30244,7 +27353,7 @@ class ApplicationInstallationAndServicing {
      * The MsiRecordClearData function sets all fields in a record to null.
      * @param {Integer} hRecord Handle to the record.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordcleardata
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordcleardata
      * @since windows8.0
      */
     static MsiRecordClearData(hRecord) {
@@ -30254,15 +27363,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetActiveDatabase function returns the active database for the installation. This function returns a read-only handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * The 
-     * <b>MsiGetActiveDatabase</b> function accesses the database in use by the running the installation.
-     * 
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} If the function succeeds, it returns a read-only handle to the database currently in use by the installer. If the function fails, the function returns zero, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetactivedatabase
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetactivedatabase
      * @since windows8.0
      */
     static MsiGetActiveDatabase(hInstall) {
@@ -30271,22 +27374,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetProperty function sets the value for an installation property. (ANSI)
-     * @remarks
-     * If the property is not defined, it is created by the 
-     * <b>MsiSetProperty</b> function. If the value is null or an empty string, the property is removed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetProperty function sets the value for an installation property.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szName Specifies the name of the property.
      * @param {Pointer<Byte>} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetpropertya
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetpropertya
      * @since windows8.0
      */
     static MsiSetPropertyA(hInstall, szName, szValue) {
@@ -30298,22 +27391,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetProperty function sets the value for an installation property. (Unicode)
-     * @remarks
-     * If the property is not defined, it is created by the 
-     * <b>MsiSetProperty</b> function. If the value is null or an empty string, the property is removed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetProperty function sets the value for an installation property.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szName Specifies the name of the property.
      * @param {Pointer<Char>} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetpropertyw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetpropertyw
      * @since windows8.0
      */
     static MsiSetPropertyW(hInstall, szName, szValue) {
@@ -30325,62 +27408,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProperty function gets the value for an installer property. (ANSI)
-     * @remarks
-     * If the value for the property retrieved by the 
-     * <b>MsiGetProperty</b> function is not defined, it is equivalent to a 0-length value. It is not an error.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * The following example shows how a DLL custom action could access the value of a property by dynamically determining the size of the value buffer.
-     * 
-     * 
-     * ```cpp
-     * UINT __stdcall MyCustomAction(MSIHANDLE hInstall)
-     * {
-     *     TCHAR* szValueBuf = NULL;
-     *     DWORD cchValueBuf = 0;
-     *     UINT uiStat =  MsiGetProperty(hInstall, TEXT("MyProperty"), TEXT(""), &cchValueBuf);
-     *     //cchValueBuf now contains the size of the property's string, without null termination
-     *     if (ERROR_MORE_DATA == uiStat)
-     *     {
-     *         ++cchValueBuf; // add 1 for null termination
-     *         szValueBuf = new TCHAR[cchValueBuf];
-     *         if (szValueBuf)
-     *         {
-     *             uiStat = MsiGetProperty(hInstall, TEXT("MyProperty"), szValueBuf, &cchValueBuf);
-     *         }
-     *     }
-     *     if (ERROR_SUCCESS != uiStat)
-     *     {
-     *         if (szValueBuf != NULL) 
-     *            delete[] szValueBuf;
-     *         return ERROR_INSTALL_FAILURE;
-     *     }
-     * 
-     *     // custom action uses MyProperty
-     *     // ...
-     * 
-     *     delete[] szValueBuf;
-     * 
-     *     return ERROR_SUCCESS;
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProperty function gets the value for an installer property.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szName A null-terminated string that specifies the name of the property.
-     * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i> will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
+     * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetpropertya
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertya
      * @since windows8.0
      */
     static MsiGetPropertyA(hInstall, szName, szValueBuf, pcchValueBuf) {
@@ -30392,62 +27426,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetProperty function gets the value for an installer property. (Unicode)
-     * @remarks
-     * If the value for the property retrieved by the 
-     * <b>MsiGetProperty</b> function is not defined, it is equivalent to a 0-length value. It is not an error.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * The following example shows how a DLL custom action could access the value of a property by dynamically determining the size of the value buffer.
-     * 
-     * 
-     * ```cpp
-     * UINT __stdcall MyCustomAction(MSIHANDLE hInstall)
-     * {
-     *     TCHAR* szValueBuf = NULL;
-     *     DWORD cchValueBuf = 0;
-     *     UINT uiStat =  MsiGetProperty(hInstall, TEXT("MyProperty"), TEXT(""), &cchValueBuf);
-     *     //cchValueBuf now contains the size of the property's string, without null termination
-     *     if (ERROR_MORE_DATA == uiStat)
-     *     {
-     *         ++cchValueBuf; // add 1 for null termination
-     *         szValueBuf = new TCHAR[cchValueBuf];
-     *         if (szValueBuf)
-     *         {
-     *             uiStat = MsiGetProperty(hInstall, TEXT("MyProperty"), szValueBuf, &cchValueBuf);
-     *         }
-     *     }
-     *     if (ERROR_SUCCESS != uiStat)
-     *     {
-     *         if (szValueBuf != NULL) 
-     *            delete[] szValueBuf;
-     *         return ERROR_INSTALL_FAILURE;
-     *     }
-     * 
-     *     // custom action uses MyProperty
-     *     // ...
-     * 
-     *     delete[] szValueBuf;
-     * 
-     *     return ERROR_SUCCESS;
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetProperty as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetProperty function gets the value for an installer property.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szName A null-terminated string that specifies the name of the property.
-     * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i> will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
+     * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetpropertyw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertyw
      * @since windows8.0
      */
     static MsiGetPropertyW(hInstall, szName, szValueBuf, pcchValueBuf) {
@@ -30460,14 +27445,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetLanguage function returns the numeric language of the installation that is currently running.
-     * @remarks
-     * The 
-     * <b>MsiGetLanguage</b> function returns 0 if an installation is not running.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} If the function succeeds, the return value is the numeric LANGID for the install.
      * 
      * If the function fails, the return value can be the following value.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetlanguage
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetlanguage
      * @since windows8.0
      */
     static MsiGetLanguage(hInstall) {
@@ -30477,16 +27459,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetMode function is used to determine whether the installer is currently running in a specified mode, as listed in the table.
-     * @remarks
-     * Note that not all the run mode values of <i>iRunMode</i> are available when calling 
-     * <b>MsiGetMode</b> from a deferred custom action. For details, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-context-information-for-deferred-execution-custom-actions">Obtaining Context Information for Deferred Execution Custom Actions</a>.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} eRunMode 
      * @returns {Integer} <b>TRUE</b> indicates the specific property passed into the function is currently set.
      * 
      * <b>FALSE</b> indicates the specific property passed into the function is currently not set.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetmode
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetmode
      * @since windows8.0
      */
     static MsiGetMode(hInstall, eRunMode) {
@@ -30500,7 +27478,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} eRunMode 
      * @param {Integer} fState Specifies the state to set to <b>TRUE</b> or <b>FALSE</b>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetmode
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetmode
      * @since windows8.0
      */
     static MsiSetMode(hInstall, eRunMode, fState) {
@@ -30509,67 +27487,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiFormatRecord function formats record field data and properties using a format string. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiFormatRecord</b> function uses the following format process.
-     * 
-     * Parameters that are to be 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/formatted">formatted</a> are enclosed in square brackets [...]. The square brackets can be iterated because the substitutions are resolved from the inside out.
-     * 
-     * If a part of the string is enclosed in curly braces { } and contains no square brackets, it is left unchanged, including the curly braces.
-     * 
-     * If a part of the string is enclosed in curly braces { } and contains one or more property names, and if all the properties are found, the text (with the resolved substitutions) is displayed without the curly braces. If any of the properties is not found, all the text in the braces and the braces themselves are removed.
-     * 
-     * Note in the case of deferred execution custom actions, 
-     * <b>MsiFormatRecord</b> only supports <b>CustomActionData</b> and <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> properties. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-context-information-for-deferred-execution-custom-actions">Obtaining Context Information for Deferred Execution Custom Actions</a>.
-     * 
-     * The following steps describe how to format strings using the 
-     * <b>MsiFormatRecord</b> function:
-     * 
-     * <p class="proch"><b>To format strings using the MsiFormatRecord function</b>
-     * 
-     * <ol>
-     * <li>The numeric parameters are substituted by replacing the marker with the value of the corresponding record field, with missing or null values producing no text.</li>
-     * <li>
-     * The resultant string is processed by replacing the nonrecord parameters with the corresponding values, described next.
-     * 
-     * <ul>
-     * <li>If a substring of the form "[propertyname]" is encountered, it is replaced by the value of the property.</li>
-     * <li>If a substring of the form "[%environmentvariable]" is found, the value of the environment variable is substituted.</li>
-     * <li>If a substring of the form" [#<i>filekey</i>]" is found, it is replaced by the full path of the file, with the value <i>filekey</i> used as a key into the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/file-table">File table</a>. The value of "[#<i>filekey</i>]" remains blank and is not replaced by a path until the installer runs the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The value of "[#<i>filekey</i>]" depends upon the installation state of the component to which the file belongs. If the component is being run from source, the value is the path to the source location of the file. If the component is being run locally, the value is the path to the target location of the file after installation. If the component is absent, the path is blank. For more information about checking the installation state of components, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/checking-the-installation-of-features-components-files">Checking the Installation of Features, Components, Files</a>.</li>
-     * <li>If a substring of the form "[$<i>componentkey</i>]" is found, it is replaced by the install directory of the component, with the value <i>componentkey</i> used as a key into the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. The value of "[$<i>componentkey</i>]" remains blank and is not replaced by a directory until the installer runs the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The value of "[$<i>componentkey</i>]" depends upon the installation state of the component. If the component is being run from source, the value is the source directory of the file. If the component is being run locally, the value is the target directory after installation. If the component is absent, the value is left blank. For more information about checking the installation state of components, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/checking-the-installation-of-features-components-files">Checking the Installation of Features, Components, Files</a>.</li>
-     * <li>Note that if a component is already installed, and is not being reinstalled, removed, or moved during the current installation, the action state of the component is null and therefore the string "[$componentkey]" evaluates to Null.</li>
-     * <li>If a substring of the form "[\c]" is found, it is replaced by the character without any further processing. Only the first character after the backslash is kept; everything else is removed.</li>
-     * </ul>
-     * </li>
-     * </ol>
-     * If <b>ERROR_MORE_DATA</b> is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If <b>ERROR_SUCCESS</b> is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiFormatRecord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiFormatRecord function formats record field data and properties using a format string.
      * @param {Integer} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
      * @param {Integer} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
      * @param {Pointer<Byte>} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiformatrecorda
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiformatrecorda
      * @since windows8.0
      */
     static MsiFormatRecordA(hInstall, hRecord, szResultBuf, pcchResultBuf) {
@@ -30580,67 +27505,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiFormatRecord function formats record field data and properties using a format string. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiFormatRecord</b> function uses the following format process.
-     * 
-     * Parameters that are to be 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/formatted">formatted</a> are enclosed in square brackets [...]. The square brackets can be iterated because the substitutions are resolved from the inside out.
-     * 
-     * If a part of the string is enclosed in curly braces { } and contains no square brackets, it is left unchanged, including the curly braces.
-     * 
-     * If a part of the string is enclosed in curly braces { } and contains one or more property names, and if all the properties are found, the text (with the resolved substitutions) is displayed without the curly braces. If any of the properties is not found, all the text in the braces and the braces themselves are removed.
-     * 
-     * Note in the case of deferred execution custom actions, 
-     * <b>MsiFormatRecord</b> only supports <b>CustomActionData</b> and <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> properties. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-context-information-for-deferred-execution-custom-actions">Obtaining Context Information for Deferred Execution Custom Actions</a>.
-     * 
-     * The following steps describe how to format strings using the 
-     * <b>MsiFormatRecord</b> function:
-     * 
-     * <p class="proch"><b>To format strings using the MsiFormatRecord function</b>
-     * 
-     * <ol>
-     * <li>The numeric parameters are substituted by replacing the marker with the value of the corresponding record field, with missing or null values producing no text.</li>
-     * <li>
-     * The resultant string is processed by replacing the nonrecord parameters with the corresponding values, described next.
-     * 
-     * <ul>
-     * <li>If a substring of the form "[propertyname]" is encountered, it is replaced by the value of the property.</li>
-     * <li>If a substring of the form "[%environmentvariable]" is found, the value of the environment variable is substituted.</li>
-     * <li>If a substring of the form" [#<i>filekey</i>]" is found, it is replaced by the full path of the file, with the value <i>filekey</i> used as a key into the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/file-table">File table</a>. The value of "[#<i>filekey</i>]" remains blank and is not replaced by a path until the installer runs the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The value of "[#<i>filekey</i>]" depends upon the installation state of the component to which the file belongs. If the component is being run from source, the value is the path to the source location of the file. If the component is being run locally, the value is the path to the target location of the file after installation. If the component is absent, the path is blank. For more information about checking the installation state of components, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/checking-the-installation-of-features-components-files">Checking the Installation of Features, Components, Files</a>.</li>
-     * <li>If a substring of the form "[$<i>componentkey</i>]" is found, it is replaced by the install directory of the component, with the value <i>componentkey</i> used as a key into the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. The value of "[$<i>componentkey</i>]" remains blank and is not replaced by a directory until the installer runs the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The value of "[$<i>componentkey</i>]" depends upon the installation state of the component. If the component is being run from source, the value is the source directory of the file. If the component is being run locally, the value is the target directory after installation. If the component is absent, the value is left blank. For more information about checking the installation state of components, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/checking-the-installation-of-features-components-files">Checking the Installation of Features, Components, Files</a>.</li>
-     * <li>Note that if a component is already installed, and is not being reinstalled, removed, or moved during the current installation, the action state of the component is null and therefore the string "[$componentkey]" evaluates to Null.</li>
-     * <li>If a substring of the form "[\c]" is found, it is replaced by the character without any further processing. Only the first character after the backslash is kept; everything else is removed.</li>
-     * </ul>
-     * </li>
-     * </ol>
-     * If <b>ERROR_MORE_DATA</b> is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If <b>ERROR_SUCCESS</b> is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiFormatRecord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiFormatRecord function formats record field data and properties using a format string.
      * @param {Integer} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
      * @param {Integer} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
      * @param {Pointer<Char>} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiformatrecordw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiformatrecordw
      * @since windows8.0
      */
     static MsiFormatRecordW(hInstall, hRecord, szResultBuf, pcchResultBuf) {
@@ -30651,33 +27523,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiDoAction</b> function executes the action that corresponds to the name supplied. If the name is not recognized by the installer as a built-in action or as a custom action in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/customaction-table">CustomAction table</a>, the name is passed to the user-interface handler object, which can invoke a function or a dialog box. If a null action name is supplied, the installer uses the upper-case value of the <a href="https://docs.microsoft.com/windows/desktop/Msi/action">ACTION</a> property as the action to perform. If no property value is defined, the default action is performed, defined as "INSTALL".
-     * 
-     * Actions that update the system, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfiles-action">InstallFiles</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/writeregistryvalues-action">WriteRegistryValues</a> actions, cannot be run by calling 
-     * <b>MsiDoAction</b>. The exception to this rule is if 
-     * <b>MsiDoAction</b> is called from a custom action that is scheduled in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installexecutesequence-table">InstallExecuteSequence table</a> between the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installinitialize-action">InstallInitialize</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfinalize-action">InstallFinalize actions</a>. Actions that do not update the system, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>, can be called.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDoAction as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidoactiona
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidoactiona
      * @since windows8.0
      */
     static MsiDoActionA(hInstall, szAction) {
@@ -30688,33 +27538,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiDoAction</b> function executes the action that corresponds to the name supplied. If the name is not recognized by the installer as a built-in action or as a custom action in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/customaction-table">CustomAction table</a>, the name is passed to the user-interface handler object, which can invoke a function or a dialog box. If a null action name is supplied, the installer uses the upper-case value of the <a href="https://docs.microsoft.com/windows/desktop/Msi/action">ACTION</a> property as the action to perform. If no property value is defined, the default action is performed, defined as "INSTALL".
-     * 
-     * Actions that update the system, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfiles-action">InstallFiles</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/writeregistryvalues-action">WriteRegistryValues</a> actions, cannot be run by calling 
-     * <b>MsiDoAction</b>. The exception to this rule is if 
-     * <b>MsiDoAction</b> is called from a custom action that is scheduled in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installexecutesequence-table">InstallExecuteSequence table</a> between the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installinitialize-action">InstallInitialize</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfinalize-action">InstallFinalize actions</a>. Actions that do not update the system, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>, can be called.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiDoAction as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidoactionw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidoactionw
      * @since windows8.0
      */
     static MsiDoActionW(hInstall, szAction) {
@@ -30725,33 +27553,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSequence function executes another action sequence, as described in the specified table. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiSequence</b> function queries the specified table, ordering the actions by the numbers in the Sequence column. For each row retrieved, an action is executed, provided that any supplied condition expression does not evaluate to FALSE.
-     * 
-     * An action sequence containing any actions that update the system, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfiles-action">InstallFiles</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/writeregistryvalues-action">WriteRegistryValues</a> actions, cannot be run by calling 
-     * <b>MsiSequence</b>. The exception to this rule is if 
-     * <b>MsiSequence</b> is called from a custom action that is scheduled in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installexecutesequence-table">InstallExecuteSequence table</a> between the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installinitialize-action">InstallInitialize</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfinalize-action">InstallFinalize actions</a>. Actions that do not update the system, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>, can be called.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSequence as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSequence function executes another action sequence, as described in the specified table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisequencea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisequencea
      * @since windows8.0
      */
     static MsiSequenceA(hInstall, szTable, iSequenceMode) {
@@ -30762,33 +27569,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSequence function executes another action sequence, as described in the specified table. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiSequence</b> function queries the specified table, ordering the actions by the numbers in the Sequence column. For each row retrieved, an action is executed, provided that any supplied condition expression does not evaluate to FALSE.
-     * 
-     * An action sequence containing any actions that update the system, such as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfiles-action">InstallFiles</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/writeregistryvalues-action">WriteRegistryValues</a> actions, cannot be run by calling 
-     * <b>MsiSequence</b>. The exception to this rule is if 
-     * <b>MsiSequence</b> is called from a custom action that is scheduled in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installexecutesequence-table">InstallExecuteSequence table</a> between the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installinitialize-action">InstallInitialize</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installfinalize-action">InstallFinalize actions</a>. Actions that do not update the system, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/appsearch-action">AppSearch</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize</a>, can be called.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSequence as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSequence function executes another action sequence, as described in the specified table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisequencew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisequencew
      * @since windows8.0
      */
     static MsiSequenceW(hInstall, szTable, iSequenceMode) {
@@ -30800,169 +27586,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProcessMessage function sends an error record to the installer for processing.
-     * @remarks
-     * The 
-     * <b>MsiProcessMessage</b> function performs any enabled logging operations and defers execution. You can selectively enable logging for various message types.
-     * 
-     * For INSTALLMESSAGE_FATALEXIT, INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, and INSTALLMESSAGE_USER messages, if field 0 is not set field 1 must be set to the error code corresponding to the error message in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-table">Error table</a>. Then, the message is formatted using the template from the Error table before passing it to the user-interface handler for display.
-     * 
-     * <h3><a id="Record_Fields_for_Progress_Bar_Messages"></a><a id="record_fields_for_progress_bar_messages"></a><a id="RECORD_FIELDS_FOR_PROGRESS_BAR_MESSAGES"></a>Record Fields for Progress Bar Messages</h3>
-     * The following describes the record fields when eMessageType is set to INSTALLMESSAGE_PROGRESS. Field 1 specifies the type of the progress message. The meaning of the other fields depend upon the value in this field. The possible values that can be set into Field 1 are as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Field 1 value</th>
-     * <th>Field 1 description</th>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td>Resets progress bar and sets the expected total number of ticks in the bar.</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td>Provides information related to progress messages to be sent by the current action.</td>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>Increments the progress bar.</td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>Enables an action (such as CustomAction) to add ticks to the expected total number of progress of the progress bar.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The meaning of Field 2 depends upon the value in Field 1 as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Field 1 value</th>
-     * <th>Field 2 description</th>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td>Expected total number of ticks in the progress bar.</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td>Number of ticks the progress bar moves for each ActionData message that is sent by the current action. This field is ignored if Field 3 is 0.</td>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>Number of ticks the progress bar has moved.</td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>Number of ticks to add to total expected progress.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The meaning of Field 3 depends upon the value in Field 1 as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Field 1 value</th>
-     * <th>Field 3 value</th>
-     * <th>Field 3 description</th>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td>0</td>
-     * <td>Forward progress bar (left to right)</td>
-     * </tr>
-     * <tr>
-     * <td> </td>
-     * <td>1</td>
-     * <td>Backward progress bar (right to left)</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td>0</td>
-     * <td>The current action will send explicit ProgressReport messages.</td>
-     * </tr>
-     * <tr>
-     * <td> </td>
-     * <td>1</td>
-     * <td>Increment the progress bar by the number of ticks specified in Field 2 each time an ActionData message is sent by the current action.</td>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>Unused</td>
-     * <td> </td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>Unused</td>
-     * <td> </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The meaning of Field 4 depends upon the value in Field 1 as follows.
-     * 
-     * <table>
-     * <tr>
-     * <th>Field 1 value</th>
-     * <th>Field 4 value</th>
-     * <th>Field 4 description</th>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td>0</td>
-     * <td>Execution is in progress. In this case, the UI could calculate and display the time remaining.</td>
-     * </tr>
-     * <tr>
-     * <td> </td>
-     * <td>1</td>
-     * <td>Creating the execution script. In this case, the UI could display a message to please wait while the installer finishes preparing the installation.</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td>Unused</td>
-     * <td> </td>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>Unused</td>
-     * <td> </td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>Unused</td>
-     * <td> </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * For more information and a code sample, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/adding-custom-actions-to-the-progressbar">Adding Custom Actions to the ProgressBar</a>.
-     * 
-     * <h3><a id="Display_of_Message_Boxes"></a><a id="display_of_message_boxes"></a><a id="DISPLAY_OF_MESSAGE_BOXES"></a>Display of Message Boxes</h3>
-     * To display a message box with push buttons or icons, use OR-operators to add INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, or INSTALLMESSAGE_USER with the message box options used by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messageboxexa">MessageBoxEx</a>. The available push button options are MB_OK, MB_OKCANCEL, MB_ABORTRETRYIGNORE, MB_YESNOCANCEL, MB_YESNO, and MB_RETRYCANCEL. The available default button options are MB_DEFBUTTON1, MB_DEFBUTTON2, and MB_DEFBUTTON3. The available icon options are MB_ICONERROR, MB_ICONQUESTION, MB_ICONWARNING, and MB_ICONINFORMATION. If no icon options is specified, Windows Installer chooses a default icon style based upon the message type.
-     * 
-     * For example, the following call to 
-     * <b>MsiProcessMessage</b> sends an INSTALLMESSAGE_ERROR message with the MB_ICONWARNING icon and the MB_ABORTRETRYCANCEL buttons.
-     * 
-     * 
-     * ```cpp
-     * PMSIHANDLE hInstall;
-     * PMSIHANDLE hRec;
-     * MsiProcessMessage(hInstall, 
-     *                   INSTALLMESSAGE(INSTALLMESSAGE_ERROR|MB_ABORTRETRYIGNORE|MB_ICONWARNING),
-     *                   hRec);
-     * 
-     * ```
-     * 
-     * 
-     * If a custom action calls <b>MsiProcessMessage</b>, the custom action should be capable of handling a cancellation by the user and should return ERROR_INSTALL_USEREXIT.
-     * 
-     * 
-     * For more information on sending messages with 
-     * <b>MsiProcessMessage</b>, see the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/sending-messages-to-windows-installer-using-msiprocessmessage">Sending Messages to Windows Installer Using MsiProcessMessage</a>.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} eMessageType The <i>eMessage</i> parameter must be a value specifying one of the following message types. To display a message box with push buttons or icons, use OR-operators to add INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, or INSTALLMESSAGE_USER to the standard message box styles used by 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> and 
@@ -31022,7 +27645,7 @@ class ApplicationInstallationAndServicing {
      * </dl>
      * </td>
      * <td width="60%">
-     * Informative message for log,<div> </div> not to be displayed.
+     * Informative message for log,<div> </div>not to be displayed.
      * 
      * </td>
      * </tr>
@@ -31114,7 +27737,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} hRecord Handle to a record containing message format and data.
      * @returns {Integer} This function returns int.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiprocessmessage
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiprocessmessage
      * @since windows8.0
      */
     static MsiProcessMessage(hInstall, eMessageType, hRecord) {
@@ -31123,52 +27746,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values. (ANSI)
-     * @remarks
-     * The following table shows the feature and component state values used by the 
-     * <b>MsiEvaluateCondition</b> function. These states are not set until 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetinstalllevel">MsiSetInstallLevel</a> is called, either directly or by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. Therefore, state checking is generally only useful for conditional expressions in an action sequence table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_ABSENT</td>
-     * <td>Feature or component not present.</td>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_LOCAL </td>
-     * <td>Feature or component on local computer.</td>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_SOURCE</td>
-     * <td>Feature or component run from source.</td>
-     * </tr>
-     * <tr>
-     * <td>(null value)</td>
-     * <td>No action to be taken on feature or component.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiEvaluateCondition as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditiona
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msievaluateconditiona
      * @since windows8.0
      */
     static MsiEvaluateConditionA(hInstall, szCondition) {
@@ -31179,52 +27762,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values. (Unicode)
-     * @remarks
-     * The following table shows the feature and component state values used by the 
-     * <b>MsiEvaluateCondition</b> function. These states are not set until 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetinstalllevel">MsiSetInstallLevel</a> is called, either directly or by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. Therefore, state checking is generally only useful for conditional expressions in an action sequence table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_ABSENT</td>
-     * <td>Feature or component not present.</td>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_LOCAL </td>
-     * <td>Feature or component on local computer.</td>
-     * </tr>
-     * <tr>
-     * <td>INSTALLSTATE_SOURCE</td>
-     * <td>Feature or component run from source.</td>
-     * </tr>
-     * <tr>
-     * <td>(null value)</td>
-     * <td>No action to be taken on feature or component.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * 
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiEvaluateCondition as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditionw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msievaluateconditionw
      * @since windows8.0
      */
     static MsiEvaluateConditionW(hInstall, szCondition) {
@@ -31235,26 +27778,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureState function gets the requested state of a feature. (ANSI)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureState function gets the requested state of a feature.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Specifies the feature name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturestatea
      * @since windows8.0
      */
     static MsiGetFeatureStateA(hInstall, szFeature, piInstalled, piAction) {
@@ -31265,26 +27796,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureState function gets the requested state of a feature. (Unicode)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureState function gets the requested state of a feature.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Specifies the feature name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturestatew
      * @since windows8.0
      */
     static MsiGetFeatureStateW(hInstall, szFeature, piInstalled, piAction) {
@@ -31295,42 +27814,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetFeatureState function sets a feature to a specified state. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiSetFeatureState</b> function requests a change in the select state of a feature in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature</a> table and its children. In turn, the action state of all the components linked to the changed feature records are also updated appropriately, based on the new feature select state.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetinstalllevel">MsiSetInstallLevel</a> function must be called before calling 
-     * <b>MsiSetFeatureState</b>.
-     * 
-     * When <b>MsiSetFeatureState</b> is called, the installer attempts to set the action state of each component tied to the specified feature to the specified state. However, there are common situations when the request cannot be fully implemented. For example, if a feature is tied to two components, component A and component B, through the <a href="https://docs.microsoft.com/windows/desktop/Msi/featurecomponents-table">FeatureComponents</a> table, and component A has the <b>msidbComponentAttributesLocalOnly</b> attribute and component B has the <b>msidbComponentAttributesSourceOnly</b> attribute. In this case, if <b>MsiSetFeatureState</b> is called with a requested state of either INSTALLSTATE_LOCAL or INSTALLSTATE_SOURCE, the request cannot be fully implemented for both components. In this case, both components are turned ON, with component A set to Local and component B set to Source.
-     * 
-     * If more than one feature is linked to a single component (a common scenario), the final action state of that component is determined as follows:
-     * 
-     * <ul>
-     * <li>If at least one feature requires the component to be installed locally, the feature is installed with a state of local.</li>
-     * <li>If at least one feature requires the component to be run from the source, the feature is installed with a state of source.</li>
-     * <li>If at least one feature requires the removal of the component, the action state is absent.</li>
-     * </ul>
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetFeatureState function sets a feature to a specified state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Specifies the name of the feature.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetfeaturestatea
      * @since windows8.0
      */
     static MsiSetFeatureStateA(hInstall, szFeature, iState) {
@@ -31341,42 +27831,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetFeatureState function sets a feature to a specified state. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiSetFeatureState</b> function requests a change in the select state of a feature in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature</a> table and its children. In turn, the action state of all the components linked to the changed feature records are also updated appropriately, based on the new feature select state.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetinstalllevel">MsiSetInstallLevel</a> function must be called before calling 
-     * <b>MsiSetFeatureState</b>.
-     * 
-     * When <b>MsiSetFeatureState</b> is called, the installer attempts to set the action state of each component tied to the specified feature to the specified state. However, there are common situations when the request cannot be fully implemented. For example, if a feature is tied to two components, component A and component B, through the <a href="https://docs.microsoft.com/windows/desktop/Msi/featurecomponents-table">FeatureComponents</a> table, and component A has the <b>msidbComponentAttributesLocalOnly</b> attribute and component B has the <b>msidbComponentAttributesSourceOnly</b> attribute. In this case, if <b>MsiSetFeatureState</b> is called with a requested state of either INSTALLSTATE_LOCAL or INSTALLSTATE_SOURCE, the request cannot be fully implemented for both components. In this case, both components are turned ON, with component A set to Local and component B set to Source.
-     * 
-     * If more than one feature is linked to a single component (a common scenario), the final action state of that component is determined as follows:
-     * 
-     * <ul>
-     * <li>If at least one feature requires the component to be installed locally, the feature is installed with a state of local.</li>
-     * <li>If at least one feature requires the component to be run from the source, the feature is installed with a state of source.</li>
-     * <li>If at least one feature requires the removal of the component, the action state is absent.</li>
-     * </ul>
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetFeatureState function sets a feature to a specified state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Specifies the name of the feature.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetfeaturestatew
      * @since windows8.0
      */
     static MsiSetFeatureStateW(hInstall, szFeature, iState) {
@@ -31387,22 +27848,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table. (ANSI)
-     * @remarks
-     * <b>MsiSetFeatureAttributes</b> must be called after 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a> and before 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The function returns ERROR_FUNCTION_FAILED if called at any other time.
-     * 
-     * The INSTALLFEATUREATTRIBUTE_FAVORLOCAL, INSTALLFEATUREATTRIBUTE_FAVORSOURCE, and INSTALLFEATUREATTRIBUTE_FOLLOWPARENT flags are mutually exclusive. Only one of these bits can be set for any feature. If more than one of these flags is set, the behavior of that feature is undefined.
-     * 
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetFeatureAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Specifies the feature name within the product.
      * @param {Integer} dwAttributes Feature attributes specified at run time as a set of bit flags: 
@@ -31488,7 +27934,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeatureattributesa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetfeatureattributesa
      * @since windows8.0
      */
     static MsiSetFeatureAttributesA(hInstall, szFeature, dwAttributes) {
@@ -31499,22 +27945,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table. (Unicode)
-     * @remarks
-     * <b>MsiSetFeatureAttributes</b> must be called after 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a> and before 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. The function returns ERROR_FUNCTION_FAILED if called at any other time.
-     * 
-     * The INSTALLFEATUREATTRIBUTE_FAVORLOCAL, INSTALLFEATUREATTRIBUTE_FAVORSOURCE, and INSTALLFEATUREATTRIBUTE_FOLLOWPARENT flags are mutually exclusive. Only one of these bits can be set for any feature. If more than one of these flags is set, the behavior of that feature is undefined.
-     * 
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetFeatureAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Specifies the feature name within the product.
      * @param {Integer} dwAttributes Feature attributes specified at run time as a set of bit flags: 
@@ -31600,7 +28031,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeatureattributesw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetfeatureattributesw
      * @since windows8.0
      */
     static MsiSetFeatureAttributesW(hInstall, szFeature, dwAttributes) {
@@ -31611,26 +28042,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetComponentState function obtains the state of a component. (ANSI)
-     * @remarks
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetComponentState function obtains the state of a component.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szComponent A null-terminated string that specifies the component name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetcomponentstatea
      * @since windows8.0
      */
     static MsiGetComponentStateA(hInstall, szComponent, piInstalled, piAction) {
@@ -31641,26 +28060,14 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetComponentState function obtains the state of a component. (Unicode)
-     * @remarks
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetComponentState function obtains the state of a component.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szComponent A null-terminated string that specifies the component name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetcomponentstatew
      * @since windows8.0
      */
     static MsiGetComponentStateW(hInstall, szComponent, piInstalled, piAction) {
@@ -31671,29 +28078,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetComponentState function sets a component to the requested state. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiSetComponentState</b> function requests a change in the Action state of a record in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetComponentState function sets a component to the requested state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szComponent Specifies the name of the component.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatea
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetcomponentstatea
      * @since windows8.0
      */
     static MsiSetComponentStateA(hInstall, szComponent, iState) {
@@ -31704,29 +28095,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetComponentState function sets a component to the requested state. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiSetComponentState</b> function requests a change in the Action state of a record in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetComponentState function sets a component to the requested state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szComponent Specifies the name of the component.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatew
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetcomponentstatew
      * @since windows8.0
      */
     static MsiSetComponentStateW(hInstall, szComponent, iState) {
@@ -31737,60 +28112,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features. (ANSI)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * With the 
-     * <b>MsiGetFeatureCost</b> function, the MSICOSTTREE_SELFONLY value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature only. This returned value does not include the children or the parent features of the specified feature. This total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * The MSICOSTTREE_CHILDREN value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature and its children. For each feature, the total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * The MSICOSTTREE_PARENTS value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature and its parent features (up to the root of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>). For each feature, the total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * <b>MsiGetFeatureCost</b> is dependent upon several other functions to be successful. The following example demonstrates the order in which these functions must be called:
-     * 
-     * 
-     * ``` syntax
-     * MSIHANDLE   hInstall;      //product handle, must be closed
-     * int         iCost;         //cost returned by MsiGetFeatureCost
-     * 
-     * MsiOpenPackage("Path to package....",&amp;hInstall);   //"Path to package...." should be replaced with the full path to the package to be opened
-     * MsiDoAction(hInstall,"CostInitialize");         //
-     * MsiDoAction(hInstall,"FileCost");
-     * MsiDoAction(hInstall,"CostFinalize");
-     * MsiDoAction(hInstall,"InstallValidate");
-     * MsiGetFeatureCost(hInstall,"FeatureName",MSICOSTTREE_SELFONLY,INSTALLSTATE_ABSENT,&amp;iCost);
-     * MsiCloseHandle(hInstall);                        //close the open product handle
-     * ```
-     * 
-     * The process to query the cost of features scheduled to be removed is slightly different:
-     * 
-     * 
-     * ``` syntax
-     * MSIHANDLE   hInstall;      //product handle, must be closed
-     * int         iCost;         //cost returned by MsiGetFeatureCost
-     * 
-     * MsiOpenPackage("Path to package....",&amp;hInstall);              //"Path to package...." should be replaced with the full path to the package to be opened
-     * MsiDoAction(hInstall,"CostInitialize");                          //
-     * MsiDoAction(hInstall,"FileCost");
-     * MsiDoAction(hInstall,"CostFinalize");
-     * MsiSetFeatureState(hInstall,"FeatureName",INSTALLSTATE_ABSENT);  //set the feature's state to "not installed"
-     * MsiDoAction(hInstall,"InstallValidate");
-     * MsiGetFeatureCost(hInstall,"FeatureName",MSICOSTTREE_SELFONLY,INSTALLSTATE_ABSENT,&amp;iCost);
-     * MsiCloseHandle(hInstall);                                        //close the open product handle
-     * ```
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
@@ -31798,7 +28120,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecosta
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturecosta
      * @since windows8.0
      */
     static MsiGetFeatureCostA(hInstall, szFeature, iCostTree, iState, piCost) {
@@ -31809,60 +28131,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features. (Unicode)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * With the 
-     * <b>MsiGetFeatureCost</b> function, the MSICOSTTREE_SELFONLY value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature only. This returned value does not include the children or the parent features of the specified feature. This total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * The MSICOSTTREE_CHILDREN value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature and its children. For each feature, the total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * The MSICOSTTREE_PARENTS value indicates the total amount of disk space (in units of 512 bytes) required by the specified feature and its parent features (up to the root of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>). For each feature, the total cost is made up of the disk costs attributed to every component linked to the feature.
-     * 
-     * <b>MsiGetFeatureCost</b> is dependent upon several other functions to be successful. The following example demonstrates the order in which these functions must be called:
-     * 
-     * 
-     * ``` syntax
-     * MSIHANDLE   hInstall;      //product handle, must be closed
-     * int         iCost;         //cost returned by MsiGetFeatureCost
-     * 
-     * MsiOpenPackage("Path to package....",&amp;hInstall);   //"Path to package...." should be replaced with the full path to the package to be opened
-     * MsiDoAction(hInstall,"CostInitialize");         //
-     * MsiDoAction(hInstall,"FileCost");
-     * MsiDoAction(hInstall,"CostFinalize");
-     * MsiDoAction(hInstall,"InstallValidate");
-     * MsiGetFeatureCost(hInstall,"FeatureName",MSICOSTTREE_SELFONLY,INSTALLSTATE_ABSENT,&amp;iCost);
-     * MsiCloseHandle(hInstall);                        //close the open product handle
-     * ```
-     * 
-     * The process to query the cost of features scheduled to be removed is slightly different:
-     * 
-     * 
-     * ``` syntax
-     * MSIHANDLE   hInstall;      //product handle, must be closed
-     * int         iCost;         //cost returned by MsiGetFeatureCost
-     * 
-     * MsiOpenPackage("Path to package....",&amp;hInstall);              //"Path to package...." should be replaced with the full path to the package to be opened
-     * MsiDoAction(hInstall,"CostInitialize");                          //
-     * MsiDoAction(hInstall,"FileCost");
-     * MsiDoAction(hInstall,"CostFinalize");
-     * MsiSetFeatureState(hInstall,"FeatureName",INSTALLSTATE_ABSENT);  //set the feature's state to "not installed"
-     * MsiDoAction(hInstall,"InstallValidate");
-     * MsiGetFeatureCost(hInstall,"FeatureName",MSICOSTTREE_SELFONLY,INSTALLSTATE_ABSENT,&amp;iCost);
-     * MsiCloseHandle(hInstall);                                        //close the open product handle
-     * ```
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
@@ -31870,7 +28139,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecostw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturecostw
      * @since windows8.0
      */
     static MsiGetFeatureCostW(hInstall, szFeature, iCostTree, iState, piCost) {
@@ -31881,20 +28150,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component. (ANSI)
-     * @remarks
-     * The recommended method for enumerating the disk-space costs per drive is as follows. Start with the dwIndex set to 0 and increment it by one after each call. Continue the enumeration as long as 
-     * <b>MsiEnumComponentCosts</b> returns ERROR_SUCCESS.
-     * 
-     * <b>MsiEnumComponentCosts</b> may be called from custom actions.
-     * 
-     * The total final disk cost for the installation is the sum of the costs of all components plus the cost of the Windows Installer (<i>szComponent</i> = null).
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiEnumComponentCosts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. This parameter can be null. If <i>szComponent</i> is null or an empty string, 
@@ -32004,7 +28260,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienumcomponentcostsa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msienumcomponentcostsa
      * @since windows8.0
      */
     static MsiEnumComponentCostsA(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
@@ -32016,20 +28272,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component. (Unicode)
-     * @remarks
-     * The recommended method for enumerating the disk-space costs per drive is as follows. Start with the dwIndex set to 0 and increment it by one after each call. Continue the enumeration as long as 
-     * <b>MsiEnumComponentCosts</b> returns ERROR_SUCCESS.
-     * 
-     * <b>MsiEnumComponentCosts</b> may be called from custom actions.
-     * 
-     * The total final disk cost for the installation is the sum of the costs of all components plus the cost of the Windows Installer (<i>szComponent</i> = null).
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiEnumComponentCosts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. This parameter can be null. If <i>szComponent</i> is null or an empty string, 
@@ -32139,7 +28382,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienumcomponentcostsw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msienumcomponentcostsw
      * @since windows8.0
      */
     static MsiEnumComponentCostsW(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
@@ -32152,30 +28395,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSetInstallLevel function sets the installation level for a full product installation.
-     * @remarks
-     * The 
-     * <b>MsiSetInstallLevel</b> function sets the following:
-     * 
-     * <ul>
-     * <li>The installation level for the current installation to a specified value.</li>
-     * <li>The Select and Installed states for all features in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.</li>
-     * <li>The Action state of each component in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>, based on the new level.</li>
-     * </ul>
-     * For any installation, there is a defined install level, which is an integral value from 1 to 32,767. The initial value is determined by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/installlevel">INSTALLLEVEL</a> property, which is set in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/property-table">Property Table</a>.
-     * 
-     * If 0 (zero) or a negative number is passed in the <i>iInstallLevel</i> parameter, the current installation level does not change, but all features are still updated based on the current installation level. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
      * @param {Integer} hInstall Handle to the installation that is provided to a DLL custom action or obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} iInstallLevel The installation level.
      * @returns {Integer} The 
      * <b>MsiSetInstallLevel</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetinstalllevel
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetinstalllevel
      * @since windows8.0
      */
     static MsiSetInstallLevel(hInstall, iInstallLevel) {
@@ -32184,51 +28408,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureValidStates function returns a valid installation state. (ANSI)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * The <b>MsiGetFeatureValidStates</b> function determines state validity by querying all components that are linked to the specified feature without taking into account the current installed state of any component.  
-     * 
-     * The possible valid states for a feature are determined as follows:
-     * 
-     * <ul>
-     * <li>If the feature does not contain components, both INSTALLSTATE_LOCAL and INSTALLSTATE_SOURCE are valid states for the feature.</li>
-     * <li>If at least one component of the feature has an attribute of msidbComponentAttributesLocalOnly or msidbComponentAttributesOptional, INSTALLSTATE_LOCAL is a valid state for the feature.</li>
-     * <li>If at least one component of the feature has an attribute of msidbComponentAttributesSourceOnly or msidbComponentAttributesOptional, INSTALLSTATE_SOURCE is a valid state for the feature.</li>
-     * <li>If a file of a component that belongs to the feature is patched or from a compressed source, then INSTALLSTATE_SOURCE is not included as a valid state for the feature.</li>
-     * <li>INSTALLSTATE_ADVERTISE is not a valid state if the feature disallows advertisement (msidbFeatureAttributesDisallowAdvertise) or the feature requires platform support for advertisement (msidbFeatureAttributesNoUnsupportedAdvertise) and the platform does not support it.</li>
-     * <li>INSTALLSTATE_ABSENT is a valid state for the feature if its attributes do not include msidbFeatureAttributesUIDisallowAbsent.</li>
-     * <li>Valid states for child features marked to follow the parent feature (msidbFeatureAttributesFollowParent) are based upon the parent feature's action or installed state.</li>
-     * </ul>
-     * After calling 
-     * <b>MsiGetFeatureValidStates</b> a conditional statement may then be used to test the valid installation states of a feature. For example, the following call to 
-     * <b>MsiGetFeatureValidStates</b> gets the installation state of Feature1.
-     * 
-     * 
-     * ``` syntax
-     * MsiGetFeatureValidStates(hProduct, "Feature1", &amp;dwValidStates);
-     * ```
-     * 
-     * If Feature1 has attributes of value 0 (favor local), and Feature1 has one component with attributes of value 0 (local only), the value of dwValidStates after the call is 14. This indicates that INSTALLSTATE_LOCAL, INSTALLSTATE_ABSENT,and INSTALLSTATE_ADVERTISED are valid states for Feature1. The following conditional statement evaluates to True if local is a valid state for this feature.
-     * 
-     * ( ( dwValidStates &amp; ( 1 &lt;&lt; INSTALLSTATE_LOCAL ) ) == ( 1 &lt;&lt; INSTALLSTATE_LOCAL ) )
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureValidStates as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureValidStates function returns a valid installation state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFeature Specifies the feature name.
      * @param {Pointer<UInt32>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturevalidstatesa
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturevalidstatesa
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesA(hInstall, szFeature, lpInstallStates) {
@@ -32239,51 +28425,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetFeatureValidStates function returns a valid installation state. (Unicode)
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * The <b>MsiGetFeatureValidStates</b> function determines state validity by querying all components that are linked to the specified feature without taking into account the current installed state of any component.  
-     * 
-     * The possible valid states for a feature are determined as follows:
-     * 
-     * <ul>
-     * <li>If the feature does not contain components, both INSTALLSTATE_LOCAL and INSTALLSTATE_SOURCE are valid states for the feature.</li>
-     * <li>If at least one component of the feature has an attribute of msidbComponentAttributesLocalOnly or msidbComponentAttributesOptional, INSTALLSTATE_LOCAL is a valid state for the feature.</li>
-     * <li>If at least one component of the feature has an attribute of msidbComponentAttributesSourceOnly or msidbComponentAttributesOptional, INSTALLSTATE_SOURCE is a valid state for the feature.</li>
-     * <li>If a file of a component that belongs to the feature is patched or from a compressed source, then INSTALLSTATE_SOURCE is not included as a valid state for the feature.</li>
-     * <li>INSTALLSTATE_ADVERTISE is not a valid state if the feature disallows advertisement (msidbFeatureAttributesDisallowAdvertise) or the feature requires platform support for advertisement (msidbFeatureAttributesNoUnsupportedAdvertise) and the platform does not support it.</li>
-     * <li>INSTALLSTATE_ABSENT is a valid state for the feature if its attributes do not include msidbFeatureAttributesUIDisallowAbsent.</li>
-     * <li>Valid states for child features marked to follow the parent feature (msidbFeatureAttributesFollowParent) are based upon the parent feature's action or installed state.</li>
-     * </ul>
-     * After calling 
-     * <b>MsiGetFeatureValidStates</b> a conditional statement may then be used to test the valid installation states of a feature. For example, the following call to 
-     * <b>MsiGetFeatureValidStates</b> gets the installation state of Feature1.
-     * 
-     * 
-     * ``` syntax
-     * MsiGetFeatureValidStates(hProduct, "Feature1", &amp;dwValidStates);
-     * ```
-     * 
-     * If Feature1 has attributes of value 0 (favor local), and Feature1 has one component with attributes of value 0 (local only), the value of dwValidStates after the call is 14. This indicates that INSTALLSTATE_LOCAL, INSTALLSTATE_ABSENT,and INSTALLSTATE_ADVERTISED are valid states for Feature1. The following conditional statement evaluates to True if local is a valid state for this feature.
-     * 
-     * ( ( dwValidStates &amp; ( 1 &lt;&lt; INSTALLSTATE_LOCAL ) ) == ( 1 &lt;&lt; INSTALLSTATE_LOCAL ) )
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetFeatureValidStates as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetFeatureValidStates function returns a valid installation state.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFeature Specifies the feature name.
      * @param {Pointer<UInt32>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturevalidstatesw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturevalidstatesw
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesW(hInstall, szFeature, lpInstallStates) {
@@ -32294,23 +28442,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetSourcePath function returns the full source path for a folder in the Directory table. (ANSI)
-     * @remarks
-     * Before calling this function, the installer must first run the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetSourcePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetSourcePath function returns the full source path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
@@ -32318,7 +28450,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsourcepatha
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsourcepatha
      * @since windows8.0
      */
     static MsiGetSourcePathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32330,23 +28462,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetSourcePath function returns the full source path for a folder in the Directory table. (Unicode)
-     * @remarks
-     * Before calling this function, the installer must first run the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetSourcePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetSourcePath function returns the full source path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
@@ -32354,7 +28470,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsourcepathw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsourcepathw
      * @since windows8.0
      */
     static MsiGetSourcePathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32366,30 +28482,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetTargetPath function returns the full target path for a folder in the Directory table. (ANSI)
-     * @remarks
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * Before calling this function, the installer must first run the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * <b>MsiGetTargetPath</b> returns the default path of the target directory authored in the package if the target's current location is unavailable for an installation. For example, if during a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/maintenance-installation">Maintenance Installation</a> a target directory at a network location is unavailable, the installer resets the target directory paths back to their defaults. To get the actual path of the target directory in this case call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidecomponenta">MsiProvideComponent</a> for a component that is known to have been previously installed into the searched for directory and set <i>dwInstallMode</i> to INSTALLMODE_NODETECTION.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetTargetPath function returns the full target path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
@@ -32397,7 +28490,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigettargetpatha
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigettargetpatha
      * @since windows8.0
      */
     static MsiGetTargetPathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32409,30 +28502,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiGetTargetPath function returns the full target path for a folder in the Directory table. (Unicode)
-     * @remarks
-     * If ERROR_MORE_DATA is returned, the parameter which is a pointer gives the size of the buffer required to hold the string. If ERROR_SUCCESS is returned, it gives the number of characters written to the string buffer. Therefore you can get the size of the buffer by passing in an empty string (for example "") for the parameter that specifies the buffer. Do not attempt to determine the size of the buffer by passing in a Null (value=0).
-     * 
-     * Before calling this function, the installer must first run the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costinitialize-action">CostInitialize action</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/filecost-action">FileCost action</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/costfinalize-action">CostFinalize action</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions from Programs</a>.
-     * 
-     * <b>MsiGetTargetPath</b> returns the default path of the target directory authored in the package if the target's current location is unavailable for an installation. For example, if during a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/maintenance-installation">Maintenance Installation</a> a target directory at a network location is unavailable, the installer resets the target directory paths back to their defaults. To get the actual path of the target directory in this case call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidecomponenta">MsiProvideComponent</a> for a component that is known to have been previously installed into the searched for directory and set <i>dwInstallMode</i> to INSTALLMODE_NODETECTION.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiGetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiGetTargetPath function returns the full target path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
@@ -32440,7 +28510,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigettargetpathw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigettargetpathw
      * @since windows8.0
      */
     static MsiGetTargetPathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32452,37 +28522,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetTargetPath function sets the full target path for a folder in the Directory table. (ANSI)
-     * @remarks
-     * The 
-     * <b>MsiSetTargetPath</b> function changes the path specification for the target directory named in the in-memory 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. Also, the path specifications of all other path objects in the table that are either subordinate or equivalent to the changed path are updated to reflect the change. The properties for each affected path are also updated.
-     * 
-     * <b>MsiSetTargetPath</b> fails if the selected directory is read only.
-     * 
-     * If an error occurs in this function, all updated paths and properties revert to their previous values. Therefore, it is safe to treat errors returned by this function as nonfatal.
-     * 
-     * Do not attempt to configure the target path if the components using those paths are already installed for the current user or for a different user. Check the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/productstate">ProductState</a> property before calling 
-     * <b>MsiSetTargetPath</b> to determine if the product containing this component is installed.
-     * 
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetTargetPath function sets the full target path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Byte>} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
      * @param {Pointer<Byte>} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisettargetpatha
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisettargetpatha
      * @since windows8.0
      */
     static MsiSetTargetPathA(hInstall, szFolder, szFolderPath) {
@@ -32494,37 +28540,13 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiSetTargetPath function sets the full target path for a folder in the Directory table. (Unicode)
-     * @remarks
-     * The 
-     * <b>MsiSetTargetPath</b> function changes the path specification for the target directory named in the in-memory 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. Also, the path specifications of all other path objects in the table that are either subordinate or equivalent to the changed path are updated to reflect the change. The properties for each affected path are also updated.
-     * 
-     * <b>MsiSetTargetPath</b> fails if the selected directory is read only.
-     * 
-     * If an error occurs in this function, all updated paths and properties revert to their previous values. Therefore, it is safe to treat errors returned by this function as nonfatal.
-     * 
-     * Do not attempt to configure the target path if the components using those paths are already installed for the current user or for a different user. Check the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/productstate">ProductState</a> property before calling 
-     * <b>MsiSetTargetPath</b> to determine if the product containing this component is installed.
-     * 
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
-     * 
-     * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiSetTargetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiSetTargetPath function sets the full target path for a folder in the Directory table.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Pointer<Char>} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
      * @param {Pointer<Char>} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisettargetpathw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisettargetpathw
      * @since windows8.0
      */
     static MsiSetTargetPathW(hInstall, szFolder, szFolderPath) {
@@ -32537,12 +28559,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiVerifyDiskSpace function checks to see if sufficient disk space is present for the current installation.
-     * @remarks
-     * See 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
      * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiverifydiskspace
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiverifydiskspace
      * @since windows8.0
      */
     static MsiVerifyDiskSpace(hInstall) {
@@ -32552,13 +28571,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnableUIPreview function enables preview mode of the user interface to facilitate authoring of user-interface dialog boxes. This function returns a handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {Integer} hDatabase Handle to the database.
      * @param {Pointer<UInt32>} phPreview Pointer to a returned handle for user-interface preview capability.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienableuipreview
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msienableuipreview
      * @since windows8.0
      */
     static MsiEnableUIPreview(hDatabase, phPreview) {
@@ -32567,21 +28583,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiPreviewDialog function displays a dialog box as modeless and inactive. (ANSI)
-     * @remarks
-     * Supplying a null name in the 
-     * <b>MsiPreviewDialog</b> function removes any current dialog box.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiPreviewDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiPreviewDialog function displays a dialog box as modeless and inactive.
      * @param {Integer} hPreview Handle to the preview.
      * @param {Pointer<Byte>} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewdialoga
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewdialoga
      * @since windows8.0
      */
     static MsiPreviewDialogA(hPreview, szDialogName) {
@@ -32592,21 +28598,11 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiPreviewDialog function displays a dialog box as modeless and inactive. (Unicode)
-     * @remarks
-     * Supplying a null name in the 
-     * <b>MsiPreviewDialog</b> function removes any current dialog box.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiPreviewDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiPreviewDialog function displays a dialog box as modeless and inactive.
      * @param {Integer} hPreview Handle to the preview.
      * @param {Pointer<Char>} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewdialogw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewdialogw
      * @since windows8.0
      */
     static MsiPreviewDialogW(hPreview, szDialogName) {
@@ -32617,22 +28613,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box. (ANSI)
-     * @remarks
-     * Supplying a null billboard name in the 
-     * <b>MsiPreviewBillboard</b> function removes any billboard displayed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiPreviewBillboard as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box.
      * @param {Integer} hPreview Handle to the preview.
      * @param {Pointer<Byte>} szControlName Specifies the name of the host control.
      * @param {Pointer<Byte>} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewbillboarda
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewbillboarda
      * @since windows8.0
      */
     static MsiPreviewBillboardA(hPreview, szControlName, szBillboard) {
@@ -32644,22 +28630,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box. (Unicode)
-     * @remarks
-     * Supplying a null billboard name in the 
-     * <b>MsiPreviewBillboard</b> function removes any billboard displayed.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The msiquery.h header defines MsiPreviewBillboard as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box.
      * @param {Integer} hPreview Handle to the preview.
      * @param {Pointer<Char>} szControlName Specifies the name of the host control.
      * @param {Pointer<Char>} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewbillboardw
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewbillboardw
      * @since windows8.0
      */
     static MsiPreviewBillboardW(hPreview, szControlName, szBillboard) {
@@ -32672,99 +28648,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetLastErrorRecord function returns the error record that was last returned for the calling process. This function returns a handle that should be closed using MsiCloseHandle.
-     * @remarks
-     * With the 
-     * <b>MsiGetLastErrorRecord</b> function, field 1 of the record contains the installer error code. Other fields contain data specific to the particular error. The error record is released internally after this function is run.
-     * 
-     * If the record is passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiprocessmessage">MsiProcessMessage</a>, it is formatted by looking up the string in the current database. If there is no installation session but a product database is open, the format string may be obtained by a query on the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-table">Error table</a> using the error code, followed by a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiformatrecorda">MsiFormatRecord</a>. If the error code is known, the parameters may be individually interpreted.
-     * 
-     * The following functions set the per-process error record or reset it to null if no error occurred. <b>MsiGetLastErrorRecord</b> also clears the error record after returning it.
-     * 
-     * <ul>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasecommit">MsiDatabaseCommit</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseopenviewa">MsiDatabaseOpenView</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseimporta">MsiDatabaseImport</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseexporta">MsiDatabaseExport</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasemergea">MsiDatabaseMerge</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabasegeneratetransforma">MsiDatabaseGenerateTransform</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseapplytransforma">MsiDatabaseApplyTransform</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewexecute">MsiViewExecute</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewmodify">MsiViewModify</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msirecordsetstreama">MsiRecordSetStream</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetsummaryinformationa">MsiGetSummaryInformation</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetsourcepatha">MsiGetSourcePath</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigettargetpatha">MsiGetTargetPath</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisettargetpatha">MsiSetTargetPath</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetcomponentstatea">MsiGetComponentState</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetcomponentstatea">MsiSetComponentState</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetfeaturestatea">MsiGetFeatureState</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetfeaturestatea">MsiSetFeatureState</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetfeaturecosta">MsiGetFeatureCost</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetfeaturevalidstatesa">MsiGetFeatureValidStates</a>
-     * </li>
-     * <li>
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msisetinstalllevel">MsiSetInstallLevel</a>
-     * </li>
-     * </ul>
-     * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
-     * 
-     * The following sample uses a call to <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msidatabaseopenviewa">MsiDatabaseOpenView</a> to  show how to obtain extended error information from one of the Windows Installer functions that supports <b>MsiGetLastErrorRecord</b>.  The example, OpenViewOnDatabase,  attempts to open a view on a database                 handle. The <i>hDatabase</i> handle can be
-     * obtained by a call to <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>. If opening
-     * the view fails, the function then tries to obtain extended
-     * error information by using <b>MsiGetLastErrorRecord</b>.
-     * 
-     * 
-     * 
-     * ```cpp
      * @returns {Integer} A handle to the error record. If the last function was successful, 
      * <b>MsiGetLastErrorRecord</b> returns a null <b>MSIHANDLE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetlasterrorrecord
+     * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetlasterrorrecord
      * @since windows8.0
      */
     static MsiGetLastErrorRecord() {
@@ -32780,20 +28666,16 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * 
-     * 
-     * ``` syntax
-     * typedef struct _PROTECTED_FILE_DATA {
+     * <pre class="syntax" xml:space="preserve"><code>typedef struct _PROTECTED_FILE_DATA {
      *     WCHAR   FileName[MAX_PATH];
      *     DWORD   FileNumber;
-     * } PROTECTED_FILE_DATA, *PPROTECTED_FILE_DATA;
-     * ```
-     * 
+     * } PROTECTED_FILE_DATA, *PPROTECTED_FILE_DATA;</code></pre>
      * Before calling this function the first time, set the <b>FileNumber</b> member to zero.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If there are no more protected files to enumerate, the return value is zero and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NO_MORE_FILES. If the function fails, <b>GetLastError</b> will return a different error code.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfcgetnextprotectedfile
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NO_MORE_FILES. If the function fails, <b>GetLastError</b> will return a different error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sfc/nf-sfc-sfcgetnextprotectedfile
      * @since windows5.1.2600
      */
     static SfcGetNextProtectedFile(RpcHandle, ProtFileData) {
@@ -32813,7 +28695,7 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the file is protected, the return value is a nonzero value.
      * 
      * If the file is not protected, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfcisfileprotected
+     * @see https://docs.microsoft.com/windows/win32/api//sfc/nf-sfc-sfcisfileprotected
      * @since windows5.1.2600
      */
     static SfcIsFileProtected(RpcHandle, ProtFileName) {
@@ -32825,28 +28707,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Determines whether the specified registry key is protected.
-     * @remarks
-     * A key is protected by WRP if the path exists and is protected by WRP. The <b>SfcIsKeyProtected</b> function indicates that a subkey is protected by WRP if the subkey has a  parent key that is protected by WRP.  
-     * 
-     * For example, if the following registry key exists on the system and is protected by WRP:
-     * 
-     * 
-     * <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Classes</b>
-     *          <b>Microsoft</b>
-     *             <b>&lt;WinFeature&gt;</b></pre>
-     * 
-     * 
-     * The <b>SfcIsKeyProtected</b> function returns a nonzero value for the following subkey. The new subkey does not need to exist for the function to determine that it is WRP-protected.
-     * 
-     * 
-     * <pre><b>HKEY_LOCAL_MACHINE</b>
-     *    <b>SOFTWARE</b>
-     *       <b>Classes</b>
-     *          <b>Microsoft</b>
-     *             <b>&lt;WinFeature&gt;</b>
-     *                <b>&lt;new subkey&gt;</b></pre>
      * @param {Pointer<Void>} KeyHandle A handle to the root registry key. This must be a handle to one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>.
      * 
      * <p class="indent">HKEY_CLASSES_ROOT
@@ -32902,7 +28762,7 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the key is protected, the return value is a nonzero value.
      * 
      * If the key is not protected, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfciskeyprotected
+     * @see https://docs.microsoft.com/windows/win32/api//sfc/nf-sfc-sfciskeyprotected
      * @since windows6.0.6000
      */
     static SfcIsKeyProtected(KeyHandle, SubKeyName, KeySam) {
@@ -32978,17 +28838,16 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Creates a delta between the specified source file and the specified target file.
-     * @param {Integer} OldFileCount The total number of source files. Used to create deltas against multiple source files (maximum 255).
-     * @param {Pointer<PATCH_OLD_FILE_INFO_A>} OldFileInfoArray Pointer to source file information array.
-     * @param {Pointer<Byte>} NewFileName The name of the target file.
-     * @param {Pointer<Byte>} PatchFileName The name of the delta that is created.
-     * @param {Integer} OptionFlags Creation flags.
+     * 
+     * @param {Integer} OldFileCount 
+     * @param {Pointer<PATCH_OLD_FILE_INFO_A>} OldFileInfoArray 
+     * @param {Pointer<Byte>} NewFileName 
+     * @param {Pointer<Byte>} PatchFileName 
+     * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
-     * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback Pointer to application-defined progress callback.
-     * @param {Pointer<Void>} CallbackContext Pointer to application-defined context.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
+     * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
+     * @param {Pointer<Void>} CallbackContext 
+     * @returns {Integer} 
      */
     static CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
@@ -32999,17 +28858,16 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Creates a delta between the specified source file and the specified target file.
-     * @param {Integer} OldFileCount The total number of source files. Used to create deltas against multiple source files (maximum 255).
-     * @param {Pointer<PATCH_OLD_FILE_INFO_W>} OldFileInfoArray Pointer to source file information array.
-     * @param {Pointer<Char>} NewFileName The name of the target file.
-     * @param {Pointer<Char>} PatchFileName The name of the delta that is created.
-     * @param {Integer} OptionFlags Creation flags.
+     * 
+     * @param {Integer} OldFileCount 
+     * @param {Pointer<PATCH_OLD_FILE_INFO_W>} OldFileInfoArray 
+     * @param {Pointer<Char>} NewFileName 
+     * @param {Pointer<Char>} PatchFileName 
+     * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
-     * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback Pointer to application-defined progress callback.
-     * @param {Pointer<Void>} CallbackContext Pointer to application-defined context.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
+     * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
+     * @param {Pointer<Void>} CallbackContext 
+     * @returns {Integer} 
      */
     static CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
@@ -33037,11 +28895,10 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Extracts the header information from a delta.
-     * @param {Pointer<Byte>} PatchFileName The name of the delta containing the header.
-     * @param {Pointer<Byte>} PatchHeaderFileName The name of the header file that is to be created.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
+     * 
+     * @param {Pointer<Byte>} PatchFileName 
+     * @param {Pointer<Byte>} PatchHeaderFileName 
+     * @returns {Integer} 
      */
     static ExtractPatchHeaderToFileA(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
@@ -33052,11 +28909,10 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Extracts the header information from a delta.
-     * @param {Pointer<Char>} PatchFileName The name of the delta containing the header.
-     * @param {Pointer<Char>} PatchHeaderFileName The name of the header file that is to be created.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
+     * 
+     * @param {Pointer<Char>} PatchFileName 
+     * @param {Pointer<Char>} PatchHeaderFileName 
+     * @returns {Integer} 
      */
     static ExtractPatchHeaderToFileW(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
@@ -33403,13 +29259,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Uses the delta and source (provided as buffers) to create a new copy of the target data. The output data is returned in an MSDelta-allocated buffer.
-     * @param {Integer} ApplyFlags [in] Either [DELTA_FLAG_NONE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) or [DELTA_APPLY_FLAG_ALLOW_PA19](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags).
-     * @param {Pointer} Source [in] A [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure containing a pointer to the buffer containing the source data.
-     * @param {Pointer} Delta [in] A [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure containing a pointer to the buffer containing the delta data.
-     * @param {Pointer<DELTA_OUTPUT>} lpTarget [out] Pointer to the [DELTA_OUTPUT](/previous-versions/bb417345(v=msdn.10)#delta-output-structure) structure where the target is to be written.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltab
+     * 
+     * @param {Integer} ApplyFlags 
+     * @param {Pointer} Source 
+     * @param {Pointer} Delta 
+     * @param {Pointer<DELTA_OUTPUT>} lpTarget 
+     * @returns {Integer} 
      */
     static ApplyDeltaB(ApplyFlags, Source, Delta, lpTarget) {
         result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "int")
@@ -33448,13 +29303,12 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Uses the delta and source (provided as buffers) to create a new copy of the target data. The output data is returned in an MSDelta-allocated buffer. (ApplyDeltaW)
-     * @param {Integer} ApplyFlags [in] Either [DELTA_FLAG_NONE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) or [DELTA_APPLY_FLAG_ALLOW_PA19](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags).
+     * 
+     * @param {Integer} ApplyFlags 
      * @param {Pointer<Char>} lpSourceName 
      * @param {Pointer<Char>} lpDeltaName 
      * @param {Pointer<Char>} lpTargetName 
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltaw
+     * @returns {Integer} 
      */
     static ApplyDeltaW(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
         lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
@@ -33466,23 +29320,19 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Creates a delta between the source and target (provided as buffers) and returns the output delta as an MSDelta-allocated buffer.
-     * @param {Integer} FileTypeSet [in] The [DELTA_FILE_TYPE](/previous-versions/bb417345(v=msdn.10)#file-type-sets) value that indicates the file type set to be used for the create process.
-     * @param {Integer} SetFlags [in] One or more [DELTA_FLAG_TYPE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) values that specify the flags to be used during the create process, in addition to the default flags.
-     * @param {Integer} ResetFlags [in] One or more [DELTA_FLAG_TYPE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) values that specify the default flags to be reset during the create process.
-     * @param {Pointer} Source [in] A [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure containing a pointer to the buffer containing the source data.
-     * @param {Pointer} Target [in] A [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure containing a pointer to the buffer containing the target data.
-     * @param {Pointer} SourceOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *Editable* set to **FALSE**, *lpStart* set to **NULL** and *uSize* set to 0.
-     * @param {Pointer} TargetOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *Editable* set to **FALSE**, *lpStart* set to **NULL** and *uSize* set to 0.
-     * @param {Pointer} GlobalOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *lpStart* set to **NULL** and *uSize* set to 0.
-     * @param {Pointer<FILETIME>} lpTargetFileTime [in] The time stamp set on the target file after delta apply. If **NULL**, the target timestamp will be the current time during the create process.
-     * @param {Integer} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
      * 
-     * - 0 = No signature
-     * - 32 = 32-bit CRC defined in msdelta.dll
-     * @param {Pointer<DELTA_OUTPUT>} lpDelta [out] Pointer to the [DELTA_OUTPUT](/previous-versions/bb417345(v=msdn.10)#delta-output-structure) structure where the delta is to be written.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltab
+     * @param {Integer} FileTypeSet 
+     * @param {Integer} SetFlags 
+     * @param {Integer} ResetFlags 
+     * @param {Pointer} Source 
+     * @param {Pointer} Target 
+     * @param {Pointer} SourceOptions 
+     * @param {Pointer} TargetOptions 
+     * @param {Pointer} GlobalOptions 
+     * @param {Pointer<FILETIME>} lpTargetFileTime 
+     * @param {Integer} HashAlgId 
+     * @param {Pointer<DELTA_OUTPUT>} lpDelta 
+     * @returns {Integer} 
      */
     static CreateDeltaB(FileTypeSet, SetFlags, ResetFlags, Source, Target, SourceOptions, TargetOptions, GlobalOptions, lpTargetFileTime, HashAlgId, lpDelta) {
         result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "int")
@@ -33516,23 +29366,19 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Creates a delta between the source and target (provided as buffers) and returns the output delta as an MSDelta-allocated buffer. (CreateDeltaW)
-     * @param {Integer} FileTypeSet [in] The [DELTA_FILE_TYPE](/previous-versions/bb417345(v=msdn.10)#file-type-sets) value that indicates the file type set to be used for the create process.
-     * @param {Integer} SetFlags [in] One or more [DELTA_FLAG_TYPE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) values that specify the flags to be used during the create process, in addition to the default flags.
-     * @param {Integer} ResetFlags [in] One or more [DELTA_FLAG_TYPE](/previous-versions/bb417345(v=msdn.10)#delta_flag_type-flags) values that specify the default flags to be reset during the create process.
+     * 
+     * @param {Integer} FileTypeSet 
+     * @param {Integer} SetFlags 
+     * @param {Integer} ResetFlags 
      * @param {Pointer<Char>} lpSourceName 
      * @param {Pointer<Char>} lpTargetName 
      * @param {Pointer<Char>} lpSourceOptionsName 
      * @param {Pointer<Char>} lpTargetOptionsName 
-     * @param {Pointer} GlobalOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *lpStart* set to **NULL** and *uSize* set to 0.
-     * @param {Pointer<FILETIME>} lpTargetFileTime [in] The time stamp set on the target file after delta apply. If **NULL**, the target timestamp will be the current time during the create process.
-     * @param {Integer} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
-     * 
-     * - 0 = No signature
-     * - 32 = 32-bit CRC defined in msdelta.dll
+     * @param {Pointer} GlobalOptions 
+     * @param {Pointer<FILETIME>} lpTargetFileTime 
+     * @param {Integer} HashAlgId 
      * @param {Pointer<Char>} lpDeltaName 
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltaw
+     * @returns {Integer} 
      */
     static CreateDeltaW(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
         lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
@@ -33603,10 +29449,9 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * Frees the specified memory block.
-     * @param {Pointer<Void>} lpMemory [in] Memory block to be freed.
-     * @returns {Integer} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-deltafree
+     * 
+     * @param {Pointer<Void>} lpMemory 
+     * @returns {Integer} 
      */
     static DeltaFree(lpMemory) {
         result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "int")
@@ -33614,29 +29459,16 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The CreateActCtx function creates an activation context. (ANSI)
-     * @remarks
-     * Set any undefined bits in <b>dwFlags</b> of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> to 0. If any undefined bits are not set to 0, the call to 
-     * <b>CreateActCtx</b> that creates the activation context fails and returns an invalid parameter error code. The handle returned from 
-     * <b>CreateActCtx</b> is passed in a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-activateactctx">ActivateActCtx</a> to activate the context for the current thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines CreateActCtx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateActCtx function creates an activation context.
      * @param {Pointer<ACTCTXA>} pActCtx Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information about the activation context to be created.
      * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createactctxa
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createactctxa
      * @since windows5.1.2600
      */
     static CreateActCtxA(pActCtx) {
@@ -33650,29 +29482,16 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The CreateActCtx function creates an activation context. (Unicode)
-     * @remarks
-     * Set any undefined bits in <b>dwFlags</b> of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> to 0. If any undefined bits are not set to 0, the call to 
-     * <b>CreateActCtx</b> that creates the activation context fails and returns an invalid parameter error code. The handle returned from 
-     * <b>CreateActCtx</b> is passed in a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-activateactctx">ActivateActCtx</a> to activate the context for the current thread.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines CreateActCtx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CreateActCtx function creates an activation context.
      * @param {Pointer<ACTCTXW>} pActCtx Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information about the activation context to be created.
      * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createactctxw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createactctxw
      * @since windows5.1.2600
      */
     static CreateActCtxW(pActCtx) {
@@ -33688,11 +29507,14 @@ class ApplicationInstallationAndServicing {
     /**
      * The AddRefActCtx function increments the reference count of the specified activation context.
      * @remarks
+     * 
      * This function is provided so that multiple clients can access a single activation context.
+     * 
+     * 
      * @param {Pointer<Void>} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be incremented.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addrefactctx
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-addrefactctx
      * @since windows5.1.2600
      */
     static AddRefActCtx(hActCtx) {
@@ -33701,14 +29523,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The ReleaseActCtx function decrements the reference count of the specified activation context.
-     * @remarks
-     * When the reference count of an activation context becomes zero, the activation context structure is deallocated. Activation contexts have not been implemented as kernel objects, therefore, kernel handler functions cannot be used for activation contexts.
-     * 
-     * If the value of the <i>hActCtx</i> parameter is a null handle, this function does nothing and no error condition occurs.
      * @param {Pointer<Void>} hActCtx Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be decremented.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-releaseactctx
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-releaseactctx
      * @since windows5.1.2600
      */
     static ReleaseActCtx(hActCtx) {
@@ -33717,16 +29535,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The ZombifyActCtx function deactivates the specified activation context, but does not deallocate it.
-     * @remarks
-     * This function is intended for use in debugging threads using activation contexts. If the activation context deactivated by this function is subsequently accessed, the access  fails and an assertion failure is shown in the debugger.
      * @param {Pointer<Void>} hActCtx Handle to the activation context that is to be deactivated.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. If a <b>null</b> handle is passed in the <i>hActCtx</i> parameter, NULL_INVALID_PARAMETER will be returned. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-zombifyactctx
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-zombifyactctx
      * @since windows5.1.2600
      */
     static ZombifyActCtx(hActCtx) {
@@ -33741,25 +29557,16 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
-     * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {Pointer<Void>} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context that is to be made active.
      * @param {Pointer<UIntPtr>} lpCookie Pointer to a <b>ULONG_PTR</b> that functions as a cookie, uniquely identifying a specific, activated activation context.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-activateactctx
      * @since windows5.1.2600
      */
     static ActivateActCtx(hActCtx, lpCookie) {
@@ -33774,8 +29581,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The DeactivateActCtx function deactivates the activation context corresponding to the specified cookie.
-     * @remarks
-     * The deactivation of activation contexts must occur in the reverse order of activation. It can be understood as popping an activation context from a stack.
      * @param {Integer} dwFlags Flags that indicate how the deactivation is to occur. 
      * 
      * 
@@ -33830,10 +29635,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deactivateactctx
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-deactivateactctx
      * @since windows5.1.2600
      */
     static DeactivateActCtx(dwFlags, ulCookie) {
@@ -33848,17 +29653,15 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The GetCurrentActCtx function returns the handle to the active activation context of the calling thread.
-     * @remarks
-     * The calling thread is responsible for releasing the handle of the returned activation context. This function can return a null handle if no activation contexts have been activated by this thread. This is not an error.
      * @param {Pointer<Void>} lphActCtx Pointer to the returned 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the active activation context.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentactctx
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getcurrentactctx
      * @since windows5.1.2600
      */
     static GetCurrentActCtx(lphActCtx) {
@@ -33872,16 +29675,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The FindActCtxSectionString function retrieves information on a specific string in the current activation context and returns a ACTCTX_SECTION_KEYED_DATA structure. (ANSI)
-     * @remarks
-     * This function should only be called by the Side-by-side API functions or COM methods. Applications should not directly call this function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines FindActCtxSectionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The FindActCtxSectionString function retrieves information on a specific string in the current activation context and returns a ACTCTX_SECTION_KEYED_DATA structure.
      * @param {Integer} dwFlags Flags that determine how this function is to operate. Only the following flag is currently defined. 
      * 
      * 
@@ -33923,10 +29717,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionstringa
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-findactctxsectionstringa
      * @since windows5.1.2600
      */
     static FindActCtxSectionStringA(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
@@ -33944,16 +29738,7 @@ class ApplicationInstallationAndServicing {
     }
 
     /**
-     * The FindActCtxSectionString function retrieves information on a specific string in the current activation context and returns a ACTCTX_SECTION_KEYED_DATA structure. (Unicode)
-     * @remarks
-     * This function should only be called by the Side-by-side API functions or COM methods. Applications should not directly call this function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines FindActCtxSectionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The FindActCtxSectionString function retrieves information on a specific string in the current activation context and returns a ACTCTX_SECTION_KEYED_DATA structure.
      * @param {Integer} dwFlags Flags that determine how this function is to operate. Only the following flag is currently defined. 
      * 
      * 
@@ -33995,10 +29780,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionstringw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-findactctxsectionstringw
      * @since windows5.1.2600
      */
     static FindActCtxSectionStringW(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
@@ -34017,8 +29802,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The FindActCtxSectionGuid function retrieves information on a specific GUID in the current activation context and returns a ACTCTX_SECTION_KEYED_DATA structure.
-     * @remarks
-     * This function should only be called by the Side-by-side API functions or COM methods. Applications should not directly call this function.
      * @param {Integer} dwFlags Flags that determine how this function is to operate. Only the following flag is currently defined. 
      * 
      * 
@@ -34064,10 +29847,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionguid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-findactctxsectionguid
      * @since windows5.1.2600
      */
     static FindActCtxSectionGuid(dwFlags, ulSectionId, lpGuidToFind, ReturnedData) {
@@ -34084,36 +29867,6 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The QueryActCtxW function queries the activation context.
-     * @remarks
-     * The parameter <i>cbBuffer</i> specifies the size in bytes of the buffer pointed to by <i>pvBuffer</i>. If <i>pvBuffer</i> is <b>NULL</b>, then <i>cbBuffer</i> must be 0. The parameter <i>pcbWrittenOrRequired</i> can only be <b>NULL</b> if <i>pvBuffer</i> is <b>NULL</b>. If <i>pcbWrittenOrRequired</i> is non-<b>NULL</b> on return, it is filled with the number of bytes required to store the returned information. When the information data returned is larger than the provided buffer, 
-     * <b>QueryActCtxW</b> returns ERROR_INSUFFICIENT_BUFFER and no data is written to the buffer pointed to by <i>pvBuffer</i>.
-     * 
-     * The following example shows the method of calling first with a small buffer and then recalling if the buffer is too small.
-     * 
-     * 
-     * ``` syntax
-     * SIZE_T cbRequired;
-     * PVOID pvData = NULL;
-     * SIZE_T cbAvailable = 0;
-     * 
-     * if (!QueryActCtxW(..., pvData, cbAvailable, &amp;cbRequired) &amp;&amp; (GetLastError()== ERROR_INSUFFICIENT_BUFFER))
-     * {
-     *     // Allocate enough space to store the returned buffer, fail if too small
-     *     if (NULL == (pvData = HeapAlloc(GetProcessHeap(), 0, cbRequired)))
-     *     {
-     *         SetLastError(ERROR_NOT_ENOUGH_MEMORY);
-     *         return FALSE;
-     *     }
-     *     cbAvailable = cbRequired;
-     *     // Try again, this should succeed.
-     *     if (QueryActCtxW(..., pvData, cbAvailable, &amp;cbRequired))
-     *     {
-     *         // Use the returned data in pvData
-     *     }
-     *     HeapFree(GetProcessHeap(), 0, pvData);
-     *     pvData = NULL;
-     * }
-     * ```
      * @param {Integer} dwFlags This parameter should be set to one of the following flag bits. 
      * 
      * 
@@ -34300,10 +30053,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-queryactctxw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-queryactctxw
      * @since windows5.1.2600
      */
     static QueryActCtxW(dwFlags, hActCtx, pvSubInstance, ulInfoClass, pvBuffer, cbBuffer, pcbWrittenOrRequired) {
@@ -34331,10 +30084,10 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-queryactctxsettingsw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-queryactctxsettingsw
      * @since windows6.0.6000
      */
     static QueryActCtxSettingsW(dwFlags, hActCtx, settingsNameSpace, settingName, pvBuffer, dwBuffer, pdwWrittenOrRequired) {

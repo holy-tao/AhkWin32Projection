@@ -5,7 +5,7 @@
 
 /**
  * Contains a hashed URL.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_hashed_url
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_hashed_url
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

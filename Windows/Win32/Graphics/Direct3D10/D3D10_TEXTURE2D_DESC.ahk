@@ -3,12 +3,15 @@
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 
 /**
- * Describes a 2D texture. (D3D10_TEXTURE2D_DESC)
+ * Describes a 2D texture.
  * @remarks
- * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture2d">ID3D10Device::CreateTexture2D</a>. A helpful derived structure CD3D10_TEXTURE2D_DESC is declared in D3D10.h, to help create a texture description.
+ * 
+  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture2d">ID3D10Device::CreateTexture2D</a>. A helpful derived structure CD3D10_TEXTURE2D_DESC is declared in D3D10.h, to help create a texture description.
   * 
   * The device places some size restrictions (must be multiples of a minimum size) for a subsampled, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">block compressed</a>, or bit-format resource.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture2d_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_texture2d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

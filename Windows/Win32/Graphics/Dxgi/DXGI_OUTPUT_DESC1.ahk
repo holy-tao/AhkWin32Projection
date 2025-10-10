@@ -5,8 +5,11 @@
 /**
  * Describes an output or physical connection between the adapter (video card) and a device, including additional information about color capabilities and connection type.
  * @remarks
- * The <b>DXGI_OUTPUT_DESC1</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1">IDXGIOutput6::GetDesc1</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ns-dxgi1_6-dxgi_output_desc1
+ * 
+  * The <b>DXGI_OUTPUT_DESC1</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1">IDXGIOutput6::GetDesc1</a> method.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/ns-dxgi1_6-dxgi_output_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains fields that specify the information in a Telemetry Host-Initiated Log page.
- * @remarks
- * All NVMe Telemetry Data Blocks are 512 bytes in size.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_telemetry_host_initiated_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     static packingSize => 4
 
     /**
-     * Indicates the log identifier.
      * @type {Integer}
      */
     LogIdentifier {
@@ -25,7 +20,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 1-4 are reserved.
      * @type {Array<Byte>}
      */
     Reserved0{
@@ -37,7 +31,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Indicates an IEEE Organizationally Unique Identifier (OUI) that is the Organization ID.
      * @type {Array<Byte>}
      */
     OrganizationID{
@@ -49,7 +42,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 8-9 indicate the last block of Area 1.
      * @type {Integer}
      */
     Area1LastBlock {
@@ -58,7 +50,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 10-11 indicate the last block of Area 2.
      * @type {Integer}
      */
     Area2LastBlock {
@@ -67,7 +58,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 12-13 indicate the last block of Area 3.
      * @type {Integer}
      */
     Area3LastBlock {
@@ -76,7 +66,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 14-381 are reserved.
      * @type {Array<Byte>}
      */
     Reserved1{
@@ -115,7 +104,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Byte 382 indicates whether controller initiated data is available.
      * @type {Integer}
      */
     ControllerInitiatedDataAvailable {
@@ -124,7 +112,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Byte 383 indicates the generation number of controller initiated data when it is available.
      * @type {Integer}
      */
     ControllerInitiatedDataGenerationNumber {
@@ -133,7 +120,6 @@ class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct
     }
 
     /**
-     * Bytes 384-511 indicate the reason identifier.
      * @type {Array<Byte>}
      */
     ReasonIdentifier{

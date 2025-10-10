@@ -2,7 +2,7 @@
 
 /**
  * Specifies the kind of timed text track.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind
+ * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

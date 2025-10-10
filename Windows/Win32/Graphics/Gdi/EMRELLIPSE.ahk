@@ -5,7 +5,7 @@
 
 /**
  * The EMRELLIPSE and EMRRECTANGLE structures contain members for the Ellipse and Rectangle enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrellipse
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrellipse
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Used as input to the FSCTL_FILE_LEVEL_TRIM control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_level_trim
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

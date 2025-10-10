@@ -3,7 +3,7 @@
 
 /**
  * Stores information for a Proxy Address Resolution Protocol (PARP) entry.
- * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_proxyarp
+ * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_proxyarp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

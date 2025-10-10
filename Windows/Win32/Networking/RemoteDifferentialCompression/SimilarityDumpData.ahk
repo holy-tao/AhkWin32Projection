@@ -4,7 +4,7 @@
 
 /**
  * Contains the similarity information that was returned for a file by the ISimilarityTableDumpState::GetNextData method.
- * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata
+ * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-similaritydumpdata
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a key container parameter.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_prov_param
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_key_prov_param
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

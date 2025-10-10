@@ -2,7 +2,7 @@
 
 /**
  * Values that identify the intended use of constant-buffer data.
- * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_cbuffer_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_cbuffer_type
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

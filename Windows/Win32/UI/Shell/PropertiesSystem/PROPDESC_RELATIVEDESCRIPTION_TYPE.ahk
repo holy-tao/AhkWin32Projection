@@ -3,8 +3,10 @@
 /**
  * Describes the relative description type for a property description, as determined by the relativeDescriptionType attribute of the displayInfo element.
  * @remarks
- * These values are defined in propsys.h and propsys.idl.
- * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_relativedescription_type
+ * 
+  * These values are defined in propsys.h and propsys.idl.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_relativedescription_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

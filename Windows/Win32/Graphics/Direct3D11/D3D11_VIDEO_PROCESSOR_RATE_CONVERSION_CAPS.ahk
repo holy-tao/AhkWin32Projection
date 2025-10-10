@@ -3,7 +3,7 @@
 
 /**
  * Defines a group of video processor capabilities that are associated with frame-rate conversion, including deinterlacing and inverse telecine.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_rate_conversion_caps
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_rate_conversion_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

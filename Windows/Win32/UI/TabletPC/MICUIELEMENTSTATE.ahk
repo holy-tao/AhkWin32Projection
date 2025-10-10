@@ -3,8 +3,11 @@
 /**
  * Specifies the button states of a math input control (MIC).
  * @remarks
- * This enumeration is used in custom painting.
- * @see https://learn.microsoft.com/windows/win32/api/micaut/ne-micaut-micuielementstate
+ * 
+  * This enumeration is used in custom painting.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//micaut/ne-micaut-micuielementstate
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

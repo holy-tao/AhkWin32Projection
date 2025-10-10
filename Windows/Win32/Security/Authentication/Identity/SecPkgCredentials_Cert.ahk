@@ -3,7 +3,7 @@
 
 /**
  * Specifies the certificate credentials. The QueryCredentialsAttributes function uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcredentials_cert
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcredentials_cert
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

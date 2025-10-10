@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of profiles in preferred order.
- * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_profile_info_list
+ * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_profile_info_list
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

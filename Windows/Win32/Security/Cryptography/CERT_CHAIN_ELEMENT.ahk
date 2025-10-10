@@ -4,7 +4,7 @@
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_element
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_chain_element
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

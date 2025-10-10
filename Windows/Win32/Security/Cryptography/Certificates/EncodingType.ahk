@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of encoding applied to a byte array for display purposes.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-encodingtype
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-encodingtype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -11,16 +11,10 @@ class EncodingType{
     /**
      * The string is base64 encoded with beginning and ending certificate headers. Base64 is an encoding scheme  used to transmit binary data. The data to be encoded is examined three bytes at a time. Every six bits in the 24-bit buffer is used as an index into a text string. The strings used vary depending on the type of data being encoded. The following string is commonly used for Multipurpose Internet Mail Extensions (MIME) email base64 encoding.
  * 
- * 
- * ``` syntax
- * ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
- * ```
- * 
+ * <pre class="syntax" xml:space="preserve"><c>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</c></pre>
  *  The following example shows a certificate that is base64 encoded and includes the beginning and ending headers.
  * 
- * 
- * ``` syntax
- * -----BEGIN CERTIFICATE-----
+ * <pre class="syntax" xml:space="preserve"><code>-----BEGIN CERTIFICATE-----
  * MIIBqDCCARECAQAwaTELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRMwEQYD
  * VQQHEwpMYXNDb2xpbmFzMRIwEAYDVQQKEwlNaWNyb3NvZnQxDjAMBgNVBAsTBUl0
  * ZWFtMREwDwYDVQQDFAhOVFZPT0RPTzCBnjANBgkqhkiG9w0BAQEFAAOBjAAwgYgC
@@ -29,8 +23,7 @@ class EncodingType{
  * hvcNAQEEBQADgYEAVcyI4jtnnV6kMiByiq4Xg99yL0U7bIpEwAf3MIZHS7wuNqfY
  * acfhbRj6VFHT8ObprKGPmqXJvwrBmPrEuCs4Ik6PidAAeEfoaa3naIbM73tTvKN+
  * WD30lAfGBr8SZixLep4pMIN/wO0eu6f30cBuoPtDnDulNT8AuQHjkJIc8Qc=
- * -----END CERTIFICATE----- 
- * ```
+ * -----END CERTIFICATE----- </code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_BASE64HEADER => 0
@@ -50,9 +43,7 @@ class EncodingType{
     /**
      * The string is base64 encoded with beginning and ending certificate request headers. This is shown in the following example.
  * 
- * 
- * ``` syntax
- * -----BEGIN NEW CERTIFICATE REQUEST-----
+ * <pre class="syntax" xml:space="preserve"><code>-----BEGIN NEW CERTIFICATE REQUEST-----
  * MIIDBjCCAm8CAQAwcTERMA8GA1UEAxMIcXV1eC5jb20xDzANBgNVBAsTBkJyYWlu
  * czEWMBQGA1UEChMNRGV2ZWxvcE1lbnRvcjERMA8GA1UEBxMIVG9ycmFuY2UxEzAR
  * BgNVBAgTCkNhbGlmb3JuaWExCzAJBgNVBAYTAlVTMIGfMA0GCSqGSIb3DQEBAQUA
@@ -70,8 +61,7 @@ class EncodingType{
  * NA7uhQOvgntnqmSmdHP9nsM3DnxwaHb3EVxMKbAuLsSRDAE1KGqeamvQ3uFjuuL0
  * 5q4nKhX25LyGFDSc6h1OHcv+0ugZ/9klsiViSeEGpMwllUf057o7q1Vls4HN22vM
  * wkcejcttDjo3Kw==
- * -----END NEW CERTIFICATE REQUEST-----
- * ```
+ * -----END NEW CERTIFICATE REQUEST-----</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_BASE64REQUESTHEADER => 3
@@ -79,12 +69,9 @@ class EncodingType{
     /**
      * The string is hexadecimal encoded. Each 4-bit nibble of the string is represented as a number between zero and nine or a letter between A and F (or a and f). This is shown in the following example.
  * 
- * 
- * ``` syntax
- * 3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63
+ * <pre class="syntax" xml:space="preserve"><code>3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63
  * 70 70 28 32 31 33 31 29  3a 20 6c 64 61 70 65 72
- * ...
- * ```
+ * ...</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HEX => 4
@@ -92,12 +79,9 @@ class EncodingType{
     /**
      * The string is hexadecimal encoded, and the corresponding ASCII characters are displayed. This is shown in the following example.
  * 
- * 
- * ``` syntax
- * 3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63   : certlib\ldap.c
+ * <pre class="syntax" xml:space="preserve"><code>3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63   : certlib\ldap.c
  * 70 70 28 32 31 33 31 29  3a 20 6c 64 61 70 65 72   pp(2131): ldaper
- * ...
- * ```
+ * ...</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HEXASCII => 5
@@ -141,9 +125,7 @@ class EncodingType{
     /**
      * The string is base64 encoded with beginning and ending <a href="https://docs.microsoft.com/windows/desktop/SecGloss/x-gly">X.509</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL) headers. This is shown in the following example.
  * 
- * 
- * ``` syntax
- * -----BEGIN X509 CRL-----
+ * <pre class="syntax" xml:space="preserve"><code>-----BEGIN X509 CRL-----
  * MIIDBjCCAm8CAQAwcTERMA8GA1UEAxMIcXV1eC5jb20xDzANBgNVBAsTBkJyYWlu
  * czEWMBQGA1UEChMNRGV2ZWxvcE1lbnRvcjERMA8GA1UEBxMIVG9ycmFuY2UxEzAR
  * BgNVBAgTCkNhbGlmb3JuaWExCzAJBgNVBAYTAlVTMIGfMA0GCSqGSIb3DQEBAQUA
@@ -161,8 +143,7 @@ class EncodingType{
  * NA7uhQOvgntnqmSmdHP9nsM3DnxwaHb3EVxMKbAuLsSRDAE1KGqeamvQ3uFjuuL0
  * 5q4nKhX25LyGFDSc6h1OHcv+0ugZ/9klsiViSeEGpMwllUf057o7q1Vls4HN22vM
  * wkcejcttDjo3Kw==
- * -----END X509 CRL-----
- * ```
+ * -----END X509 CRL-----</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_BASE64X509CRLHEADER => 9
@@ -170,12 +151,9 @@ class EncodingType{
     /**
      * The string is hexadecimal encoded and displayed as a hexadecimal address. This is shown in the following example.
  * 
- * 
- * ``` syntax
- * 0000  3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63
+ * <pre class="syntax" xml:space="preserve"><code>0000  3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63
  * 0010  70 70 28 32 31 33 31 29  3a 20 6c 64 61 70 65 72
- * ...
- * ```
+ * ...</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HEXADDR => 10
@@ -183,12 +161,9 @@ class EncodingType{
     /**
      * The string is hexadecimal encoded and displayed as a hexadecimal address along with the corresponding ASCII characters. This is shown in the following example.
  * 
- * 
- * ``` syntax
- * 0000  3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63   : certlib\ldap.c
+ * <pre class="syntax" xml:space="preserve"><code>0000  3a 20 63 65 72 74 6c 69  62 5c 6c 64 61 70 2e 63   : certlib\ldap.c
  * 0010  70 70 28 32 31 33 31 29  3a 20 6c 64 61 70 65 72   pp(2131): ldaper
- * ...
- * ```
+ * ...</code></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HEXASCIIADDR => 11
@@ -196,10 +171,7 @@ class EncodingType{
     /**
      * The string is hexadecimal encoded and displayed without punctuation. <b>XCN_CRYPT_STRING_HEXRAW</b> is available only with Windows Vista.
  * 
- * 
- * ``` syntax
- * 3a20636572746c69625c6c6461702e6370702832313331293a206c6461706572...
- * ```
+ * <pre class="syntax" xml:space="preserve"><c>3a20636572746c69625c6c6461702e6370702832313331293a206c6461706572...</c></pre>
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HEXRAW => 12

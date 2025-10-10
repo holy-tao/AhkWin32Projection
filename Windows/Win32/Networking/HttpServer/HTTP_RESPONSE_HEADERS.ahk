@@ -4,7 +4,7 @@
 
 /**
  * Contains the headers sent with an HTTP response.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_headers
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_response_headers
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Used by the DCOM protocol handler to specify how impersonation is done on the server.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_destinationoptions_impersonationtype
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_destinationoptions_impersonationtype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

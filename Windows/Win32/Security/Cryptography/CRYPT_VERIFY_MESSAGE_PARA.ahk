@@ -4,7 +4,8 @@
 /**
  * The CRYPT_VERIFY_MESSAGE_PARA structure contains information needed to verify signed messages.
  * @remarks
- * This structure is passed to the following functions:
+ * 
+  * This structure is passed to the following functions:
   * 
   * <ul>
   * <li>
@@ -20,7 +21,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptverifymessagesignature">CryptVerifyMessageSignature</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_verify_message_para
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_verify_message_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

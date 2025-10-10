@@ -5,7 +5,7 @@
 
 /**
  * The EMRSTRETCHDIBITS structure contains members for the StretchDIBits enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrstretchdibits
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrstretchdibits
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

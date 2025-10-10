@@ -3,7 +3,7 @@
 
 /**
  * Specifies the callback function and state for controlling the HTTP auto redirection behavior.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_redirect_callback_context
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_redirect_callback_context
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

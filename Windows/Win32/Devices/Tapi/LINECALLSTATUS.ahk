@@ -5,14 +5,17 @@
 /**
  * The LINECALLSTATUS structure describes the current status of a call.
  * @remarks
- * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
   * 
   * The application is sent a 
   * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-callstate">LINE_CALLSTATE</a> message whenever the call state of a call changes. This message only provides the new call state of the call. Additional status about a call is available with 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetcallstatus">lineGetCallStatus</a>.
   * 
   * The members <b>dwCallFeatures2</b> and <b>tStateEntryTime</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallstatus
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecallstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

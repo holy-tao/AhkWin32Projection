@@ -3,7 +3,7 @@
 
 /**
  * The DD_MAPMEMORYDATA structure contains the information necessary to map or unmap a frame buffer into user-mode memory.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_mapmemorydata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_mapmemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

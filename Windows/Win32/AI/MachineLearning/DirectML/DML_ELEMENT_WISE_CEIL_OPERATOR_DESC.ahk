@@ -3,7 +3,7 @@
 
 /**
  * Computes the ceiling for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*. The ceiling of x is the smallest integer that is greater than or equal to x.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_ceil_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_ceil_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

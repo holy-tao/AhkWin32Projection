@@ -3,7 +3,7 @@
 
 /**
  * Describes the tape in the tape drive. It is used by the SetTapeParametersfunction.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_set_media_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_set_media_parameters
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

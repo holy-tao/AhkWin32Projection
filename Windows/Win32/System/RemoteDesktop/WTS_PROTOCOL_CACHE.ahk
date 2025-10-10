@@ -3,7 +3,7 @@
 
 /**
  * Contains the number of cache reads and cache hits.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_protocol_cache
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_protocol_cache
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

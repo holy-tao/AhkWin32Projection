@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Identifies how to view a buffer resource. (D3D12_BUFFER_SRV_FLAGS)
+ * Identifies how to view a buffer resource.
  * @remarks
- * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_srv">D3D12_BUFFER_SRV</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_buffer_srv_flags
+ * 
+  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_srv">D3D12_BUFFER_SRV</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_buffer_srv_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

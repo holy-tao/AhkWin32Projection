@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the edges of nontext primitives are rendered.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_antialias_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

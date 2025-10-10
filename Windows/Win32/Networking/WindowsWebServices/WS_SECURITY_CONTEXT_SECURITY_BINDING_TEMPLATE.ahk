@@ -5,8 +5,8 @@
 #Include .\WS_SECURITY_PROPERTIES.ahk
 
 /**
- * The security binding template for specifying the use of an application supplied security context security binding. (WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE)
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_security_binding_template
+ * The security binding template for specifying the use of an application supplied security context security binding.
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_context_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

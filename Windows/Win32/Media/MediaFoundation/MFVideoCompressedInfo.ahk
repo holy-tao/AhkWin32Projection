@@ -4,8 +4,11 @@
 /**
  * Contains information about a video compression format. This structure is used in the MFVIDEOFORMAT structure.
  * @remarks
- * For uncompressed video formats, set the structure members to zero.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideocompressedinfo
+ * 
+  * For uncompressed video formats, set the structure members to zero.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideocompressedinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

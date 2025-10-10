@@ -3,7 +3,7 @@
 
 /**
  * The DISPLAYCONFIG_2DREGION structure represents a point or an offset in a two-dimensional space.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_2dregion
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_2dregion
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

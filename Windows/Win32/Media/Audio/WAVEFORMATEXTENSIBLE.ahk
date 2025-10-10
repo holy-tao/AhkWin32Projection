@@ -5,7 +5,10 @@
 /**
  * The WAVEFORMATEXTENSIBLE structure defines the format of waveform-audio data for formats having more than two channels or higher sample resolutions than allowed by WAVEFORMATEX.
  * @remarks
- * <b>WAVEFORMATEXTENSIBLE</b> can describe any format that can be described by <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a>, but provides additional support for more than two channels, for greater precision in the number of bits per sample, and for new compression schemes.
+ * 
+  * 
+  * 
+  * <b>WAVEFORMATEXTENSIBLE</b> can describe any format that can be described by <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a>, but provides additional support for more than two channels, for greater precision in the number of bits per sample, and for new compression schemes.
   * 
   * <b>WAVEFORMATEXTENSIBLE</b> can safely be cast to <b>WAVEFORMATEX</b>, because it simply configures the extra bytes specified by <b>WAVEFORMATEX.cbSize</b>.
   * 
@@ -151,7 +154,13 @@
   * <td>KSDATAFORMAT_SUBTYPE_PCM</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatextensible
+  *  
+  * 
+  * 
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-waveformatextensible
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

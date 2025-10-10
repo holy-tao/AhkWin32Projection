@@ -4,7 +4,7 @@
 
 /**
  * The LINEAGENTINFO structure contains information about an ACD agent. The lineGetAgentInfo function returns the LINEAGENTINFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentinfo
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

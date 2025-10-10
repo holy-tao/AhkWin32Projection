@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies an algorithm identifier.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/alg-id
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

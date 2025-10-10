@@ -2,7 +2,7 @@
 
 /**
  * The DMO_OUTPUT_DATA_BUFFER_FLAGS enumeration defines flags that describe an output buffer.
- * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_output_data_buffer_flags
+ * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_output_data_buffer_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

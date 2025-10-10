@@ -4,13 +4,16 @@
 /**
  * Represents a version for an item or a change unit.
  * @remarks
- * A change that is made directly to a replica, such as a change that is made by a local application, will not have a version for the change in the synchronization metadata. A version that is created for such a change must contain the following elements:
+ * 
+  * A change that is made directly to a replica, such as a change that is made by a local application, will not have a version for the change in the synchronization metadata. A version that is created for such a change must contain the following elements:
   * 
   * <ul>
   * <li>The replica key of the local replica. This will typically be zero.</li>
   * <li>The current value of the tick count of the local replica.</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_version
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsync/ns-winsync-sync_version
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

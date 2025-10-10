@@ -5,7 +5,7 @@
 
 /**
  * The VMRPRESENTATIONINFO structure is used in the IVMRImagePresenter::PresentImage method (VMR-7 only).
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrpresentationinfo
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrpresentationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -88,7 +88,7 @@ class VMRPRESENTATIONINFO extends Win32Struct
     }
 
     /**
-     * Bitwise combination of flags, as defined for the [AM_SAMPLE2_PROPERTIES](/windows/win32/api/strmif/ns-strmif-am_sample2_properties) structure.
+     * Bitwise combination of flags, as defined for the [AM_SAMPLE2_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-am_sample2_properties) structure.
      * @type {Integer}
      */
     dwTypeSpecificFlags {

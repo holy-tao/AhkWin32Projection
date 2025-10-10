@@ -6,7 +6,7 @@
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_RESET_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password reset validation.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_password_reset_input_arg
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_validate_password_reset_input_arg
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

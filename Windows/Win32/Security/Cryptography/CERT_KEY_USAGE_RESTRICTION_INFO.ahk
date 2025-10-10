@@ -4,7 +4,7 @@
 
 /**
  * The CERT_KEY_USAGE_RESTRICTION_INFO structure contains restrictions imposed on the usage of a certificate's public key. This includes purposes for use of the key and policies under which the key can be used.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_usage_restriction_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_key_usage_restriction_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

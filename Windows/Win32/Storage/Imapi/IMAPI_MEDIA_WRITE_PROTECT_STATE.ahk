@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate the media write protect status. One or more write protect values can be set on a given drive.
- * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_media_write_protect_state
+ * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_media_write_protect_state
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

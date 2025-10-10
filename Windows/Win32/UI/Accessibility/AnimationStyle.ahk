@@ -2,7 +2,7 @@
 
 /**
  * Contains values for the AnimationStyle text attribute.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-animationstyle
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-animationstyle
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

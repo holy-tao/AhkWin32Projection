@@ -2,14 +2,14 @@
 
 /**
  * Each listener property is of type WS_LISTENER_PROPERTY, is identified by an ID, and has an associated value. If a property is not specified when the listener is created, then its default value is used.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_listener_property_id
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_listener_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
 class WS_LISTENER_PROPERTY_ID{
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.  
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>.  
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is a <b>ULONG</b>.
@@ -21,7 +21,7 @@ class WS_LISTENER_PROPERTY_ID{
     static WS_LISTENER_PROPERTY_LISTEN_BACKLOG => 0
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> or <b>WS_UDP_CHANNEL_BINDING</b>.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> or <b>WS_UDP_CHANNEL_BINDING</b>.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is an <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_ip_version">WS_IP_VERSION</a> value.
@@ -91,7 +91,7 @@ class WS_LISTENER_PROPERTY_ID{
     static WS_LISTENER_PROPERTY_CHANNEL_BINDING => 5
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> and   <b>WS_NAMEDPIPE_CHANNEL_BINDING</b>.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a> and   <b>WS_NAMEDPIPE_CHANNEL_BINDING</b>.
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is a <b>ULONG</b>.
  * 
@@ -111,14 +111,14 @@ class WS_LISTENER_PROPERTY_ID{
     static WS_LISTENER_PROPERTY_CONNECT_TIMEOUT => 6
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a> to indicate that the listener is listening on a multicast address.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a>to indicate that the listener is listening on a multicast address.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is a <b>BOOL</b>.
  * 
  * Note that setting this property is not sufficient when listening on
  *                     a multicast address.  The set of interfaces must also be specified
- *                     using the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_MULTICAST_INTERFACES</a> property.
+ *                     using the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_MULTICAST_INTERFACES</a>property.
  *                 
  * 
  * The channel does not validate that the address is in fact a
@@ -132,7 +132,7 @@ class WS_LISTENER_PROPERTY_ID{
     static WS_LISTENER_PROPERTY_IS_MULTICAST => 7
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetlistenerproperty">WsSetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a>.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetlistenerproperty">WsSetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_UDP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_DUPLEX</a>.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is an array of <b>ULONG</b> values.
@@ -174,13 +174,13 @@ class WS_LISTENER_PROPERTY_ID{
     static WS_LISTENER_PROPERTY_MULTICAST_LOOPBACK => 9
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REPLY</a>.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a> with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_type">WS_CHANNEL_TYPE_REPLY</a>.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is a <b>ULONG</b>.
  * 
  * This indicates the number of milliseconds to
- *                     wait for clients to receive data from responses when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloselistener">WsCloseListener</a> is called.
+ *                     wait for clients to receive data from responses when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloselistener">WsCloseListener</a>is called.
  *                 
  * 
  * The purpose of this timeout is to allow clients time to continue receiving 
@@ -194,7 +194,7 @@ class WS_LISTENER_PROPERTY_ID{
  * <ul>
  * <li>At the time that <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloselistener">WsCloseListener</a> is called, determine the
  *                     time the last response was sent (the last response time).  For the purposes of
- *                     this timeout calculation, a response is recorded as sent once <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessageend">WsWriteMessageEnd</a> has been called for the response.  
+ *                     this timeout calculation, a response is recorded as sent once <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessageend">WsWriteMessageEnd</a>has been called for the response.  
  *                     </li>
  * <li>Calculate the difference between the current time and the last response time.
  *                     </li>
@@ -224,15 +224,12 @@ class WS_LISTENER_PROPERTY_ID{
  * The default value is:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WS_MATCH_URL_THIS_HOST |
  * WS_MATCH_URL_EXACT_PATH |
  * WS_MATCH_URL_PORT |
  * WS_MATCH_URL_NO_QUERY
- * 
- * ```
+ * </code></pre>
      * @type {Integer (Int32)}
      */
     static WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS => 11
@@ -252,16 +249,12 @@ class WS_LISTENER_PROPERTY_ID{
  * The default value is:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WS_MATCH_URL_THIS_HOST |
  * WS_MATCH_URL_EXACT_PATH |
  * WS_MATCH_URL_PORT |
  * WS_MATCH_URL_NO_QUERY
- * 
- * ```
- * 
+ * </code></pre>
  * This property only controls the verification of the message once it has been received
  *                     by the process, not the routing of the message to the process (which is determined
  *                     by the URL passed to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsopenlistener">WsOpenListener</a>).
@@ -279,7 +272,7 @@ class WS_LISTENER_PROPERTY_ID{
  *                     define the implementation of a custom listener.
  *                 
  * 
- * This property must be specified when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a> is used.
+ * This property must be specified when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>is used.
      * @type {Integer (Int32)}
      */
     static WS_LISTENER_PROPERTY_CUSTOM_LISTENER_CALLBACKS => 13
@@ -300,13 +293,13 @@ class WS_LISTENER_PROPERTY_ID{
  *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
  *                 
  * 
- * If this property is not specified, its value is <b>NULL</b> and size is zero.
+ * If this property is not specified, it's value is <b>NULL</b> and size is zero.
      * @type {Integer (Int32)}
      */
     static WS_LISTENER_PROPERTY_CUSTOM_LISTENER_PARAMETERS => 14
 
     /**
-     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a> for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
+     * Used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetchannelproperty">WsGetChannelProperty</a>for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_CUSTOM_CHANNEL_BINDING</a>.
  *                 
  * 
  * The accompanying <b>value</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_listener_property">WS_LISTENER_PROPERTY</a> structure is a void* and size the property is sizeof(void*).  

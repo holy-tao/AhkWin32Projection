@@ -2,7 +2,7 @@
 
 /**
  * Defines events that are sent by the sharing engine.
- * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ne-mfsharingengine-mf_sharing_engine_event
+ * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/ne-mfsharingengine-mf_sharing_engine_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,8 +3,11 @@
 /**
  * The DMO_SET_TYPE_FLAGS enumeration defines flags for setting the media type on a stream.
  * @remarks
- * The DMO_SET_TYPEF_TEST_ONLY and DMO_SET_TYPEF_CLEAR flags are mutually exclusive. Do not set both flags.
- * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_set_type_flags
+ * 
+  * The DMO_SET_TYPEF_TEST_ONLY and DMO_SET_TYPEF_CLEAR flags are mutually exclusive. Do not set both flags.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_set_type_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

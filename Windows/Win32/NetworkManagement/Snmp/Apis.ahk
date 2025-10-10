@@ -472,10 +472,6 @@ class Snmp {
 ;@region Methods
     /**
      * The SnmpUtilOidCpy function copies the variable pointed to by the pOidSrc parameter to the pOidDst parameter, allocating any necessary memory for the destination's copy. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloidfree">SnmpUtilOidFree</a> function to free memory that the 
-     * <b>SnmpUtilOidCpy</b> function allocates for the destination structure.
      * @param {Pointer<AsnObjectIdentifier>} pOidDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the copy.
      * @param {Pointer<AsnObjectIdentifier>} pOidSrc Pointer to an 
@@ -483,7 +479,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidcpy
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidcpy
      * @since windows5.0
      */
     static SnmpUtilOidCpy(pOidDst, pOidSrc) {
@@ -493,15 +489,6 @@ class Snmp {
 
     /**
      * The SnmpUtilOidAppend function appends the source object identifier to the destination object identifier. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilOidAppend</b> function calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemrealloc">SnmpUtilMemReAlloc</a> function. The 
-     * <b>SnmpUtilMemReAlloc</b> function expands the buffer for the destination object identifier.
-     * 
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloidfree">SnmpUtilOidFree</a> function to free memory that the 
-     * <b>SnmpUtilOidAppend</b> function allocates for the destination.
      * @param {Pointer<AsnObjectIdentifier>} pOidDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the source structure.
      * @param {Pointer<AsnObjectIdentifier>} pOidSrc Pointer to an 
@@ -509,7 +496,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. This function does not generate Windows Sockets errors. The application should call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> may return the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> may return the following error codes.
      * 
      * <table>
      * <tr>
@@ -539,7 +526,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidappend
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidappend
      * @since windows5.0
      */
     static SnmpUtilOidAppend(pOidDst, pOidSrc) {
@@ -560,7 +547,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to compare.
      * @param {Integer} nSubIds Specifies the number of subidentifiers to compare.
      * @returns {Integer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidncmp
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidncmp
      * @since windows5.0
      */
     static SnmpUtilOidNCmp(pOid1, pOid2, nSubIds) {
@@ -570,16 +557,12 @@ class Snmp {
 
     /**
      * The SnmpUtilOidCmp function compares two object identifiers. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilOidCmp</b> function calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloidncmp">SnmpUtilOidNCmp</a> function.
      * @param {Pointer<AsnObjectIdentifier>} pOid1 Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to compare.
      * @param {Pointer<AsnObjectIdentifier>} pOid2 Pointer to a second 
      * <b>AsnObjectIdentifier</b> structure to compare.
      * @returns {Integer} The function returns a value greater than zero if <i>pOid1</i> is greater than <i>pOid2</i>, zero if <i>pOid1</i> equals <i>pOid2</i>, and less than zero if <i>pOid1</i> is less than <i>pOid2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidcmp
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidcmp
      * @since windows5.0
      */
     static SnmpUtilOidCmp(pOid1, pOid2) {
@@ -592,7 +575,7 @@ class Snmp {
      * @param {Pointer<AsnObjectIdentifier>} pOid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure whose memory should be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidfree
      * @since windows5.0
      */
     static SnmpUtilOidFree(pOid) {
@@ -601,16 +584,12 @@ class Snmp {
 
     /**
      * The SnmpUtilOctetsCmp function compares two octet strings. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilOctetsCmp</b> function calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloctetsncmp">SnmpUtilOctetsNCmp</a> function.
      * @param {Pointer<AsnOctetString>} pOctets1 Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to compare.
      * @param {Pointer<AsnOctetString>} pOctets2 Pointer to a second 
      * <b>AsnOctetString</b> structure to compare.
      * @returns {Integer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetscmp
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloctetscmp
      * @since windows5.0
      */
     static SnmpUtilOctetsCmp(pOctets1, pOctets2) {
@@ -620,17 +599,13 @@ class Snmp {
 
     /**
      * The SnmpUtilOctetsNCmp function compares two octet strings. The function compares the subidentifiers in the strings until it reaches the number of subidentifiers specified by the nChars parameter. SnmpUtilOctetsNCmp is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloctetscmp">SnmpUtilOctetsCmp</a> function calls the 
-     * <b>SnmpUtilOctetsNCmp</b> function.
      * @param {Pointer<AsnOctetString>} pOctets1 Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to compare.
      * @param {Pointer<AsnOctetString>} pOctets2 Pointer to a second 
      * <b>AsnOctetString</b> structure to compare.
      * @param {Integer} nChars Specifies the number of subidentifiers to compare.
      * @returns {Integer} The function returns a value greater than zero if <i>pOctets1</i> is greater than <i>pOctets2</i>, zero if <i>pOctets1</i> equals <i>pOctets2</i>, and less than zero if <i>pOctets1</i> is less than <i>pOctets2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetsncmp
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloctetsncmp
      * @since windows5.0
      */
     static SnmpUtilOctetsNCmp(pOctets1, pOctets2, nChars) {
@@ -640,10 +615,6 @@ class Snmp {
 
     /**
      * The SnmpUtilOctetsCpy function copies the variable pointed to by the pOctetsSrc parameter to the variable pointed to by the pOctetsDst parameter.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloctetsfree">SnmpUtilOctetsFree</a> function to free the memory that the 
-     * <b>SnmpUtilOctetsCpy</b> function allocates for the destination structure.
      * @param {Pointer<AsnOctetString>} pOctetsDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to receive the copy.
      * @param {Pointer<AsnOctetString>} pOctetsSrc Pointer to an 
@@ -651,7 +622,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetscpy
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloctetscpy
      * @since windows5.0
      */
     static SnmpUtilOctetsCpy(pOctetsDst, pOctetsSrc) {
@@ -661,14 +632,10 @@ class Snmp {
 
     /**
      * The SnmpUtilOctetsFree function frees the memory allocated for the specified octet string. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <b>SnmpUtilOctetsFree</b> function to free the memory that the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloctetscpy">SnmpUtilOctetsCpy</a> function allocates.
      * @param {Pointer<AsnOctetString>} pOctets Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure whose memory should be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloctetsfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloctetsfree
      * @since windows5.0
      */
     static SnmpUtilOctetsFree(pOctets) {
@@ -677,10 +644,6 @@ class Snmp {
 
     /**
      * The SnmpUtilAsnAnyCpy function copies the variable pointed to by the pAnySrc parameter to the pAnyDst parameter. The function allocates any necessary memory for the destination's copy. The SnmpUtilAsnAnyCpy function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilasnanyfree">SnmpUtilAsnAnyFree</a> function to free the memory that the 
-     * <b>SnmpUtilAsnAnyCpy</b> function allocates for the destination structure.
      * @param {Pointer<AsnAny>} pAnyDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure to receive the copy.
      * @param {Pointer<AsnAny>} pAnySrc Pointer to an 
@@ -688,7 +651,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilasnanycpy
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilasnanycpy
      * @since windows5.0
      */
     static SnmpUtilAsnAnyCpy(pAnyDst, pAnySrc) {
@@ -698,14 +661,10 @@ class Snmp {
 
     /**
      * The SnmpUtilAsnAnyFree function frees the memory allocated for the specified AsnAny structure. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <b>SnmpUtilAsnAnyFree</b> function to free the memory that the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilasnanycpy">SnmpUtilAsnAnyCpy</a> function allocates.
      * @param {Pointer<AsnAny>} pAny Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure whose memory should be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilasnanyfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilasnanyfree
      * @since windows5.0
      */
     static SnmpUtilAsnAnyFree(pAny) {
@@ -714,10 +673,6 @@ class Snmp {
 
     /**
      * The SnmpUtilVarBindCpy function copies the specified SnmpVarBind structure, and allocates any memory necessary for the destination structure. The SnmpUtilVarBindCpy function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilvarbindfree">SnmpUtilVarBindFree</a> function to free memory that the 
-     * <b>SnmpUtilVarBindCpy</b> function allocates for the destination structure.
      * @param {Pointer<SnmpVarBind>} pVbDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> structure to receive the copy.
      * @param {Pointer<SnmpVarBind>} pVbSrc Pointer to an 
@@ -725,7 +680,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindcpy
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilvarbindcpy
      * @since windows5.0
      */
     static SnmpUtilVarBindCpy(pVbDst, pVbSrc) {
@@ -738,7 +693,7 @@ class Snmp {
      * @param {Pointer<SnmpVarBind>} pVb Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> structure whose memory should be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilvarbindfree
      * @since windows5.0
      */
     static SnmpUtilVarBindFree(pVb) {
@@ -747,10 +702,6 @@ class Snmp {
 
     /**
      * The SnmpUtilVarBindListCpy function copies the specified SnmpVarBindList structure, and allocates any necessary memory for the destination's copy. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilvarbindlistfree">SnmpUtilVarBindListFree</a> function to free memory that the 
-     * <b>SnmpUtilVarBindListCpy</b> function allocates for the destination structure.
      * @param {Pointer<SnmpVarBindList>} pVblDst Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the copy.
      * @param {Pointer<SnmpVarBindList>} pVblSrc Pointer to an 
@@ -758,7 +709,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindlistcpy
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilvarbindlistcpy
      * @since windows5.0
      */
     static SnmpUtilVarBindListCpy(pVblDst, pVblSrc) {
@@ -771,7 +722,7 @@ class Snmp {
      * @param {Pointer<SnmpVarBindList>} pVbl Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure whose allocated memory should be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilvarbindlistfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilvarbindlistfree
      * @since windows5.0
      */
     static SnmpUtilVarBindListFree(pVbl) {
@@ -780,12 +731,9 @@ class Snmp {
 
     /**
      * The SnmpUtilMemFree function frees the specified memory object. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function to allocate the memory for the object.
      * @param {Pointer<Void>} pMem Pointer to the memory object to release.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilmemfree
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilmemfree
      * @since windows5.0
      */
     static SnmpUtilMemFree(pMem) {
@@ -794,15 +742,11 @@ class Snmp {
 
     /**
      * The SnmpUtilMemAlloc function allocates dynamic memory from the process heap. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to release memory that the 
-     * <b>SnmpUtilMemAlloc</b> function allocates.
      * @param {Integer} nBytes Specifies the number of bytes to allocate for the memory object.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the newly allocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilmemalloc
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilmemalloc
      * @since windows5.0
      */
     static SnmpUtilMemAlloc(nBytes) {
@@ -812,16 +756,12 @@ class Snmp {
 
     /**
      * The SnmpUtilMemReAlloc function changes the size of the specified memory object. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to release memory that the 
-     * <b>SnmpUtilMemReAlloc</b> function allocates.
      * @param {Pointer<Void>} pMem Pointer to the memory object to resize.
      * @param {Integer} nBytes Specifies the number of bytes to allocate for the new memory object.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the newly allocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilmemrealloc
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilmemrealloc
      * @since windows5.0
      */
     static SnmpUtilMemReAlloc(pMem, nBytes) {
@@ -831,18 +771,10 @@ class Snmp {
 
     /**
      * The SnmpUtilOidToA function converts an object identifier (OID) to a null-terminated string. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilOidToA</b> function can assist with the debugging of SNMP applications.
-     * 
-     * For more information, see the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilidstoa">SnmpUtilIdsToA</a> function. 
-     * <b>SnmpUtilOidToA</b> calls 
-     * <b>SnmpUtilIdsToA</b> internally to format the string.
      * @param {Pointer<AsnObjectIdentifier>} Oid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to convert.
      * @returns {Pointer<Byte>} The function returns a null-terminated string of characters that contains the string representation of the object identifier pointed to by the <i>Oid</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputiloidtoa
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidtoa
      * @since windows5.0
      */
     static SnmpUtilOidToA(Oid) {
@@ -852,19 +784,6 @@ class Snmp {
 
     /**
      * The SnmpUtilIdsToA function converts an object identifier (OID) to a null-terminated string. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilIdsToA</b> function can assist with the debugging of SNMP applications.
-     * 
-     * Note that the following memory restrictions apply when you call 
-     * <b>SnmpUtilIdsToA</b>:
-     * 
-     * <ul>
-     * <li>The <i>Ids</i> parameter must point to a valid memory block of at least <i>IdLength</i> integers, or the function call results in an access violation exception.</li>
-     * <li>The string returned by 
-     * <b>SnmpUtilIdsToA</b> resides in memory that the SNMP Utility API allocates. The application should not make any assumptions about the memory allocation. The data is guaranteed to be valid until you call 
-     * <b>SnmpUtilIdsToA</b> again, so before calling the function again you should copy the data to another location.</li>
-     * </ul>
      * @param {Pointer<UInt32>} Ids Pointer to an array of unsigned integers. The array contains the sequence of numbers that the OID contains. The <i>IdLength</i> parameter specifies the array's length. 
      * 
      * 
@@ -877,7 +796,7 @@ class Snmp {
      * If the <i>Ids</i> parameter is null, or if the <i>IdLength</i> parameter specifies zero, the function returns the string "&lt;null oid&gt;".
      * 
      * The maximum length of the returned string is 256 characters. If the string's length exceeds 256 characters, the string is truncated and terminated with a sequence of three periods ('...').
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilidstoa
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilidstoa
      * @since windows5.0
      */
     static SnmpUtilIdsToA(Ids, IdLength) {
@@ -887,13 +806,10 @@ class Snmp {
 
     /**
      * The SnmpUtilPrintOid function formats the specified object identifier (OID) and prints the result to the standard output device. This function is an element of the SNMP Utility API.
-     * @remarks
-     * The 
-     * <b>SnmpUtilPrintOid</b> function can assist with the debugging of command-line SNMP applications. The function prints the object identifier as a sequence of numbers separated by periods ('.'); for example, 1.3.6.1.4.1.311.
      * @param {Pointer<AsnObjectIdentifier>} Oid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to print.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilprintoid
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilprintoid
      * @since windows5.0
      */
     static SnmpUtilPrintOid(Oid) {
@@ -902,13 +818,10 @@ class Snmp {
 
     /**
      * The SnmpUtilPrintAsnAny function prints the value of the Any parameter to the standard output. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Use the 
-     * <b>SnmpUtilPrintAsnAny</b> function for debugging and development purposes. This function does not generally print the data in a form that a manager application would typically need.
      * @param {Pointer<AsnAny>} pAny Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnany">AsnAny</a> structure for a value to print.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputilprintasnany
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputilprintasnany
      * @since windows5.0
      */
     static SnmpUtilPrintAsnAny(pAny) {
@@ -917,20 +830,8 @@ class Snmp {
 
     /**
      * The SnmpSvcGetUptime function retrieves the number of centiseconds that the SNMP service has been running. This function is an element of the SNMP Utility API.
-     * @remarks
-     * An extension agent should call the 
-     * <b>SnmpSvcGetUptime</b> function only if the extension agent DLL is loaded within the address space of the SNMP service.
-     * 
-     * The SNMP extension agent DLL is encouraged to use the 
-     * <b>SnmpSvcGetUptime</b> function to retrieve the number of centiseconds that the SNMP service has been running. Extension agents should use 
-     * <b>SnmpSvcGetUptime</b> rather than calculate the uptime using the <i>dwUptimeReference</i> parameter. The service passes this parameter to the extension agent as the result of a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpextensioninit">SnmpExtensionInit</a> function. Because the <i>dwUptimeReference</i> parameter stores the elapsed time as a <b>DWORD</b> value in milliseconds, the time can wrap to zero and reflect an inaccurate time interval.
-     * 
-     * An extension agent that sends traps must initialize the <i>timeStamp</i> parameter to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpextensiontrap">SnmpExtensionTrap</a> function with the value returned by a call to the 
-     * <b>SnmpSvcGetUptime</b> function.
      * @returns {Integer} The function returns a <b>DWORD</b> value that is the number of centiseconds the SNMP service has been running.
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcgetuptime
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmpsvcgetuptime
      * @since windows5.0
      */
     static SnmpSvcGetUptime() {
@@ -940,13 +841,9 @@ class Snmp {
 
     /**
      * The SnmpSvcSetLogLevel function adjusts the level of detail of the debug output from the SNMP service and from SNMP extension agents using the SnmpUtilDbgPrint function. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Extension agents are encouraged to use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> and 
-     * <b>SnmpSvcSetLogLevel</b> functions during development to adjust the output of debugging information. Extension agents can integrate the information with the debug output from the SNMP service.
      * @param {Integer} nLogLevel Specifies a signed integer variable that indicates the level of detail of the debug output from the
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetloglevel
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmpsvcsetloglevel
      * @since windows5.0
      */
     static SnmpSvcSetLogLevel(nLogLevel) {
@@ -955,13 +852,9 @@ class Snmp {
 
     /**
      * The SnmpSvcSetLogType function adjusts the destination for the debug output from the SNMP service and from SNMP extension agents using the SnmpUtilDbgPrint function. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Extension agents are encouraged to use the 
-     * <b>SnmpSvcSetLogType</b> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetloglevel">SnmpSvcSetLogLevel</a> functions during development to adjust the output of debugging information. Extension agents can integrate the information with the debug output from the SNMP service.
      * @param {Integer} nLogType Specifies a signed integer variable that represents the destination for the debug output from the
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetlogtype
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmpsvcsetlogtype
      * @since windows5.0
      */
     static SnmpSvcSetLogType(nLogType) {
@@ -970,17 +863,10 @@ class Snmp {
 
     /**
      * The SnmpUtilDbgPrint function enables debugging output from the SNMP service. This function is an element of the SNMP Utility API.
-     * @remarks
-     * Extension agents are encouraged to use this function during development to enable debug output from the SNMP service.
-     * 
-     * Use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetloglevel">SnmpSvcSetLogLevel</a> function to set the level of detail of the debug output from the SNMP service or from an extension agent's call to the 
-     * <b>SnmpUtilDbgPrint</b> function. Call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> function to specify the destination for the debug output.
      * @param {Integer} nLogLevel 
      * @param {Pointer<Byte>} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputildbgprint
+     * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputildbgprint
      * @since windows5.0
      */
     static SnmpUtilDbgPrint(nLogLevel, szFormat) {
@@ -991,42 +877,6 @@ class Snmp {
 
     /**
      * The SnmpMgrOpen function initializes communications sockets and data structures, allowing communications with the specified SNMP agent. This function is an element of the SNMP Management API.
-     * @remarks
-     * If possible, use a host name to identify the SNMP agent in the <i>lpAgentAddress</i> parameter. Host names can be provided for agents only if TCP/IP is loaded and the names are TCP/IP host names. NetBIOS names cannot be supplied for IPX hosts.
-     * 
-     * The name and address of the SNMP target, or the string pointed to by the <i>lpAgentAddress</i> parameter, should conform to one of the following forms.
-     * 					
-     * 
-     * <table>
-     * <tr>
-     * <th>Name/Address</th>
-     * <th>Form (example)</th>
-     * </tr>
-     * <tr>
-     * <td>Host Name</td>
-     * <td>merlin or merlin.microsoft.com</td>
-     * </tr>
-     * <tr>
-     * <td>IPv4 Address</td>
-     * <td>157.57.8.160</td>
-     * </tr>
-     * <tr>
-     * <td>IPv6 Address</td>
-     * <td>3ffe:8311:ffff::b3ff:fe88:c33</td>
-     * </tr>
-     * <tr>
-     * <td>MAC Address</td>
-     * <td>00aa00bbccdd</td>
-     * </tr>
-     * <tr>
-     * <td>IPX Address</td>
-     * <td>00006112.00aa00bbccdd</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Applications should not use the <b>LPSNMP_MGR_SESSION</b> pointer that is returned by this function to call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrrequest">SnmpMgrRequest</a> function in the context of a different thread.
      * @param {Pointer<Byte>} lpAgentAddress Pointer to a <b>null</b>-terminated string that specifies a host name or an IP address. The host name must resolve to an IP address, an IPX address (in 8.12 notation), or an ethernet address. See the Remarks section for the acceptable forms for host names and IP addresses.
      * @param {Pointer<Byte>} lpAgentCommunity Pointer to a <b>null</b>-terminated string that specifies the SNMP community name to use when communicating with the agent that is identified by the <i>lpAgentAddress</i> parameter.
      * @param {Integer} nTimeOut Specifies the communications time-out in milliseconds.
@@ -1034,10 +884,10 @@ class Snmp {
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to an <b>LPSNMP_MGR_SESSION</b> structure. This structure is used internally and the programmer should not alter it. For more information, see the following Remarks section.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return the SNMP_MEM_ALLOC_ERROR error code, which indicates a memory allocation error.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return the SNMP_MEM_ALLOC_ERROR error code, which indicates a memory allocation error.
      * 
      * This function may also return Windows Sockets error codes.
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgropen
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgropen
      * @since windows5.0
      */
     static SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
@@ -1080,7 +930,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can also return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can also return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -1121,7 +971,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrctl
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrctl
      * @since windows5.0
      */
     static SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbOUTBuffer, lpcbBytesReturned) {
@@ -1136,29 +986,13 @@ class Snmp {
 
     /**
      * The SnmpMgrClose function closes the communications sockets and data structures that are associated with the specified session. This function is an element of the SNMP Management API.
-     * @remarks
-     * <b>Windows Server 2003:  </b>SNMP manager applications can call 
-     * <b>SnmpMgrClose</b> with a <b>NULL</b><i>session</i> parameter to clean up the resources that are associated with a successful call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten">SnmpMgrTrapListen</a> function. Note, however, that if your application is a DLL, it should not call 
-     * <b>SnmpMgrClose</b> from its 
-     * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> entry-point function.<p class="note"><b>SnmpMgrClose</b> must not be called when the application DLL is in the process of unloading.
-     * 
-     * 
-     * 
-     * <b>Windows Server 2003:  </b><b>SnmpMgrClose</b> takes longer to execute under  Windows Server 2003 when compared to an identical call under Windows 2000. Specifically, a call to this API takes up to a second to execute under Windows Server 2003, whereas the same call takes around .3 milliseconds under Windows 2000. this may cause performance problems for Windows Server 2003 SNMP applications that call  <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgropen">SnmpMgrOpen</a> and <b>SnmpMgrClose</b> frequently.
-     * 
-     * <p class="note">To address this problem,  create an extra SNMP manager session by calling <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgropen">SnmpMgrOpen</a> on the local host during application startup, and keep it open for the duration of the application's lifetime. Closing the session manager will close all associated sessions, requiring only one call to <b>SnmpMgrClose</b>.
-     * 
-     * 
-     * 
-     * <b>Windows Server 2003 with SP1:  </b>The above issue does not apply to Windows 2003 Service Pack 1.
      * @param {Pointer<Void>} session Pointer to an internal structure that specifies the session to close. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * 
      *  This function may return Windows Sockets error codes.
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrclose
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrclose
      * @since windows5.0
      */
     static SnmpMgrClose(session) {
@@ -1168,9 +1002,6 @@ class Snmp {
 
     /**
      * The SnmpMgrRequest function requests the specified operation be performed with the specified agent. This function is an element of the SNMP Management API.
-     * @remarks
-     * Retries and time-outs are supplied to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgropen">SnmpMgrOpen</a> function. Each variable in the variable bindings list must be initialized to type ASN_NULL for Get and Get Next requests.
      * @param {Pointer<Void>} session Pointer to an internal structure that specifies the session that will perform the request. 
      * 
      * 
@@ -1190,7 +1021,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return one of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -1216,12 +1047,12 @@ class Snmp {
      * </td>
      * <td width="60%">
      * Unexpected error file descriptors indicated by the Windows Sockets 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-select">select</a> function.
+     * <a href="/windows/desktop/api/winsock2/nf-winsock2-select">select</a> function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrrequest
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrrequest
      * @since windows5.0
      */
     static SnmpMgrRequest(session, requestType, variableBindings, errorStatus, errorIndex) {
@@ -1236,22 +1067,12 @@ class Snmp {
 
     /**
      * The SnmpMgrStrToOid function converts the string format of an object identifier to its internal object identifier structure. This function is an element of the SNMP Management API.
-     * @remarks
-     * If the function succeeds, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputiloidfree">SnmpUtilOidFree</a> function to free the memory allocated for the converted object identifier.
-     * 
-     * If an application passes a valid object identifier to 
-     * <b>SnmpMgrStrToOid</b>, yet is unable to obtain the requested variable, then the syntax of the system group and object identifier is incorrect. This occurs because 
-     * <b>SnmpMgrStrToOid</b> assumes that the object identifier is under the Internet MIB of the management subtree.
-     * 
-     * You must always precede the object identifier with a period (.) to obtain the correct system group (for example, ".1.3.6.1.2.1.1"). If an application passes the variable "1.3.6.1.2.1.1", 
-     * <b>SnmpMgrStrToOid</b> cannot interpret the object identifier correctly.
      * @param {Pointer<Byte>} string Pointer to a null-terminated string to convert.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to receive the converted value.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrstrtooid
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrstrtooid
      * @since windows5.0
      */
     static SnmpMgrStrToOid(string, oid) {
@@ -1263,15 +1084,12 @@ class Snmp {
 
     /**
      * The SnmpMgrOidToStr function converts an internal object identifier structure to its string representation. This function is an element of the SNMP Management API.
-     * @remarks
-     * If the function succeeds, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to free the memory allocated for the converted string.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to convert.
      * @param {Pointer<Byte>} string Pointer to a null-terminated string to receive the converted value.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgroidtostr
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgroidtostr
      * @since windows5.0
      */
     static SnmpMgrOidToStr(oid, string) {
@@ -1281,29 +1099,12 @@ class Snmp {
 
     /**
      * The SnmpMgrTrapListen function registers the ability of an SNMP manager application to receive SNMP traps from the SNMP Trap Service. This function is an element of the SNMP Management API.
-     * @remarks
-     * It is important to note that for users who are not administrators, the 
-     * <b>SnmpMgrTrapListen</b> function succeeds only if the SNMP trap service has been started.
-     * 
-     * The application must always call the 
-     * <b>SnmpMgrTrapListen</b> function before calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</a> function. This is because the event handle pointed to by the <i>phTrapAvailable</i> parameter enables the event-driven acquisition of SNMP traps. The SNMP Management API signals an application's event when the SNMP Trap Service delivers a trap.
-     * 
-     * The application can also poll the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</a> function for traps at regular intervals. In this case, the application should repeatedly call 
-     * <b>SnmpMgrGetTrap</b> until the function returns zero.
-     * 
-     * <b>Windows Server 2003:  </b>SNMP manager applications can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrclose">SnmpMgrClose</a> with a <b>NULL</b><i>session</i> parameter to clean up resources associated with a successful call to the 
-     * <b>SnmpMgrTrapListen</b> function. Note, however, that if your application is a DLL, it should not call 
-     * <b>SnmpMgrClose</b> from its 
-     * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> entry-point function.
      * @param {Pointer<Void>} phTrapAvailable Pointer to an event handle to receive an indication that there are traps available, and that the application should call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return any of the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return any of the following error codes.
      * 
      * <table>
      * <tr>
@@ -1347,7 +1148,7 @@ class Snmp {
      *  
      * 
      * This function may return other system errors as well.
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrtraplisten
      * @since windows5.0
      */
     static SnmpMgrTrapListen(phTrapAvailable) {
@@ -1362,15 +1163,6 @@ class Snmp {
 
     /**
      * The SnmpMgrGetTrap function returns outstanding trap data that the caller has not received if trap reception is enabled. This function is an element of the SNMP Management API.
-     * @remarks
-     * The application must always call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten">SnmpMgrTrapListen</a> function before calling the 
-     * <b>SnmpMgrGetTrap</b> function. This is because the event handle pointed to by the <i>phTrapAvailable</i> parameter of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten">SnmpMgrTrapListen</a> function enables the event-driven acquisition of SNMP traps. The SNMP Management API signals an application's event when the SNMP Trap Service delivers a trap.
-     * 
-     * The application can also poll the 
-     * <b>SnmpMgrGetTrap</b> function for traps at regular intervals. In this case, the application should repeatedly call 
-     * <b>SnmpMgrGetTrap</b> until the function returns zero.
      * @param {Pointer<AsnObjectIdentifier>} enterprise Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} IPAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap.
@@ -1379,7 +1171,7 @@ class Snmp {
      * @param {Pointer<UInt32>} timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
-     * @returns {Integer} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
+     * @returns {Integer} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
      * 
      * You should call the 
      * <b>SnmpMgrGetTrap</b> function repeatedly until it returns <b>FALSE</b> (zero). The function may also return the following error codes.
@@ -1423,7 +1215,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrgettrap
      * @since windows5.0
      */
     static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, timeStamp, variableBindings) {
@@ -1433,15 +1225,6 @@ class Snmp {
 
     /**
      * The SnmpMgrGetTrapEx function returns outstanding trap data that the caller has not received if trap reception is enabled.
-     * @remarks
-     * The application must always call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten">SnmpMgrTrapListen</a> function before calling the 
-     * <b>SnmpMgrGetTrapEx</b> function. This is because the event handle that is pointed to by the <i>phTrapAvailable</i> parameter of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrtraplisten">SnmpMgrTrapListen</a> function enables the event-driven acquisition of SNMP traps. The SNMP Management API signals an application event when the SNMP Trap Service delivers a trap.
-     * 
-     * The application can also poll the 
-     * <b>SnmpMgrGetTrapEx</b> function for traps at regular intervals. In this case, the application should repeatedly call 
-     * <b>SnmpMgrGetTrapEx</b> until the function returns zero.
      * @param {Pointer<AsnObjectIdentifier>} enterprise Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} agentAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap; this information is retrieved from the SNMP protocol data unit (PDU).
@@ -1497,7 +1280,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrapex
+     * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrgettrapex
      * @since windows5.0
      */
     static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, timeStamp, variableBindings) {
@@ -1507,19 +1290,12 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetTranslateMode function returns the current setting of the entity and context translation mode to a WinSNMP application.
-     * @remarks
-     * The entity and context translation mode affects calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtocontext">SnmpStrToContext</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcontexttostr">SnmpContextToStr</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpentitytostr">SnmpEntityToStr</a> functions. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
      * @param {Pointer<UInt32>} nTranslateMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
      * <b>SnmpGetTranslateMode</b> fails, the value of the <i>nTranslateMode</i> parameter has no meaning for the application. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1535,7 +1311,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1562,7 +1338,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgettranslatemode
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgettranslatemode
      * @since windows5.0
      */
     static SnmpGetTranslateMode(nTranslateMode) {
@@ -1572,21 +1348,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetTranslateMode function enables a WinSNMP application to change the entity and context translation mode. The entity and context translation mode affects the interpretation and return of WinSNMP input and output string parameters.
-     * @remarks
-     * The new entity and context translation mode affects subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtocontext">SnmpStrToContext</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcontexttostr">SnmpContextToStr</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpentitytostr">SnmpEntityToStr</a> functions. The WinSNMP application can change the entity and context translation mode again by making another call to 
-     * <b>SnmpSetTranslateMode</b> with a different <i>nTranslateMode</i> value.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
      * @param {Integer} nTranslateMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1602,7 +1368,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1640,7 +1406,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsettranslatemode
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsettranslatemode
      * @since windows5.0
      */
     static SnmpSetTranslateMode(nTranslateMode) {
@@ -1650,17 +1416,12 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetRetransmitMode function returns the current setting of the retransmission mode to a WinSNMP application.
-     * @remarks
-     * Typically a WinSNMP application, rather than an agent application, calls the 
-     * <b>SnmpGetRetransmitMode</b> function. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer<UInt32>} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
      * <b>SnmpGetRetransmitMode</b> fails, the value of the <i>nRetransmitMode</i> parameter has no meaning for the application. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1676,7 +1437,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1703,7 +1464,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetretransmitmode
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetretransmitmode
      * @since windows5.0
      */
     static SnmpGetRetransmitMode(nRetransmitMode) {
@@ -1713,28 +1474,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetRetransmitMode function enables a WinSNMP application to set the retransmission mode.
-     * @remarks
-     * Typically a WinSNMP manager application, rather than an agent application, calls the 
-     * <b>SnmpSetRetransmitMode</b> function.
-     * 
-     * If a WinSNMP application sets the retransmission mode to SNMPAPI_OFF, the implementation does not initiate retransmission attempts for new SNMP communications operations. The new setting affects all subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> function, until the WinSNMP application sets the retransmission mode back to SNMPAPI_ON.
-     * 
-     * Calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcancelmsg">SnmpCancelMsg</a> function is equivalent to calling the 
-     * <b>SnmpSetRetransmitMode</b> function, for a specific SNMP message, with the retransmission mode equal to SNMPAPI_OFF.
-     * 
-     * <div class="alert"><b>Note</b>  If the implementation returns the error SNMPAPI_MODE_INVALID to a call to 
-     * <b>SnmpSetRetransmitMode</b>, the WinSNMP application must execute the retransmission policy.</div>
-     * <div> </div>
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Integer} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1750,7 +1494,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1788,7 +1532,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsetretransmitmode
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsetretransmitmode
      * @since windows5.0
      */
     static SnmpSetRetransmitMode(nRetransmitMode) {
@@ -1798,27 +1542,13 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetTimeout function returns the time-out value, in hundredths of a second, for the transmission of SNMP message requests.
-     * @remarks
-     * Typically a WinSNMP application, rather than an agent application, calls the 
-     * <b>SnmpGetTimeout</b> function.
-     * 
-     * The time-out period is the interval between the application's call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> function and its call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function.
-     * 
-     * A WinSNMP application can modify the time-out value with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsettimeout">SnmpSetTimeout</a> function.
-     * 
-     * The WinSNMP application can monitor the value of the <i>nActualRetry</i> parameter and compare it to the value of the <i>nPolicyRetry</i> parameter to optimize transmission performance. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
      * @param {Pointer<UInt32>} nPolicyTimeout Pointer to an integer variable to receive the time-out value, in hundredths of a second, for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
      * @param {Pointer<UInt32>} nActualTimeout Pointer to an integer variable to receive the last actual or estimated response interval for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1834,7 +1564,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1883,7 +1613,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgettimeout
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgettimeout
      * @since windows5.0
      */
     static SnmpGetTimeout(hEntity, nPolicyTimeout, nActualTimeout) {
@@ -1893,13 +1623,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetTimeout function enables a WinSNMP application to change the time-out value for the transmission of SNMP message requests.
-     * @remarks
-     * Typically a WinSNMP manager application, rather than an agent application, calls the 
-     * <b>SnmpSetTimeout</b> function.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
      * @param {Integer} nPolicyTimeout Specifies a new time-out value, in hundredths of a second, for the management entity. This value replaces the value currently stored in the implementation's database. 
      * 
@@ -1910,7 +1633,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -1926,7 +1649,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -1964,7 +1687,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsettimeout
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsettimeout
      * @since windows5.0
      */
     static SnmpSetTimeout(hEntity, nPolicyTimeout) {
@@ -1974,23 +1697,13 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetRetry function returns the retry count value, in units, for the retransmission of SNMP message requests. The retry count applies to calls that a WinSNMP application makes to the SnmpSendMsg function for a specified management entity.
-     * @remarks
-     * Typically a WinSNMP application, rather than an agent application, calls the 
-     * <b>SnmpGetRetry</b> function.
-     * 
-     * A WinSNMP application can modify the retry count value with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsetretry">SnmpSetRetry</a> function.
-     * 
-     * The WinSNMP application can monitor the value of the <i>nActualRetry</i> parameter and compare it to the value of the <i>nPolicyRetry</i> parameter to optimize transmission performance. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
      * @param {Pointer<UInt32>} nPolicyRetry Pointer to an unsigned long integer variable to receive the retry count value for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
      * @param {Pointer<UInt32>} nActualRetry Pointer to an unsigned long integer variable to receive the last actual or estimated retry count for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2006,7 +1719,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2055,7 +1768,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetretry
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetretry
      * @since windows5.0
      */
     static SnmpGetRetry(hEntity, nPolicyRetry, nActualRetry) {
@@ -2065,13 +1778,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetRetry function enables a WinSNMP application to change the retry count value for the retransmission of SNMP message requests.
-     * @remarks
-     * Typically a WinSNMP manager application, rather than an agent application, calls the 
-     * <b>SnmpSetRetry</b> function.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
      * @param {Integer} nPolicyRetry Specifies a new value for the retry count for the management entity. This value replaces the value currently stored in the implementation's database. 
      * 
@@ -2082,7 +1788,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2098,7 +1804,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2136,7 +1842,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsetretry
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsetretry
      * @since windows5.0
      */
     static SnmpSetRetry(hEntity, nPolicyRetry) {
@@ -2151,7 +1857,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2167,7 +1873,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2205,7 +1911,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetvendorinfo
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetvendorinfo
      * @since windows5.0
      */
     static SnmpGetVendorInfo(vendorInfo) {
@@ -2215,28 +1921,6 @@ class Snmp {
 
     /**
      * The SnmpStartup function notifies the Microsoft WinSNMP implementation that the WinSNMP application requires the implementation's services.
-     * @remarks
-     * A WinSNMP application must call the 
-     * <b>SnmpStartup</b> function successfully at least once, before it calls any other WinSNMP function. If a WinSNMP application does call another WinSNMP function, before it successfully calls 
-     * <b>SnmpStartup</b>, the implementation returns the error SNMPAPI_NOT_INITIALIZED.
-     * 
-     * The WinSNMP application can call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> for error information, or retry 
-     * <b>SnmpStartup</b> if a call to the 
-     * <b>SnmpStartup</b> function fails. When 
-     * <b>SnmpStartup</b> returns SNMPAPI_FAILURE, and a subsequent call to 
-     * <b>SnmpGetLastError</b> returns SNMP_ALLOC_ERROR, the WinSNMP application can elect to wait. It can retry the call to 
-     * <b>SnmpStartup</b> when the implementation has adequate free resources.
-     * 
-     * A WinSNMP application can call 
-     * <b>SnmpStartup</b> multiple times. For example, it may need to retry the function call for the reasons discussed preceding. A WinSNMP application must also call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> at least once, as the last WinSNMP function call before it terminates. Multiple 
-     * <b>SnmpStartup</b> calls do not require multiple 
-     * <b>SnmpCleanup</b> calls.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-snmp-versions">About SNMP Versions</a>.
      * @param {Pointer<UInt32>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 2.
      * @param {Pointer<UInt32>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 0.
      * @param {Pointer<UInt32>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
@@ -2247,7 +1931,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the parameters contain appropriate values, as indicated in the preceding parameter descriptions.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors. For additional information, see the Remarks section that follows.
      * 
      * <table>
@@ -2290,7 +1974,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstartup
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpstartup
      * @since windows5.0
      */
     static SnmpStartup(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
@@ -2300,32 +1984,12 @@ class Snmp {
 
     /**
      * The SnmpCleanup function informs the Microsoft WinSNMP implementation that the calling WinSNMP application no longer requires the implementation's services.
-     * @remarks
-     * Before the WinSNMP application calls 
-     * <b>SnmpCleanup</b>, it should call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function once for each session the implementation opens as a result of a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function.
-     * 
-     * When a WinSNMP application calls the 
-     * <b>SnmpCleanup</b> function, the implementation deallocates all resources allocated to the application. However, it is recommended that a WinSNMP application free the specific resources that the implementation allocates for it with the WinSNMP function that corresponds to the resource. For additional information about freeing individual resources, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreeentity">SnmpFreeEntity</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreecontext">SnmpFreeContext</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a>.
-     * 
-     * If a WinSNMP application must perform an emergency exit, and it calls 
-     * <b>SnmpCleanup</b> without freeing individual resources and without calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> for every open session, the implementation deallocates all resources allocated to the WinSNMP application. However, to enable this functionality in the implementation, the application must still call 
-     * <b>SnmpCleanup</b>.
-     * 
-     * <b>SnmpCleanup</b> must not be called when the application DLL is in the process of unloading.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS. Until the WinSNMP application successfully recalls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function, any other call to a WinSNMP function returns SNMPAPI_FAILURE, with an extended error code of SNMPAPI_NOT_INITIALIZED.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function, any other call to a WinSNMP function returns SNMPAPI_FAILURE, with an extended error code of SNMPAPI_NOT_INITIALIZED.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE, but the WinSNMP application does not need to retry the call to 
      * <b>SnmpCleanup</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its<i> session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its<i> session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2341,7 +2005,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2368,7 +2032,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcleanup
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcleanup
      * @since windows5.0
      */
     static SnmpCleanup() {
@@ -2378,40 +2042,12 @@ class Snmp {
 
     /**
      * The SnmpOpen function requests the Microsoft WinSNMP implementation to open a session for the WinSNMP application.
-     * @remarks
-     * The 
-     * <b>SnmpOpen</b> function returns a unique handle to each open WinSNMP session within the calling WinSNMP application. The application must use the session handle that 
-     * <b>SnmpOpen</b> returns in other WinSNMP function calls to facilitate allocation and deallocation of resources by the implementation. When the implementation allocates resources to an individual session, it performs an orderly release of resources in response to a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> for the session.
-     * 
-     * The 
-     * <b>SnmpOpen</b> function passes to the implementation the handle to an application window and a notification message identifier. If the <i>wParam</i> component of the notification message specified by the <i>wMsg</i> parameter is equal to zero, the WinSNMP application must retrieve the incoming protocol data unit (PDU). The application does this by calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function with the session handle returned by 
-     * <b>SnmpOpen</b>. If the <i>wParam</i> parameter of the notification message is not equal to zero, it represents a WinSNMP error code. The error code applies to the PDU identified by the request identifier in the <i>lParam</i> parameter of the notification message.
-     * 
-     * One WinSNMP application can open multiple WinSNMP sessions. If an application opens multiple sessions using the same window handle, it is recommended that the WinSNMP application specify a unique <i>wMsg</i> parameter for each session.
-     * 
-     * It is recommended that a WinSNMP application call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function once for each session that the implementation opens as a result of a call to the 
-     * <b>SnmpOpen</b> function. If a WinSNMP application terminates unexpectedly, it must call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> before it terminates to enable the implementation to deallocate all resources. The implementation treats one 
-     * <b>SnmpCleanup</b> call as if it were a series of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> calls, one call for each session the implementation opens as a result of a call to 
-     * <b>SnmpOpen</b>.
-     * 
-     * For information about opening a WinSNMP session and specifying the method used to inform the session of available SNMP messages and asynchronous events, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a>. When you call 
-     * <b>SnmpCreateSession</b> you can specify a window notification message or an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nc-winsnmp-snmpapi_callback">SNMPAPI_CALLBACK</a> function to notify the session.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-sessions">WinSNMP Sessions</a>.
      * @param {Pointer<Void>} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window.
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the WinSNMP session that the implementation opens for the calling application.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2427,7 +2063,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2465,7 +2101,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpopen
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpopen
      * @since windows5.0
      */
     static SnmpOpen(hWnd, wMsg) {
@@ -2475,22 +2111,11 @@ class Snmp {
 
     /**
      * The SnmpClose function enables the Microsoft WinSNMP implementation to deallocate memory, resources, and data structures associated with a WinSNMP session.
-     * @remarks
-     * It is recommended that a WinSNMP application call the 
-     * <b>SnmpClose</b> function once for each session that the application opened using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function. If a WinSNMP application terminates unexpectedly, it must call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> before it terminates to enable the implementation to deallocate all resources. The implementation processes one 
-     * <b>SnmpCleanup</b> call as if it were a series of 
-     * <b>SnmpClose</b> calls, one call for each session opened as a result of a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a>.
-     * 
-     * When the implementation closes a session it discards all outstanding incoming and outgoing asynchronous requests and replies for the session. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-sessions">WinSNMP Sessions</a>.
      * @param {Pointer} session Handle to the WinSNMP session to close.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -2506,7 +2131,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2544,7 +2169,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpclose
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpclose
      * @since windows5.0
      */
     static SnmpClose(session) {
@@ -2554,24 +2179,6 @@ class Snmp {
 
     /**
      * A WinSNMP application calls the SnmpSendMsg function to request that the Microsoft WinSNMP implementation transmit an SNMP protocol data unit (PDU), in the form of an SNMP message.
-     * @remarks
-     * The 
-     * <b>SnmpSendMsg</b> function executes asynchronously and therefore returns immediately.
-     * 
-     * The implementation notifies the WinSNMP application when the asynchronous request is completed. The implementation does this by sending a notification message to the window specified by the <i>wMsg</i> and <i>hWnd</i> parameters, respectively, in the initial call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> for the session. When the application window receives the notification message, the WinSNMP application must retrieve the incoming PDU. The application does this by calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function with the session handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a>.
-     * 
-     * When a WinSNMP application calls the 
-     * <b>SnmpSendMsg</b> function, the implementation determines which network transport protocol and SNMP version framework to use to complete the transmission request. The implementation determines this by matching its capabilities with properties associated with the requesting session and with the target management entity. This information is available from values in the implementation's database.
-     * 
-     * If a WinSNMP application requests functionality that is available under the SNMP version 2C framework (SNMPv2C), but the target entity uses the SNMP version 1 framework (SNMPv1), the implementation attempts to translate the request to SNMPv1. To do this, the implementation uses the procedures defined in RFC1908, "Coexistence between Version 1 and Version 2 of the Internet-standard Network Management Framework." If translation is not possible, 
-     * <b>SnmpSendMsg</b> fails with the extended error code SNMPAPI_OPERATION_INVALID. This situation occurs, for example, when an application attempts to send a PDU with the <b>SNMP_PDU_InformRequest</b> data type to an SNMPv1 destination entity.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-programming-tasks">WinSNMP Programming Tasks</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-snmp-messages">About SNMP Messages</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to send the SNMP message.
      * @param {Pointer} dstEntity Handle to the target entity that will respond to the SNMP request.
@@ -2580,7 +2187,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function may return one of the following WinSNMP or network transport layer errors.
      * 
      * <table>
@@ -2596,7 +2203,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2769,8 +2376,8 @@ class Snmp {
      *  
      * 
      * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsendmsg
+     * <a href="/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsendmsg
      * @since windows5.0
      */
     static SnmpSendMsg(session, srcEntity, dstEntity, context, PDU) {
@@ -2780,25 +2387,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpRecvMsg function retrieves the results of a completed asynchronous request submitted by a call to the SnmpSendMsg function, in the form of an SNMP message.
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function passes an application window handle and notification message identifier to the Microsoft WinSNMP implementation. When the application window receives the notification message specified by the <i>wMsg</i> parameter, the WinSNMP application must call the 
-     * <b>SnmpRecvMsg</b> function with the session handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> to retrieve an incoming protocol data unit (PDU). For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-snmp-messages">About SNMP Messages</a>.
-     * 
-     * The 
-     * <b>SnmpRecvMsg</b> function instantiates four objects and allocates their resources: two entity handles, a context handle, and a PDU handle. The handle to the variable bindings list component of the returned PDU is not instantiated until the WinSNMP application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetpdudata">SnmpGetPduData</a> function. When it no longer needs the resources 
-     * <b>SnmpRecvMsg</b> returns, the WinSNMP application must free the individual resources using the WinSNMP function that corresponds to the resource. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreeentity">SnmpFreeEntity</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreecontext">SnmpFreeContext</a>.
-     * 
-     * When the implementation receives traps from an entity operating under the SNMP version 1 framework (SNMPv1), it translates the traps to the SNMP version 2C (SNMPv2C) format. Therefore, when 
-     * <b>SnmpRecvMsg</b> delivers a trap it is always in the SNMPv2C format. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/translating-traps-from-snmpv1-to-snmpv2c">Translating Traps from SNMPv1 to SNMPv2C</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-programming-tasks">WinSNMP Programming Tasks</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer<IntPtr>} srcEntity Pointer to a variable that receives a handle to the entity that sends the message. Note that the <i>srcEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that registers for trap notification.
@@ -2811,7 +2399,7 @@ class Snmp {
      * If the function fails, the return value is SNMPAPI_FAILURE. If the function fails with an extended error code that indicates a network transport layer error, that is, one that begins with SNMPAPI_TL_, the output parameters also contain the values indicated preceding to enable the WinSNMP application to recover gracefully.
      * 
      * To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function may return one of the following WinSNMP or network transport layer errors.
      * 
      * <table>
@@ -2827,7 +2415,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -2978,8 +2566,8 @@ class Snmp {
      *  
      * 
      * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmprecvmsg
+     * <a href="/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmprecvmsg
      * @since windows5.0
      */
     static SnmpRecvMsg(session, srcEntity, dstEntity, context, PDU) {
@@ -2989,31 +2577,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpRegister function registers or unregisters a WinSNMP application for trap and notification reception. The application can register and receive traps and notifications, or unregister and disable traps and notifications.
-     * @remarks
-     * Typically a WinSNMP manager application, rather than an agent application, calls the 
-     * <b>SnmpRegister</b> function.
-     * 
-     * It is important to note that for users who are not administrators, the 
-     * <b>SnmpRegister</b> function succeeds on Windows 2000 and Windows XP only if the SNMP trap service has been started.
-     * 
-     * If a WinSNMP application passes <b>NULL</b> in a call to the 
-     * <b>SnmpRegister</b> function in the <i>srcEntity</i>, <i>dstEntity</i>, <i>context</i>, or <i>notification</i> parameters, the implementation does not use that parameter to filter traps and notifications from reaching the WinSNMP application. If an application passes <b>NULL</b> in all of the parameters mentioned previously, the implementation delivers all received notifications to the session.
-     * 
-     * If a WinSNMP application registers to receive a specific type of trap or notification, it must define an object identifier, that is, an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure, that corresponds to that type of trap. The <i>notification</i> parameter must point to this structure. RFC 1907, "Management Information Base for Version 2 of the Simple Network Management Protocol (SNMPv2)," defines trap and notification object identifiers. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-traps-and-notifications">Managing Traps and Notifications</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/translating-traps-from-snmpv1-to-snmpv2c">Translating Traps from SNMPv1 to SNMPv2C</a>.
-     * 
-     * The implementation uses the value of the <i>notification</i> parameter as a pattern to match against received traps and notifications. For example, if the WinSNMP application passes n number of subidentifiers in the <i>notification</i> parameter, and the first n subidentifiers in a received trap match all the passed subidentifiers, then the trap object identifier is a match. If a received trap has fewer subidentifiers than n, the object identifier does not match. If there is a match, the implementation sends the trap or notification to the WinSNMP application.
-     * 
-     * If any or all of the <i>dstEntity</i>, <i>srcEntity</i>, or <i>context</i> parameters are <b>NULL</b>, the implementation may need to allocate resources on a subsequent call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function, for that function's corresponding parameters. When the WinSNMP application no longer needs the resources 
-     * <b>SnmpRecvMsg</b> returns, the application must free the individual resources with the function that corresponds to the resource. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreeentity">SnmpFreeEntity</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreecontext">SnmpFreeContext</a>.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/multiple-trap-registrations">Multiple Trap Registrations</a>.
      * @param {Pointer} session Handle to the WinSNMP session that is registering or unregistering for traps and notifications.
      * @param {Pointer} srcEntity Handle to the management entity that is the source of the registration request. This entity, acting in an SNMP manager role, will receive the trap or notification. 
      * 
@@ -3050,7 +2613,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function may return one of the following WinSNMP or network transport layer errors.
      * 
      * <table>
@@ -3066,7 +2629,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3173,8 +2736,8 @@ class Snmp {
      *  
      * 
      * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpregister
+     * <a href="/windows/desktop/SNMP/network-transport-errors">Network Transport Errors</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpregister
      * @since windows5.0
      */
     static SnmpRegister(session, srcEntity, dstEntity, context, notification, state) {
@@ -3184,37 +2747,6 @@ class Snmp {
 
     /**
      * The SnmpCreateSession function requests the Microsoft WinSNMP implementation to open a session for the WinSNMP application.
-     * @remarks
-     * The 
-     * <b>SnmpCreateSession</b> function returns a unique handle to each open WinSNMP session within the calling WinSNMP application. The application must use the session handle that 
-     * <b>SnmpCreateSession</b> returns in other WinSNMP function calls to facilitate allocation and deallocation of resources by the implementation.
-     * 
-     * It is recommended that a WinSNMP application call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function once for each session that the implementation opens as a result of a call to the 
-     * <b>SnmpCreateSession</b> function. If a WinSNMP application terminates unexpectedly, it must call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> before it terminates to enable the implementation to deallocate all resources.
-     * 
-     * <h3><a id="Callback_Notifications"></a><a id="callback_notifications"></a><a id="CALLBACK_NOTIFICATIONS"></a>Callback Notifications</h3>
-     * If the <i>fCallback</i> parameter is not <b>NULL</b> on a successful call to the 
-     * <b>SnmpCreateSession</b> function, the implementation alerts the session to notifications using the callback function specified by the <i>fCallback</i> parameter.
-     * 
-     * Following is an example of a call to the 
-     * <b>SnmpCreateSession</b> function, requesting that the implementation signal the session about messages and events using callback notifications.
-     * 
-     * <c>hSession = SnmpCreateSession (0, 0, myFunc, &lt;NULL|myData&gt;);</c>
-     * 
-     * <h3><a id="Window_Notification_Messages"></a><a id="window_notification_messages"></a><a id="WINDOW_NOTIFICATION_MESSAGES"></a>Window Notification Messages</h3>
-     * The 
-     * <b>SnmpCreateSession</b> function passes to the implementation the handle to an application window and a notification message identifier. When the application window receives the notification message specified by the <i>wMsg</i> parameter, the WinSNMP application must retrieve the incoming protocol data unit (PDU). The application does this by calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function with the session handle returned by 
-     * <b>SnmpCreateSession</b>.
-     * 
-     * One WinSNMP application can open multiple WinSNMP sessions. If an application opens multiple sessions using the same window handle, it is recommended that the WinSNMP application specify a unique <i>wMsg</i> parameter for each session.
-     * 
-     * Following is an example of a call to the 
-     * <b>SnmpCreateSession</b> function, requesting that the implementation signal the session about messages and events using window notification messages.
-     * 
-     * <c>hSession = SnmpCreateSession (myWnd, myMsg, NULL, NULL);</c>
      * @param {Pointer<Void>} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter is required for window notification messages for the session.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window. This parameter is required for window notification messages for the session.
      * @param {Pointer<SNMPAPI_CALLBACK>} fCallBack Specifies the address of an application-defined, session-specific 
@@ -3228,7 +2760,7 @@ class Snmp {
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the WinSNMP session that the implementation opens for the calling application.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3244,7 +2776,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3315,7 +2847,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcreatesession
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcreatesession
      * @since windows5.0
      */
     static SnmpCreateSession(hWnd, wMsg, fCallBack, lpClientData) {
@@ -3325,18 +2857,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpListen function registers a WinSNMP application as an SNMP agent.
-     * @remarks
-     * When you specify an entity, you explicitly specify the address family, interface address, and port for the entity. This is because WinSNMP assigns these attributes to each WinSNMP entity as a result of a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. The implementation uses the address and port settings currently assigned to the entity specified by the <i>hEntity</i> parameter when it sends notifications to the agent application. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsetport">SnmpSetPort</a>.
-     * 
-     * When you call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function for a WinSNMP session and the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function for a WinSNMP application, you must release all ports associated with WinSNMP agent applications.
-     * 
-     * For more information about SNMP management applications and agent applications, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/registering-an-snmp-agent-application">Registering an SNMP Agent Application</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-snmp">About SNMP</a>.
      * @param {Pointer} hEntity Handle to the WinSNMP entity to notify when the Microsoft WinSNMP implementation receives an incoming SNMP request message (PDU). This parameter identifies the agent application. For more information, see the following Remarks and Return Values sections. 
      * 
      * 
@@ -3349,7 +2869,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3365,7 +2885,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3388,7 +2908,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The <i>hEntity</i> parameter is invalid. This parameter must be a handle returned by a previous call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function.
      * 
      * </td>
      * </tr>
@@ -3448,7 +2968,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmplisten
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmplisten
      * @since windows5.0
      */
     static SnmpListen(hEntity, lStatus) {
@@ -3470,21 +2990,13 @@ class Snmp {
 
     /**
      * A WinSNMP application calls the SnmpCancelMsg function to request that the Microsoft WinSNMP implementation cancel retransmission attempts and time-out notifications for an SNMP request message.
-     * @remarks
-     * Calling the 
-     * <b>SnmpCancelMsg</b> function is equivalent to calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsetretransmitmode">SnmpSetRetransmitMode</a> function, for a specific SNMP message, with the retransmission mode equal to SNMPAPI_OFF.
-     * 
-     * For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/canceling-retransmission">Canceling Retransmission</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
      * @param {Pointer} session Handle to the WinSNMP session that submitted the SNMP request message (PDU) to be canceled.
      * @param {Integer} reqId Specifies a unique numeric value that identifies the PDU of interest. This parameter must match the request identifier (<b>request_id</b>) of the <i>PDU</i> parameter specified in the application's initial call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> function.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3522,7 +3034,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3549,7 +3061,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcancelmsg
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcancelmsg
      * @since windows5.0
      */
     static SnmpCancelMsg(session, reqId) {
@@ -3559,30 +3071,6 @@ class Snmp {
 
     /**
      * The SnmpStartupEx function notifies the Microsoft WinSNMP implementation that the WinSNMP application requires the implementation's services.
-     * @remarks
-     * A WinSNMP application must call the <b>SnmpStartupEx</b> 
-     *    function successfully at least once, before it calls any other WinSNMP function. If a WinSNMP application  calls 
-     *    another WinSNMP function before it successfully calls 
-     *    <b>SnmpStartupEx</b>, the implementation returns the error 
-     *    SNMPAPI_NOT_INITIALIZED.
-     * 
-     * The WinSNMP application can call 
-     *    <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> for error information, or 
-     *    retry <b>SnmpStartupEx</b> if a call to the 
-     *    <b>SnmpStartupEx</b> function fails. When 
-     *    <b>SnmpStartupEx</b> returns SNMPAPI_FAILURE, and a subsequent 
-     *    call to <b>SnmpGetLastError</b> returns SNMP_ALLOC_ERROR, the 
-     *    WinSNMP application can elect to wait. It can retry the call to 
-     *    <b>SnmpStartupEx</b> when the implementation has adequate free 
-     *    resources.
-     * 
-     * A WinSNMP application must call <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanupex">SnmpCleanupEx</a> for 
-     *    each successful call to <b>SnmpStartupEx</b>. The WinSNMP 
-     *    implementation performs the final cleanup where there are no outstanding successful calls to <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> or <b>SnmpStartupEx</b>.
-     * 
-     * For additional information, see 
-     *    <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a> and 
-     *    <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-snmp-versions">About SNMP Versions</a>.
      * @param {Pointer<UInt32>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that 
      *       the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the 
      *       function returns a value of 2.
@@ -3602,7 +3090,7 @@ class Snmp {
      *        as indicated in the preceding parameter descriptions.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a 
+     *        <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a 
      *        <b>NULL</b> value in its <i>session</i> parameter. The 
      *        <b>SnmpGetLastError</b> function can return one of the 
      *        following errors. For additional information, see the "Remarks" section later in this document.
@@ -3630,7 +3118,7 @@ class Snmp {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function did not initialize correctly.
+     * The <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function did not initialize correctly.
      * 
      * </td>
      * </tr>
@@ -3657,7 +3145,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstartupex
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpstartupex
      * @since windows5.0
      */
     static SnmpStartupEx(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
@@ -3667,32 +3155,12 @@ class Snmp {
 
     /**
      * The SnmpCleanupEx function performs cleanup when there are no outstanding successful calls to SnmpStartup or SnmpStartupEx within a Windows SNMP (WinSNMP) application.
-     * @remarks
-     * Before the WinSNMP application calls 
-     * <b>SnmpCleanupEx</b>, it should call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function once for each session the implementation opens as a result of a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function.
-     * 
-     * When a WinSNMP application calls the 
-     * <b>SnmpCleanupEx</b> function, the implementation deallocates all resources allocated to the application if there are also no outstanding successful calls to  either <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a>. However, it is recommended that a WinSNMP application free the specific resources that the implementation allocates for it with the WinSNMP function that corresponds to the resource. For additional information about freeing individual resources, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreeentity">SnmpFreeEntity</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreecontext">SnmpFreeContext</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a>.
-     * 
-     * If a WinSNMP application must perform an emergency exit, and it calls 
-     * <b>SnmpCleanupEx</b> without freeing individual resources and without calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> for every open session, the implementation deallocates all resources allocated to the WinSNMP application. However, to enable this functionality in the implementation, the application must still call 
-     * <b>SnmpCleanupEx</b>.
-     * 
-     * <b>SnmpCleanupEx</b> must not be called when the application DLL is in the process of unloading.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS. Until the WinSNMP application successfully recalls the 
-     * corresponding <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function and there are no additional outstanding successful calls to either <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> or <b>SnmpStartupEx</b>, any other call to a WinSNMP function within the same application returns SNMPAPI_FAILURE, with an extended error code of SNMPAPI_NOT_INITIALIZED.
+     * corresponding <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function and there are no additional outstanding successful calls to either <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> or <b>SnmpStartupEx</b>, any other call to a WinSNMP function within the same application returns SNMPAPI_FAILURE, with an extended error code of SNMPAPI_NOT_INITIALIZED.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE, but the WinSNMP application does not need to retry the call to 
      * <b>SnmpCleanupEx</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3719,12 +3187,12 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function did not complete successfully, or an unknown or undefined error occurred.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartupex">SnmpStartupEx</a> function did not complete successfully, or an unknown or undefined error occurred.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcleanupex
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcleanupex
      * @since windows5.0
      */
     static SnmpCleanupEx() {
@@ -3734,28 +3202,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpStrToEntity function returns a handle to information about an SNMP management entity that is specific to the Microsoft WinSNMP implementation.
-     * @remarks
-     * The current setting of the entity and context translation mode determines the manner in which 
-     * <b>SnmpStrToEntity</b> interprets the input string that identifies the management entity of interest. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/support-for-ipx-address-strings-in-winsnmp">Support for IPX Address Strings in WinSNMP</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * 
-     * The WinSNMP application should call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreeentity">SnmpFreeEntity</a> function to release the entity handle allocated by the 
-     * <b>SnmpStrToEntity</b> function. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * 
-     * The 
-     * <b>SnmpStrToEntity</b> function returns a valid entity handle that a WinSNMP application can use as the <i>srcEntity</i> or the <i>dstEntity</i> parameter in multiple WinSNMP functions. These functions include the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpencodemsg">SnmpEncodeMsg</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpdecodemsg">SnmpDecodeMsg</a> functions.
-     * 
-     * The implementation returns the current entity and context translation mode in the <i>nTranslateMode</i> parameter of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function. A WinSNMP application can change the setting of the entity and context translation mode with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsettranslatemode">SnmpSetTranslateMode</a> function.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer<Byte>} string Pointer to a null-terminated string that identifies the SNMP management entity of interest. The current setting of the entity and context translation mode determines the manner in which 
      * <b>SnmpStrToEntity</b> interprets the input string as follows. 
@@ -3801,7 +3247,7 @@ class Snmp {
      * @returns {Pointer} If the function succeeds, the return value is a handle to the SNMP management entity of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3817,7 +3263,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3866,7 +3312,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtoentity
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpstrtoentity
      * @since windows5.0
      */
     static SnmpStrToEntity(session, string) {
@@ -3878,16 +3324,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpEntityToStr function returns a string that identifies an SNMP management entity.
-     * @remarks
-     * The current setting of the entity and context translation mode determines the type of output string 
-     * <b>SnmpEntityToStr</b> returns. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/support-for-ipx-address-strings-in-winsnmp">Support for IPX Address Strings in WinSNMP</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * 
-     * When the entity and context translation mode is SNMPAPI_TRANSLATED, and an entry exists in the implementation's database, the implementation returns the associated user-friendly name of the management entity. If an entry does not exist for the management entity, 
-     * <b>SnmpEntityToStr</b> returns the literal SNMP transport address of the management entity.
-     * 
-     * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the Microsoft WinSNMP implementation also returns the literal SNMP transport address of the management entity.
      * @param {Pointer} entity Handle to the SNMP management entity of interest.
      * @param {Integer} size Specifies the size, in bytes, of the buffer pointed to by the <i>string</i> parameter. The WinSNMP application must allocate a buffer that is large enough to contain the output string.
      * @param {Pointer<Byte>} string Pointer to a buffer to receive the null-terminated string that identifies the SNMP management entity of interest.
@@ -3895,7 +3331,7 @@ class Snmp {
      * <b>SnmpEntityToStr</b> returns in the <i>string</i> buffer. This value can be less than or equal to the value of the <i>size</i> parameter, but it cannot be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -3911,7 +3347,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -3960,7 +3396,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpentitytostr
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpentitytostr
      * @since windows5.0
      */
     static SnmpEntityToStr(entity, size, string) {
@@ -3972,20 +3408,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpFreeEntity function releases resources associated with an SNMP management entity.
-     * @remarks
-     * When the WinSNMP application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function, the Microsoft WinSNMP implementation frees all resources it allocated for the WinSNMP session. However, it is recommended that the WinSNMP application free individual resources by using the WinSNMP function that corresponds to the resource. For example, applications should call the 
-     * <b>SnmpFreeEntity</b> function to release resources allocated by a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. This reduces the implementation's work load, and should enhance the implementation's service to all applications.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} entity Handle to the SNMP management entity that will have its resources released.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4001,7 +3428,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4039,7 +3466,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreeentity
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpfreeentity
      * @since windows5.0
      */
     static SnmpFreeEntity(entity) {
@@ -4049,21 +3476,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpStrToContext function returns a handle to SNMP context information that is specific to the Microsoft WinSNMP implementation.
-     * @remarks
-     * The current setting of the entity and context translation mode determines the manner in which 
-     * <b>SnmpStrToContext</b> interprets the input string structure. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * 
-     * The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreecontext">SnmpFreeContext</a> function to release the context handle allocated by the 
-     * <b>SnmpStrToContext</b> function. For additional information about releasing resources, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * 
-     * The WinSNMP application should free the memory associated with the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>string</i> parameter. This is because the application defines and allocates the resources. For example, if the application allocated resources with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, it should use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to deallocate the resources. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer<smiOCTETS>} string Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains a string to interpret. The string can identify a collection of managed objects, or it can be a community string. 
@@ -4113,7 +3525,7 @@ class Snmp {
      * @returns {Pointer} If the function succeeds, the return value is a handle to the context of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4129,7 +3541,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4163,7 +3575,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The <i>string</i> parameter format is invalid. For example, the <b>len</b> member or the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>string</i> parameter is <b>NULL</b>.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>string</i> parameter is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -4190,7 +3602,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtocontext
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpstrtocontext
      * @since windows5.0
      */
     static SnmpStrToContext(session, string) {
@@ -4200,27 +3612,13 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpContextToStr function returns a string that identifies an SNMP context, which is a set of managed object resources. The function returns the string in an smiOCTETS structure.
-     * @remarks
-     * The current setting of the entity and context translation mode determines the type of output string 
-     * <b>SnmpContextToStr</b> returns. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * 
-     * The WinSNMP application must provide the address of a valid 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure for the <i>string</i> parameter. If the 
-     * <b>SnmpContextToStr</b> function completes successfully, the Microsoft WinSNMP implementation initializes the <b>len</b> and <b>ptr</b> members of the structure. The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to enable the implementation to free the resources for these members.
-     * 
-     * When the entity and context translation mode is SNMPAPI_TRANSLATED, and the entry exists in the implementation's database, the implementation returns the associated user-friendly name of the context. If an entry does not exist for the context name, 
-     * <b>SnmpContextToStr</b> returns the SNMP community string.
-     * 
-     * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the implementation also returns the SNMP community string.
      * @param {Pointer} context Handle to the SNMP context of interest.
      * @param {Pointer<smiOCTETS>} string Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure to receive the string that identifies the context of interest. The string can have a null-terminating byte.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4236,7 +3634,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4274,7 +3672,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcontexttostr
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcontexttostr
      * @since windows5.0
      */
     static SnmpContextToStr(context, string) {
@@ -4284,20 +3682,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpFreeContext function releases resources associated with an SNMP context, which is a set of managed object resources.
-     * @remarks
-     * When the WinSNMP application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function, the Microsoft WinSNMP implementation frees all resources it allocated for the WinSNMP session. However, it is recommended that the WinSNMP application free individual resources with the WinSNMP function that corresponds to the resource. For example, applications should call the 
-     * <b>SnmpFreeContext</b> function to release resources allocated by a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtocontext">SnmpStrToContext</a> function. This reduces the implementation's work load, and should enhance the service of the implementation to all applications.
-     * 
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} context Handle to the SNMP context that will have its resources released.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4313,7 +3702,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4351,7 +3740,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreecontext
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpfreecontext
      * @since windows5.0
      */
     static SnmpFreeContext(context) {
@@ -4361,40 +3750,6 @@ class Snmp {
 
     /**
      * A WinSNMP application calls the SnmpSetPort function to change the port assigned to a destination entity. The SnmpSetPort function is an element of the WinSNMP API, version 2.0.
-     * @remarks
-     * The Microsoft WinSNMP implementation assigns a port to each management entity as a result of a WinSNMP application's call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. If the SNMPAPI_UNTRANSLATED mode is in effect when the implementation creates an entity, the implementation typically assigns the standard SNMP request port for the respective protocol family to the entity; for example, UDP 161 or IPX 36879. If the SNMPAPI_TRANSLATED mode is in effect, the implementation assigns the port specified for the entity in the WinSNMP database. To retrieve the current entity and context translation mode in effect for the implementation, an application can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgettranslatemode">SnmpGetTranslateMode</a> function. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/the-winsnmp-database">The WinSNMP Database</a>.
-     * 
-     * A call to the 
-     * <b>SnmpSetPort</b> function fails if the entity specified by the <i>hEntity</i> parameter is currently functioning in an agent role. This is because the entity has already been assigned to a port other than the one specified by the <i>nPort</i> parameter. To ensure assignment of an agent application to a specific port, a WinSNMP application can perform the following steps.
-     * 
-     * <ol>
-     * <li>
-     * Call <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> as follows:
-     * 
-     * <c>hAgent = SnmpStrToEntity (hSession, &lt;addrString&gt;);</c>
-     * 
-     * </li>
-     * <li>
-     * Call <b>SnmpSetPort</b> as follows: 
-     * 
-     * <c>SnmpSetPort (hAgent, &lt;nPort&gt;);</c>
-     * 
-     * </li>
-     * <li>
-     * Call <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmplisten">SnmpListen</a> as follows:
-     * 
-     * <c>SnmpListen (hAgent, SNMPAPI_ON);</c>
-     * 
-     * </li>
-     * </ol>
-     * where &lt;addrString&gt; contains the string representation of an IP address or an IPX address, and &lt;nPort&gt; contains the new port assignment for the agent application.
-     * 
-     * Note that an IPX address contains a network number that consists of eight hexadecimal digits (zero-filled if necessary); a separator (either ":", "." or " – "); and a node number that consists of 12 hexadecimal digits (zero-filled if necessary)—for example, 00000001:00081A0D01C2. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/support-for-ipx-address-strings-in-winsnmp">Support for IPX Address Strings in WinSNMP</a>.
      * @param {Pointer} hEntity Handle to a WinSNMP destination entity. This parameter can specify the handle to an entity acting in the role of an SNMP agent application as a result of a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmplisten">SnmpListen</a> function. For more information, see the following Remarks section.
      * @param {Integer} nPort Specifies an unsigned integer that identifies the new port assignment for the destination entity. If you specify a local address that is busy, or if you specify a remote address that is unavailable, a call to the 
@@ -4402,7 +3757,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4418,7 +3773,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4430,7 +3785,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The entity specified by the <i>hEntity</i> parameter is already functioning in an agent role as the result of a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmplisten">SnmpListen</a> function. For more information, see the following Remarks section.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmplisten">SnmpListen</a> function. For more information, see the following Remarks section.
      * 
      * </td>
      * </tr>
@@ -4442,7 +3797,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The <i>hEntity</i> parameter is invalid. This parameter must be a handle returned by a previous call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function.
      * 
      * </td>
      * </tr>
@@ -4458,7 +3813,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsetport
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsetport
      * @since windows5.0
      */
     static SnmpSetPort(hEntity, nPort) {
@@ -4468,45 +3823,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpCreatePdu function creates and initializes an SNMP protocol data unit (PDU).
-     * @remarks
-     * A WinSNMP application must create a PDU before it calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpencodemsg">SnmpEncodeMsg</a> functions.
-     * 
-     * All of the parameters of the 
-     * <b>SnmpCreatePdu</b> function are required. However, all parameters, except the <i>session</i> parameter, can be <b>NULL</b>. In this instance, the new PDU has the following default values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Field</th>
-     * <th>Contents</th>
-     * </tr>
-     * <tr>
-     * <td><b>PDU_type</b></td>
-     * <td><b>SNMP_PDU_GETNEXT</b></td>
-     * </tr>
-     * <tr>
-     * <td><b>request_id</b></td>
-     * <td>The implementation generates a numeric value.</td>
-     * </tr>
-     * <tr>
-     * <td><b>error_status</b></td>
-     * <td>SNMP_ERROR_NOERROR</td>
-     * </tr>
-     * <tr>
-     * <td><b>error_index</b></td>
-     * <td>0</td>
-     * </tr>
-     * <tr>
-     * <td><b>varbindlist</b></td>
-     * <td><b>NULL</b></td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a> function to release the resources that the 
-     * <b>SnmpCreatePdu</b> function allocates for the new PDU.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Integer} PDU_type 
      * @param {Integer} request_id Specifies a unique numeric value that the WinSNMP application supplies to identify the PDU. If this parameter is <b>NULL</b>, the implementation assigns a value.
@@ -4516,7 +3832,7 @@ class Snmp {
      * @returns {Pointer} If the function succeeds, the return value is the handle to a new SNMP PDU.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4532,7 +3848,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4592,7 +3908,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcreatepdu
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcreatepdu
      * @since windows5.0
      */
     static SnmpCreatePdu(session, PDU_type, request_id, error_status, error_index, varbindlist) {
@@ -4602,24 +3918,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetPduData function returns selected data fields from a specified SNMP protocol data unit (PDU).
-     * @remarks
-     * All parameters of the 
-     * <b>SnmpGetPduData</b> function are required. However, all parameters, except the <i>PDU</i> parameter, can be <b>NULL</b>. In parameters that the application passes as <b>NULL</b>, the 
-     * <b>SnmpGetPduData</b> function does not return a value.
-     * 
-     * The 
-     * <b>SnmpGetPduData</b> function always returns a handle to a new variable bindings list object if the <i>varbindlist</i> parameter is not <b>NULL</b>. Additionally, if the <i>PDU</i> parameter specifies a new PDU, the function also attaches a handle to the new PDU.
-     * 
-     * When an application calls 
-     * <b>SnmpGetPduData</b> with a <i>varbindlist</i> parameter that is not <b>NULL</b>, but the <i>PDU</i> parameter specifies an existing PDU, the function returns a handle to a new duplicate variable bindings list. The function call does not disturb the handle attached to the existing PDU. An existing PDU is one that an application creates with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatepdu">SnmpCreatePdu</a> function, or one that the application receives and then reads using a call to 
-     * <b>SnmpGetPduData</b>.
-     * 
-     * When an application creates a PDU with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatepdu">SnmpCreatePdu</a>, or after the application reads a PDU using 
-     * <b>SnmpGetPduData</b>, the Microsoft WinSNMP implementation expects that the application "knows" the values of the PDU fields. If an application reads a PDU a second time with 
-     * <b>SnmpGetPduData</b>, the call results in a copy of the variable bindings list of the specified PDU. This type of call to 
-     * <b>SnmpGetPduData</b> also duplicates the handle to the PDU.
      * @param {Pointer} PDU Handle to the SNMP PDU.
      * @param {Pointer<UInt32>} PDU_type 
      * @param {Pointer<Int32>} request_id Pointer to a variable that receives the <b>request_id</b> field of the specified PDU. This parameter can be <b>NULL</b>.
@@ -4634,7 +3932,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4650,7 +3948,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4699,7 +3997,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetpdudata
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetpdudata
      * @since windows5.0
      */
     static SnmpGetPduData(PDU, PDU_type, request_id, error_status, error_index, varbindlist) {
@@ -4709,18 +4007,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetPduData function updates selected data fields in the specified SNMP protocol data unit (PDU).
-     * @remarks
-     * All parameters of the 
-     * <b>SnmpSetPduData</b> function are required. However, all parameters, except the <i>PDU</i> parameter, can be <b>NULL</b>. If the WinSNMP application passes <b>NULL</b> in a parameter, 
-     * <b>SnmpSetPduData</b> does not update the corresponding field in the PDU. Because 
-     * <b>SnmpSetPduData</b> passes parameters as pointers to values, an application can still update a PDU field with <b>NULL</b>.
-     * 
-     * The value of one PDU field can be valid alone, but may be invalidated in combination with values for other fields. The implementation validates the PDU and the other message elements when the application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpencodemsg">SnmpEncodeMsg</a> functions. The implementation rejects invalid PDUs.
-     * 
-     * The only type of trap PDU you can update with a call to the 
-     * <b>SnmpSetPduData</b> function is an SNMPv2C trap PDU.
      * @param {Pointer} PDU Handle to an SNMP PDU.
      * @param {Pointer<Int32>} PDU_type Pointer to a variable with a value to update the <b>PDU_type</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
      * @param {Pointer<Int32>} request_id Pointer to a variable with a value to update the <b>request_id</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
@@ -4730,7 +4016,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4746,7 +4032,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4806,7 +4092,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsetpdudata
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsetpdudata
      * @since windows5.0
      */
     static SnmpSetPduData(PDU, PDU_type, request_id, non_repeaters, max_repetitions, varbindlist) {
@@ -4816,17 +4102,13 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpDuplicatePdu function duplicates the SNMP protocol data unit (PDU) that the PDU parameter identifies, allocating any necessary memory for the duplicate PDU.
-     * @remarks
-     * To release resources allocated by the 
-     * <b>SnmpDuplicatePdu</b> function for a new PDU, a WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a> function.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} PDU Handle to the PDU to duplicate. The 
      * <b>SnmpDuplicatePdu</b> function provides a unique handle to each PDU within the calling application.
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the new duplicate PDU.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4842,7 +4124,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4891,7 +4173,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpduplicatepdu
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpduplicatepdu
      * @since windows5.0
      */
     static SnmpDuplicatePdu(session, PDU) {
@@ -4901,19 +4183,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpFreePdu function releases resources associated with an SNMP protocol data unit (PDU) created by the SnmpCreatePdu or the SnmpDuplicatePdu function.
-     * @remarks
-     * If the application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function, the Microsoft WinSNMP implementation frees all resources it allocates for the WinSNMP session. However, it is recommended that the application free individual resources with the WinSNMP function that corresponds to the resource. This reduces the implementation's work load, and should enhance the implementation's service to all applications. The application should use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a> function to deallocate variable bindings list resources. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * 
-     * Under WinSNMP, a variable binding entry exists only within a variable bindings list, even if the variable bindings list contains just one entry.
      * @param {Pointer} PDU Handle to the SNMP PDU to free.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -4929,7 +4203,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -4967,7 +4241,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreepdu
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpfreepdu
      * @since windows5.0
      */
     static SnmpFreePdu(PDU) {
@@ -4977,20 +4251,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpCreateVbl function creates a new variable bindings list for the calling WinSNMP application.
-     * @remarks
-     * The 
-     * <b>SnmpCreateVbl</b> function uses the values of the <i>name</i> and <i>value</i> parameters to create and initialize the first variable binding entry of a new variable bindings list. If the <i>name</i> parameter is <b>NULL</b>, the Microsoft WinSNMP implementation ignores the <i>value</i> parameter and creates an empty variable bindings list.
-     * 
-     * If the <i>name</i> parameter is not <b>NULL</b>, but the <i>value</i> parameter is <b>NULL</b>, the implementation creates and initializes the first variable binding entry in the variable bindings list. It initializes the <b>syntax</b> member of the structure pointed to by the <i>value</i> parameter with the value SNMP_SYNTAX_NULL.
-     * 
-     * The WinSNMP application must release the resources associated with each variable bindings list. It should do this by matching each call to the 
-     * <b>SnmpCreateVbl</b> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpduplicatevbl">SnmpDuplicateVbl</a> functions with a corresponding call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a> function. To avoid memory leaks, a WinSNMP application must call 
-     * <b>SnmpFreeVbl</b> before it reuses the handle to a variable bindings list in a subsequent call to 
-     * <b>SnmpCreateVbl</b> or 
-     * <b>SnmpDuplicateVbl</b>. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer<smiOID>} name Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that contains the variable name for the first variable binding entry. This parameter can be <b>NULL</b>. For additional information, see the following Remarks section.
@@ -4999,7 +4259,7 @@ class Snmp {
      * @returns {Pointer} If the function succeeds, the return value is a handle to a new variable bindings list.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5015,7 +4275,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5049,7 +4309,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The <i>name</i> parameter references an invalid 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure.
      * 
      * </td>
      * </tr>
@@ -5076,7 +4336,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcreatevbl
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcreatevbl
      * @since windows5.0
      */
     static SnmpCreateVbl(session, name, value) {
@@ -5086,27 +4346,12 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpDuplicateVbl function copies a variable bindings list for the specified WinSNMP session. This function returns a handle to the copied variable bindings list and allocates any necessary memory for it.
-     * @remarks
-     * The 
-     * <b>SnmpDuplicateVbl</b> function creates a new variable bindings list for the specified WinSNMP session. This function initializes the new list with a copy of the data in the source variable bindings list.
-     * 
-     * The handle the 
-     * <b>SnmpDuplicateVbl</b> function returns is unique among the variable bindings list handles that are active within the WinSNMP application.
-     * 
-     * The WinSNMP application must release the resources associated with each variable bindings list. It should do this by matching each call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatevbl">SnmpCreateVbl</a> and 
-     * <b>SnmpDuplicateVbl</b> functions with a corresponding call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a> function. To avoid memory leaks, a WinSNMP application must call 
-     * <b>SnmpFreeVbl</b> before it reuses the handle to a variable bindings list in a subsequent call to 
-     * <b>SnmpCreateVbl</b> or 
-     * <b>SnmpDuplicateVbl</b>. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} vbl Handle to the variable bindings list to copy. The source variable bindings list can be empty.
      * @returns {Pointer} If the function succeeds, the return value is a handle to a new variable bindings list.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5122,7 +4367,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5171,7 +4416,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpduplicatevbl
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpduplicatevbl
      * @since windows5.0
      */
     static SnmpDuplicateVbl(session, vbl) {
@@ -5181,25 +4426,11 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpFreeVbl function releases resources associated with a variable bindings list. These are resources allocated previously by a call to the SnmpCreateVbl function or the SnmpDuplicateVbl function in a WinSNMP application.
-     * @remarks
-     * The WinSNMP application must release the resources associated with each variable bindings list. It should do this by matching each call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatevbl">SnmpCreateVbl</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpduplicatevbl">SnmpDuplicateVbl</a> functions with a corresponding call to the 
-     * <b>SnmpFreeVbl</b> function. To avoid memory leaks, a WinSNMP application must call 
-     * <b>SnmpFreeVbl</b> before it reuses the handle to a variable bindings list in a subsequent call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatevbl">SnmpCreateVbl</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpduplicatevbl">SnmpDuplicateVbl</a>.
-     * 
-     * If the application calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function, the Microsoft WinSNMP implementation frees all resources it allocates for the WinSNMP session. However, even if the application does not reuse a variable bindings list handle, it is recommended that the application free individual variable bindings resources with the 
-     * <b>SnmpFreeVbl</b> function. This reduces the implementation's work load, and should enhance its service to all applications. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} vbl Handle to the variable bindings list to release.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5215,7 +4446,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5253,7 +4484,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreevbl
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpfreevbl
      * @since windows5.0
      */
     static SnmpFreeVbl(vbl) {
@@ -5263,17 +4494,11 @@ class Snmp {
 
     /**
      * A WinSNMP application calls the WinSNMP SnmpCountVbl function to enumerate the variable binding entries in the specified variable bindings list.
-     * @remarks
-     * The 
-     * <b>SnmpCountVbl</b> function returns an unsigned integer value that is the maximum value the WinSNMP application can specify for the <i>index</i> parameter in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetvb">SnmpGetVb</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsetvb">SnmpSetVb</a>, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpdeletevb">SnmpDeleteVb</a> functions.
      * @param {Pointer} vbl Handle to the variable bindings list to enumerate.
      * @returns {Integer} If the function succeeds, the return value is the count of variable binding entries in the variable bindings list.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5289,7 +4514,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5338,7 +4563,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcountvbl
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpcountvbl
      * @since windows5.0
      */
     static SnmpCountVbl(vbl) {
@@ -5348,34 +4573,6 @@ class Snmp {
 
     /**
      * A WinSNMP application calls the SnmpGetVb function to retrieve information from a variable bindings list. This WinSNMP function retrieves a variable name and its associated value from the variable binding entry specified by the index parameter.
-     * @remarks
-     * The last three syntax types describe exception conditions under the SNMP version 2C(SNMPv2C) framework.
-     * 
-     * The 
-     * <b>SnmpGetVb</b> function returns the variable name of the variable binding entry in the structure pointed to by the <i>name</i> parameter. It returns the variable's associated value in the structure pointed to by the <i>value</i> parameter.
-     * 
-     * On input, the 
-     * <b>SnmpGetVb</b> function ignores the members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smivalue">smiVALUE</a> structures pointed to by the <i>name</i> and <i>value</i> parameters respectively. The Microsoft WinSNMP implementation overwrites the members if the function completes successfully.
-     * 
-     * Valid values for a WinSNMP application to use for the <i>index</i> parameter are as follows:
-     * 
-     * <ul>
-     * <li>The return value from a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcountvbl">SnmpCountVbl</a> function</li>
-     * <li>The error index field of an <b>SNMP_PDU_RESPONSE</b> protocol data unit (PDU) returned by a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function</li>
-     * </ul>
-     * The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to free resources allocated for the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>name</i> parameter. The application must also call the 
-     * <b>SnmpFreeDescriptor</b> function to release resources allocated for the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smivalue">smiVALUE</a> structure pointed to by the <i>value</i> parameter under the conditions following. If the <b>value</b> member is an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> or an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure, the application must call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> to free the resources allocated for these structures. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} vbl Handle to the variable bindings list to retrieve.
      * @param {Integer} index Specifies an unsigned long integer variable that identifies the variable binding entry to retrieve. This variable contains the position of the variable binding entry, within the variable bindings list. 
      * 
@@ -5552,7 +4749,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5568,7 +4765,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5617,7 +4814,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetvb
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetvb
      * @since windows5.0
      */
     static SnmpGetVb(vbl, index, name, value) {
@@ -5627,16 +4824,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpSetVb function changes variable binding entries in a variable bindings list. This function also appends new variable binding entries to an existing variable bindings list.
-     * @remarks
-     * Valid values for the <i>index</i> parameter range from zero to n. The value zero indicates an append operation. The value n is the total number of variable binding entries in the variable bindings list. A WinSNMP application should call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcountvbl">SnmpCountVbl</a> function before it calls 
-     * <b>SnmpSetVb</b> to obtain the total number of variable binding entries.
-     * 
-     * If the function successfully performs an update operation, the return value equals the value of the <i>index</i> parameter. If the function appends a variable binding entry, the return value is n + 1.
-     * 
-     * If the <i>name</i> parameter is not <b>NULL</b>, but the <i>value</i> parameter is <b>NULL</b>, the Microsoft WinSNMP implementation initializes the new variable binding entry with the <b>value</b> member set to <b>NULL</b> and with the <b>syntax</b> member set to <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_SYNTAX_</a>.
-     * 
-     * If the <i>index</i> parameter is not equal to zero, and the <i>name</i> parameter is <b>NULL</b>, the Microsoft WinSNMP implementation updates only the value of the variable pointed to by the <i>index</i> parameter.
      * @param {Pointer} vbl Handle to the variable bindings list to update.
      * @param {Integer} index Specifies an unsigned long integer variable that contains the position of the variable binding entry, within the variable bindings list, if this is an update operation. If this is an append operation, this parameter must be equal to zero. For more information, see the following Remarks section.
      * @param {Pointer<smiOID>} name Pointer to an 
@@ -5646,7 +4833,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is the position of the updated or appended variable binding entry in the variable bindings list. For additional information, see the following Remarks section.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5662,7 +4849,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5733,7 +4920,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsetvb
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpsetvb
      * @since windows5.0
      */
     static SnmpSetVb(vbl, index, name, value) {
@@ -5743,30 +4930,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpDeleteVb function removes a variable binding entry from a variable bindings list.
-     * @remarks
-     * A WinSNMP application can use the 
-     * <b>SnmpDeleteVb</b> function to delete invalid variable binding entries. When an <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_RESPONSE</a> protocol data unit (PDU) includes an error that indicates an invalid variable binding entry, the application can call 
-     * <b>SnmpDeleteVb</b> to delete the entry. Then the application can resubmit the request PDU with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> function, without the invalid variable binding entry in the variable bindings list. Request PDUs include the SNMP_PDU_GET, SNMP_PDU_GETNEXT, and SNMP_PDU_GETBULK PDU data types.
-     * 
-     * After the 
-     * <b>SnmpDeleteVb</b> function deletes a variable binding entry, the index value of all entries after the deleted entry will decrement by one. A call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcountvbl">SnmpCountVbl</a> function returns the new total number of entries in the variable bindings list. The new total is one less than the count returned by a call to 
-     * <b>SnmpCountVbl</b> before the current call to 
-     * <b>SnmpDeleteVb</b>.
-     * 
-     * If a WinSNMP application calls the 
-     * <b>SnmpDeleteVb</b> function and deletes the last variable binding entry in a variable bindings list, the result is an empty variable bindings list. The variable bindings list still has a valid handle and the WinSNMP application must release the handle with a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreevbl">SnmpFreeVbl</a> function.
-     * 
-     * The following are valid values to use for the <i>index</i> parameter:
-     * 
-     * <ul>
-     * <li>The return value from a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcountvbl">SnmpCountVbl</a> function</li>
-     * <li>The error index field of an <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_RESPONSE</a> PDU returned by a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function</li>
-     * </ul>
      * @param {Pointer} vbl Handle to the variable bindings list to update.
      * @param {Integer} index Specifies an unsigned long integer variable that identifies the variable binding entry to remove. This variable contains the position of the variable binding entry, within the variable bindings list. 
      * 
@@ -5777,7 +4940,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5793,7 +4956,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5842,7 +5005,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpdeletevb
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpdeletevb
      * @since windows5.0
      */
     static SnmpDeleteVb(vbl, index) {
@@ -5852,26 +5015,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetLastError function returns the calling application's last-error code value. The value indicates the reason why the last function call executed by the WinSNMP application failed.
-     * @remarks
-     * A WinSNMP application must call 
-     * <b>SnmpGetLastError</b> immediately after a function fails, to retrieve the last-error code. If another function fails, it overwrites the last-error code set by the most recently failed function. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-error-codes">WinSNMP Error Codes</a>.
-     * 
-     * Although the <i>session</i> parameter accommodates both multithread and single-thread Windows operating environments, the potential still exists for the last-error code from one thread to overwrite the last-error code from another thread.
-     * 
-     * Note that 
-     * <b>SnmpGetLastError</b> must be able to return the last-error code to a WinSNMP application under the following conditions:
-     * 
-     * <ul>
-     * <li>After the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function fails</li>
-     * <li>Before the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function creates any WinSNMP sessions for the instance of the application</li>
-     * <li>After the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function closes all WinSNMP sessions for the instance of the application</li>
-     * <li>After the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcleanup">SnmpCleanup</a> function disconnects the WinSNMP application from the Microsoft WinSNMP implementation</li>
-     * </ul>
      * @param {Pointer} session Handle to the WinSNMP session. This parameter can also be <b>NULL</b>. 
      * 
      * 
@@ -5888,9 +5031,9 @@ class Snmp {
      * <b>SnmpGetLastError</b> function returns the last WinSNMP error that occurred for the indicated session.
      * 
      * If the <i>session</i> parameter is <b>NULL</b> — for example, if the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function fails, 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function fails, 
      * <b>SnmpGetLastError</b> returns the last WinSNMP error that occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetlasterror
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpgetlasterror
      * @since windows5.0
      */
     static SnmpGetLastError(session) {
@@ -5900,34 +5043,14 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpStrToOid function converts the dotted numeric string format of an SNMP object identifier, for example, &quot;1.2.3.4.5.6&quot;, to its internal binary representation.
-     * @remarks
-     * The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to free resources allocated for the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter. On input, 
-     * <b>SnmpFreeDescriptor</b> ignores the members of this 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure. The Microsoft WinSNMP implementation overwrites the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> members if the function completes successfully.
-     * 
-     * The 
-     * <b>SnmpStrToOid</b> function fails and returns the SNMPAPI_OID_INVALID error code if the <i>string</i> parameter meets one of the following conditions:
-     * 
-     * <ul>
-     * <li>Is not <b>null</b>-terminated.</li>
-     * <li>Is not the textual form of a valid object identifier.</li>
-     * <li>Is insufficient in length; all object identifiers must have two subidentifiers.</li>
-     * <li>Exceeds the MAXOBJIDSTRSIZE of 1408 bytes.</li>
-     * </ul>
-     * For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer<Byte>} string Pointer to a <b>null</b>-terminated object identifier string to convert.
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that receives the converted value.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the converted object identifier. This number is also the value of the <b>len</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -5943,7 +5066,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -5981,7 +5104,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtooid
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpstrtooid
      * @since windows5.0
      */
     static SnmpStrToOid(string, dstOID) {
@@ -5993,9 +5116,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpOidToStr function converts the internal binary representation of an SNMP object identifier to its dotted numeric string format, for example, to &quot;1.2.3.4.5.6&quot;.
-     * @remarks
-     * It is recommended that a WinSNMP application specify, with the <i>size</i> parameter, a string buffer of MAXOBJIDSTRSIZE length (1408 bytes). This ensures that the output buffer is large enough to hold the converted string. Because the converted string is usually less than MAXOBJIDSTRSIZE, the WinSNMP application can copy the converted string to a smaller buffer. The application can then reuse or free the memory that it allocated for the initial buffer. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure with an object identifier to convert.
      * @param {Integer} size Specifies the size, in bytes, of the buffer indicated by the <i>string</i> parameter. For more information, see the following Remarks section.
@@ -6003,7 +5123,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the string that the WinSNMP application writes to the <i>string</i> parameter. The return value includes a <b>null</b>-terminating byte. This value may be less than or equal to the value of the <i>size</i> parameter, but it may not be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6019,7 +5139,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6079,7 +5199,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpoidtostr
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpoidtostr
      * @since windows5.0
      */
     static SnmpOidToStr(srcOID, size, string) {
@@ -6091,26 +5211,15 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpOidCopy function copies an SNMP object identifier, allocating any necessary memory for the copy.
-     * @remarks
-     * On input, the 
-     * <b>SnmpOidCopy</b> function ignores the members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter. The Microsoft WinSNMP implementation overwrites the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> members if the function completes successfully.
-     * 
-     * The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to enable the implementation to free resources allocated for the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure to copy.
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure to receive a copy of the object identifier specified by the <i>srcOID</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the copied object identifier. This number is also the value of the <b>len</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure pointed to by the <i>dstOID</i> parameter.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6126,7 +5235,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6164,7 +5273,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpoidcopy
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpoidcopy
      * @since windows5.0
      */
     static SnmpOidCopy(srcOID, dstOID) {
@@ -6174,26 +5283,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpOidCompare function lexicographically compares two SNMP object identifiers, up to the length specified by the maxlen parameter.
-     * @remarks
-     * A WinSNMP application can call the 
-     * <b>SnmpOidCompare</b> function to determine whether two object identifiers have common prefixes.
-     * 
-     * If the <i>maxlen</i> parameter is not equal to zero, and not greater than MAXOBJIDSIZE, the value of <i>maxlen</i> sets the upper limit for the number of subidentifiers to compare. The maximum number of subidentifiers that the 
-     * <b>SnmpOidCompare</b> function compares defaults to whichever is the smallest number—the <i>maxlen</i> parameter, or the <b>len</b> member of one of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structures pointed to by the <i>xOID</i> and <i>yOID</i> parameters.
-     * 
-     * If the <i>maxlen</i> parameter is equal to zero, the maximum number of subidentifiers that the 
-     * <b>SnmpOidCompare</b> function compares defaults to the number that is the smaller of the <b>len</b> members of the two 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structures.
-     * 
-     * The value of the <i>result</i> parameter will indicate that <i>xOID</i> equals <i>yOID</i> if the two 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structures are lexicographically equal and one of the following occurs:
-     * 
-     * <ul>
-     * <li><b>SnmpOidCompare</b> compares a <i>maxlen</i> number of subidentifiers.</li>
-     * <li><b>SnmpOidCompare</b> compares the maximum number of subidentifiers, and the <b>len</b> members of both 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structures are equal, but less than the <i>maxlen</i> parameter.</li>
-     * </ul>
      * @param {Pointer<smiOID>} xOID Pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> object identifier to compare. The length of the object identifier can be zero.
      * @param {Pointer<smiOID>} yOID Pointer to the second 
@@ -6245,7 +5334,7 @@ class Snmp {
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6261,7 +5350,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6310,7 +5399,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpoidcompare
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpoidcompare
      * @since windows5.0
      */
     static SnmpOidCompare(xOID, yOID, maxlen, result) {
@@ -6320,22 +5409,6 @@ class Snmp {
 
     /**
      * The Microsoft WinSNMP implementation uses the parameters passed in the WinSNMP SnmpEncodeMsg function to encode an SNMP message.
-     * @remarks
-     * The first five parameters passed to the 
-     * <b>SnmpEncodeMsg</b> function are the same parameters that are passed to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsendmsg">SnmpSendMsg</a> function.
-     * 
-     * The WinSNMP application must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreedescriptor">SnmpFreeDescriptor</a> function to free resources allocated for the <b>ptr</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure. This is the structure pointed to by the <i>msgBufDesc</i> parameter. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * 
-     * On input, the 
-     * <b>SnmpEncodeMsg</b> function ignores the members of the structure pointed to by the <i>msgBufDesc</i> parameter. The implementation overwrites the members of the structure if the function completes successfully.
-     * 
-     * The implementation verifies the format of the first five input parameters. If one of the parameters is invalid, 
-     * <b>SnmpEncodeMsg</b> returns SNMPAPI_FAILURE, and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> returns an extended error code.
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to encode the SNMP message.
      * @param {Pointer} dstEntity Handle to the target management entity.
@@ -6344,10 +5417,10 @@ class Snmp {
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that receives the encoded SNMP message.
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the encoded SNMP message. This number is also the value of the <b>len</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>msgBufDesc</i> parameter.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>msgBufDesc</i> parameter.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. For additional information, see the following Remarks section. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6363,7 +5436,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6434,7 +5507,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpencodemsg
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpencodemsg
      * @since windows5.0
      */
     static SnmpEncodeMsg(session, srcEntity, dstEntity, context, pdu, msgBufDesc) {
@@ -6444,14 +5517,6 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpDecodeMsg function decodes an encoded SNMP message into its components. This function performs the opposite action of the WinSNMP SnmpEncodeMsg function.
-     * @remarks
-     * The Microsoft WinSNMP implementation returns a value of zero in the <i>srcEntity</i> and the <i>dstEntity</i> parameters when an application submits an SNMPv1 or an SNMPv2C message to the 
-     * <b>SnmpDecodeMsg</b> function. This is because the message format does not include the address information necessary to create WinSNMP entity resources.
-     * 
-     * The Microsoft WinSNMP implementation allocates resources to the WinSNMP application as a result of a successful call to the 
-     * <b>SnmpDecodeMsg</b> function. It is recommended that the WinSNMP application free individual resources with the WinSNMP function that corresponds to the resource. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer} session Handle to the WinSNMP session. This parameter is required. For additional information, see the following Remarks section.
      * @param {Pointer<IntPtr>} srcEntity Pointer to a variable that receives a handle to the source management entity. For more information, see the following Remarks section.
      * @param {Pointer<IntPtr>} dstEntity Pointer to a variable that receives a handle to the target management entity. For more information, see the following Remarks section.
@@ -6460,10 +5525,10 @@ class Snmp {
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains the SNMP message to decode into its components. The <b>len</b> member of the structure specifies the maximum number of bytes to process; the <b>ptr</b> member points to the encoded SNMP message.
      * @returns {Integer} If the function succeeds, the return value is the number of decoded bytes. This value can be equal to, or less than, the <b>len</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>msgBufDesc</i> parameter.
+     * <a href="/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure pointed to by the <i>msgBufDesc</i> parameter.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a>. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6479,7 +5544,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6572,7 +5637,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpdecodemsg
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpdecodemsg
      * @since windows5.0
      */
     static SnmpDecodeMsg(session, srcEntity, dstEntity, context, pdu, msgBufDesc) {
@@ -6582,19 +5647,12 @@ class Snmp {
 
     /**
      * A WinSNMP application uses the SnmpFreeDescriptor function to inform the Microsoft WinSNMP implementation that it no longer requires access to a descriptor object.
-     * @remarks
-     * The implementation allocates and deallocates memory for output descriptor objects with variable lengths. This memory allocation and deallocation are restricted to the implementation, except for the interface that the 
-     * <b>SnmpFreeDescriptor</b> function provides. For additional information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
-     * 
-     * The implementation returns the SNMPAPI_OPERATION_INVALID error code if the <i>descriptor</i> parameter specifies a memory allocation that the implementation released in a prior call to 
-     * <b>SnmpFreeDescriptor</b>. The function returns the same error code if the <i>descriptor</i> parameter specifies a memory allocation that the implementation did not make for the calling WinSNMP application.
      * @param {Integer} syntax Specifies the syntax data type of the target descriptor object.
      * @param {Pointer<smiOCTETS>} descriptor Pointer to an <b>smiOPAQUE</b> structure that contains the target descriptor object to release.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> specifying a <b>NULL</b> value in its <i>session</i> parameter. The 
      * <b>SnmpGetLastError</b> function can return one of the following errors.
      * 
      * <table>
@@ -6610,7 +5668,7 @@ class Snmp {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
+     * <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function did not complete successfully.
      * 
      * </td>
      * </tr>
@@ -6659,7 +5717,7 @@ class Snmp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreedescriptor
+     * @see https://docs.microsoft.com/windows/win32/api//winsnmp/nf-winsnmp-snmpfreedescriptor
      * @since windows5.0
      */
     static SnmpFreeDescriptor(syntax, descriptor) {

@@ -3,7 +3,7 @@
 
 /**
  * The creation properties for a ID2D1PrintControl object.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_print_control_properties
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_print_control_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

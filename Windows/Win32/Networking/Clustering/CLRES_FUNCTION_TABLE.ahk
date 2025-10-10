@@ -8,7 +8,8 @@
 /**
  * Describes a function table for any version of the Resource API.
  * @remarks
- * Only the first two members are guaranteed to be at the same offset within the 
+ * 
+  * Only the first two members are guaranteed to be at the same offset within the 
   *      <b>CLRES_FUNCTION_TABLE</b> structure. All other entries 
   *      within this structure are dependent on the 
   *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-api">Resource API</a> version supported.
@@ -31,7 +32,10 @@
   * 
   * To create a function table for version 1.0 of the Resource API, use the 
   *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_function_table
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-clres_function_table
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

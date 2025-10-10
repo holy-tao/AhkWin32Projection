@@ -3,7 +3,7 @@
 
 /**
  * Defines information about an available scope for use within returned DHCP-specific SNMP Management Information Block (MIB) data.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-scope_mib_info
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-scope_mib_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

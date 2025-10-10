@@ -2,7 +2,7 @@
 
 /**
  * HTTP_SERVICE_BINDING_TYPE enumerated type specifies the string type for service names.
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_service_binding_type
+ * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_service_binding_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

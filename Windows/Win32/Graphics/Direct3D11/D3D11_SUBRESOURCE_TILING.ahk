@@ -2,13 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a tiled subresource volume. (D3D11_SUBRESOURCE_TILING)
+ * Describes a tiled subresource volume.
  * @remarks
- * Each packed mipmap is individually reported as 0 for <b>WidthInTiles</b>, <b>HeightInTiles</b> and <b>DepthInTiles</b>.
+ * 
+  * Each packed mipmap is individually reported as 0 for <b>WidthInTiles</b>, <b>HeightInTiles</b> and <b>DepthInTiles</b>.
   * 
   * 
   * The total number of tiles in subresources is <b>WidthInTiles</b>*<b>HeightInTiles</b>*<b>DepthInTiles</b>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_subresource_tiling
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_2/ns-d3d11_2-d3d11_subresource_tiling
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

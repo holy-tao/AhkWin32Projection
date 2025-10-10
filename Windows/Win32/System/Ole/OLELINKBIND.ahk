@@ -2,7 +2,7 @@
 
 /**
  * Controls binding operations to a link source.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olelinkbind
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olelinkbind
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

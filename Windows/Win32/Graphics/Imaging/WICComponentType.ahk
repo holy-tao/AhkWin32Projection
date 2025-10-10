@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of Windows Imaging Component (WIC) component.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponenttype
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wiccomponenttype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

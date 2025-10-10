@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_SET_TARGET_PERSISTENCE structure contains information about setting the display.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_set_target_persistence
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_set_target_persistence
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

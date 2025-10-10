@@ -2,7 +2,7 @@
 
 /**
  * Specifies the possible ways that a device can be joined to Microsoft Azure Active Directory.
- * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ne-lmjoin-dsreg_join_type
+ * @see https://docs.microsoft.com/windows/win32/api//lmjoin/ne-lmjoin-dsreg_join_type
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
@@ -21,7 +21,7 @@ class DSREG_JOIN_TYPE{
     static DSREG_DEVICE_JOIN => 1
 
     /**
-     * The device is registered to Azure Active Directory (Azure AD), meaning an Azure AD work account is added on the device.
+     * An Azure AD work account is added on the device.
      * @type {Integer (Int32)}
      */
     static DSREG_WORKPLACE_JOIN => 2

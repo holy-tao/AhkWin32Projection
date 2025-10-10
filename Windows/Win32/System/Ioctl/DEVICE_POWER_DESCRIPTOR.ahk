@@ -3,7 +3,7 @@
 
 /**
  * The DEVICE_POWER_DESCRIPTOR structure describes the power capabilities of a storage device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_power_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_power_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

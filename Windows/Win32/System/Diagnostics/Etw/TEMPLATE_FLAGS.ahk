@@ -2,7 +2,7 @@
 
 /**
  * Defines constant values that indicates the layout of the event data.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-template_flags
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-template_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

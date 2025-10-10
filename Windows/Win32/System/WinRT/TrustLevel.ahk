@@ -3,11 +3,14 @@
 /**
  * Represents the trust level of an activatable class.
  * @remarks
- * Classes can be activated depending on the trust level of the caller and the trust classification of the activatable class.
+ * 
+  * Classes can be activated depending on the trust level of the caller and the trust classification of the activatable class.
   * 
   * 
   * <a href="https://docs.microsoft.com/previous-versions/dn408470(v=vs.85)">RegisteredTrustLevel</a> is an alias for this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/inspectable/ne-inspectable-trustlevel
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//inspectable/ne-inspectable-trustlevel
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

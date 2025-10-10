@@ -3,7 +3,7 @@
 
 /**
  * Specifies a metadata object setting.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_metadata_property
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_metadata_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

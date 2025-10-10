@@ -4,7 +4,7 @@
 
 /**
  * Describes the indexing configuration for a stream and type of index.
- * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ns-wmcontainer-asf_index_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ns-wmcontainer-asf_index_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

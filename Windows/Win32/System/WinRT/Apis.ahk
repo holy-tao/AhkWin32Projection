@@ -32,13 +32,6 @@ class WinRT {
 ;@region Methods
     /**
      * Locates the implementation of a Component Object Model (COM) interface in a server process given an interface to a proxied object.
-     * @remarks
-     * The <b>CoDecodeProxy</b> function is a COM API that enables native debuggers to locate the implementation of a COM interface in a server process given an interface on a proxy to the object.
-     * 
-     * 
-     * Also, the <b>CoDecodeProxy</b> function enables the debugger to monitor cross-apartment function calls and fail such calls when appropriate.
-     * 
-     * You can call the <b>CoDecodeProxy</b> function from a 32-bit or 64-bit process. <i>ui64ProxyAddress</i> can be a 32-bit or 64-bit address. The <b>CoDecodeProxy</b> function returns a 32-bit or 64-bit address in the <i>pServerInformation</i> field. If it returns a 64-bit address, you should pass the address to the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-readprocessmemory">ReadProcessMemory</a> function only from a 64-bit process.
      * @param {Integer} dwClientPid The process ID of the process that contains the proxy.
      * @param {Integer} ui64ProxyAddress The address of an interface on a proxy to the object.  <i>ui64ProxyAddress</i> is considered a 64-bit value type, rather than a pointer  to a 64-bit value, and isn't a pointer to an object in the debugger process. Instead, this address is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-readprocessmemory">ReadProcessMemory</a> function.
      * @param {Pointer<ServerInformation>} pServerInformation A structure that contains the process ID, the thread ID, and the address of the server.
@@ -83,7 +76,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy
+     * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-codecodeproxy
      */
     static CoDecodeProxy(dwClientPid, ui64ProxyAddress, pServerInformation) {
         result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, "ptr", pServerInformation, "int")
@@ -95,14 +88,6 @@ class WinRT {
 
     /**
      * Creates an agile reference for an object specified by the given interface.
-     * @remarks
-     * Call the <b>RoGetAgileReference</b> function on an existing object to request an agile reference to the object. The object may or may not be agile, but the returned <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iagilereference">IAgileReference</a> is agile. The agile reference can be passed to another apartment within the same process, where the original object is retrieved by using the <b>IAgileReference</b> interface.
-     * 
-     * This is conceptually similar to the existing Global Interface Table (GIT). Rather than interacting with the GIT, an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iagilereference">IAgileReference</a> is obtained and used to retrieve the object directly. Just as the GIT is per-process only, agile references are per-process and can't be marshaled.
-     * 
-     * The agile reference feature provides a performance improvement over the GIT. The agile reference performs eager marshaling by default, which saves a cross-apartment call in cases where the object is retrieved from the agile reference in an apartment that's different from where the agile reference was created. For additional performance improvement, users of the <b>RoGetAgileReference</b> function can use the same interface to create an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iagilereference">IAgileReference</a> and resolve the original object. This saves an additional <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> call to obtain the desired interface from the resolved object.
-     * 
-     * For example, you have a non-agile object named CDemoExample, which implements the IDemo and IExample interfaces. Call the <b>RoGetAgileReference</b> function and pass the object, with IID_IDemo. You get back an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iagilereference">IAgileReference</a> interface pointer, which is agile, so you can pass it to a different apartment. In the other apartment, call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method, with IID_IExample. You get back an IExample pointer that you can use within this apartment. This IExample pointer is an IExample proxy that's connected to the original CDemoExample object. The agile reference handles the complexity of operations like manually marshaling to a stream and unmarshaling on the other side of the apartment boundary.
      * @param {Integer} options The registration options.
      * @param {Pointer<Guid>} riid The interface ID of the object for which an agile reference is being obtained.
      * @param {Pointer<IUnknown>} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
@@ -165,12 +150,12 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * The object implements the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-inomarshal">INoMarshal</a> interface.
+     * The object implements the <a href="/windows/desktop/api/objidl/nn-objidl-inomarshal">INoMarshal</a> interface.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-rogetagilereference
+     * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-rogetagilereference
      * @since windows8.1
      */
     static RoGetAgileReference(options, riid, pUnk, ppAgileReference) {
@@ -182,12 +167,12 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserSize function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize)
+     * Calculates the wire size of the HSTRING object, and gets its handle and data.
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usersize
      * @since windows8.0
      */
     static HSTRING_UserSize(param0, param1, param2) {
@@ -196,12 +181,12 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserMarshal function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal)
+     * Marshals an HSTRING object into the RPC buffer.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usermarshal
      * @since windows8.0
      */
     static HSTRING_UserMarshal(param0, param1, param2) {
@@ -210,7 +195,7 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserUnmarshal function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal)
+     * Unmarshals an HSTRING object from the RPC buffer.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
      * @param {Pointer<Void>} param2 
@@ -244,7 +229,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userunmarshal
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal(param0, param1, param2) {
@@ -253,11 +238,11 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserFree function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree)
+     * Frees resources on the server side when called by RPC stub files.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userfree
      * @since windows8.0
      */
     static HSTRING_UserFree(param0, param1) {
@@ -265,12 +250,12 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserSize64 function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize64)
+     * Calculates the wire size of the HSTRING object, and gets its handle and data.
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usersize64
      * @since windows8.0
      */
     static HSTRING_UserSize64(param0, param1, param2) {
@@ -279,12 +264,12 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserMarshal64 function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal64)
+     * Marshals an HSTRING object into the RPC buffer.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usermarshal64
      * @since windows8.0
      */
     static HSTRING_UserMarshal64(param0, param1, param2) {
@@ -293,7 +278,7 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserUnmarshal64 function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal64)
+     * Unmarshals an HSTRING object from the RPC buffer.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
      * @param {Pointer<Void>} param2 
@@ -327,7 +312,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal64
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userunmarshal64
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal64(param0, param1, param2) {
@@ -336,11 +321,11 @@ class WinRT {
     }
 
     /**
-     * The HSTRING_UserFree64 function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree64)
+     * Frees resources on the server side when called by RPC stub files.
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
+     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userfree64
      * @since windows8.0
      */
     static HSTRING_UserFree64(param0, param1) {
@@ -349,14 +334,6 @@ class WinRT {
 
     /**
      * Creates a new HSTRING based on the specified source string.
-     * @remarks
-     * Use the <b>WindowsCreateString</b> function to allocate a new [**HSTRING**](/windows/win32/winrt/hstring). The Windows Runtime copies <i>string</i> to the backing buffer of the new <b>HSTRING</b> and   manages the buffer lifetime by using a reference count. Call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a> function to create a <i>fast-pass string</i>, which uses an existing string without copying it. 
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function to de-allocate the [**HSTRING**](/windows/win32/winrt/hstring). Each call to the <b>WindowsCreateString</b> function must be matched by a call to  <b>WindowsDeleteString</b>. 
-     * 
-     * To create a new, empty, or <b>NULL</b> string, pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>.
-     * 
-     * If <i>sourceString</i> has embedded null characters, the <b>WindowsCreateString</b> function copies all characters to the terminating null character.
      * @param {Pointer<Char>} sourceString Type: [in, optional] <b>LPCWSTR</b>
      * 
      * A null-terminated string to use as the source for the new [**HSTRING**](/windows/win32/winrt/hstring). To create a new, empty, or <b>NULL</b> string, pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>.
@@ -420,7 +397,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowscreatestring
      * @since windows8.0
      */
     static WindowsCreateString(sourceString, length, string) {
@@ -435,14 +412,6 @@ class WinRT {
 
     /**
      * Creates a new string reference based on the specified string.
-     * @remarks
-     * Use the <b>WindowsCreateStringReference</b> function to create an [**HSTRING**](/windows/win32/winrt/hstring) from an existing string. This kind of <b>HSTRING</b> is named a <i>fast-pass string</i>. Unlike an <b>HSTRING</b> created by the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestring">WindowsCreateString</a> function, the lifetime of the backing buffer in the new <b>HSTRING</b> is  not managed by the Windows Runtime.  The caller allocates <i>sourceString</i> on the  stack frame, together with an uninitialized <a href="https://docs.microsoft.com/windows/desktop/api/hstring/ns-hstring-hstring_header">HSTRING_HEADER</a>, to avoid a heap allocation and eliminate the risk of a memory leak. The caller must ensure that <i>sourceString</i> and the contents of <i>hstringHeader</i> remain unchanged during the lifetime of the attached <b>HSTRING</b>.
-     * 
-     * You don't need to call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function to de-allocate a fast-pass [**HSTRING**](/windows/win32/winrt/hstring) created by the <b>WindowsCreateStringReference</b> function.
-     * 
-     * To create an empty [**HSTRING**](/windows/win32/winrt/hstring), pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>. 
-     * 
-     * The Windows Runtime tracks a fast-pass string by using an <a href="https://docs.microsoft.com/windows/desktop/api/hstring/ns-hstring-hstring_header">HSTRING_HEADER</a> structure, which is returned in the <i>hstringHeader</i> out parameter. Do not change the contents of the <b>HSTRING_HEADER</b>.
      * @param {Pointer<Char>} sourceString Type: [in] <b>PCWSTR</b>
      * 
      * A null-terminated string to use as the source for the new [**HSTRING**](/windows/win32/winrt/hstring).
@@ -511,7 +480,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestringreference
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowscreatestringreference
      * @since windows8.0
      */
     static WindowsCreateStringReference(sourceString, length, hstringHeader, string) {
@@ -526,15 +495,13 @@ class WinRT {
 
     /**
      * Decrements the reference count of a string buffer.
-     * @remarks
-     * Use the <b>WindowsDeleteString</b> function to de-allocate an [**HSTRING**](/windows/win32/winrt/hstring). Calling <b>WindowsDeleteString</b> decrements the reference count of the backing buffer, and if the reference count reaches 0, the Windows Runtime de-allocates the buffer.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be deleted. If <i>string</i> is a fast-pass string created by <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a>, or if <i>string</i> is <b>NULL</b> or empty, no action is taken and <b>S_OK</b> is returned.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function always returns <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsdeletestring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsdeletestring
      * @since windows8.0
      */
     static WindowsDeleteString(string) {
@@ -547,10 +514,6 @@ class WinRT {
 
     /**
      * Creates a copy of the specified string.
-     * @remarks
-     * Use the <b>WindowsDuplicateString</b>  function to copy an [**HSTRING**](/windows/win32/winrt/hstring). If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestring">WindowsCreateString</a> function, the reference count of the backing buffer is incremented. If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a> function,  the Windows Runtime copies its source string to a new buffer and starts a reference count, which means that  <i>newString</i> is not a fast-pass string. 
-     * 
-     * Each call to the <b>WindowsDuplicateString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be copied.
@@ -600,7 +563,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsduplicatestring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsduplicatestring
      * @since windows8.0
      */
     static WindowsDuplicateString(string, newString) {
@@ -619,7 +582,7 @@ class WinRT {
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of Unicode characters in <i>string</i>, including embedded null characters, but excluding the terminating null; or 0 if <i>string</i> is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsgetstringlen
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsgetstringlen
      * @since windows8.0
      */
     static WindowsGetStringLen(string) {
@@ -629,10 +592,6 @@ class WinRT {
 
     /**
      * Retrieves the backing buffer for the specified string.
-     * @remarks
-     * Use the <b>WindowsGetStringRawBuffer</b> function to obtain a pointer to the backing buffer of an[**HSTRING**](/windows/win32/winrt/hstring).
-     * 
-     * Don't change the contents of the buffer&mdash;an [**HSTRING**](/windows/win32/winrt/hstring) is required to be immutable.
      * @param {Pointer<Void>} string Type: [in, optional] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * An optional string for which the backing buffer is to be retrieved. Can be **NULL**.
@@ -642,7 +601,7 @@ class WinRT {
      * @returns {Pointer<Char>} Type: <b>PCWSTR</b>
      * 
      * A pointer to the buffer that provides the backing store for <i>string</i>, or the empty string if <i>string</i> is <b>NULL</b> or the empty string.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsgetstringrawbuffer
      * @since windows8.0
      */
     static WindowsGetStringRawBuffer(string, length) {
@@ -658,7 +617,7 @@ class WinRT {
      * @returns {Integer} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if <i>string</i> is <b>NULL</b> or the empty string; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsisstringempty
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsisstringempty
      * @since windows8.0
      */
     static WindowsIsStringEmpty(string) {
@@ -706,7 +665,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsstringhasembeddednull
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsstringhasembeddednull
      * @since windows8.0
      */
     static WindowsStringHasEmbeddedNull(string, hasEmbedNull) {
@@ -719,27 +678,6 @@ class WinRT {
 
     /**
      * Compares two specified HSTRING objects and returns an integer that indicates their relative position in a sort order.
-     * @remarks
-     * Use the <b>WindowsCompareStringOrdinal</b> function to compare two [**HSTRING**](/windows/win32/winrt/hstring) objects. After the comparison completes, the  <i>result</i> out parameter contains one of three values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Condition</th>
-     * </tr>
-     * <tr>
-     * <td>-1</td>
-     * <td><i>string1</i> is less than <i>string2</i>.</td>
-     * </tr>
-     * <tr>
-     * <td>0</td>
-     * <td><i>string1</i> equals <i>string2</i>.</td>
-     * </tr>
-     * <tr>
-     * <td>1</td>
-     * <td><i>string1</i> is greater than <i>string2</i>.</td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The first string to compare.
@@ -781,7 +719,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscomparestringordinal
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowscomparestringordinal
      * @since windows8.0
      */
     static WindowsCompareStringOrdinal(string1, string2, result) {
@@ -794,8 +732,6 @@ class WinRT {
 
     /**
      * Retrieves a substring from the specified string. The substring starts at the specified character position.
-     * @remarks
-     * Each call to the <b>WindowsSubstring</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
@@ -859,7 +795,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowssubstring
      * @since windows8.0
      */
     static WindowsSubstring(string, startIndex, newString) {
@@ -872,8 +808,6 @@ class WinRT {
 
     /**
      * Retrieves a substring from the specified string. The substring starts at a specified character position and has a specified length.
-     * @remarks
-     * Each call to the <b>WindowsSubstringWithSpecifiedLength</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
@@ -940,7 +874,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstringwithspecifiedlength
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowssubstringwithspecifiedlength
      * @since windows8.0
      */
     static WindowsSubstringWithSpecifiedLength(string, startIndex, length, newString) {
@@ -953,8 +887,6 @@ class WinRT {
 
     /**
      * Concatenates two specified strings.
-     * @remarks
-     * Each call to the <b>WindowsConcatString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The first string to be concatenated.
@@ -1007,7 +939,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsconcatstring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsconcatstring
      * @since windows8.0
      */
     static WindowsConcatString(string1, string2, newString) {
@@ -1020,8 +952,6 @@ class WinRT {
 
     /**
      * Replaces all occurrences of a set of characters in the specified string with another set of characters to create a new string.
-     * @remarks
-     * Each call to the <b>WindowsReplaceString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
@@ -1078,7 +1008,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsreplacestring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsreplacestring
      * @since windows8.0
      */
     static WindowsReplaceString(string, stringReplaced, stringReplaceWith, newString) {
@@ -1091,8 +1021,6 @@ class WinRT {
 
     /**
      * Removes all leading occurrences of a specified set of characters from the source string.
-     * @remarks
-     * Each call to the <b>WindowsTrimStringStart</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be trimmed.
@@ -1145,7 +1073,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringstart
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowstrimstringstart
      * @since windows8.0
      */
     static WindowsTrimStringStart(string, trimString, newString) {
@@ -1158,8 +1086,6 @@ class WinRT {
 
     /**
      * Removes all trailing occurrences of a specified set of characters from the source string.
-     * @remarks
-     * Each call to the <b>WindowsTrimStringEnd</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be trimmed.
@@ -1212,7 +1138,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringend
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowstrimstringend
      * @since windows8.0
      */
     static WindowsTrimStringEnd(string, trimString, newString) {
@@ -1225,11 +1151,6 @@ class WinRT {
 
     /**
      * Allocates a mutable character buffer for use in HSTRING creation.
-     * @remarks
-     * Use the <b>WindowsPreallocateStringBuffer</b> function to create a mutable character buffer that you can manipulate prior to committing it to  an immutable [**HSTRING**](/windows/win32/winrt/hstring). When you have finished populating the <i>mutableBuffer</i> with your string, call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspromotestringbuffer">WindowsPromoteStringBuffer</a>  function with the <i>bufferHandle</i> parameter  to create the <b>HSTRING</b>. You must write exactly <i>length</i> characters into the buffer.
-     * <b>Windows 10 Version 1803, Windows Server Version 1803, and later</b>: You are permitted to write a null terminator after <i>length</i> characters.
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestringbuffer">WindowsDeleteStringBuffer</a> function to discard the mutable buffer prior to promotion. If the buffer has already been promoted by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspromotestringbuffer">WindowsPromoteStringBuffer</a>, call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function to discard the string. If the <b>WindowsPromoteStringBuffer</b> call fails, you can call the <b>WindowsDeleteStringBuffer</b> function to discard the mutable buffer.
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The size of the buffer to allocate. A value of zero corresponds to the empty string.
@@ -1293,7 +1214,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowspreallocatestringbuffer
      * @since windows8.0
      */
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
@@ -1306,12 +1227,6 @@ class WinRT {
 
     /**
      * Creates an HSTRING from the specified HSTRING_BUFFER.
-     * @remarks
-     * Use the <b>WindowsPromoteStringBuffer</b> function to create a new [**HSTRING**](/windows/win32/winrt/hstring) from an <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>. Calling the <b>WindowsPromoteStringBuffer</b> function converts the mutable    buffer to an immutable <b>HSTRING</b>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <b>HSTRING_BUFFER</b>.
-     * 
-     * If the <b>WindowsPromoteStringBuffer</b> call fails, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestringbuffer">WindowsDeleteStringBuffer</a> function to discard the mutable buffer.
-     * 
-     * Each call to the <b>WindowsPromoteStringBuffer</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
      * @param {Pointer<Void>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
      * 
      * The buffer to use for the new [**HSTRING**](/windows/win32/winrt/hstring). You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>.
@@ -1356,12 +1271,12 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>bufferHandle</i> was not created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function, or the caller has overwritten the   terminating NUL character in  <i>bufferHandle</i>.
+     * <i>bufferHandle</i> was not created by calling the <a href="/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function, or the caller has overwritten the   terminating NUL character in  <i>bufferHandle</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowspromotestringbuffer
      * @since windows8.0
      */
     static WindowsPromoteStringBuffer(bufferHandle, string) {
@@ -1374,11 +1289,6 @@ class WinRT {
 
     /**
      * Discards a preallocated string buffer if it was not promoted to an HSTRING.
-     * @remarks
-     * Use the <b>WindowsDeleteStringBuffer</b> function to discard a string buffer that was created by the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function but has not been promoted to an [**HSTRING**](/windows/win32/winrt/hstring) by the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspromotestringbuffer">WindowsPromoteStringBuffer</a> function.  
-     * 
-     * <div class="alert"><b>Note</b>  Calling <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspromotestringbuffer">WindowsPromoteStringBuffer</a> after calling <b>WindowsDeleteStringBuffer</b> with the same buffer handle is undefined.</div>
-     * <div> </div>
      * @param {Pointer<Void>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
      * 
      * The buffer to discard. The <b>WindowsDeleteStringBuffer</b> function raises an exception if <i>bufferHandle</i> was not allocated by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function.
@@ -1414,7 +1324,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsdeletestringbuffer
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsdeletestringbuffer
      * @since windows8.0
      */
     static WindowsDeleteStringBuffer(bufferHandle) {
@@ -1426,7 +1336,7 @@ class WinRT {
     }
 
     /**
-     * Provides a way to for debuggers to display the value of a Windows Runtime�HSTRING in another address space, remotely, or from a dump. (WindowsInspectString)
+     * Provides a way to for debuggers to display the value of an Windows Runtime�HSTRING in another address space, remotely, or from a dump.
      * @param {Pointer} targetHString [in]
      * 
      * The [**HSTRING**](/windows/win32/winrt/hstring) to inspect.
@@ -1467,7 +1377,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsinspectstring
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsinspectstring
      * @since windows8.0
      */
     static WindowsInspectString(targetHString, machine, callback, context, length, targetStringAddress) {
@@ -1479,11 +1389,7 @@ class WinRT {
     }
 
     /**
-     * Provides a way to for debuggers to display the value of a Windows Runtime�HSTRING in another address space, remotely, or from a dump. (WindowsInspectString2)
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsinspectstring">WindowsInspectString</a> function passes the input and output pointers as native pointer-sized values. If  the current platform is Win32, that function returns an error for processes that are Win64. 
-     * 
-     * <b>WindowsInspectString2</b> enables cross-architecture debugging by allowing up to 64-bit values when called from both Win32 and Win64 applications.
+     * Provides a way to for debuggers to display the value of an Windows Runtime�HSTRING in another address space, remotely, or from a dump.
      * @param {Integer} targetHString [in]
      * 
      * The [**HSTRING**](/windows/win32/winrt/hstring) to inspect.
@@ -1523,7 +1429,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsinspectstring2
+     * @see https://docs.microsoft.com/windows/win32/api//winstring/nf-winstring-windowsinspectstring2
      * @since windows8.0
      */
     static WindowsInspectString2(targetHString, machine, callback, context, length, targetStringAddress) {
@@ -1536,28 +1442,13 @@ class WinRT {
 
     /**
      * Creates a DispatcherQueueController on the caller's thread. Use the created DispatcherQueueController to create and manage the lifetime of a DispatcherQueue to run queued tasks in priority order on the Dispatcher queue's thread.
-     * @remarks
-     * Introduced in Windows 10, version 1709.
-     * 
-     *  If  <i>options.threadType</i> is <b>DQTYPE_THREAD_DEDICATED</b>, then this function  creates the dedicated thread and then creates the  <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> on that thread. The dispatcher queue event loop runs on the new dedicated thread.
-     * 
-     * An event loop runs asynchronously on a background thread to dispatch
-     * queued task items to the new dedicated thread.
-     * 
-     *  If <i>options.threadType</i> is  <b>DQTYPE_THREAD_CURRENT</b>, then the <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> instance is created on the current thread. An error results if there is already 
-     * a <b>IDispatcherQueueController</b> on the current thread. If you create a dispatcher queue on the current thread, ensure that there is a message pump running on the current thread so that the dispatcher queue can use it to dispatch tasks.
-     * 
-     * This call does not return until the new thread and <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> are created. The new thread will be initialized using the specified COM apartment.
-     * 
-     * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>, and its associated <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueue">DispatcherQueue</a>, are WinRT objects. See their documentation for usage details.</div>
-     * <div> </div>
      * @param {Pointer} options The threading affinity and type of COM apartment for the created <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>. See remarks for details.
      * @param {Pointer<DispatcherQueueController>} dispatcherQueueController The created dispatcher queue controller. 
      * 
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> is a WinRT object.</div>
      * <div> </div>
      * @returns {HRESULT} <b>S_OK</b> for success; otherwise a failure code.
-     * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
+     * @see https://docs.microsoft.com/windows/win32/api//dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     static CreateDispatcherQueueController(options, dispatcherQueueController) {
         result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "int")
@@ -1569,10 +1460,6 @@ class WinRT {
 
     /**
      * Initializes the Windows Runtime on the current thread with the specified concurrency model.
-     * @remarks
-     * Use the <b>RoInitialize</b> function to initialize a thread in the Windows Runtime. All threads that activate and interact with Windows Runtime objects must be initialized prior to calling into the Windows Runtime. 
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-rouninitialize">RoUninitialize</a> function to close the Windows Runtime on the current thread. Each successful call to <b>RoInitialize</b>, including those that return <b>S_FALSE</b>, must be balanced by a corresponding call to <b>RoUninitialize</b>.
      * @param {Integer} initType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a></b>
      * 
      * The concurrency model for the thread. The default is <b>RO_INIT_MULTITHREADED</b>.
@@ -1614,12 +1501,12 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * A previous call to <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> specified the concurrency model for this thread as multithread apartment (MTA). This could also indicate that a change from neutral-threaded apartment to single-threaded apartment has occurred.
+     * A previous call to <a href="/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> specified the concurrency model for this thread as multithread apartment (MTA). This could also indicate that a change from neutral-threaded apartment to single-threaded apartment has occurred.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roinitialize
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-roinitialize
      * @since windows8.0
      */
     static RoInitialize(initType) {
@@ -1633,11 +1520,14 @@ class WinRT {
     /**
      * Closes the Windows Runtime on the current thread.
      * @remarks
+     * 
      * Call the <b>RoUninitialize</b> function to close the Windows Runtime on the current thread. This unloads all DLLs loaded by the thread, frees any other resources that the thread maintains, and forces all RPC connections on the thread to close.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
+     * 
+     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rouninitialize
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rouninitialize
      * @since windows8.0
      */
     static RoUninitialize() {
@@ -1646,8 +1536,6 @@ class WinRT {
 
     /**
      * Activates the specified Windows Runtime class.
-     * @remarks
-     * Use the <b>RoActivateInstance</b> function to activate a Windows Runtime class. The <b>RoActivateInstance</b> function connects to the activation factory that is associated with the specified activatable class identifier, creates an instance by calling the zero-argument constructor on the class, and releases the activation factory.
      * @param {Pointer<Void>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The class identifier that is associated with the activatable runtime class.
@@ -1692,7 +1580,7 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * The thread has not been initialized in the Windows Runtime by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function.
+     * The thread has not been initialized in the Windows Runtime by calling the <a href="/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function.
      * 
      * </td>
      * </tr>
@@ -1703,7 +1591,7 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/ne-inspectable-trustlevel">TrustLevel</a> for the class requires a full-trust process.
+     * The <a href="/windows/desktop/api/inspectable/ne-inspectable-trustlevel">TrustLevel</a> for the class requires a full-trust process.
      * 
      * </td>
      * </tr>
@@ -1714,7 +1602,7 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a> interface is not implemented by the specified class.
+     * The <a href="/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a> interface is not implemented by the specified class.
      * 
      * </td>
      * </tr>
@@ -1730,7 +1618,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roactivateinstance
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-roactivateinstance
      * @since windows8.0
      */
     static RoActivateInstance(activatableClassId, instance) {
@@ -1743,8 +1631,6 @@ class WinRT {
 
     /**
      * Registers an array out-of-process activation factories for a Windows Runtime exe server.
-     * @remarks
-     * The <b>RoRegisterActivationFactories</b> function enables an exe server to register multiple activation factories without experiencing a race condition.
      * @param {Pointer<Void>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * An array of class identifiers that are associated with activatable runtime classes.
@@ -1806,7 +1692,7 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * The thread has not been initialized in the Windows Runtime by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function.
+     * The thread has not been initialized in the Windows Runtime by calling the <a href="/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function.
      * 
      * </td>
      * </tr>
@@ -1833,7 +1719,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisteractivationfactories
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-roregisteractivationfactories
      * @since windows8.0
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count, cookie) {
@@ -1847,10 +1733,13 @@ class WinRT {
     /**
      * Removes an array of registered activation factories from the Windows Runtime.
      * @remarks
+     * 
      * Call the <b>RoRevokeActivationFactories</b> function remove the activation factories represented in the  <i>cookie</i> array from the Windows Runtime.
+     * 
+     * 
      * @param {Pointer} cookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a></b>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rorevokeactivationfactories
      * @since windows8.0
      */
     static RoRevokeActivationFactories(cookie) {
@@ -1858,7 +1747,7 @@ class WinRT {
     }
 
     /**
-     * Gets the activation factory for the specified runtime class. (RoGetActivationFactory)
+     * Gets the activation factory for the specified runtime class.
      * @param {Pointer<Void>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The ID of the activatable class.
@@ -1870,8 +1759,8 @@ class WinRT {
      * The activation factory.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetactivationfactory
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rogetactivationfactory
      * @since windows8.0
      */
     static RoGetActivationFactory(activatableClassId, iid, factory) {
@@ -1884,17 +1773,11 @@ class WinRT {
 
     /**
      * Registers an IApartmentShutdown callback to be invoked when the current apartment shuts down.
-     * @remarks
-     * To receive apartment shutdown notifications, your app must register its apartment shutdown handler with the system by calling the <b>RoRegisterForApartmentShutdown</b> function.
-     * 
-     * <div class="alert"><b>Warning</b>  </div>
-     * <div> </div>
-     * Don't call the <b>RoRegisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {Pointer<IApartmentShutdown>} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
      * @param {Pointer<UInt64>} apartmentIdentifier The identifier for the current apartment.
      * @param {Pointer<Void>} regCookie A cookie that you can use to unregister the callback.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisterforapartmentshutdown
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-roregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
@@ -1907,15 +1790,9 @@ class WinRT {
 
     /**
      * Unregisters a previously registered IApartmentShutdown interface.
-     * @remarks
-     * Call the <b>RoUnregisterForApartmentShutdown</b> to stop receiving apartment shutdown notifications and unregister a previously registered <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
-     * 
-     * <div class="alert"><b>Warning</b>  </div>
-     * <div> </div>
-     * Don't call the <b>RoUnregisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {Pointer<Void>} regCookie A registration cookie obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rounregisterforapartmentshutdown
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rounregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoUnregisterForApartmentShutdown(regCookie) {
@@ -1929,8 +1806,8 @@ class WinRT {
     /**
      * Gets a unique identifier for the current apartment.
      * @param {Pointer<UInt64>} apartmentIdentifier A process-unique identifier for the current apartment.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetapartmentidentifier
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rogetapartmentidentifier
      * @since windows8.0
      */
     static RoGetApartmentIdentifier(apartmentIdentifier) {
@@ -1943,15 +1820,9 @@ class WinRT {
 
     /**
      * Provides a standard IBuffer marshaler to implement the semantics associated with the IBuffer interface when it is marshaled.
-     * @remarks
-     * Provided for Windows Runtime language projections.
-     * 
-     * Custom IBuffer implementations are expected to be marshaled so that the remote instance eventually copies its contents back to the original instance. The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imarshal">IMarshal</a> implementation provided by this method handles the copy by marshaling the current value of the IBuffer and specifying a platform-provided unmarshal COM class that creates an instance with identical IBuffer contents, length, and capacity.  
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imarshal">IMarshal</a> implementation clones its contents to the original instance when the caller sets the Length property.
      * @param {Pointer<IMarshal>} bufferMarshaler pointer to Windows Runtime IBuffer marshaler
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/robuffer/nf-robuffer-rogetbuffermarshaler
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//robuffer/nf-robuffer-rogetbuffermarshaler
      * @since windows8.0
      */
     static RoGetBufferMarshaler(bufferMarshaler) {
@@ -1964,8 +1835,6 @@ class WinRT {
 
     /**
      * Gets the current reporting behavior of Windows Runtime error functions.
-     * @remarks
-     * Set the reporting behavior of   Windows Runtime error functions by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a>  function.
      * @param {Pointer<UInt32>} pflags Type: <b>UINT32*</b>
      * 
      * A pointer to the bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values that represents the current error-reporting behavior.
@@ -2001,7 +1870,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogeterrorreportingflags
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rogeterrorreportingflags
      * @since windows8.0
      */
     static RoGetErrorReportingFlags(pflags) {
@@ -2014,8 +1883,6 @@ class WinRT {
 
     /**
      * Sets the reporting behavior of Windows Runtime error functions.
-     * @remarks
-     * Get the current reporting behavior of   Windows Runtime error functions by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rogeterrorreportingflags">RoGetErrorReportingFlags</a> function.
      * @param {Integer} flags Type: <b>UINT32</b>
      * 
      * A bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values.
@@ -2051,7 +1918,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roseterrorreportingflags
      * @since windows8.0
      */
     static RoSetErrorReportingFlags(flags) {
@@ -2064,8 +1931,6 @@ class WinRT {
 
     /**
      * Returns the IRestrictedErrorInfo interface pointer based on the given reference.
-     * @remarks
-     * The <b>RoResolveRestrictedErrorInfoReference</b> function is useful primarily for debugger development. A debugger receives the reference  string and uses the reference to identify the associated <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object, which allows the debugger to retrieve the detailed error message by calling the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails">GetErrorDetails</a> method.
      * @param {Pointer<Char>} reference Type: <b>PCWSTR</b>
      * 
      * Identifies an error object which contains relevant information for the specific error.
@@ -2117,7 +1982,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roresolverestrictederrorinforeference
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roresolverestrictederrorinforeference
      * @since windows8.0
      */
     static RoResolveRestrictedErrorInfoReference(reference, ppRestrictedErrorInfo) {
@@ -2132,15 +1997,9 @@ class WinRT {
 
     /**
      * Sets the restricted error information object for the current thread.
-     * @remarks
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save error information for the current thread in a Windows Store app. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext">RoFailFastWithErrorContext</a> function to raise an exception, terminate the current process, and report the error to the Windows Error Reporting service (WER).
-     * 
-     * The <b>SetRestrictedErrorInfo</b>  function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to find the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a> object, and then it calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.   The call fails if <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> isn't the system implementation. To create an <b>IRestrictedErrorInfo</b> object, call  the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">OriginateError</a>, <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerror">TransformError</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> functions.
-     * 
-     * The <b>SetRestrictedErrorInfo</b>  function releases the existing restricted error information object, if one exists, and sets <i>pRestrictedErrorInfo</i>.  For more info, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> function.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The restricted error information object associated with the current thread.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-setrestrictederrorinfo
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-setrestrictederrorinfo
      * @since windows8.0
      */
     static SetRestrictedErrorInfo(pRestrictedErrorInfo) {
@@ -2153,16 +2012,6 @@ class WinRT {
 
     /**
      * Gets the restricted error information object set by a previous call to SetRestrictedErrorInfo in the current logical thread.
-     * @remarks
-     * Call the <b>GetRestrictedErrorInfo</b>  function to get the most recently set <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object on the current thread in a Windows Store app.
-     * 
-     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save error information for the current thread. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext">RoFailFastWithErrorContext</a> function to raise an exception, terminate the current process, and report the error to the Windows Error Reporting service (WER).
-     * 
-     * <b>GetRestrictedErrorInfo</b> transfers ownership of the error object to the caller and clears the error state for the thread. If the most recently set error object doesn't support the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> interface, the error state for the thread is cleared, but no interface is returned to the caller.
-     * 
-     * The <b>GetRestrictedErrorInfo</b> retrieves the error object from the current thread and calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to find the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> interface.  If <b>IRestrictedErrorInfo</b> isn't found, <b>GetRestrictedErrorInfo</b> returns <b>S_FALSE</b>.  In this case, the error object is removed from the thread. For more info, see <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-geterrorinfo">GetErrorInfo</a>.
-     * 
-     * Calling the <b>GetRestrictedErrorInfo</b>  function fails if <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> isn't the system implementation. To create an <b>IRestrictedErrorInfo</b> object, call  the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">OriginateError</a>, <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerror">TransformError</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> functions.
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo The restricted error info object associated with the current thread.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2194,7 +2043,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-getrestrictederrorinfo
      * @since windows8.0
      */
     static GetRestrictedErrorInfo(ppRestrictedErrorInfo) {
@@ -2206,18 +2055,7 @@ class WinRT {
     }
 
     /**
-     * Reports an error and an informative string to an attached debugger. (RoOriginateErrorW)
-     * @remarks
-     * Use the <b>RoOriginateErrorW</b> function  to report an error condition and a corresponding message to a debugger. This function does not perform logging or event tracing.
-     * 
-     * The error is communicated to the debugger by raising a structured exception.  This exception is caught by the attached debugger, and the exception parameters contain both the error and the <i>message</i> string.  The debugger may display these parameters to the user.
-     * 
-     * Depending on the current configuration of the debugger, the <b>RoOriginateErrorW</b> function may cause execution to halt in the debugger at the site of the exception.
-     * 
-     *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
-     * 
-     * <div class="alert"><b>Note</b>  This is no ANSI version of the <b>RoOriginateErrorW</b> function. Message strings are required to be Unicode. </div>
-     * <div> </div>
+     * Reports an error and an informative string to an attached debugger.
      * @param {HRESULT} error Type: <b>HRESULT</b>
      * 
      * The error code associated with the error condition. If <i>error</i> is a success code, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
@@ -2265,7 +2103,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginateerrorw
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rooriginateerrorw
      * @since windows8.0
      */
     static RoOriginateErrorW(error, cchMax, message) {
@@ -2276,15 +2114,7 @@ class WinRT {
     }
 
     /**
-     * Reports an error and an informative string to an attached debugger. (RoOriginateError)
-     * @remarks
-     * Use the <b>RoOriginateError</b> function  to report an error condition and a corresponding message to a debugger. This function does not perform logging or event tracing.
-     * 
-     * The error is communicated to the debugger by raising a structured exception.  This exception is caught by the attached debugger, and the exception parameters contain both the error and the <i>message</i> string.  The debugger may display these parameters to the user.
-     * 
-     * Depending on the current configuration of the debugger, the <b>RoOriginateError</b> function may cause execution to halt in the debugger at the site of the exception.
-     * 
-     *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
+     * Reports an error and an informative string to an attached debugger.
      * @param {HRESULT} error Type: <b>HRESULT</b>
      * 
      * The error code associated with the error condition. If <i>error</i> is a success code, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
@@ -2329,7 +2159,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginateerror
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rooriginateerror
      * @since windows8.0
      */
     static RoOriginateError(error, message) {
@@ -2339,16 +2169,6 @@ class WinRT {
 
     /**
      * Reports a transformed error and an informative string to an attached debugger.
-     * @remarks
-     * Use the <b>RoTransformErrorW</b> function  to substitute a custom error code for an existing error condition. For example, if the current error condition is <b>E_FAIL</b>, you can substitute a more specific error code, such as  	<b>E_FILENOTFOUND</b> and report the transformed error to an attached debugger. 
-     * 
-     * The behavior of the  <b>RoTransformErrorW</b> function is otherwise the same as the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerrorw">RoOriginateErrorW</a> function.
-     * 
-     *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  This is no ANSI version of the <b>RoTransformErrorW</b> function. Message strings are required to be Unicode.</div>
-     * <div> </div>
      * @param {HRESULT} oldError Type: <b>HRESULT</b>
      * 
      * The original error code associated with the error condition.
@@ -2397,7 +2217,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rotransformerrorw
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rotransformerrorw
      * @since windows8.0
      */
     static RoTransformErrorW(oldError, newError, cchMax, message) {
@@ -2409,12 +2229,6 @@ class WinRT {
 
     /**
      * Reports a modified error and an informative string to an attached debugger.
-     * @remarks
-     * Use the <b>RoTransformError</b> function  to substitute a custom error code for an existing error condition. For example, if the current error condition is <b>E_FAIL</b>, you can substitute a more specific error code, such as  	<b>E_FILENOTFOUND</b>, and report the transformed error to an attached debugger. 
-     * 
-     * The behavior of the  <b>RoTransformError</b> function is otherwise the same as the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerrorw">RoTransformErrorW</a> function.
-     * 
-     *  If the <b>UseSetErrorInfo</b> flag is set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function, and the calling thread has been initialized in COM, the function creates an appropriate error object that supports <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> and  associates it with the COM channel by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a>.  If the thread has not been initialized into COM, the call will still succeed with no  error, but the error will not be associated with the COM channel.
      * @param {HRESULT} oldError Type: <b>HRESULT</b>
      * 
      * The original error code associated with the error condition.
@@ -2460,7 +2274,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rotransformerror
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rotransformerror
      * @since windows8.0
      */
     static RoTransformError(oldError, newError, message) {
@@ -2470,13 +2284,9 @@ class WinRT {
 
     /**
      * Saves the current error context so that it's available for later calls to the RoFailFastWithErrorContext function.
-     * @remarks
-     * The <b>RoCaptureErrorContext</b> function captures the context associated with an error, including the stack-backtrace. This information is stored in the restricted error object and is available to the Windows Error Reporting (WER) service, if WER is  enabled, and if a subsequent call is made to the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext">RoFailFastWithErrorContext</a> function from the same thread.
-     * 
-     * To use <b>RoCaptureErrorContext</b> function with <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a>, call <b>RoOriginateError</b> first, and then call <b>RoCaptureErrorContext</b>.  Calling in the reverse order may cause the error context to be lost.
      * @param {HRESULT} hr The <b>HRESULT</b> associated with the error.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rocaptureerrorcontext
      * @since windows8.0
      */
     static RoCaptureErrorContext(hr) {
@@ -2490,6 +2300,7 @@ class WinRT {
     /**
      * Raises a non-continuable exception in the current process.
      * @remarks
+     * 
      * The <b>RoFailFastWithErrorContext</b> function raises a non-continuable exception in the current process when an unhandled failure is encountered, which  prevents the process from continuing execution in an undefined state.
      * 
      * Call the <b>RoFailFastWithErrorContext</b> function when a failure occurs in a completion delegate for a completed asynchronous operation, or  when a failure occurs in an event handler when an event is raised.
@@ -2497,9 +2308,11 @@ class WinRT {
      * The process that calls <b>RoFailFastWithErrorContext</b> is terminated by a call to <a href="https://docs.microsoft.com/previous-versions/dd408166(v=vs.85)">RaiseFailFastException</a>.  The function does not validate the parameters and raises an exception for any value of the inputs.
      * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that's associated with the current thread. The <b>RoFailFastWithErrorContext</b> function uses this contextual information to report the error call stack to the Windows Error Reporting service (WER), if it's enabled.
+     * 
+     * 
      * @param {HRESULT} hrError The <b>HRESULT</b> associated with the current error. The exception is raised for any value of <i>hrError</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
      * @since windows8.0
      */
     static RoFailFastWithErrorContext(hrError) {
@@ -2508,10 +2321,6 @@ class WinRT {
 
     /**
      * Reports an error, an informative string, and an error object to an attached debugger.
-     * @remarks
-     * The <b>RoOriginateLanguageException</b>  function behaves like <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a> but takes another parameter that stores extra information about the error. Language projections use this function to store exception information alongside the COM error information. Language projections need to create an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> object that contains all the information necessary recreate it the exception a later point.
-     * 
-     * The error object must be apartment-agile, in-proc, and marshal-by-value across processes. The reason for this restriction is that the thread from which the error object is originated may no longer exist, for example due to a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> call, by the time the error information is retrieved.
      * @param {HRESULT} error The error code associated with the error condition. If <i>error</i> is a success code, like <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
      * @param {Pointer<Void>} message An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
      * 
@@ -2551,7 +2360,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginatelanguageexception
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-rooriginatelanguageexception
      * @since windows8.1
      */
     static RoOriginateLanguageException(error, message, languageException) {
@@ -2562,9 +2371,12 @@ class WinRT {
     /**
      * Removes existing error information from the current thread environment block (TEB).
      * @remarks
+     * 
      * Call the <b>RoClearError</b> function to remove existing thread error information from the thread environment block (TEB). If COM is not initialized, this call does nothing to create the TEB slot for this information. Language projections call this function to ensure there's no stale error information on the thread.
+     * 
+     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roclearerror
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roclearerror
      * @since windows8.1
      */
     static RoClearError() {
@@ -2573,11 +2385,9 @@ class WinRT {
 
     /**
      * Triggers the Global Error Handler when an unhandled exception occurs.
-     * @remarks
-     * The <b>RoReportUnhandledError</b> function enables language projections to trigger execution of the Global Error Handler when an exception reaches the top of the stack, which normally would terminate the application.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportunhandlederror
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roreportunhandlederror
      */
     static RoReportUnhandledError(pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportUnhandledError", "ptr", pRestrictedErrorInfo, "int")
@@ -2589,15 +2399,13 @@ class WinRT {
 
     /**
      * Gets the error object that represents the call stack at the point where the error originated.
-     * @remarks
-     * When the call to <b>RoInspectThreadErrorInfo</b> is  successful, <i>targetErrorInfoAddress</i> contains the address of an error object that you can pass to the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace">RoInspectCapturedStackBackTrace</a> function to get the call stack at the point where the error was originated.
      * @param {Pointer} targetTebAddress The target thread environment block (TEB).
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
      * @param {Pointer<Void>} context Custom context data.
      * @param {Pointer<UIntPtr>} targetErrorInfoAddress The address of the error object.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
      * @since windows8.1
      */
     static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context, targetErrorInfoAddress) {
@@ -2610,18 +2418,14 @@ class WinRT {
 
     /**
      * Provides a way to for debuggers to inspect a call stack from a target process.
-     * @remarks
-     * The <b>RoInspectCapturedStackBackTrace</b> function takes a pointer to a system error object  and fills <i>frameCount</i> with the number of stack frames stored in the error object,  and it fills <i>targetBackTraceAddress</i> with the stack back trace address in the target process. The <b>RoInspectCapturedStackBackTrace</b> function tries to confirm that <i>targetErrorInfoAddress</i> points is to a system error object and fails if it can't match the version signature.
-     * 
-     * Get the <i>targetErrorInfoAddress</i> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo">RoInspectThreadErrorInfo</a> function.
      * @param {Pointer} targetErrorInfoAddress The address of the error info object in the target process. Get the <i>targetErrorInfoAddress</i> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo">RoInspectThreadErrorInfo</a> function.
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
      * @param {Pointer<Void>} context Custom context data.
      * @param {Pointer<UInt32>} frameCount The number of stack frames stored in the error object.
      * @param {Pointer<UIntPtr>} targetBackTraceAddress The stack back trace address in the target process.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
      * @since windows8.1
      */
     static RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, context, frameCount, targetBackTraceAddress) {
@@ -2634,12 +2438,9 @@ class WinRT {
 
     /**
      * 
-     * @remarks
-     * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
-     * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.
-     * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo Receives an instance of [IRestrictedErrorInfo](../restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo.md) representing the details of an error, including restricted error information.
-     * @returns {HRESULT} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
+     * @param {HRESULT} hrIn 
+     * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo 
+     * @returns {HRESULT} 
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn, ppRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr", ppRestrictedErrorInfo, "int")
@@ -2653,8 +2454,8 @@ class WinRT {
      * Triggers the Global Error Handler when a delegate failure occurs.
      * @param {Pointer<IUnknown>} punkDelegate The delegate to report.
      * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportfaileddelegate
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roreportfaileddelegate
      */
     static RoReportFailedDelegate(punkDelegate, pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportFailedDelegate", "ptr", punkDelegate, "ptr", pRestrictedErrorInfo, "int")
@@ -2666,10 +2467,6 @@ class WinRT {
 
     /**
      * Indicates whether the CoreApplication.UnhandledErrorDetected event occurs for the errors that are returned by the delegate registered as a callback function for a Windows Runtime API event or the completion of an asynchronous method.
-     * @remarks
-     * For Windows 8 apps, this value is <b>FALSE</b>, and errors returned by a delegate registered as a callback function    for the asynchronous completion of a Windows Runtime API or for a Windows Runtime API event are ignored. For Windows 8.1 and Windows 10 apps, this value is <b>TRUE</b>, and errors from callback functions that return control to operating system code are propagated to the global error handler.
-     * 
-     * Use this function only when your code needs to interoperate with both Windows 8 and newer applications by using the same binary.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -2699,7 +2496,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-iserrorpropagationenabled
+     * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-iserrorpropagationenabled
      * @since windows8.0
      */
     static IsErrorPropagationEnabled() {
@@ -2709,8 +2506,6 @@ class WinRT {
 
     /**
      * Retrieves the activatable classes that are registered for a given executable (EXE) server, which was registered under the package ID of the calling process.
-     * @remarks
-     * Use the <b>RoGetServerActivatableClasses</b> function to retrieve the class names that the server is expected to serve. Get the details on the individual classes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roregistrationapi/nf-roregistrationapi-rogetactivatableclassregistration">RoGetActivatableClassRegistration</a> function on each class name individually.
      * @param {Pointer<Void>} serverName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name of the server to retrieve class registrations for. This server name is passed on the command line when the server is activated.
@@ -2752,7 +2547,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roregistrationapi/nf-roregistrationapi-rogetserveractivatableclasses
+     * @see https://docs.microsoft.com/windows/win32/api//roregistrationapi/nf-roregistrationapi-rogetserveractivatableclasses
      * @since windows8.0
      */
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
@@ -2765,16 +2560,12 @@ class WinRT {
 
     /**
      * Creates a Windows Runtime random access stream for a file.
-     * @remarks
-     * Use the <b>CreateRandomAccessStreamOnFile</b> function to create a <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates a file.
-     * 
-     * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {Pointer<Char>} filePath The fully qualified path of the file to encapsulate.
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamonfile
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createrandomaccessstreamonfile
      * @since windows8.0
      */
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid, ppv) {
@@ -2789,18 +2580,12 @@ class WinRT {
 
     /**
      * Creates a Windows Runtime random access stream around an IStream base implementation.
-     * @remarks
-     * Use the <b>CreateRandomAccessStreamOverStream</b> function to create a <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates a COM <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * 
-     * For info on utility classes that help with interoperation between Windows Runtime and COM streams, see the Remarks at <b>RandomAccessStreamOverStream</b>.
-     * 
-     * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {Pointer<IStream>} stream The COM stream to encapsulate.
      * @param {Integer} options One of the <a href="https://docs.microsoft.com/windows/desktop/api/shcore/ne-shcore-bsos_options">BSOS_OPTIONS</a> options that specify the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamoverstream
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createrandomaccessstreamoverstream
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid, ppv) {
@@ -2813,13 +2598,11 @@ class WinRT {
 
     /**
      * Creates an IStream around a Windows Runtime IRandomAccessStream object.
-     * @remarks
-     * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {Pointer<IUnknown>} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStream. This object encapsulates <i>randomAccessStream</i>.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createstreamoverrandomaccessstream
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createstreamoverrandomaccessstream
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid, ppv) {
@@ -2832,14 +2615,10 @@ class WinRT {
 
     /**
      * Creates a ICoreInputSourceBase object in the caller’s UI thread.
-     * @remarks
-     * This API must be called from the UI thread to create <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object. The object created using this API can be used only in that thread in which it was created. 
-     * 
-     * If the call is successful, the  caller can call <b>QueryInterface</b> on the returned <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/corewindow/nn-corewindow-icoreinputinterop">ICoreInputInterop</a> object that created it.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinput
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid, ppv) {
         result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr", ppv, "CDecl int")
@@ -2851,22 +2630,11 @@ class WinRT {
 
     /**
      * Creates a ICoreInputSourceBase object in a worker thread or the UI thread.
-     * @remarks
-     * This API must be called from the UI thread or worker thread to create <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object. The object created using this API can be used only in that thread in which it was created. 
-     * 
-     * If the call is successful, the  caller can call <b>QueryInterface</b> on the returned <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/corewindow/nn-corewindow-icoreinputinterop">ICoreInputInterop</a> object that created it.
-     * 
-     * This API will fail if the following scenarios occur:
-     * 
-     * <ul>
-     * <li>The <i>pCoreWindow</i> parameter is <b>NULL</b>.</li>
-     * <li>If the <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> passed is not same as the <b>CoreWindow</b> present in the calling thread. </li>
-     * </ul>
      * @param {Pointer<IUnknown>} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinputex
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid, ppv) {
         result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr", ppv, "CDecl int")

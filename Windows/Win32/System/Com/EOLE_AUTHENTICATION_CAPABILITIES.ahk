@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The EOLE_AUTHENTICATION_CAPABILITIES (objidlbase.h) enumeration specifies various capabilities in CoInitializeSecurity and IClientSecurity::SetBlanket.
+ * Specifies various capabilities in CoInitializeSecurity and IClientSecurity::SetBlanket (or its helper function CoSetProxyBlanket).
  * @remarks
- * When the EOAC_APPID flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> looks for the authentication level under the AppID. If the authentication level is not found, it looks for the default authentication level. If the default authentication level is not found, it generates a default authentication level of connect. If the authentication level is not RPC_C_AUTHN_LEVEL_NONE, <b>CoInitializeSecurity</b> looks for the access permission value under the AppID. If not found, it looks for the default access permission value. If not found, it generates a default access permission. All the other security settings are determined the same way as for a legacy application.
+ * 
+  * When the EOAC_APPID flag is set, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> looks for the authentication level under the AppID. If the authentication level is not found, it looks for the default authentication level. If the default authentication level is not found, it generates a default authentication level of connect. If the authentication level is not RPC_C_AUTHN_LEVEL_NONE, <b>CoInitializeSecurity</b> looks for the access permission value under the AppID. If not found, it looks for the default access permission value. If not found, it generates a default access permission. All the other security settings are determined the same way as for a legacy application.
   * 
   * If the AppID is NULL, <b>CoInitializeSecurity</b> looks up the application .exe name in the registry and uses the AppID stored there. If the AppID does not exist, the machine defaults are used. 
   * 
   * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> method and <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cosetproxyblanket">CoSetProxyBlanket</a> function return an error if any of the following flags are set in the capabilities parameter: EOAC_SECURE_REFS, EOAC_ACCESS_CONTROL, EOAC_APPID, EOAC_DYNAMIC, EOAC_REQUIRE_FULLSIC, EOAC_DISABLE_AAA, or EOAC_NO_CUSTOM_MARSHAL.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-eole_authentication_capabilities
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-eole_authentication_capabilities
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

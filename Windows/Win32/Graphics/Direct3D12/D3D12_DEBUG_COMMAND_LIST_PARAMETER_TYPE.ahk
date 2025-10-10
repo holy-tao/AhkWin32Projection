@@ -2,7 +2,7 @@
 
 /**
  * Indicates the debug parameter type used by ID3D12DebugCommandList1::SetDebugParameter and ID3D12DebugCommandList1::GetDebugParameter.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_command_list_parameter_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_command_list_parameter_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents the stack frame layout for a function on an x86 computer when frame pointer omission (FPO) optimization is used. The structure is used to locate the base of the call frame.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-fpo_data
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-fpo_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

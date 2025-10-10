@@ -2,7 +2,7 @@
 
 /**
  * Specifies how text is aligned in its parent block element.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment
+ * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_alignment
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

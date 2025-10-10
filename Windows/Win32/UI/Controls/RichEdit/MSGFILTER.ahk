@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a keyboard or mouse event. A rich edit control sends this structure to its parent window as part of an EN_MSGFILTER notification code, enabling the parent to change the message or prevent it from being processed.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-msgfilter
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-msgfilter
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

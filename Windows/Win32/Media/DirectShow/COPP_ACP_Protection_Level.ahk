@@ -2,7 +2,7 @@
 
 /**
  * Specifies the ACP protection level.
- * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_acp_protection_level
+ * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ne-dxva9typ-copp_acp_protection_level
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

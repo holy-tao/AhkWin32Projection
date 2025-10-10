@@ -3,7 +3,8 @@
 /**
  * Specify the type of component being used with a shadow copy backup operation.
  * @remarks
- * A writer sets a component's type when it adds the component to its Writer Metadata Document using 
+ * 
+  * A writer sets a component's type when it adds the component to its Writer Metadata Document using 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent">IVssCreateWriterMetadata::AddComponent</a>.
   * 
   * Writers and requesters can find the type information of components selected for inclusion in a Backup 
@@ -24,7 +25,9 @@
   * <li>Examining the <b>Type</b> member of the 
   *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/ns-vsbackup-vss_componentinfo">VSS_COMPONENTINFO</a> object</li>
   * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_component_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

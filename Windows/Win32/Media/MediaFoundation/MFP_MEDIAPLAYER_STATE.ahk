@@ -2,7 +2,7 @@
 
 /**
  * Specifies the current playback state.
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_mediaplayer_state
+ * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-mfp_mediaplayer_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

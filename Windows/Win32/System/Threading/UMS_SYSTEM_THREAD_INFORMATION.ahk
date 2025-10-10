@@ -4,8 +4,10 @@
 /**
  * Specifies a UMS scheduler thread, UMS worker thread, or non-UMS thread. The GetUmsSystemThreadInformation function uses this structure.
  * @remarks
- * If both <b>IsUmsSchedulerThread</b>  and <b>IsUmsWorkerThread</b> are clear, the structure specifies a non-UMS thread.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ums_system_thread_information
+ * 
+  * If both <b>IsUmsSchedulerThread</b>  and <b>IsUmsWorkerThread</b> are clear, the structure specifies a non-UMS thread.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-ums_system_thread_information
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

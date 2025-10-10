@@ -4,10 +4,13 @@
 /**
  * The ADS_SEARCH_COLUMN structure specifies the contents of a search column in the query returned from the directory service database.
  * @remarks
- * The <b>ADS_SEARCH_COLUMN</b> structure only contains a pointer to the array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures. Memory for the structure must be allocated separately.
+ * 
+  * The <b>ADS_SEARCH_COLUMN</b> structure only contains a pointer to the array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures. Memory for the structure must be allocated separately.
   * 
   * For more information about  <b>ADS_SEARCH_COLUMN</b>, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getcolumn">IDirectorySearch::GetColumn</a>.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_search_column
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_search_column
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -3,7 +3,8 @@
 /**
  * Indicates the digital video (DV) decoding resolution.
  * @remarks
- * The decoding resolution depends on whether the current format is NTSC or PAL:
+ * 
+  * The decoding resolution depends on whether the current format is NTSC or PAL:
   * 
   * <table>
   * <tr>
@@ -36,16 +37,15 @@
   * 
   * The following enumeration defined in strmif.h is equivalent to the <b>_DVRESOLUTION</b> enumeration. It is included for compatibility with existing applications.
   * 
-  * 
-  * ``` syntax
-  * enum _DVDECODERRESOLUTION {
+  * <pre class="syntax" xml:space="preserve"><code>enum _DVDECODERRESOLUTION {
   *     DVDECODERRESOLUTION_720x480     =   1000,
   *     DVDECODERRESOLUTION_360x240     =   1001,
   *     DVDECODERRESOLUTION_180x120     =   1002,
   *     DVDECODERRESOLUTION_88x60       =   1003
-  * };
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvresolution
+  * };</code></pre>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_dvresolution
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

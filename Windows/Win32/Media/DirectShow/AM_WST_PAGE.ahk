@@ -3,7 +3,7 @@
 
 /**
  * The AM_WST_PAGE structure identifies a World Standard Teletext (WST) page.
- * @see https://learn.microsoft.com/windows/win32/api/iwstdec/ns-iwstdec-am_wst_page
+ * @see https://docs.microsoft.com/windows/win32/api//iwstdec/ns-iwstdec-am_wst_page
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

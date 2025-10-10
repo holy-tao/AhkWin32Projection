@@ -2,7 +2,7 @@
 
 /**
  * Identifies the origin of DFS namespace version information.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_namespace_version_origin
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ne-lmdfs-dfs_namespace_version_origin
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

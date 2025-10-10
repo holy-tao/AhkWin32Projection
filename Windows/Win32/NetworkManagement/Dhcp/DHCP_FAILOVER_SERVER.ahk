@@ -2,7 +2,7 @@
 
 /**
  * The DHCP_FAILOVER_SERVER enumeration defines whether the DHCP server is the primary or secondary server in a DHCPv4 failover relationship.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_failover_server
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_failover_server
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

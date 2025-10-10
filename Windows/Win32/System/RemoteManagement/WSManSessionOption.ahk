@@ -2,7 +2,7 @@
 
 /**
  * Defines a set of extended options for the session. These options are used with the WSManSetSessionOption method.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmansessionoption
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ne-wsman-wsmansessionoption
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Contains flags affecting the behavior of the TakeSnapshotVhdSet function.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-take_snapshot_vhdset_flag
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-take_snapshot_vhdset_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

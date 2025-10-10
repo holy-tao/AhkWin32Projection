@@ -4,10 +4,13 @@
 /**
  * The USB_BANDWIDTH_INFO structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve information about the allocated bandwidth.
  * @remarks
- * The <b>USB_BANDWIDTH_INFO</b> structure is used with the USBUSER_GET_BANDWIDTH_INFORMATION user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
+ * 
+  * The <b>USB_BANDWIDTH_INFO</b> structure is used with the USBUSER_GET_BANDWIDTH_INFORMATION user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
   * 
   * In Windows 8, this request completes successfully. However, the values retrieved from the underlying USB 3.0 driver stack do not reflect actual information about the allocated bandwidth. That is because the bandwidth information is not exposed by xHCI controllers.
- * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_bandwidth_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usb_bandwidth_info
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

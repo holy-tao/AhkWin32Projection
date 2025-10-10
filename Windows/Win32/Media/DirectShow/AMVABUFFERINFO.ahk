@@ -3,7 +3,7 @@
 
 /**
  * The AMVABUFFERINFO structure specifies a buffer for the IAMVideoAccelerator::Execute method.
- * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvabufferinfo
+ * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvabufferinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

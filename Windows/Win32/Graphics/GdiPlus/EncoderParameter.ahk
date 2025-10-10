@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * An EncoderParameter object holds a parameter that can be passed to an image encoder. An EncoderParameter object can also be used to receive a list of possible values supported by a particular parameter of a particular image encoder.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplusimaging/nl-gdiplusimaging-encoderparameter
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

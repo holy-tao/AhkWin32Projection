@@ -3,7 +3,7 @@
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY request to describe the product type of a storage device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_medium_product_type_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_medium_product_type_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

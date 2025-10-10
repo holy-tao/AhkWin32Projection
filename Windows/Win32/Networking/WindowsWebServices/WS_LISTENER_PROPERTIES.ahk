@@ -3,7 +3,7 @@
 
 /**
  * Specifies a set of WS_LISTENER_PROPERTY structures.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_listener_properties
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_listener_properties
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

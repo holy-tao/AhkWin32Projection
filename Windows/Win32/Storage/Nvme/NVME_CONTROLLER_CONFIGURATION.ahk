@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains read/write configuration settings for the controller.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_configuration
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -24,7 +20,6 @@ class NVME_CONTROLLER_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

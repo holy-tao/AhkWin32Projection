@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DOCINFO structure contains the input and output file names and other information used by the StartDoc function. (ANSI)
+ * The DOCINFO structure contains the input and output file names and other information used by the StartDoc function.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The wingdi.h header defines DOCINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-docinfoa
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-docinfoa
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  * @charset ANSI

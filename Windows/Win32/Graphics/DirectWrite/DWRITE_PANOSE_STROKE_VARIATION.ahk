@@ -2,7 +2,7 @@
 
 /**
  * The DWRITE_PANOSE_STROKE_VARIATION enumeration contains values that specify the relationship between thin and thick stems of text characters.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_stroke_variation
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_stroke_variation
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

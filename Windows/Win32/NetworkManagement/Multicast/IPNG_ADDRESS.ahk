@@ -3,7 +3,7 @@
 
 /**
  * The IPNG_ADDRESS union provides Internet Protocol version 4 (IPv4) and Internet Protocol version 6 (IPv6) addresses.
- * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-ipng_address
+ * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-ipng_address
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Describes the sync state of an Offline Files item.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_state
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_sync_state
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

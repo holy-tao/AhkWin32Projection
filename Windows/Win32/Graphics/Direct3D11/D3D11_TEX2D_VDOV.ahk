@@ -3,7 +3,7 @@
 
 /**
  * Identifies the texture resource for a video decoder output view.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex2d_vdov
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_tex2d_vdov
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

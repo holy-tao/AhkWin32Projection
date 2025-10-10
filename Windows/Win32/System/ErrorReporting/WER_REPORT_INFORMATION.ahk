@@ -3,7 +3,7 @@
 
 /**
  * Contains information used by the WerReportCreate function.
- * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_report_information
+ * @see https://docs.microsoft.com/windows/win32/api//werapi/ns-werapi-wer_report_information
  * @namespace Windows.Win32.System.ErrorReporting
  * @version v4.0.30319
  */

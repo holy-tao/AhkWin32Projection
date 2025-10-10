@@ -4,7 +4,7 @@
 
 /**
  * The CRYPT_X942_OTHER_INFO structure contains additional key generation information.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_x942_other_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_x942_other_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

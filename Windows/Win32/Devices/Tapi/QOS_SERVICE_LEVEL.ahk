@@ -2,7 +2,7 @@
 
 /**
  * The QOS_SERVICE_LEVEL enum is used by the ITBasicCallControl::SetQOS method to indicate quality of service requirements for a call.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-qos_service_level
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-qos_service_level
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

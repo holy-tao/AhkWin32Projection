@@ -4,7 +4,7 @@
 
 /**
  * Contains different levels of policy-related settings for a remote desktop connection.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_setting
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_setting
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

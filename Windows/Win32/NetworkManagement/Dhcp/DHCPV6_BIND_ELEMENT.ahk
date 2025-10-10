@@ -4,7 +4,7 @@
 
 /**
  * Defines an IPv6 interface binding for the DHCP server over which it receives DHCPv6 packets.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

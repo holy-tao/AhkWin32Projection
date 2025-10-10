@@ -3,7 +3,7 @@
 
 /**
  * Describes a storage class resource volume and file system.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_partition_info_ex
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_partition_info_ex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

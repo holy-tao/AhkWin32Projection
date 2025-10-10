@@ -2,7 +2,7 @@
 
 /**
  * Define the security impersonation levels. These constants are used with SWbemSecurity.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemimpersonationlevelenum
+ * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemimpersonationlevelenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

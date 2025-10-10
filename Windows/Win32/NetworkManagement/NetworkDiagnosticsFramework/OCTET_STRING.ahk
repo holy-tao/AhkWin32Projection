@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The OCTET_STRING structure contains a pointer to a string of byte data.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-octet_string
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
@@ -14,9 +12,6 @@ class OCTET_STRING extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * The length of the data.
      * @type {Integer}
      */
     dwLength {
@@ -25,9 +20,6 @@ class OCTET_STRING extends Win32Struct
     }
 
     /**
-     * Type: <b>[size_is(dwLength)]BYTE*</b>
-     * 
-     * A pointer to the byte array containing the data.
      * @type {Pointer<Byte>}
      */
     lpValue {

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a volume's shadow copy protection level.
- * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_volume_protection_info
+ * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ns-vsmgmt-vss_volume_protection_info
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

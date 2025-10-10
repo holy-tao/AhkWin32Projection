@@ -2,9 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an entry in the function table.I
+ * Represents an entry in the function table.
  * @remarks
- * The following definition exists for 64-bit support.
+ * 
+  * The following definition exists for 64-bit support.
   * 
   * 
   * ```cpp
@@ -17,7 +18,9 @@
   *     };
   * } IMAGE_FUNCTION_ENTRY64, *PIMAGE_FUNCTION_ENTRY64;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_function_entry64
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_function_entry64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID_COUNT query.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_query_accessibility_encryption_guid_count_output
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_authenticated_query_accessibility_encryption_guid_count_output
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

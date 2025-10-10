@@ -3,7 +3,7 @@
 
 /**
  * Describes a set of retrieved disks that can be used as log disks for the specified data disk.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_query_eligible_logdisks
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-sr_resource_type_query_eligible_logdisks
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

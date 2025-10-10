@@ -4,8 +4,11 @@
 /**
  * Provides information about a single property of the event or filter.
  * @remarks
- * Filters do not support maps, structures, or arrays.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-event_property_info
+ * 
+  * Filters do not support maps, structures, or arrays.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-event_property_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

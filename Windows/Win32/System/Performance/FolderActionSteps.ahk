@@ -3,8 +3,11 @@
 /**
  * Defines the action that the data manager takes when both the age and size limits are met.
  * @remarks
- * Specify one or more actions. The data manager applies the actions in the order in which they are defined in this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-folderactionsteps
+ * 
+  * Specify one or more actions. The data manager applies the actions in the order in which they are defined in this enumeration.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-folderactionsteps
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

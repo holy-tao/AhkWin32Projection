@@ -3,7 +3,7 @@
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-create_cluster_name_account
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-create_cluster_name_account
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

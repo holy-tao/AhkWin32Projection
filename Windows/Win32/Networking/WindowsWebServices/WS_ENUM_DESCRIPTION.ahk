@@ -4,14 +4,13 @@
 /**
  * A type description that is used with WS_ENUM_TYPE and is required. It provides information used in serializing and deserializing values of an enumeration.
  * @remarks
- * The following examples illustrates initializing an enum description.  This 
+ * 
+  * The following examples illustrates initializing an enum description.  This 
   *                 example illustrates the use of the nameIndices field, but this field could
   *                 be <b>NULL</b> instead.
   *             
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * enum
   * {
   *     Red = 10,
@@ -44,9 +43,9 @@
   * enumDescription.values = valueArray;
   * enumDescription.valueCount = 3;
   * enumDescription.nameIndices = nameIndices;
+  * </code></pre>
   * 
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_enum_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

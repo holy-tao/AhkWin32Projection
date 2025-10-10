@@ -2,7 +2,7 @@
 
 /**
  * Describes the text editing change being performed by controls when text-edit events are raised or handled.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-texteditchangetype
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-texteditchangetype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains inbound replication state data for a particular naming context and source server pair, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_neighborw
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_neighborw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

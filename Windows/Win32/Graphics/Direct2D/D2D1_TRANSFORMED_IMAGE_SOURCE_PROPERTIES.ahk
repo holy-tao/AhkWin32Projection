@@ -3,7 +3,7 @@
 
 /**
  * Properties of a transformed image source.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_transformed_image_source_properties
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ns-d2d1_3-d2d1_transformed_image_source_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -60,7 +60,7 @@ class D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_transformed_image_source_options">D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS</a></b>
      * 
-     * Image source option flags.
+     * Image sourc option flags.
      * @type {Integer}
      */
     options {

@@ -3,7 +3,7 @@
 
 /**
  * Represents post-upgrade state information for the cluster service.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-post_upgrade_version_info
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-post_upgrade_version_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

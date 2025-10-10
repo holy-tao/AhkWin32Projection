@@ -4,10 +4,13 @@
 /**
  * The base structure for an AVI 2.0 index ('indx' format).
  * @remarks
- * For more information, see the <i>OpenDML AVI File Format Extensions</i>, published by the OpenDML AVI M-JPEG File Format Subcommittee. (This resource may not be available in some languages 
+ * 
+  * For more information, see the <i>OpenDML AVI File Format Extensions</i>, published by the OpenDML AVI M-JPEG File Format Subcommittee. (This resource may not be available in some languages 
   * 
   * and countries.)
- * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avimetaindex
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//aviriff/ns-aviriff-avimetaindex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -18,7 +21,7 @@ class AVIMETAINDEX extends Win32Struct
     static packingSize => 4
 
     /**
-     * A <b>FOURCC</b> code. The value is either 'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.
+     * A <b>FOURCC</b> code. The value is either  'indx' or '<i>nn</i>ix', where <i>nn</i> is the stream number.
      * @type {Integer}
      */
     fcc {

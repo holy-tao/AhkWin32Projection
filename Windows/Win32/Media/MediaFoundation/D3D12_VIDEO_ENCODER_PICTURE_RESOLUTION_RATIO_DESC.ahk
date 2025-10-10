@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines a resolution ratio as an irreducible fraction.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_resolution_ratio_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC extends Win32Struct
     static packingSize => 4
 
     /**
-     * The resolution ratio numerator.
      * @type {Integer}
      */
     WidthRatio {
@@ -25,7 +20,6 @@ class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC extends Win32Struct
     }
 
     /**
-     * The resolution ratio denominator.
      * @type {Integer}
      */
     HeightRatio {

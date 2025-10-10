@@ -3,7 +3,7 @@
 
 /**
  * The IPX_PATTERN structure applies a specific pattern or corresponding mask for the IPX protocol. The IPX_PATTERN structure designation is used by the traffic control interface in the application of packet filters.
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ipx_pattern
+ * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-ipx_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

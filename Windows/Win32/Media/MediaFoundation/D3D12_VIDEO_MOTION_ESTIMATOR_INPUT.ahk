@@ -5,7 +5,8 @@
  * Specifies the input parameters for calls to ID3D12VideoEncodeCommandList::EstimateMotion.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_motion_estimator_input
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_motion_estimator_input
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

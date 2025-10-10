@@ -2,7 +2,7 @@
 
 /**
  * Lists the types of messages that can be sent to the MSV1_0 Authentication Package by calling the LsaCallAuthenticationPackage function.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-msv1_0_protocol_message_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-msv1_0_protocol_message_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

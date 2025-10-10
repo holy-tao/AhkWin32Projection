@@ -2,7 +2,7 @@
 
 /**
  * Elements of the TsGravity enumeration specify the gravity type associated with an IAnchor object.
- * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity
+ * @see https://docs.microsoft.com/windows/win32/api//textstor/ne-textstor-tsgravity
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

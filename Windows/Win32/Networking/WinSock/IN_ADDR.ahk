@@ -2,12 +2,18 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The in_addr structure represents an IPv4 address.
+ * The in_addr structure represents an IPv4 Internet address.
  * @remarks
- * The <b>IPaddr</b> type definition also represents an IPv4 address and can be cast to an  <b>in_addr</b> structure when needed.
+ * 
+  * The <b>in_addr</b> structure is used with IPv4 addresses. 
   * 
-  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>in_addr</b> structure is defined in the <i>Inaddr.h</i> header file which is automatically included by the <i>Ipexport.h</i> header file. On the Platform Software Development Kit (SDK) released for Windows Server 2003 and Windows XP, the <b>in_addr</b> structure is declared in the <i>Ipexport.h</i> header file.
- * @see https://learn.microsoft.com/windows/win32/api/inaddr/ns-inaddr-in_addr
+  * The <b>in_addr</b> structure is the IPv4 equivalent of the IPv6-based <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">in6_addr</a> structure.  
+  * 
+  * <div class="alert"><b>Note</b>  The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are only defined on the Windows SDK released with Windows Vista and later. The <b>IN_ADDR</b>, <b>PIN_ADDR</b>, and  <b>LPIN_ADDR</b> derived structures are defined in the <i>Inaddr.h</i> header file. On earlier versions of the Windows SDK, variables of this type should be declared as <b>struct in_addr</b>. </div>
+  * <div> </div>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-in_addr
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether text snapping is suppressed or clipping to the layout rectangle is enabled. This enumeration allows a bitwise combination of its member values.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_draw_text_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

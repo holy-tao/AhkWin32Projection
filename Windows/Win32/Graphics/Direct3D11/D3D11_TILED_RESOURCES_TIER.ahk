@@ -2,7 +2,7 @@
 
 /**
  * Indicates the tier level at which tiled resources are supported.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_tiled_resources_tier
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

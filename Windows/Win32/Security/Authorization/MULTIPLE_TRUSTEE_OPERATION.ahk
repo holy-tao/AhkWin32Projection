@@ -2,7 +2,7 @@
 
 /**
  * Contains values that indicate whether a TRUSTEE structure is an impersonation trustee.
- * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-multiple_trustee_operation
+ * @see https://docs.microsoft.com/windows/win32/api//accctrl/ne-accctrl-multiple_trustee_operation
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

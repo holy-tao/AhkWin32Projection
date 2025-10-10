@@ -3,7 +3,8 @@
 /**
  * The GROUPPROP enumeration defines the constant values for retrieving and setting group property values.
  * @remarks
- * The <b>GROUPPROP_NOTIFYFLAGS</b> group property can contain one or more of the following notification flags. 
+ * 
+  * The <b>GROUPPROP_NOTIFYFLAGS</b> group property can contain one or more of the following notification flags. 
   * 
   * <table>
   * <tr>
@@ -35,7 +36,8 @@
   * 
   * <div class="alert"><b>Note</b>  By default, QMGR calls your <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus">IBackgroundCopyCallback1::OnStatus</a> method when an error occurs.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/qmgr/ne-qmgr-groupprop
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//qmgr/ne-qmgr-groupprop
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

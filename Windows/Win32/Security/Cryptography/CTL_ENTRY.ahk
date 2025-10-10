@@ -4,7 +4,7 @@
 
 /**
  * An element of a certificate trust list (CTL).
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_entry
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_entry
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

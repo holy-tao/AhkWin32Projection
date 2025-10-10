@@ -3,7 +3,7 @@
 
 /**
  * The PSINJECTDATA structure is a header for the input buffer used with the POSTSCRIPT_INJECTION printer escape function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-psinjectdata
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-psinjectdata
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

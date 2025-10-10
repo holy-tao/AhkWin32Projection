@@ -5,8 +5,10 @@
 /**
  * Contains cache statistics.
  * @remarks
- * This union is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats">WTS_CACHE_STATS</a> structure. The <b>Specific</b> member of that structure contains an integer index that specifies which  member of the <b>WTS_CACHE_STATS_UN</b> union contains the cache data.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_cache_stats_un
+ * 
+  * This union is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats">WTS_CACHE_STATS</a> structure. The <b>Specific</b> member of that structure contains an integer index that specifies which  member of the <b>WTS_CACHE_STATS_UN</b> union contains the cache data.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_cache_stats_un
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

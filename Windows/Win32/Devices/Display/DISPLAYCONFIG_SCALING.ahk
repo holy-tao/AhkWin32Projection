@@ -3,8 +3,10 @@
 /**
  * The DISPLAYCONFIG_SCALING enumeration specifies the scaling transformation applied to content displayed on a video present network (VidPN) present path.
  * @remarks
- * For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_scaling
+ * 
+  * For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_scaling
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

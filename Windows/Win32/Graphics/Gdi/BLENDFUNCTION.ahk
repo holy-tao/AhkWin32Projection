@@ -4,7 +4,8 @@
 /**
  * The BLENDFUNCTION structure controls blending by specifying the blending functions for source and destination bitmaps.
  * @remarks
- * When the <b>AlphaFormat</b> member is AC_SRC_ALPHA, the source bitmap must be 32 bpp. If it is not, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> function will fail.
+ * 
+  * When the <b>AlphaFormat</b> member is AC_SRC_ALPHA, the source bitmap must be 32 bpp. If it is not, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> function will fail.
   * 
   * When the <b>BlendOp</b> member is AC_SRC_OVER, the source bitmap is placed over the destination bitmap based on the alpha values of the source pixels.
   * 
@@ -116,7 +117,9 @@
   * <td>+ (1 - Src.Alpha) * Dst.Alpha</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-blendfunction
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-blendfunction
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Computes the bitwise AND between each corresponding element of the input tensors, and writes the result into the output tensor.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_bit_and_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_bit_and_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -3,11 +3,13 @@
 #Include .\CHARRANGE.ahk
 
 /**
- * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character. (ANSI)
+ * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The richedit.h header defines TEXTRANGE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-textrangea
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-textrangea
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  * @charset ANSI

@@ -3,7 +3,7 @@
 
 /**
  * Contains a snapshot of job status.
- * @see https://learn.microsoft.com/windows/win32/api/xpsprint/ns-xpsprint-xps_job_status
+ * @see https://docs.microsoft.com/windows/win32/api//xpsprint/ns-xpsprint-xps_job_status
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */

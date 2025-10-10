@@ -3,7 +3,7 @@
 
 /**
  * The PEER_MEMBER structure contains information that describes a member of a peer group.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_member
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_member
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

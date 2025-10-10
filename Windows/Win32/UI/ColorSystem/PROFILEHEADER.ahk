@@ -6,7 +6,8 @@
  * Contains information that describes the contents of a device profile file. This header occurs at the beginning of a device profile file.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-profileheader
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-profileheader
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
@@ -112,8 +113,8 @@ class PROFILEHEADER extends Win32Struct
      * 
      * <table>
      * <colgroup>
-     * <col />
-     * <col />
+     * <col style="width: 50%" />
+     * <col style="width: 50%" />
      * </colgroup>
      * <thead>
      * <tr class="header">

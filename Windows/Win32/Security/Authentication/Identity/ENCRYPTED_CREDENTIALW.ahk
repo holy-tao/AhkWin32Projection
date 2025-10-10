@@ -5,7 +5,7 @@
 
 /**
  * Represents an encrypted credential.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-encrypted_credentialw
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-encrypted_credentialw
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

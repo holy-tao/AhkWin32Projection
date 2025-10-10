@@ -3,7 +3,7 @@
 
 /**
  * The RPC_MESSAGE structure contains information shared between NDR and the rest of the RPC or OLE runtime.
- * @see https://learn.microsoft.com/windows/win32/api/rpcdcep/ns-rpcdcep-rpc_message
+ * @see https://docs.microsoft.com/windows/win32/api//rpcdcep/ns-rpcdcep-rpc_message
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

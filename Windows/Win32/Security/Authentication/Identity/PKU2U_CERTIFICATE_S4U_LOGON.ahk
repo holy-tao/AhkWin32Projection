@@ -4,7 +4,7 @@
 
 /**
  * Specifies a certificate used for S4U logon.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-pku2u_certificate_s4u_logon
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-pku2u_certificate_s4u_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The EMI_CHANNEL_V2 structure provides data about an EMI V2 channel.
- * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_v2
+ * @see https://docs.microsoft.com/windows/win32/api//emi/ns-emi-emi_channel_v2
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

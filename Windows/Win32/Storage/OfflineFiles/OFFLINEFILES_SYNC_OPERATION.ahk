@@ -2,7 +2,7 @@
 
 /**
  * Indicates the type of sync operation that was being performed when a sync error was encountered.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_operation
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_sync_operation
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

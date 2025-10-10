@@ -4,13 +4,15 @@
 /**
  * Used with the CFSTR_SHELLIDLIST clipboard format to transfer the pointer to an item identifier list (PIDL) of one or more Shell namespace objects.
  * @remarks
- * To use this structure to retrieve a particular PIDL, add the <b>aoffset</b> value of the PIDL to the address of the structure. The following two macros can be used to retrieve PIDLs from the structure. The first retrieves the PIDL of the parent folder. The second retrieves a PIDL, specified by its zero-based index.
+ * 
+  * To use this structure to retrieve a particular PIDL, add the <b>aoffset</b> value of the PIDL to the address of the structure. The following two macros can be used to retrieve PIDLs from the structure. The first retrieves the PIDL of the parent folder. The second retrieves a PIDL, specified by its zero-based index.
   * 				
   *                 
   * 
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-cida
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-cida
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

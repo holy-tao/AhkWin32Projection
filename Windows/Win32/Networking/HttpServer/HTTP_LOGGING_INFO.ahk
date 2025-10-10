@@ -4,7 +4,8 @@
 /**
  * Used to enable server side logging on a URL Group or on a server session.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HttpServerLoggingProperty</a> property sets one of four types of server side logging: HttpLoggingTypeW3C, HttpLoggingTypeIIS, HttpLoggingTypeNCSA, or HttpLoggingTypeRaw. When this property is set on a server session it functions as centralized form of logging for all of the URL groups under that server session. Requests that are routed to one of the URL groups under the server session are logged in one centralized log file. The configuration parameters for the log file are passed in the  <b>HTTP_LOGGING_INFO</b> structure in the call to   <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>.
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HttpServerLoggingProperty</a> property sets one of four types of server side logging: HttpLoggingTypeW3C, HttpLoggingTypeIIS, HttpLoggingTypeNCSA, or HttpLoggingTypeRaw. When this property is set on a server session it functions as centralized form of logging for all of the URL groups under that server session. Requests that are routed to one of the URL groups under the server session are logged in one centralized log file. The configuration parameters for the log file are passed in the  <b>HTTP_LOGGING_INFO</b> structure in the call to   <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>.
   * 
   * When this property is set on a URL Group, logging is performed only on  requests that are routed to the URL Group. 
   * Log files are created when the request arrives on the URL Group or server session, they are not created when logging is configured.
@@ -100,7 +101,7 @@
   * 
   * 
   * The letters yy, mm, ww, dd, hh, and nn in the table represent the following digits:<ul>
-  * <li>yy: The two digit representation of the year.</li>
+  * <li>yy: The two digit representatton of the year.</li>
   * <li>mm: The two digit representation of the month.</li>
   * <li>ww: The two digit representation of the week.</li>
   * <li>dd: The two digit representation of the day.</li>
@@ -112,7 +113,9 @@
   * Please note that in the HTTP version 2.0 API, the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> have been revisioned to allow applications to pass an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_log_fields_data">HTTP_LOG_FIELDS_DATA</a> structure so the response can be logged. Setting the <b>HttpServerLoggingProperty</b>  property on a server session or a URL group does not mean that HTTP responses are logged. Logging on the URL group or the server session will not take place unless the calls to <b>HttpSendResponseEntityBody</b> and <b>HttpSendHttpResponse</b> include an optional <b>HTTP_LOG_FIELDS_DATA</b> structure. For more information, see the <b>HTTP_LOG_FIELDS_DATA</b> topic.
   * 
   * For information on the log file formats, see the <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a> topic.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_logging_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_logging_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The different encodings (message formats).
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_encoding
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -72,7 +72,7 @@ class WS_ENCODING{
  *                 
  * 
  * The XML part of the MTOM package is written
- *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF8</a>, but may be in any <b>WS_CHARSET</b> when read.
+ *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF8</a>, but may be in any <b>WS_CHARSET</b>when read.
      * @type {Integer (Int32)}
      */
     static WS_ENCODING_XML_MTOM_UTF8 => 2
@@ -90,7 +90,7 @@ class WS_ENCODING{
  *                 
  * 
  * The XML part of the MTOM package is written
- *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16BE</a>, but may be in any <b>WS_CHARSET</b> when read.
+ *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16BE</a>, but may be in any <b>WS_CHARSET</b>when read.
      * @type {Integer (Int32)}
      */
     static WS_ENCODING_XML_MTOM_UTF16BE => 3
@@ -108,7 +108,7 @@ class WS_ENCODING{
  *                 
  * 
  * The XML part of the MTOM package is written
- *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16LE</a>, but may be in any <b>WS_CHARSET</b> when read.
+ *                     using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_charset">WS_CHARSET_UTF16LE</a>, but may be in any <b>WS_CHARSET</b>when read.
      * @type {Integer (Int32)}
      */
     static WS_ENCODING_XML_MTOM_UTF16LE => 4

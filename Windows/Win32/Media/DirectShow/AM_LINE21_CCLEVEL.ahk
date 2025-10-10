@@ -2,7 +2,7 @@
 
 /**
  * Indicates the closed caption decoder level.
- * @see https://learn.microsoft.com/windows/win32/api/il21dec/ne-il21dec-am_line21_cclevel
+ * @see https://docs.microsoft.com/windows/win32/api//il21dec/ne-il21dec-am_line21_cclevel
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

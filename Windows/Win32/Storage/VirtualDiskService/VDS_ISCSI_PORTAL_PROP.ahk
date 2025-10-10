@@ -3,8 +3,8 @@
 #Include .\VDS_IPADDRESS.ahk
 
 /**
- * The VDS_ISCSI_PORTAL_PROP structure (vdshwprv.h) defines the properties of an iSCSI portal.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_portal_prop
+ * Defines the properties of an iSCSI portal.
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_iscsi_portal_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

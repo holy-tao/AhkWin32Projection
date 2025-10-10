@@ -2,7 +2,7 @@
 
 /**
  * Represents the type of Software Licensing ID.
- * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-slidtype
+ * @see https://docs.microsoft.com/windows/win32/api//slpublic/ne-slpublic-slidtype
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The VMR9VideoDesc structure describes a video stream to be deinterlaced.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9videodesc
+ * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9videodesc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -72,7 +72,7 @@ class VMR9VideoDesc extends Win32Struct
     }
 
     /**
-     * A **VMRFrequency** structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-vmrfrequency">VMRFrequency</a> structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
      * @type {VMR9Frequency}
      */
     OutputFrameFreq{

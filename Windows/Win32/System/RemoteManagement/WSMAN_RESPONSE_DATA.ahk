@@ -9,7 +9,7 @@
 
 /**
  * Represents the output data received from a WSMan operation.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_response_data
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_response_data
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

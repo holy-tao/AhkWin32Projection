@@ -3,7 +3,7 @@
 
 /**
  * The DDBOBNEXTFIELDINFO structure contains the bob information for the surface.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddbobnextfieldinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddbobnextfieldinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Used by Local Security Authority (LSA) functions to specify an ANSI string.
- * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_string
+ * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_string
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

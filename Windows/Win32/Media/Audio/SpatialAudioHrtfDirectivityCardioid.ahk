@@ -4,7 +4,7 @@
 
 /**
  * Represents a cardioid-shaped directivity model for an ISpatialAudioObjectForHrtf.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivitycardioid
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivitycardioid
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

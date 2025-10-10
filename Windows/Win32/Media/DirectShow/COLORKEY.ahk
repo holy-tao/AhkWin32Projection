@@ -4,8 +4,11 @@
 /**
  * The COLORKEY structure communicates color key information between the renderer and another filter.
  * @remarks
- * The video renderer supports a data transport accessed through the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ioverlay">IOverlay</a> interface. This will typically be used by hardware decoder filters that need the renderer to communicate where to put the data rather than requiring the renderer to draw the data. One mechanism for communicating where to put the images is by using a color key. This structure is used by a filter (typically a hardware decoder) to describe color key requirements to the video renderer.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-colorkey
+ * 
+  * The video renderer supports a data transport accessed through the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ioverlay">IOverlay</a> interface. This will typically be used by hardware decoder filters that need the renderer to communicate where to put the data rather than requiring the renderer to draw the data. One mechanism for communicating where to put the images is by using a color key. This structure is used by a filter (typically a hardware decoder) to describe color key requirements to the video renderer.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-colorkey
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

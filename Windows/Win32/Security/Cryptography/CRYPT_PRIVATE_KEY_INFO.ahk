@@ -5,7 +5,7 @@
 
 /**
  * Contains a clear-text private key in the PrivateKey field (DER encoded). CRYPT_PRIVATE_KEY_INFO contains the information in a PKCS
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_private_key_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_private_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

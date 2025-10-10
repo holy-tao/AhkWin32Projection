@@ -3,7 +3,7 @@
 
 /**
  * The CERT_RDN structure contains a relative distinguished name (RDN) consisting of an array of CERT_RDN_ATTR structures.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_rdn
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_rdn
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

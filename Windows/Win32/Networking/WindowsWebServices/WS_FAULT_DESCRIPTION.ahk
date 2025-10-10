@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about a mapping between a WS_FAULT and an XML element.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_description
+ * Information about a mapping between an WS_FAULT and an XML element.
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_fault_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

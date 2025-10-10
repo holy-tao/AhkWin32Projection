@@ -3,7 +3,8 @@
 /**
  * The FAX_SERVER_EVENTS_TYPE_ENUM enumeration defines the types of events the fax service sends to client applications that are listening for events. The members of this enumeration are bit values and can be used in combination.
  * @remarks
- * The following table lists the <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> methods called by each member.
+ * 
+  * The following table lists the <a href="https://docs.microsoft.com/windows/desktop/api/faxcomex/nn-faxcomex-ifaxservernotify2">IFaxServerNotify</a> methods called by each member.
   * 
   * <table class="clsStd">
   * <tr>
@@ -305,7 +306,9 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_server_events_type_enum
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_server_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

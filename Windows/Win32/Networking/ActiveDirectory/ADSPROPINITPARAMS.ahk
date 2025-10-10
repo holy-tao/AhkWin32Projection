@@ -4,8 +4,11 @@
 /**
  * Used with the ADsPropGetInitInfo function to obtain object data that a display specifier applies to.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropgetinitinfo">ADsPropGetInitInfo</a> function allocates memory  for the <b>pwzCN</b> and <b>pWritableAttrs</b> members. This memory is freed by the system after all display specifier objects are destroyed. The reference count for the interface pointer in <b>pDsObj</b> is not incremented by calling <b>ADsPropGetInitInfo</b>, so the interface must not be released by the caller.
- * @see https://learn.microsoft.com/windows/win32/api/adsprop/ns-adsprop-adspropinitparams
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropgetinitinfo">ADsPropGetInitInfo</a> function allocates memory  for the <b>pwzCN</b> and <b>pWritableAttrs</b> members. This memory is freed by the system after all display specifier objects are destroyed. The reference count for the interface pointer in <b>pDsObj</b> is not incremented by calling <b>ADsPropGetInitInfo</b>, so the interface must not be released by the caller.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//adsprop/ns-adsprop-adspropinitparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

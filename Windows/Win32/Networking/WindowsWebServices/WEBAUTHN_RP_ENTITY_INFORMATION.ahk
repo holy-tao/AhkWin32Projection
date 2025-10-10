@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about the Relying Party.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_rp_entity_information
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -25,7 +20,6 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Identifier for the Relying Party. This field is required.
      * @type {Pointer<Char>}
      */
     pwszId {
@@ -34,7 +28,6 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Contains the friendly name of the Relying Party, such as "Acme Corporation", "Widgets Inc", or "Contoso". This field is required.
      * @type {Pointer<Char>}
      */
     pwszName {
@@ -43,7 +36,6 @@ class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Optional URL pointing to the Relying Party's logo.
      * @type {Pointer<Char>}
      */
     pwszIcon {

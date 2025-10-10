@@ -4,10 +4,13 @@
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation. A DDE monitoring application can use this structure to obtain information about a conversation that has been established or has terminated.
  * @remarks
- * Because string handles are local to the process, the <b>hszSvc</b> and <b>hszTopic</b> members are global atoms. Similarly, conversation handles are local to the instance; therefore, the <b>hConvClient</b> and <b>hConvServer</b> members are window handles. 
+ * 
+  * Because string handles are local to the process, the <b>hszSvc</b> and <b>hszTopic</b> members are global atoms. Similarly, conversation handles are local to the instance; therefore, the <b>hConvClient</b> and <b>hConvServer</b> members are window handles. 
   * 
   * The <b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONCONVSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monconvstruct
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-monconvstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

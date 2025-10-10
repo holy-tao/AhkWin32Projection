@@ -3,10 +3,6 @@
 #Include .\D3D_OMAC.ahk
 
 /**
- * Contains the response from the IDirect3DAuthenticatedChannel9::Query method.
- * @remarks
- * For the **QueryType**, **hChannel**, and **SequenceNumber** members, the driver uses in the same values that the application provided in the [**D3DAUTHENTICATEDCHANNEL\_QUERY\_INPUT**](d3dauthenticatedchannel-query-input.md) structure. The application should verify that these values match.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-query-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -17,7 +13,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [**D3D\_OMAC**](d3d-omac.md) structure that contains a Message Authentication Code (MAC) of the data. The driver uses AES-based one-key CBC MAC (OMAC) to calculate this value for the block of data that appears after this structure member.
      * @type {D3D_OMAC}
      */
     omac{
@@ -29,7 +24,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * A GUID that specifies the query. For a list of values, see [Content Protection Queries](content-protection-queries.md).
      * @type {Pointer<Guid>}
      */
     QueryType {
@@ -54,7 +48,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * The result code for the query.
      * @type {HRESULT}
      */
     ReturnCode {

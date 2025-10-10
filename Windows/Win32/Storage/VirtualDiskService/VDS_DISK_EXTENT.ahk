@@ -4,7 +4,8 @@
 /**
  * Defines the properties of a disk extent.
  * @remarks
- * The <i>volumeId</i>, <i>plexId</i>, and 
+ * 
+  * The <i>volumeId</i>, <i>plexId</i>, and 
   *     <i>memberIdx</i> members apply to data and ESP partitions only. If the extent lacks a volume 
   *     association, the GUIDs for <i>volumeId</i> and <i>plexId</i> are GUID_NULL, 
   *     and <i>memberIdx</i> is zero. The <i>memberIdx</i> member is always zero 
@@ -18,7 +19,9 @@
   * 
   * A disk extent is a contiguous set of blocks on a single disk or LUN handled by a software provider. A drive 
   *     extent is not required to be a contiguous set of blocks.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_extent
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_disk_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -5,11 +5,10 @@
 /**
  * The ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure is used by the QueryActCtxW function.
  * @remarks
- * The following example requires Windows Server 2008 R2 or Windows 7 and shows the method to retrieve information about the compatibility context.
+ * 
+  * The following example requires Windows Server 2008 R2 or Windows 7 and shows the method to retrieve information about the compatibility context.
   * 
-  * 
-  * ``` syntax
-  * HANDLE   ActCtxHandle=INVALID_HANDLE_VALUE;
+  * <pre class="syntax" xml:space="preserve"><code>HANDLE   ActCtxHandle=INVALID_HANDLE_VALUE;
   * SIZE_T   BytesWritten=0;
   * PACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION CtxCompatInfo=NULL;
   * 
@@ -72,9 +71,9 @@
   *         RtlFreeHeap (RtlProcessHeap (), 0, CtxCompatInfo);
   *         CtxCompatInfo = NULL;
   * 	 }
+  * </code></pre>
   * 
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_compatibility_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-activation_context_compatibility_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

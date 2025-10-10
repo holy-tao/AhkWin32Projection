@@ -3,7 +3,7 @@
 
 /**
  * The PEER_COLLAB_EVENT_REGISTRATION structure contains the data used by a peer to register for specific peer collaboration network events.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_registration
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_collab_event_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -28,7 +28,7 @@ class PEER_COLLAB_EVENT_REGISTRATION extends Win32Struct
      * 
      * This parameter is valid only for PEER_EVENT_ENDPOINT_APPLICATION_CHANGED, PEER_EVENT_ENDPOINT_OBJECT_CHANGED, PEER_EVENT_MY_APPLICATION_CHANGED, and PEER_EVENT_MY_OBJECT_CHANGED. This GUID represents the application ID for application-specific events, and the object ID for object-specific events.  
      * 
-     * When this member is set, notification will be sent only for the specific application or object.
+     * When <b></b>this member is set, notification will be sent only for the specific application or object.
      * @type {Pointer<Guid>}
      */
     pInstance {

@@ -3,9 +3,7 @@
 
 /**
  * Used as the string interface for kernel operations and is a clone of the UNICODE_STRING structure.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-security_string
+ * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-security_string
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +14,7 @@ class SECURITY_STRING extends Win32Struct
     static packingSize => 8
 
     /**
-     * Specifies the length, in bytes, of the string pointed to by the **Buffer** member, not including the terminating **NULL** character, if any.
+     * Specifies the length, in bytes, of the string pointed to by the <b>Buffer</b> member, not including the terminating <b>NULL</b> character, if any.
      * @type {Integer}
      */
     Length {
@@ -25,7 +23,7 @@ class SECURITY_STRING extends Win32Struct
     }
 
     /**
-     * Specifies the total size, in bytes, of memory allocated for **Buffer**. Up to **MaximumLength** bytes may be written into the buffer without trampling memory.
+     * Specifies the total size, in bytes, of memory allocated for <b>Buffer</b>. Up to <b>MaximumLength</b> bytes may be written into the buffer without trampling memory.
      * @type {Integer}
      */
     MaximumLength {
@@ -34,7 +32,7 @@ class SECURITY_STRING extends Win32Struct
     }
 
     /**
-     * Pointer to a wide-character string. Note that the strings returned by the various LSA functions might not be **NULL**-terminated.
+     * Pointer to a wide-character string. Note that the strings returned by the various LSA functions might not be <b>null</b>-terminated.
      * @type {Pointer<UInt16>}
      */
     Buffer {

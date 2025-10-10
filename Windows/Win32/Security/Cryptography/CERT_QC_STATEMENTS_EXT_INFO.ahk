@@ -3,7 +3,7 @@
 
 /**
  * Contains a sequence of one or more statements that make up the Qualified Certificate (QC) statements extension for a QC.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_qc_statements_ext_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_qc_statements_ext_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

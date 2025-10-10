@@ -3,7 +3,7 @@
 
 /**
  * Represents custom data.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-custdata
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-custdata
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

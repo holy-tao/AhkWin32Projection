@@ -3,7 +3,7 @@
 
 /**
  * Contains trust information.
- * @see https://learn.microsoft.com/windows/win32/api/capi/ns-capi-java_trust
+ * @see https://docs.microsoft.com/windows/win32/api//capi/ns-capi-java_trust
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

@@ -3,7 +3,8 @@
 /**
  * Specifies heap options, such as whether the heap can contain textures, and whether resources are shared across adapters.
  * @remarks
- * This enum is used by the following API items:
+ * 
+  * This enum is used by the following API items:
   * 
   * <ul>
   * <li>
@@ -94,7 +95,9 @@
   * <li>D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL and D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER are invalid
   * flags.</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_heap_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -125,7 +128,7 @@ class D3D12_HEAP_FLAGS{
     static D3D12_HEAP_FLAG_ALLOW_DISPLAY => 8
 
     /**
-     * The heap is allowed to share resources across adapters. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/shared-heaps">Shared Heaps</a>. A protected session cannot be mixed with resources that are shared across adapters.
+     * The heap is allowed to share resources across adapters. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/shared-heaps">Shared Heaps</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_HEAP_FLAG_SHARED_CROSS_ADAPTER => 32
@@ -149,7 +152,7 @@ class D3D12_HEAP_FLAGS{
     static D3D12_HEAP_FLAG_HARDWARE_PROTECTED => 256
 
     /**
-     * The heap supports MEM_WRITE_WATCH functionality, which causes the system to track the pages that are written to in the committed memory region. This flag can't be combined with the D3D12_HEAP_TYPE_DEFAULT or D3D12_CPU_PAGE_PROPERTY_UNKNOWN flags. Applications are discouraged from using this flag themselves because it prevents tools from using this functionality.
+     * The heap supports MEM_WRITE_WATCH functionality, which causes the system to track the pages that are written to in the commited memory region. This flag can't be combined with the D3D12_HEAP_TYPE_DEFAULT or D3D12_CPU_PAGE_PROPERTY_UNKNOWN flags. Applications are discouraged from using this flag themselves because it prevents tools from using this functionality.
      * @type {Integer (Int32)}
      */
     static D3D12_HEAP_FLAG_ALLOW_WRITE_WATCH => 512

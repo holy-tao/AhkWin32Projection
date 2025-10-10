@@ -4,7 +4,7 @@
 
 /**
  * Contains information that the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code uses to determine the volume information to be retrieved.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_send_volume_tag_information
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_send_volume_tag_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

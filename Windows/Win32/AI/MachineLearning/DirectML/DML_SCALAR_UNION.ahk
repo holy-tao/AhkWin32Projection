@@ -5,7 +5,8 @@
  * A union of scalar types.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scalar_union
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_scalar_union
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

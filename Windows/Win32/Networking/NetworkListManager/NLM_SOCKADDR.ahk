@@ -3,7 +3,7 @@
 
 /**
  * NLM_SOCKADDR structure contains the IPv4/IPv6 destination address.
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_sockaddr
+ * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ns-netlistmgr-nlm_sockaddr
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

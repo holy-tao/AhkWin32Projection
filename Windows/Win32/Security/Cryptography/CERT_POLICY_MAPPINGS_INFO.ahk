@@ -3,7 +3,7 @@
 
 /**
  * The CERT_POLICY_MAPPINGS_INFO structure provides mapping between the policy OIDs of two domains.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_mappings_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policy_mappings_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,8 +3,8 @@
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
 
 /**
- * Stores the quick mode negotiation policy for transport mode IPsec. (IPSEC_TRANSPORT_POLICY0)
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_transport_policy0
+ * Stores the quick mode negotiation policy for transport mode IPsec.
+ * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_transport_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

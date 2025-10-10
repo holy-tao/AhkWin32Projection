@@ -4,7 +4,7 @@
 
 /**
  * Contains information used with the LVN_GETEMPTYMARKUP notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvemptymarkup
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvemptymarkup
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

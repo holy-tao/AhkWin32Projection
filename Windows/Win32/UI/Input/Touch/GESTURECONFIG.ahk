@@ -4,7 +4,8 @@
 /**
  * Gets and sets the configuration for enabling gesture messages and the type of this configuration.
  * @remarks
- * It is impossible to disable two-finger panning and keep single finger panning.
+ * 
+  * It is impossible to disable two-finger panning and keep single finger panning.
   *       You must set the want bits for GC_PAN before you can set them for GC_PAN_WITH_SINGLE_FINGER_HORIZONTALLY 
   * 		or GC_PAN_WITH_SINGLE_FINGER_VERTICALLY.
   * 		
@@ -177,7 +178,11 @@
   * <td>Indicates the press and tap gesture.</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureconfig
+  *  
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-gestureconfig
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */

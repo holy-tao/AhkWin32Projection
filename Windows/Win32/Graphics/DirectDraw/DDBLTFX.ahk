@@ -5,8 +5,10 @@
 /**
  * The DDBLTFX structure passes raster operations (ROPs), effects, and override information to the IDirectDrawSurface7::Blt method. This structure is also part of the DDBLTBATCH structure that is used with the IDirectDrawSurface7::BltBatch method.
  * @remarks
- * The unions in this structure have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddbltfx
+ * 
+  * The unions in this structure have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-ddbltfx
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

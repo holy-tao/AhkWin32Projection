@@ -4,13 +4,14 @@
 /**
  * The AM_MEDIA_TYPE structure describes the format of a media sample.
  * @remarks
- * When two pins connect, they negotiate a media type, which is defined by an <b>AM_MEDIA_TYPE</b> structure. The media type describes the format of the data that the filters will exchange. If the filters do not agree on a media type, they cannot connect.
+ * 
+  * When two pins connect, they negotiate a media type, which is defined by an <b>AM_MEDIA_TYPE</b> structure. The media type describes the format of the data that the filters will exchange. If the filters do not agree on a media type, they cannot connect.
   * 
   * The stream type is specified by two <b>GUID</b>s, called the <i>major type</i> and the <i>subtype</i>. The major type defines the general category, such as video, audio, or byte stream. The subtype defines a narrower category within the major type. For example, video subtypes include 8-bit, 16-bit, 24-bit, and 32-bit RGB.
   * 
   * The <b>AM_MEDIA_TYPE</b> structure is followed by a variable-length block of data that contains format-specific information. The <b>pbFormat</b> member points to this block, called the <i>format block</i>. The layout of the format block depends on the type of data in the stream, and is specified by the <b>formattype</b> member. The format block might be <b>NULL</b>. Check the <b>cbFormat</b> member to determine the size. Cast the <b>pbFormat</b> member to access the format block. For example:
   * 
-  * <div class="code"><span><table>
+  * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
   * <tr>
   * <th>C++</th>
   * </tr>
@@ -34,7 +35,9 @@
   * In some situations, you can set the format block to <b>NULL</b> and the format type to GUID_NULL, resulting in a <i>partial media type</i>. This enables you to specify a range of possible formats. For example, you can specify 24-bit RGB (MEDIASUBTYPE_RGB24) without giving an exact width or height.
   * 
   * To obtain detailed information about a specified media type for debugging purposes, use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/displaytype">DisplayType</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_media_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-am_media_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

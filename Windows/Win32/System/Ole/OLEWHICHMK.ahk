@@ -2,7 +2,7 @@
 
 /**
  * Indicates which part of an object's moniker is being set or retrieved.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olewhichmk
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olewhichmk
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

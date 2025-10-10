@@ -4,8 +4,11 @@
 /**
  * Represents a length of time.
  * @remarks
- * If any numeric member has a value of 0, then the member and its value is not included in the XML output when the structure is converted to XML.
- * @see https://learn.microsoft.com/windows/win32/api/wsdxml/ns-wsdxml-wsd_duration
+ * 
+  * If any numeric member has a value of 0, then the member and its value is not included in the XML output when the structure is converted to XML.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsdxml/ns-wsdxml-wsd_duration
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

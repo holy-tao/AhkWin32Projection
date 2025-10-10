@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Negates each element of *InputTensor*, storing the result into the corresponding element of *OutputTensor*.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_negate_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -16,9 +12,6 @@ class DML_ELEMENT_WISE_NEGATE_OPERATOR_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
-     * 
-     * The input tensor to read from.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     InputTensor {
@@ -27,9 +20,6 @@ class DML_ELEMENT_WISE_NEGATE_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
-     * 
-     * The output tensor to write the results to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputTensor {

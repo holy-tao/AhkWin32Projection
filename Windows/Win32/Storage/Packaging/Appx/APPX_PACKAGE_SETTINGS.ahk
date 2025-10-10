@@ -4,14 +4,17 @@
 /**
  * Represents package settings used to create a package.
  * @remarks
- * Set <b>forceZip32</b> to <b>TRUE</b> to maintain compatibility with older ZIP tools.
+ * 
+  * Set <b>forceZip32</b> to <b>TRUE</b> to maintain compatibility with older ZIP tools.
   * 
   * The possible values for <b>hashMethod</b> are: <ul>
   * <li>http://www.w3.org/2001/04/xmlenc#sha256</li>
   * <li>http://www.w3.org/2001/04/xmldsig-more#sha384</li>
   * <li>http://www.w3.org/2001/04/xmlenc#sha512</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_settings
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ns-appxpackaging-appx_package_settings
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

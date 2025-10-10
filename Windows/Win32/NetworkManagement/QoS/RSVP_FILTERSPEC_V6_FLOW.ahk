@@ -4,7 +4,7 @@
 
 /**
  * The RSVP_FILTERSPEC_V6_FLOW structure provides flow label information for an IPv6 FILTERSPEC.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec_v6_flow
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_filterspec_v6_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The blob extension data for a credential.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_blob_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_CRED_BLOB_EXTENSION extends Win32Struct
     static packingSize => 8
 
     /**
-     * Size of **pbCredBlob**.
      * @type {Integer}
      */
     cbCredBlob {
@@ -25,7 +20,6 @@ class WEBAUTHN_CRED_BLOB_EXTENSION extends Win32Struct
     }
 
     /**
-     * The credential blob.
      * @type {Pointer<Byte>}
      */
     pbCredBlob {

@@ -2,7 +2,7 @@
 
 /**
  * Represents the action to take on a file that exists or doesn't exist.
- * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_creation_options
+ * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/ne-windowsstoragecom-handle_creation_options
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */

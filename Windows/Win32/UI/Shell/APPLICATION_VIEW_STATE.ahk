@@ -2,7 +2,7 @@
 
 /**
  * Indicates the current view state of a Windows Store app. Used by IApplicationDesignModeSettings::SetApplicationViewState and IApplicationDesignModeSettings::IsApplicationViewStateSupported.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-application_view_state
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-application_view_state
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The WIA_DATA_TRANSFER_INFO structure is used by applications to describe the buffer used to retrieve bands of data from Windows Image Acquisition (WIA) devices. It is primarily used in conjunction with the methods of the IWiaDataTransfer interface.
- * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_data_transfer_info
+ * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_data_transfer_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

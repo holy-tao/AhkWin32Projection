@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (Unicode)
+ * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-colormatchsetupw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-colormatchsetupw
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset Unicode

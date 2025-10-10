@@ -4,7 +4,7 @@
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_fault
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -117,7 +117,7 @@ class WS_FAULT extends Win32Struct
      *                     an element that corresponds to the detail element of a SOAP fault.  The
      *                     fault-specific XML content is contained within the detail element.
      *                     The local name and namespace of the element are ignored; they are replaced with
-     *                     the appropriate element name according to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION</a> when the detail element is written.
+     *                     the appropriate element name according to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION</a>when the detail element is written.
      * @type {Pointer<IntPtr>}
      */
     detail {

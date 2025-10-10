@@ -5,7 +5,7 @@
 
 /**
  * A buffer of metadata for the placeholder file or directory.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_placeholder_info
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_placeholder_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

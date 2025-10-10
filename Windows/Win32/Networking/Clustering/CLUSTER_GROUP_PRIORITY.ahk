@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_GROUP_PRIORITY enumeration (msclus.h) specifies the priority level of a group. (CLUSTER_GROUP_PRIORITY)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_priority
+ * Specifies the priority level of a group.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_group_priority
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -4,9 +4,12 @@
 /**
  * The USE_INFO_2 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, and domain name.
  * @remarks
- * Specifying a <b>ui2_local</b> member that is <b>NULL</b> requests authentication with the server without redirecting a drive letter or a device. Future redirections involving the server while the same connection is in effect use the authentication information specified in the initial call to the 
+ * 
+  * Specifying a <b>ui2_local</b> member that is <b>NULL</b> requests authentication with the server without redirecting a drive letter or a device. Future redirections involving the server while the same connection is in effect use the authentication information specified in the initial call to the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function. This information includes the combination of the <b>ui2_password</b>, <b>ui2_username</b>, and <b>ui2_domainname</b> members.
- * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmuse/ns-lmuse-use_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
@@ -37,12 +40,8 @@ class USE_INFO_2 extends Win32Struct
      * 
      * 
      * 
-     * 
-     * ``` syntax
-     * \\servername\sharename
-     * 
-     * ```
-     * 
+     * <pre class="syntax" xml:space="preserve"><code>\\servername\sharename
+     * </code></pre>
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {Pointer<Char>}
      */

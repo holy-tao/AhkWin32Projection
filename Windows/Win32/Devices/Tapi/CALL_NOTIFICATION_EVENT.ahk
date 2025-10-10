@@ -2,7 +2,7 @@
 
 /**
  * The CALL_NOTIFICATION_EVENT enum describes call notification events. The ITCallNotificationEvent::get_Event method returns a member of this enum to indicate the type of call notification event that occurred.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_notification_event
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_notification_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

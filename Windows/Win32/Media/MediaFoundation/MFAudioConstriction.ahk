@@ -3,8 +3,11 @@
 /**
  * Specifies values for audio constriction.
  * @remarks
- * Values defined by the <b>MFAudioConstriction</b> enumeration matches the <b>EAudioConstriction</b> enumeration defined <b>audioenginebaseapo.h</b>.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfaudioconstriction
+ * 
+  * Values defined by the <b>MFAudioConstriction</b> enumeration matches the <b>EAudioConstriction</b> enumeration defined <b>audioenginebaseapo.h</b>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfaudioconstriction
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

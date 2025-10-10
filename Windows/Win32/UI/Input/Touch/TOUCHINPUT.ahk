@@ -4,7 +4,8 @@
 /**
  * Encapsulates data for touch input.
  * @remarks
- * The following table lists the flags for the <b>dwFlags</b> member.
+ * 
+  * The following table lists the flags for the <b>dwFlags</b> member.
   *        <table>
   * <tr>
   * <th>Flag</th>
@@ -42,14 +43,9 @@
   * <td>When received using <b>GetTouchInputInfo</b>, this input was not coalesced.</td>
   * </tr>
   * <tr>
-  * <td><b>TOUCHEVENTF_PEN</b></td>
-  * <td>0x0040</td>
-  * <td>The touch event was triggered by a stylus device.</td>
-  * </tr>
-  * <tr>
   * <td><b>TOUCHEVENTF_PALM</b></td>
   * <td>0x0080</td>
-  * <td>The touch event was triggered by the user's palm.</td>
+  * <td>The touch event came from the user's palm.</td>
   * </tr>
   * </table>
   *  
@@ -101,13 +97,12 @@
   * The following type is defined to represent a constant pointer to a <b>TOUCHINPUT</b> structure.
   * 	
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   *    typedef TOUCHINPUT const * PCTOUCHINPUT;
-  * 	
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touchinput
+  * 	</code></pre>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-touchinput
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */

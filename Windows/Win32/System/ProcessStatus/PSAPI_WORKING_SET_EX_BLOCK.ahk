@@ -3,7 +3,7 @@
 
 /**
  * Contains extended working set information for a page.
- * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_ex_block
+ * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-psapi_working_set_ex_block
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

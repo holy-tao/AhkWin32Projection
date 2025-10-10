@@ -7,7 +7,7 @@
 
 /**
  * Represents a specific resource endpoint for which the plug-in must perform the request.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_operation_info
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_operation_info
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

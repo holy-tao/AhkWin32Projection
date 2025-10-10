@@ -3,7 +3,7 @@
 
 /**
  * Provides attributes of a helper.
- * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-ns_helper_attributes
+ * @see https://docs.microsoft.com/windows/win32/api//netsh/ns-netsh-ns_helper_attributes
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
  */

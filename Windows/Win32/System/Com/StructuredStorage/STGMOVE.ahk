@@ -2,7 +2,7 @@
 
 /**
  * Indicate whether a storage element is to be moved or copied.
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-stgmove
+ * @see https://docs.microsoft.com/windows/win32/api//wtypes/ne-wtypes-stgmove
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

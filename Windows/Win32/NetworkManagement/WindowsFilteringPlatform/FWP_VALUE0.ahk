@@ -4,7 +4,8 @@
 /**
  * Defines a data value that can be one of a number of different data types.
  * @remarks
- * For the unnamed union, switch_type(FWP_DATA_TYPE), switch_is(type).
+ * 
+  * For the unnamed union, switch_type(FWP_DATA_TYPE), switch_is(type).
   * 
   * This is primarily used to supply incoming values to the
   * filter engine.
@@ -12,7 +13,9 @@
   * When IP addresses are stored in FWP_UINT32 format or when IP port is stored in FWP_UINT16 format, they are stored in host-order not network-order. 
   * 
   * <b>FWP_VALUE0</b> is a specific implementation of FWP_VALUE. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a> for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_value0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_value0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

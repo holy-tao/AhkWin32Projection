@@ -3,11 +3,13 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * The CREDENTIAL structure contains an individual credential. (ANSI)
+ * The CREDENTIAL structure contains an individual credential.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The wincred.h header defines CREDENTIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-credentiala
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincred/ns-wincred-credentiala
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  * @charset ANSI
@@ -238,7 +240,7 @@ class CREDENTIALA extends Win32Struct
     }
 
     /**
-     * The size, in bytes, of the <b>CredentialBlob</b> member. This member cannot be larger than <b>CRED_MAX_CREDENTIAL_BLOB_SIZE</b> (5*512) bytes.
+     * The size, in bytes, of the <b>CredentialBlob</b> member. This member cannot be larger than <b>CRED_MAX_CREDENTIAL_BLOB_SIZE</b> (512) bytes.
      * @type {Integer}
      */
     CredentialBlobSize {

@@ -3,7 +3,7 @@
 
 /**
  * Contains the identification number of a connection, number of open files, connection time, number of users on the connection, and the type of connection.
- * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-connection_info_1
+ * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-connection_info_1
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

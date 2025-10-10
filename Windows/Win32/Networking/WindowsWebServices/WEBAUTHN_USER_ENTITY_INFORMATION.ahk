@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about a user entity.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_user_entity_information
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -25,7 +20,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * The size of **pbId**.
      * @type {Integer}
      */
     cbId {
@@ -34,7 +28,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Identifier for the user. This field is required.
      * @type {Pointer<Byte>}
      */
     pbId {
@@ -43,7 +36,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Contains a detailed name for this account, such as "john.p.smith@example.com".
      * @type {Pointer<Char>}
      */
     pwszName {
@@ -52,7 +44,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Optional URL that can be used to retrieve an image containing the user's current avatar or a data URI that contains the image data.
      * @type {Pointer<Char>}
      */
     pwszIcon {
@@ -61,7 +52,6 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * Contains the friendly name associated with the user account by the Relying Party, such as "John P. Smith".
      * @type {Pointer<Char>}
      */
     pwszDisplayName {

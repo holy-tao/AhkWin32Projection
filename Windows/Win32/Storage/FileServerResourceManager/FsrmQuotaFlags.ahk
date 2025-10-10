@@ -3,13 +3,16 @@
 /**
  * Defines the options for failing IO operations that violate a quota, enabling or disabling quota tracking, and providing the status of the quota scan operation.
  * @remarks
- * You can set the <b>FsrmQuotaFlags_Enforce</b> and 
+ * 
+  * You can set the <b>FsrmQuotaFlags_Enforce</b> and 
   *     <b>FsrmQuotaFlags_Disable</b> flags when calling the 
   *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotaflags">IFsrmQuotaBase::put_QuotaFlags</a> method. The 
   *     <b>IFsrmQuotaBase::get_QuotaFlags</b> method can return 
   *     these flags in addition to the <b>FsrmQuotaFlags_StatusIncomplete</b> and 
   *     <b>FsrmQuotaFlags_StatusRebuilding</b> flags.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmquotaflags
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmquotaflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

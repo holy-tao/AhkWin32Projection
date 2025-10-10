@@ -5,7 +5,8 @@
 /**
  * Describes a resource, such as a texture. This structure is used extensively.
  * @remarks
- * Use this structure with:<ul>
+ * 
+  * Use this structure with:<ul>
   * <li>
   * <a href="https://docs.microsoft.com/windows/desktop/direct3d12/id3d12resource-getdesc">ID3D12Resource::GetDesc</a>
   * </li>
@@ -108,7 +109,9 @@
   * <li>D3D12_HEAP_FLAG_ALLOW_DISPLAY</li>
   * </ul>
   * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_multisample_quality_levels">D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS</a> for determining valid <i>Count</i> and <i>Quality</i> values.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_resource_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

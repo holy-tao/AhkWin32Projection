@@ -3,7 +3,8 @@
 /**
  * The DVD_OPTION_FLAG enumeration defines flags that control the behavior of the DVD Navigator Filter. To set any of these flags, call IDvdControl2::SetOption.
  * @remarks
- * The following table lists the default values for the Boolean flags.
+ * 
+  * The following table lists the default values for the Boolean flags.
   * 
   * <table>
   * <tr>
@@ -65,7 +66,9 @@
   * <td><b>TRUE</b></td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_option_flag
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_option_flag
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -176,7 +179,7 @@ class DVD_OPTION_FLAG{
  * 
  * 
  * 
- * The default value is <b>FALSE</b>.
+ * The default value is <b>FALS</b>E.
  * 
  * You can also enable audio during fast forward and rewind by creating the following key in the Windows registry:
  * 

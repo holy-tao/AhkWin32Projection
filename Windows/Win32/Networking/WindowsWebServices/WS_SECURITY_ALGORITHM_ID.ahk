@@ -2,7 +2,7 @@
 
 /**
  * Defines the security algorithms to be used with WS-Security. These values are relevant to message security bindings and mixed-mode security bindings.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_algorithm_id
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_algorithm_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

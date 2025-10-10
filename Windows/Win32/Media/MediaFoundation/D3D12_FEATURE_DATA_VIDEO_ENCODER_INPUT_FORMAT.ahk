@@ -3,10 +3,6 @@
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 
 /**
- * Retrieves a value indicating if the specified codec, profile, and format are supported for video encoding.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_input_format
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -17,7 +13,6 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     static packingSize => 8
 
     /**
-     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {
@@ -26,7 +21,6 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which support is being queried.
      * @type {Integer}
      */
     Codec {
@@ -35,7 +29,6 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the profile for which support is being queried.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
     Profile{
@@ -47,14 +40,6 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * A member of the [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) enumeration specifying the pixel format for which support is being queried. This format definition includes the subsampling and bit-depth modes settings for the video encoding session.
-     * 
-     * To query encoder support for 4:2:0 with 8 and 10 bitdepth samples using following values for the **Format** field:
-     * - DXGI_FORMAT_P010
-     * - DXGI_FORMAT_NV12
-     * 
-     * > [!NOTE]
-     * > The host is expected to handle the input subsampling and color conversion stages of video encoding.
      * @type {Integer}
      */
     Format {
@@ -63,7 +48,6 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * Receives a boolean value indicating if the specified codec, profile, and format are supported.
      * @type {Integer}
      */
     IsSupported {

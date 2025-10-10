@@ -4,10 +4,6 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
- * A structure that contains the options to get an assertion.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_get_assertion_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -18,7 +14,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     static packingSize => 8
 
     /**
-     * The version of this structure.
      * @type {Integer}
      */
     dwVersion {
@@ -27,7 +22,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * Time that the operation is expected to complete within. This is used as guidance and can be overridden by the platform.
      * @type {Integer}
      */
     dwTimeoutMilliseconds {
@@ -36,7 +30,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * The list of allowed credentials to be used in the assertion.
      * @type {WEBAUTHN_CREDENTIALS}
      */
     CredentialList{
@@ -48,7 +41,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * A CBOR map from extension identifiers to their authenticator extension inputs, created by the client based on the extensions requested by the Relying Party. These are _optional_ extensions to parse when performing the operation.
      * @type {WEBAUTHN_EXTENSIONS}
      */
     Extensions{
@@ -60,7 +52,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * The attachment for the assertion. _Optional_ platform vs cross-platform authenticators.
      * @type {Integer}
      */
     dwAuthenticatorAttachment {
@@ -69,7 +60,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * The effective user verification requirement.
      * @type {Integer}
      */
     dwUserVerificationRequirement {
@@ -78,7 +68,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * The flags for the assertion.
      * @type {Integer}
      */
     dwFlags {
@@ -87,7 +76,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * _Optional_ identifier for the U2F AppId. Converted to UTF8 before being hashed. Not lower-cased.
      * @type {Pointer<Char>}
      */
     pwszU2fAppId {
@@ -96,7 +84,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * If this is non-NULL, then, set to **TRUE** if the **pwszU2fAppid** was used instead of **PCWSTR pwszRpId**.
      * @type {Pointer<Int32>}
      */
     pbU2fAppId {
@@ -105,7 +92,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * _Optional_ cancellation Id. See [WebAuthNGetCancellationId](./nf-webauthn-webauthngetcancellationid.md) for more information.
      * @type {Pointer<Guid>}
      */
     pCancellationId {
@@ -114,7 +100,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * An _optional_ list of public key credential descriptors describing credentials acceptable to the Relying Party (possibly filtered by the client), if any. If present, **CredentialList** will be ignored.
      * @type {Pointer<WEBAUTHN_CREDENTIAL_LIST>}
      */
     pAllowCredentialList {
@@ -123,7 +108,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * The large blob operation.
      * @type {Integer}
      */
     dwCredLargeBlobOperation {
@@ -132,7 +116,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * Size of **pbCredLargeBlob**.
      * @type {Integer}
      */
     cbCredLargeBlob {
@@ -141,7 +124,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * A pointer to the large credential blob.
      * @type {Pointer<Byte>}
      */
     pbCredLargeBlob {
@@ -150,7 +132,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * PRF values which will be converted into HMAC-SECRET values according to the WebAuthN Spec.
      * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT_VALUES>}
      */
     pHmacSecretSaltValues {
@@ -159,7 +140,6 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * Indicates whether the client is using in-private mode in the browser. An _optional_ parameter that defaults to **FALSE**.
      * @type {Integer}
      */
     bBrowserInPrivateMode {

@@ -5,7 +5,7 @@
 
 /**
  * Defines the state of a manipulation.
- * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_arguments_manipulation
+ * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-interaction_arguments_manipulation
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

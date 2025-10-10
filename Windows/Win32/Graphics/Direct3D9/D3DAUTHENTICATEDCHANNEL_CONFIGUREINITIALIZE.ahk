@@ -4,10 +4,6 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
- * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_INITIALIZE command.
- * @remarks
- * The **StartSequenceQuery** and **StartSequenceConfigure** members each contain a cryptographically secure 32-bit random number.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configureinitialize
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -18,7 +14,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREINITIALIZE extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure that contains the command GUID and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT}
      */
     Parameters{
@@ -30,7 +25,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREINITIALIZE extends Win32Struct
     }
 
     /**
-     * The initial sequence number for queries.
      * @type {Integer}
      */
     StartSequenceQuery {
@@ -39,7 +33,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREINITIALIZE extends Win32Struct
     }
 
     /**
-     * The initial sequence number for commands.
      * @type {Integer}
      */
     StartSequenceConfigure {

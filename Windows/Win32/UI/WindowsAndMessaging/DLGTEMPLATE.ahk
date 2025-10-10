@@ -4,7 +4,8 @@
 /**
  * Defines the dimensions and style of a dialog box.
  * @remarks
- * In a standard template for a dialog box, the <b>DLGTEMPLATE</b> structure is always immediately followed by three variable-length arrays that specify the menu, class, and title for the dialog box. When the DS_SETFONT style is specified, these arrays are also followed by a 16-bit value specifying point size and another variable-length array specifying a typeface name. Each array consists of one or more 16-bit elements. The menu, class, title, and font arrays must be aligned on 
+ * 
+  * In a standard template for a dialog box, the <b>DLGTEMPLATE</b> structure is always immediately followed by three variable-length arrays that specify the menu, class, and title for the dialog box. When the DS_SETFONT style is specified, these arrays are also followed by a 16-bit value specifying point size and another variable-length array specifying a typeface name. Each array consists of one or more 16-bit elements. The menu, class, title, and font arrays must be aligned on 
   * 				<b>WORD</b> boundaries. 
   * 
   * Immediately following the <b>DLGTEMPLATE</b> structure is a menu array that identifies a menu resource for the dialog box. If the first element of this array is 0x0000, the dialog box has no menu and the array has no other elements. If the first element is 0xFFFF, the array has one additional element that specifies the ordinal value of a menu resource in an executable file. If the first element has any other value, the system treats the array as a null-terminated Unicode string that specifies the name of a menu resource in an executable file. 
@@ -28,7 +29,9 @@
   * 				<b>y</b>, 
   * 				<b>cx</b>, and 
   * 				<b>cy</b> members specify values in dialog box units. You can convert these values to screen units (pixels) by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapdialogrect">MapDialogRect</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgtemplate
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-dlgtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

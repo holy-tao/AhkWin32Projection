@@ -3,8 +3,6 @@
 #Include .\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk
 
 /**
- * STORAGE_HW_FIRMWARE_INFO structure - This structure contains information about the device firmware.
- * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The version of this structure. This should be set to sizeof(STORAGE\_HW\_FIRMWARE\_INFO)
      * @type {Integer}
      */
     Version {
@@ -24,7 +21,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The size of this structure as a buffer including slot.
      * @type {Integer}
      */
     Size {
@@ -44,7 +40,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Indicates that this firmware supports an upgrade.
      * @type {Integer}
      */
     SupportUpgrade {
@@ -53,7 +48,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     Reserved0 {
@@ -62,10 +56,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The number of firmware slots on the device. This is the dimension of the Slot array.
-     * 
-     * > [!Note]  
-     * > Some devices can store more than 1 firmware image, if they have more than 1 firmware slot.
      * @type {Integer}
      */
     SlotCount {
@@ -74,7 +64,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The firmware slot containing the currently active/running firmware image.
      * @type {Integer}
      */
     ActiveSlot {
@@ -83,7 +72,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The firmware slot that is pending activation.
      * @type {Integer}
      */
     PendingActivateSlot {
@@ -92,7 +80,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Indicates that the firmware applies to both the device and controller/adapter, e.g. NVMe SSD.
      * @type {Integer}
      */
     FirmwareShared {
@@ -101,7 +88,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Array<Byte>}
      */
     Reserved{
@@ -113,7 +99,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The alignment of the image payload, in number of bytes. The maximum is PAGE\_SIZE. The transfer size is a mutliple of this size. Some protocols require at least sector size. When this value is set to 0, this means that this value is invalid.
      * @type {Integer}
      */
     ImagePayloadAlignment {
@@ -122,7 +107,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * The image payload maximum size, this is used for a single command.
      * @type {Integer}
      */
     ImagePayloadMaxSize {
@@ -131,7 +115,6 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * Contains the slot information for each slot on the device, of type [**STORAGE\_HW\_FIRMWARE\_SLOT\_INFO**](storage-hw-firmware-slot-info.md).
      * @type {Array<STORAGE_HW_FIRMWARE_SLOT_INFO>}
      */
     Slot{

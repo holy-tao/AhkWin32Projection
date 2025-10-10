@@ -3,7 +3,7 @@
 
 /**
  * Contains version information for a DFS namespace.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_supported_namespace_version_info
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_supported_namespace_version_info
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

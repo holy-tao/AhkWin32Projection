@@ -2,7 +2,7 @@
 
 /**
  * Defines the activity status of an animation manager.
- * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_manager_status
+ * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_manager_status
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */

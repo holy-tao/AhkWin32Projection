@@ -6,7 +6,8 @@
  * Describes the allocation size of a video motion estimator heap.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator_size
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator_size
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * This structure defines default function tables for all types:\_Context, Instance, PropertySet, and Filter.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_server
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_server
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

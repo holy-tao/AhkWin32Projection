@@ -4,7 +4,8 @@
 /**
  * Contains the signature algorithm/hash algorithm and public key algorithm/bit length pairs that can be used for strong signing.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_strong_sign_para">CERT_STRONG_SIGN_PARA</a> structure which is directly referenced by the following functions:
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_strong_sign_para">CERT_STRONG_SIGN_PARA</a> structure which is directly referenced by the following functions:
   * 
   * <ul>
   * <li>
@@ -39,7 +40,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptverifymessagesignature">CryptVerifyMessageSignature</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

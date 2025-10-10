@@ -2,7 +2,7 @@
 
 /**
  * The DISPLAYCONFIG_PIXELFORMAT enumeration specifies pixel format in various bits per pixel (BPP) values.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_pixelformat
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_pixelformat
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

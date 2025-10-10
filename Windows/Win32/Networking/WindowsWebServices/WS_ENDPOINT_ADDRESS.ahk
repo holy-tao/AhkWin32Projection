@@ -5,8 +5,10 @@
 /**
  * Represents the network address of an endpoint.
  * @remarks
- * Only the URL field is required (other fields may be <b>NULL</b>).
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_address
+ * 
+  * Only the URL field is required (other fields may be <b>NULL</b>).
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_endpoint_address
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

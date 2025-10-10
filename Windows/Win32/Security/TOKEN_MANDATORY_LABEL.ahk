@@ -4,7 +4,7 @@
 
 /**
  * Specifies the mandatory integrity level for a token.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_mandatory_label
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_mandatory_label
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

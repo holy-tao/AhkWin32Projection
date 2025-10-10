@@ -3,7 +3,7 @@
 
 /**
  * Describes the default, maximum, and minimum values allowed for a signed large integer.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_largeint_data
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resutil_largeint_data
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

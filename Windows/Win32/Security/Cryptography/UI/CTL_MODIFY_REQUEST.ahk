@@ -3,7 +3,7 @@
 
 /**
  * Contains a request to modify a certificate trust list (CTL). This structure is used in the CertModifyCertificatesToTrust function.
- * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-ctl_modify_request
+ * @see https://docs.microsoft.com/windows/win32/api//cryptdlg/ns-cryptdlg-ctl_modify_request
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

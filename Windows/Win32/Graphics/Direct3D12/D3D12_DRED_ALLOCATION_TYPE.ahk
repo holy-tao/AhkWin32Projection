@@ -4,7 +4,8 @@
  * Congruent with, and numerically equivalent to, 3D12DDI_HANDLETYPE enumeration values.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_allocation_type
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_dred_allocation_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

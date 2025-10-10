@@ -4,7 +4,7 @@
 
 /**
  * The QOS object QOS_SHAPING_RATE specifies the uniform traffic shaping rate be applied to a given flow.
- * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_shaping_rate
+ * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-qos_shaping_rate
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

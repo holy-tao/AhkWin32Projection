@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Categories of debug messages. (D3D10_MESSAGE_CATEGORY)
+ * Categories of debug messages.
  * @remarks
- * This is part of the Information Queue feature. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/nn-d3d10sdklayers-id3d10infoqueue">ID3D10InfoQueue Interface</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category
+ * 
+  * This is part of the Information Queue feature. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/nn-d3d10sdklayers-id3d10infoqueue">ID3D10InfoQueue Interface</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

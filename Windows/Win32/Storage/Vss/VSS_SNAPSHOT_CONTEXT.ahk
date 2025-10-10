@@ -3,7 +3,8 @@
 /**
  * Specify how a shadow copy is to be created, queried, or deleted and the degree of writer involvement.
  * @remarks
- * The data type to be used with values of 
+ * 
+  * The data type to be used with values of 
   *     <b>_VSS_SNAPSHOT_CONTEXT</b> is 
   *     <b>LONG</b>.
   * 
@@ -36,7 +37,9 @@
   * 
   * The use of <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> is limited to systems running 
   *     Windows Server 2008 Enterprise, Windows Server 2008 Datacenter, Windows Server 2003, Enterprise Edition, or Windows Server 2003, Datacenter Edition.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_context
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_snapshot_context
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

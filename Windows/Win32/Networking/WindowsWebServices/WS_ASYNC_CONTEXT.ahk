@@ -3,7 +3,7 @@
 
 /**
  * Used with the Async Model to specify the asynchronous callback and a pointer which will be passed to the asynchronous callback.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_async_context
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_async_context
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

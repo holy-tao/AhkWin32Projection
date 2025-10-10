@@ -2,7 +2,7 @@
 
 /**
  * Specifies values that identify the types of changes that can be made to a collection.
- * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_collectionchange
+ * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_collectionchange
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

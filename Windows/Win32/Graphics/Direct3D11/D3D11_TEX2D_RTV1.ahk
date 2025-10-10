@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the subresource from a 2D texture to use in a render-target view. (D3D11_TEX2D_RTV1)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_tex2d_rtv1
+ * Describes the subresource from a 2D texture to use in a render-target view.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/ns-d3d11_3-d3d11_tex2d_rtv1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

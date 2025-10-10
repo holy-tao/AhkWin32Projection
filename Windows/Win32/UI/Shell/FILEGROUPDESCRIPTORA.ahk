@@ -6,11 +6,13 @@
 #Include .\FILEDESCRIPTORA.ahk
 
 /**
- * Defines the CF_FILEGROUPDESCRIPTOR clipboard format. (ANSI)
+ * Defines the CF_FILEGROUPDESCRIPTOR clipboard format.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > The shlobj_core.h header defines FILEGROUPDESCRIPTOR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-filegroupdescriptora
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-filegroupdescriptora
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset ANSI

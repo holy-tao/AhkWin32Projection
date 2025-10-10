@@ -4,7 +4,7 @@
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_simple_chain
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_simple_chain
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

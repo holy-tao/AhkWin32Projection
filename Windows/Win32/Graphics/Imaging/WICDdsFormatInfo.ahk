@@ -3,7 +3,7 @@
 
 /**
  * Specifies the DXGI_FORMAT and block information of a DDS format.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicddsformatinfo
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicddsformatinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

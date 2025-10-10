@@ -3,7 +3,7 @@
 
 /**
  * Defines the functions used by a cryptographic service provider (CSP) for WinTrust operations.
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_functions
+ * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_functions
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

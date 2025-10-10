@@ -4,7 +4,7 @@
 
 /**
  * Contains the encrypted key for a key agreement recipient of an enveloped message.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_key_encrypt_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_key_agree_key_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

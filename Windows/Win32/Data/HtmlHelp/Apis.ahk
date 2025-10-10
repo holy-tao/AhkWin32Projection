@@ -1231,11 +1231,7 @@ class HtmlHelp {
 
 ;@region Methods
     /**
-     * Displays a help window. (ANSI)
-     * @remarks
-     * The  syntax applies to ANSI character sets.  When using a Unicode character set, the type of the <i>pszFile</i> parameter should be "LPCTSTR  ".
-     * 
-     * When using the HTML Help API, set the stack size of the hosting executable to at least 100k. If the defined stack size is too small, then the thread created to run HTML Help will also be created with this stack size, and failure could result. Optionally, you can remove /STACK from the link command line, and remove any STACK setting in the executable's DEF file (default stack size is 1MB in this case). You can also you can set the stack size using the /Fnumber compiler command (the compiler will pass this to the linker as /STACK).
+     * Displays a help window.
      * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
@@ -1258,7 +1254,7 @@ class HtmlHelp {
      * <li>The handle (hwnd) of the help window.</li>
      * <li>NULL. In some cases, NULL indicates failure; in other cases, NULL indicates that the help window has not yet been created. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpa
+     * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/nf-htmlhelp-htmlhelpa
      */
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
@@ -1268,11 +1264,7 @@ class HtmlHelp {
     }
 
     /**
-     * Displays a help window. (Unicode)
-     * @remarks
-     * The  syntax applies to ANSI character sets.  When using a Unicode character set, the type of the <i>pszFile</i> parameter should be "LPCTSTR  ".
-     * 
-     * When using the HTML Help API, set the stack size of the hosting executable to at least 100k. If the defined stack size is too small, then the thread created to run HTML Help will also be created with this stack size, and failure could result. Optionally, you can remove /STACK from the link command line, and remove any STACK setting in the executable's DEF file (default stack size is 1MB in this case). You can also you can set the stack size using the /Fnumber compiler command (the compiler will pass this to the linker as /STACK).
+     * Displays a help window.
      * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
@@ -1295,7 +1287,7 @@ class HtmlHelp {
      * <li>The handle (hwnd) of the help window.</li>
      * <li>NULL. In some cases, NULL indicates failure; in other cases, NULL indicates that the help window has not yet been created. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpw
+     * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/nf-htmlhelp-htmlhelpw
      */
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile

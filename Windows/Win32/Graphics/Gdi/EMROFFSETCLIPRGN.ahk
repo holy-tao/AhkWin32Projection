@@ -5,7 +5,7 @@
 
 /**
  * The EMROFFSETCLIPRGN structure contains members for the OffsetClipRgn enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emroffsetcliprgn
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emroffsetcliprgn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

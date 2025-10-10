@@ -4,10 +4,13 @@
 /**
  * Contains information about the menu and first multiple-document interface (MDI) child window of an MDI client window.
  * @remarks
- * When the MDI client window is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a>, the system sends a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a> message to the window. The 
+ * 
+  * When the MDI client window is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a>, the system sends a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a> message to the window. The 
   * 				<i>lParam</i> parameter of <b>WM_CREATE</b> contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure. The 
   * 				<b>lpCreateParams</b> member of this structure contains a pointer to a <b>CLIENTCREATESTRUCT</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-clientcreatestruct
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-clientcreatestruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator supports a number of standard convolution configurations.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_convolution_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_convolution_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -16,10 +16,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * A tensor containing the input data. The expected dimensions of the *InputTensor* are:
-     * * `{ BatchCount, InputChannelCount, InputWidth }` for 3D,
-     * * `{ BatchCount, InputChannelCount, InputHeight, InputWidth }` for 4D, and
-     * * `{ BatchCount, InputChannelCount, InputDepth, InputHeight, InputWidth }` for 5D.
+     * A tensor containing the input data. The expected dimensions of the *InputTensor* are `{ BatchCount, InputChannelCount, InputHeight, InputWidth }` for 4D, and `{ BatchCount, InputChannelCount, InputDepth, InputHeight, InputWidth }` for 5D.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     InputTensor {
@@ -30,10 +27,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * A tensor containing the filter data. The expected dimensions of the *FilterTensor* are:
-     * * `{ FilterBatchCount, FilterChannelCount, FilterWidth }` for 3D,
-     * * `{ FilterBatchCount, FilterChannelCount, FilterHeight, FilterWidth }` for 4D, and
-     * * `{ FilterBatchCount, FilterChannelCount, FilterDepth, FilterHeight, FilterWidth }` for 5D.
+     * A tensor containing the filter data. The expected dimensions of the *FilterTensor* are `{ FilterBatchCount, FilterChannelCount, FilterHeight, FilterWidth }` for 4D, and `{ FilterBatchCount, FilterChannelCount, FilterDepth, FilterHeight, FilterWidth }` for 5D.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     FilterTensor {
@@ -44,10 +38,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * An optional tensor containing the bias data. The bias tensor is a tensor containing data which is broadcasted across the output tensor at the end of the convolution which is added to the result. The expected dimensions of the *BiasTensor* are:
-     * * `{ 1, OutputChannelCount, 1 }` for 3D,
-     * * `{ 1, OutputChannelCount, 1, 1 }` for 4D, and
-     * * `{ 1, OutputChannelCount, 1, 1, 1 }` for 5D. 
+     * An optional tensor containing the bias data&mdash;one value for each output channel. Assuming the *OutputTensor* has sizes of `{ BatchCount, OutputChannelCount, OutputHeight, OutputWidth }`, the expected dimensions of the *BiasTensor* are `{ 1, OutputChannelCount, 1, 1 }` for 4D, and `{ 1, OutputChannelCount, 1, 1, 1 }` for 5D.
      * 
      * For each output channel, the single bias value for that channel is added to every element in that channel of the *OutputTensor*. That is, the *BiasTensor* is broadcasted to the size of the *OutputTensor*, and what the operator returns is the summation of this broadcasted *BiasTensor* with the result from convolution.
      * @type {Pointer<DML_TENSOR_DESC>}
@@ -60,10 +51,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * A tensor to write the results to. The expected dimensions of the *OutputTensor* are:
-     * * `{ BatchCount, OutputChannelCount, OutputWidth }` for 3D,
-     * * `{ BatchCount, OutputChannelCount, OutputHeight, OutputWidth }` for 4D, and
-     * * `{ BatchCount, OutputChannelCount, OutputDepth, OutputHeight, OutputWidth }` for 5D.
+     * A tensor to write the results to. The expected dimensions of the *OutputTensor* are `{ BatchCount, OutputChannelCount, OutputHeight, OutputWidth }` for 4D, and `{ BatchCount, OutputChannelCount, OutputDepth, OutputHeight, OutputWidth }` for 5D.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputTensor {
@@ -173,7 +161,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
      * 
-     * An optional fused activation layer to apply after the convolution. For more info, see [Using fused operators for improved performance](/windows/ai/directml/dml-fused-activations).
+     * An optional fused activation layer to apply after the convolution.
      * @type {Pointer<DML_OPERATOR_DESC>}
      */
     FusedActivation {

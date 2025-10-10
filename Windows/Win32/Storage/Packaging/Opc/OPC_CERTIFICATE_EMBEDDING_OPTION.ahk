@@ -2,7 +2,7 @@
 
 /**
  * Describes the storage location of a certificate that is used in signing.
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_certificate_embedding_option
+ * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_certificate_embedding_option
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes subresource data. (D3D12_SUBRESOURCE_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_info
+ * Describes subresource data.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_subresource_info
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

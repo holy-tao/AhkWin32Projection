@@ -3,7 +3,12 @@
 
 /**
  * Sync root provider information.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_provider_info
+ * @remarks
+ * 
+  * <b>CF_MAX_PROVIDER_NAME_LENGTH</b> and <b>CF_MAX_PROVIDER_VERSION_LENGTH</b> are set to 255.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_sync_root_provider_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -14,7 +19,7 @@ class CF_SYNC_ROOT_PROVIDER_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * Status of the sync root provider. See [CF_SYNC_PROVIDER_STATUS](ne-cfapi-cf_sync_provider_status.md) for possible values.
+     * Status of the sync root provider.
      * @type {Integer}
      */
     ProviderStatus {
@@ -23,7 +28,7 @@ class CF_SYNC_ROOT_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * Name of the sync root provider. *ProviderName* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_NAME_LENGTH** (255 characters).
+     * Name of the sync root provider.
      * @type {String}
      */
     ProviderName {
@@ -32,7 +37,7 @@ class CF_SYNC_ROOT_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * Version of the sync root provider. *ProviderVersion* is an end-user facing string with a maximum length of **CF_MAX_PROVIDER_VERSION_LENGTH** (255 characters).
+     * Version of the sync root provider.
      * @type {String}
      */
     ProviderVersion {

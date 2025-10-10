@@ -3,7 +3,7 @@
 
 /**
  * Used to create certificate requests on behalf of a user.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_enrollment_name_value_pair
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_enrollment_name_value_pair
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

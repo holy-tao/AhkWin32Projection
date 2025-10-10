@@ -2,7 +2,7 @@
 
 /**
  * The RAS_QUARANTINE_STATE enumerated type indicates the quarantine state of a client connection.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-ras_quarantine_state
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-ras_quarantine_state
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

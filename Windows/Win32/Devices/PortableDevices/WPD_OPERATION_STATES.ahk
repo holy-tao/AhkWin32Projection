@@ -1,10 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The WPD\_OPERATION\_STATES enumeration values describe the current state of an operation in progress.
- * @remarks
- * These values are received in the application-defined callback ([**IPortableDeviceEventCallback**](/windows/desktop/api/PortableDeviceApi/nn-portabledeviceapi-iportabledeviceeventcallback)).
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-operation-states
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

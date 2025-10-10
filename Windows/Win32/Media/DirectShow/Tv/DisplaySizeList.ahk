@@ -2,7 +2,7 @@
 
 /**
  * This topic applies to Windows XP or later.
- * @see https://learn.microsoft.com/windows/win32/api/msvidctl/ne-msvidctl-displaysizelist
+ * @see https://docs.microsoft.com/windows/win32/api//msvidctl/ne-msvidctl-displaysizelist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

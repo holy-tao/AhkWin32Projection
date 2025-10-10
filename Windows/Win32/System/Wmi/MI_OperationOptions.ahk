@@ -3,7 +3,7 @@
 
 /**
  * Represents a set of operation options.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_operationoptions
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_operationoptions
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

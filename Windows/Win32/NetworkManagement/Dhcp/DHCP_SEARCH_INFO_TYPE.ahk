@@ -2,7 +2,7 @@
 
 /**
  * Defines the set of possible attributes used to search DHCP client information records.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_search_info_type
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_search_info_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

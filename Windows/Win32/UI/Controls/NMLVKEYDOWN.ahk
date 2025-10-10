@@ -4,7 +4,7 @@
 
 /**
  * Contains information used in processing the LVN_KEYDOWN notification code. This structure is the same as the NMLVKEYDOWN structure but has been renamed to fit standard naming conventions.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvkeydown
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvkeydown
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

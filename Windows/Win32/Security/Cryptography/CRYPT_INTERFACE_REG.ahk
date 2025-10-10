@@ -3,7 +3,7 @@
 
 /**
  * Used to contain information about the type of interface supported by a CNG provider.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_interface_reg
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-crypt_interface_reg
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

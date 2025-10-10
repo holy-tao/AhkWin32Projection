@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DRIVER\_INFO\_4 structure contains printer driver information.
- * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-4
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI
@@ -15,7 +13,6 @@ class DRIVER_INFO_4A extends Win32Struct
     static packingSize => 8
 
     /**
-     * The operating system version for which the driver was written. The supported value is 3.
      * @type {Integer}
      */
     cVersion {
@@ -24,7 +21,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies the name of the driver (for example, "QMS 810").
      * @type {Pointer<Byte>}
      */
     pName {
@@ -33,7 +29,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows x86, Windows IA64, and Windows x64).
      * @type {Pointer<Byte>}
      */
     pEnvironment {
@@ -42,7 +37,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies a file name or full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
      * @type {Pointer<Byte>}
      */
     pDriverPath {
@@ -51,7 +45,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
      * @type {Pointer<Byte>}
      */
     pDataFile {
@@ -60,7 +53,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
      * @type {Pointer<Byte>}
      */
     pConfigFile {
@@ -69,7 +61,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's help file.
      * @type {Pointer<Byte>}
      */
     pHelpFile {
@@ -78,7 +69,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * A pointer to a MultiSZ buffer that contains a sequence of null-terminated strings. Each null-terminated string in the buffer contains the name of a file the driver depends on. The sequence of strings is terminated by an empty, zero-length string. If **pDependentFiles** is not **NULL** and does not contain any file names, it will point to a buffer that contains two empty strings.
      * @type {Pointer<Byte>}
      */
     pDependentFiles {
@@ -87,7 +77,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * A pointer to a null-terminated string that specifies a language monitor (for example, PJL monitor). This member can be **NULL** and should be specified only for printers capable of bidirectional communication.
      * @type {Pointer<Byte>}
      */
     pMonitorName {
@@ -96,7 +85,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * A pointer to a null-terminated string that specifies the default data type of the print job (for example, EMF).
      * @type {Pointer<Byte>}
      */
     pDefaultDataType {
@@ -105,7 +93,6 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * A pointer to a null-terminated string that specifies previous printer driver names that are compatible with this driver. For example, OldName1\\0OldName2\\0\\0.
      * @type {Pointer<Byte>}
      */
     pszzPreviousNames {

@@ -3,7 +3,7 @@
 
 /**
  * Contains information needed to verify signed messages without a certificate for the signer.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_verify_message_para
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_key_verify_message_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

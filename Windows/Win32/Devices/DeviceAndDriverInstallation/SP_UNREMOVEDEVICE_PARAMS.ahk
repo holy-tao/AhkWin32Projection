@@ -4,7 +4,7 @@
 
 /**
  * An SP_UNREMOVEDEVICE_PARAMS structure corresponds to a DIF_UNREMOVE installation request.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_unremovedevice_params
+ * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_unremovedevice_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

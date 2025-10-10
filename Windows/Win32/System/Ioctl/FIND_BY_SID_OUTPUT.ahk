@@ -3,7 +3,7 @@
 
 /**
  * Represents a file name.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-find_by_sid_output
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-find_by_sid_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class FIND_BY_SID_OUTPUT extends Win32Struct
     static packingSize => 4
 
     /**
-     * Number of bytes that must be skipped to get to the next record. A value of zero indicates that this is the last record.
+     * 
      * @type {Integer}
      */
     NextEntryOffset {
@@ -23,7 +23,7 @@ class FIND_BY_SID_OUTPUT extends Win32Struct
     }
 
     /**
-     * Index of the file.
+     * 
      * @type {Integer}
      */
     FileIndex {
@@ -41,7 +41,7 @@ class FIND_BY_SID_OUTPUT extends Win32Struct
     }
 
     /**
-     * A null-terminated string that specifies the file name.
+     * A pointer to a null-terminated string that specifies the file name.
      * @type {String}
      */
     FileName {

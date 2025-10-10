@@ -3,8 +3,11 @@
 /**
  * Specifies how the recognizer interprets the ink and determines the result string.
  * @remarks
- * In C++, explicit casting is required when trying to set more than one flag at a time using the bitwise <b>OR</b> operator. A compilation error occurs if explicit casting is not used.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionmodes
+ * 
+  * In C++, explicit casting is required when trying to set more than one flag at a time using the bitwise <b>OR</b> operator. A compilation error occurs if explicit casting is not used.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognitionmodes
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -54,7 +57,7 @@ class InkRecognitionModes{
     static IRM_PrefixOk => 8
 
     /**
-     * The recognizer does not imply line breaking inside the recognizer and all of the ink is recognized as one line.
+     * The recognizer does not emply line breaking inside the recognizer and all of the ink is recognized as one line.
      * @type {Integer (Int32)}
      */
     static IRM_LineMode => 16

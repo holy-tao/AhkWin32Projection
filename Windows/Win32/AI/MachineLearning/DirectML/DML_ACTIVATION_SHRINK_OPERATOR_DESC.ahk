@@ -5,7 +5,8 @@
  * Performs the shrink activation function on every element in *InputTensor*, placing the result into the corresponding element of *OutputTensor*.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_activation_shrink_operator_desc
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_activation_shrink_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

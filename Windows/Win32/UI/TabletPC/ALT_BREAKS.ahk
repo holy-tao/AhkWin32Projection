@@ -3,8 +3,11 @@
 /**
  * Specifiers how to create alternates from a best result string.
  * @remarks
- * Check the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">dwRecoCapabilityFlags</a> member of the <b>RECO_ATTRS</b> structure to ensure the recognizer supports different alternate breaks.
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ne-rectypes-alt_breaks
+ * 
+  * Check the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">dwRecoCapabilityFlags</a> member of the <b>RECO_ATTRS</b> structure to ensure the recognizer supports different alternate breaks.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ne-rectypes-alt_breaks
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

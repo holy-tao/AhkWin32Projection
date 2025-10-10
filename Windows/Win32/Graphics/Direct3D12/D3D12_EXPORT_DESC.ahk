@@ -3,7 +3,7 @@
 
 /**
  * Describes an export from a state subobject such as a DXIL library or a collection state object.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_export_desc
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_export_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

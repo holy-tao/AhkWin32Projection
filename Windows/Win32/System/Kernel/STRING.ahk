@@ -2,14 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The ANSI_STRING structure defines a counted string used for ANSI strings.
+ * Used with the RtlUnicodeStringToOemString function.
  * @remarks
- * The <b>ANSI_STRING</b> structure is used to pass ANSI strings. Use the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-rtlinitansistring">RtlInitAnsiString</a> routine to initialize an <b>ANSI_STRING</b>.
+ * 
+  * The data type used in the <b>DestinationString</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a> function, <c> POEM_STRING</c>, is defined as:
+  * 		
+  *                 
   * 
-  * If the string is null-terminated, <b>Length</b> does not include the terminating <b>NULL</b>.
+  * <c>typedef PSTRING POEM_STRING;</c>
   * 
-  * The <b>MaximumLength</b> is used to indicate the length of <b>Buffer</b> so that if the string is passed to a conversion routine such as <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a> the returned string does not exceed the buffer size.
- * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-string
+ * @see https://docs.microsoft.com/windows/win32/api//winternl/ns-winternl-string
  * @namespace Windows.Win32.System.Kernel
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class STRING extends Win32Struct
     static packingSize => 8
 
     /**
-     * The length in bytes of the string stored in the buffer pointed to by <b>Buffer</b>.
+     * The length of the buffer.
      * @type {Integer}
      */
     Length {
@@ -29,7 +31,7 @@ class STRING extends Win32Struct
     }
 
     /**
-     * The length in bytes of the buffer pointed to by <b>Buffer</b>.
+     * The maximum length of the buffer.
      * @type {Integer}
      */
     MaximumLength {
@@ -38,7 +40,7 @@ class STRING extends Win32Struct
     }
 
     /**
-     * Pointer to a buffer used to contain a string of characters.
+     * The address of the buffer.
      * @type {Pointer<Byte>}
      */
     Buffer {

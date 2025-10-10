@@ -3,7 +3,8 @@
 /**
  * Different match types allowed in filter conditions.
  * @remarks
- * In general, the value data type and the filter condition data type must be the same. The Base Filtering Engine (BFE) does not perform any data conversion. For example, an FWP_UINT32 value cannot be compared with an FWP_UINT16 value.
+ * 
+  * In general, the value data type and the filter condition data type must be the same. The Base Filtering Engine (BFE) does not perform any data conversion. For example, an FWP_UINT32 value cannot be compared with an FWP_UINT16 value.
   * 
   * 
   * Exceptions to this rule are as follows.
@@ -16,7 +17,9 @@
   * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
   * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_match_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_match_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -112,23 +115,19 @@ class FWP_MATCH_TYPE{
     static FWP_MATCH_NOT_EQUAL => 10
 
     /**
-     * *This flag has a misleading name.* It tests whether the value **ends** with the condition value, i.e. it the suffix, not the prefix.
- * 
- * The types FWP_BYTE_BLOB_TYPE (when it contains a string) and FWP_UNICODE_STRING_TYPE support this match type.
+     * 
      * @type {Integer (Int32)}
      */
     static FWP_MATCH_PREFIX => 11
 
     /**
-     * *This flag has a misleading name.* It tests whether the value does not **end** with the condition value, i.e. it checks the suffix, not the prefix.
- * 
- * The types FWP_BYTE_BLOB_TYPE (when it contains a string) and FWP_UNICODE_STRING_TYPE support this match type.
+     * 
      * @type {Integer (Int32)}
      */
     static FWP_MATCH_NOT_PREFIX => 12
 
     /**
-     * Maximum value for testing purposes. Do not rely on this value in code, as it may change when you recompile with a newer SDK.
+     * Maximum value for testing purposes.
      * @type {Integer (Int32)}
      */
     static FWP_MATCH_TYPE_MAX => 13

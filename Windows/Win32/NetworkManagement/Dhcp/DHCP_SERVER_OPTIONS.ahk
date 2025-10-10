@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_SERVER_OPTIONS structure specifies requested DHCP Server options.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpssdk/ns-dhcpssdk-dhcp_server_options
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpssdk/ns-dhcpssdk-dhcp_server_options
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

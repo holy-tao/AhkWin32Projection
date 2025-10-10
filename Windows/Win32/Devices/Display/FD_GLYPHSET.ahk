@@ -4,7 +4,7 @@
 
 /**
  * The FD_GLYPHSET structure is used to define the mappings from Unicode characters to glyph handles.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_glyphset
+ * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fd_glyphset
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

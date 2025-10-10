@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the stream found by the FindFirstStreamW or FindNextStreamW function.
- * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-win32_find_stream_data
+ * @see https://docs.microsoft.com/windows/win32/api//fileapi/ns-fileapi-win32_find_stream_data
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

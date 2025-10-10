@@ -4,8 +4,10 @@
 /**
  * Describes an XML attribute.
  * @remarks
- * <b>WSDXML_ATTRIBUTE</b> is used to describe attribute values in an XML element.
- * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_attribute
+ * 
+  * <b>WSDXML_ATTRIBUTE</b> is used to describe attribute values in an XML element.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsdxmldom/ns-wsdxmldom-wsdxml_attribute
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

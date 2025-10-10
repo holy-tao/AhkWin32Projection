@@ -3,7 +3,7 @@
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery
+ * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ns-wmiutils-swbemrpnencodedquery
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

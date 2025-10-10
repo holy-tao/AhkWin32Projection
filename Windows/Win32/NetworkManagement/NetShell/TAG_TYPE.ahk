@@ -3,7 +3,7 @@
 
 /**
  * Specifies tags used for the PreprocessCommand function.
- * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-tag_type
+ * @see https://docs.microsoft.com/windows/win32/api//netsh/ns-netsh-tag_type
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
  */

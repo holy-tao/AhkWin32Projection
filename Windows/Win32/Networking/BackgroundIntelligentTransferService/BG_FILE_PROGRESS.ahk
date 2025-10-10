@@ -4,14 +4,17 @@
 /**
  * Provides file-related progress information, such as the number of bytes transferred.
  * @remarks
- * To determine if BITS transferred the file, you can:
+ * 
+  * To determine if BITS transferred the file, you can:
   * 
   * <ul>
   * <li>Compare <b>BytesTransferred</b> to <b>BytesTotal</b>.</li>
   * <li>Implement the <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibackgroundcopycallback2-filetransferred">IBackgroundCopyCallback2::FileTransferred</a> callback.</li>
   * </ul>
   * Note that the progress values will be set back to zero if the time stamp of the URL changes.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_file_progress
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bits/ns-bits-bg_file_progress
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

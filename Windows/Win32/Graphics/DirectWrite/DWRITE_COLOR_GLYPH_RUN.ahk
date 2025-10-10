@@ -5,7 +5,7 @@
 
 /**
  * Contains the information needed by renderers to draw glyph runs with glyph color information.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_color_glyph_run
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/ns-dwrite_2-dwrite_color_glyph_run
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

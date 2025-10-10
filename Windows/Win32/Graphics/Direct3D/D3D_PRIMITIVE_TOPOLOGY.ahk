@@ -3,12 +3,15 @@
 /**
  * Values that indicate how the pipeline interprets vertex data that is bound to the input-assembler stage. These primitive topology values determine how the vertex data is rendered on screen.
  * @remarks
- * Use the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iasetprimitivetopology">ID3D11DeviceContext::IASetPrimitiveTopology</a> method and a value from <b>D3D_PRIMITIVE_TOPOLOGY</b> to bind a primitive topology to the input-assembler stage. Use the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iagetprimitivetopology">ID3D11DeviceContext::IAGetPrimitiveTopology</a> method to retrieve the primitive topology for the input-assembler stage.
+ * 
+  * Use the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iasetprimitivetopology">ID3D11DeviceContext::IASetPrimitiveTopology</a> method and a value from <b>D3D_PRIMITIVE_TOPOLOGY</b> to bind a primitive topology to the input-assembler stage. Use the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iagetprimitivetopology">ID3D11DeviceContext::IAGetPrimitiveTopology</a> method to retrieve the primitive topology for the input-assembler stage.
   * 
   * The following diagram shows the various primitive types for a geometry shader object.
   * 
   * <img alt="Illustration of the various primitive types for a geometry shader object" border="" src="./images/D3D11_GSInputs1.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_primitive_topology
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

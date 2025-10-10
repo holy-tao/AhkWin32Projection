@@ -4,8 +4,6 @@
 #Include ..\..\Foundation\POINT.ahk
 
 /**
- * Contains biometric values that the Windows Biometric Framework used to determine that an individual was present.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-presence-properties
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
@@ -135,7 +133,6 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Values for the location of facial features that the Windows Biometric Framework used to determine that an individual was present.
      * @type {_FacialFeatures}
      */
     FacialFeatures{
@@ -147,31 +144,6 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Values for iris location that the Windows Biometric Framework used to determine that an individual was present.
-     * 
-     * 
-     * **EyeBoundingBox\_1**
-     * 
-     * The position within the camera frame of one of the irises of the individual to enroll, in pixels. If the iris-recognition system is only monitoring one eye, this position is of the iris of that eye. If the iris-recognition system is monitoring both eyes, but only one eye is in the camera frame, this position is of the iris of the eye in the camera frame. If the iris-recognition system is monitoring both eyes, and both eyes are in the camera frame, this position is probably of the iris of the right eye of the individual.
-     * 
-     * The size of the camera frame determines the upper limit on the number of pixels for this position. Get the **WINBIO\_PROPERTY\_EXTENDED\_SENSOR\_INFO** property to determine the size of the camera frame. A client that uses the presence monitor must perform the scaling operation to map the position to the camera frame.
-     * 
-     * 
-     * **EyeBoundingBox\_2**
-     * 
-     * The position within the camera frame of one of the irises of the individual to enroll, in pixels. If the iris-recognition system is only monitoring one eye, or if only one eye is in the camera frame, this value is empty. If the iris-recognition system is monitoring both eyes, and both eyes are in the camera frame, this position is probably of iris of the left eye of the individual.
-     * 
-     * The size of the camera frame determines the upper limit on the number of pixels for this position. Get the **WINBIO\_PROPERTY\_EXTENDED\_SENSOR\_INFO** property to determine the size of the camera frame. A client that uses the presence monitor must perform the scaling operation to map the position to the camera frame.
-     * 
-     * 
-     * **PupilCenter\_1**
-     * 
-     * The position of the center of one of the pupils of the individual to enroll. If the iris-recognition system is only monitoring one eye, this position is of the center of the pupil of that eye. If the iris-recognition system is monitoring both eyes, but only one eye is in the camera frame, this position is of the center of the pupil of the eye in the camera frame. If the iris-recognition system is monitoring both eyes, and both eyes are in the camera frame, this position is probably of the center of the pupil of the right eye of the individual.
-     * 
-     * 
-     * **PupilCenter\_2**
-     * 
-     * The position of the center of one of the pupils of the individual to enroll. If the iris-recognition system is only monitoring one eye, or if only one eye is in the camera frame, this value is empty. If the iris-recognition system is monitoring both eyes, and both eyes are in the camera frame, this position is probably of the center of the pupil of the left eye of the individual.
      * @type {_Iris}
      */
     Iris{

@@ -6,7 +6,8 @@
 /**
  * Describes the capabilities of a connected controller. The XInputGetCapabilities function returns XINPUT_CAPABILITIES.
  * @remarks
- * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputgetcapabilities">XInputGetCapabilities</a> returns <b>XINPUT_CAPABILITIES</b> to indicate the characteristics and available functionality of a specified controller.
+ * 
+  * <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputgetcapabilities">XInputGetCapabilities</a> returns <b>XINPUT_CAPABILITIES</b> to indicate the characteristics and available functionality of a specified controller.
   * 
   * 
   * 
@@ -19,8 +20,10 @@
   * 
   * 
   * 
-  * Older XUSB Windows drivers report incomplete capabilities information, particularly for wireless devices. The latest XUSB Windows driver provides full support for wired and wireless devices, and more complete and accurate capabilities flags.
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_capabilities
+  * Older XUSB Windows drivers report incomplete capabilities information, particularly for wireless devices. The latest XUSB Windows driver provides full support for wired and wireless devices, and more complete and accurate capabilties flags.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xinput/ns-xinput-xinput_capabilities
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

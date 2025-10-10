@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a tablet system event.
- * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-system_event_data
+ * @see https://docs.microsoft.com/windows/win32/api//tpcshrd/ns-tpcshrd-system_event_data
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

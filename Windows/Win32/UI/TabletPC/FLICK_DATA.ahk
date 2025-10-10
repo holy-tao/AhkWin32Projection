@@ -4,12 +4,15 @@
 /**
  * Contains information about a pen flick.
  * @remarks
- * Windows Vista sends the <b>FLICK_DATA</b> structure to an application along with the <a href="https://docs.microsoft.com/windows/desktop/tablet/wm-tablet-flick-message">WM_TABLET_FLICK Message</a> when a pen flick occurs.
+ * 
+  * Windows Vista sends the <b>FLICK_DATA</b> structure to an application along with the <a href="https://docs.microsoft.com/windows/desktop/tablet/wm-tablet-flick-message">WM_TABLET_FLICK Message</a> when a pen flick occurs.
   * 
   * The value of <i>iActionArgument</i> depends on the value of <i>iFlickActionCommandCode</i>. For example, if <i>iFlickCommandCode</i> is FLICKACTION_COMMANDCODE_SCROLL, the value of <i>iActionArgument</i> is one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/tabflicks/ne-tabflicks-scrolldirection">SCROLLDIRECTION Enumeration</a>.
   * 
   * If <i>iFlickCommandCode</i> is <b>FLICKACTION_COMMANDCODE_CUSTOMKEY</b>, the value of <i>iActionArgument</i> indicates the key stroke. The <i>fControlModifier</i>, <i>fMenuModifier</i>, <i>fAltGRModifier</i>, <i>fWinModifier</i>, and <i>fShiftModifier</i> fields indicate whether the pen action activates a modifier key. For example, if the user assigns a pen flick to the key stroke, CTRL+N, <i>fControlModifier</i> is <b>true</b> and <i>iActionArgument</i> is the virtual code key, VK_N.
- * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ns-tabflicks-flick_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tabflicks/ns-tabflicks-flick_data
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

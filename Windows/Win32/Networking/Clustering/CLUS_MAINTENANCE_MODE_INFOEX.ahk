@@ -3,7 +3,7 @@
 
 /**
  * Represents the extended maintenance mode settings for a storage class resource.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_maintenance_mode_infoex
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_maintenance_mode_infoex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

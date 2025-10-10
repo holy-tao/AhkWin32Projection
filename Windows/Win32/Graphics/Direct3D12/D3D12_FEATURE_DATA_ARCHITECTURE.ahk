@@ -4,7 +4,8 @@
 /**
  * Provides detail about the adapter architecture, so that your application can better optimize for certain adapter properties.
  * @remarks
- * <h3><a id="How_to_use_UMA_and_CacheCoherentUMA"></a><a id="how_to_use_uma_and_cachecoherentuma"></a><a id="HOW_TO_USE_UMA_AND_CACHECOHERENTUMA"></a>How to use UMA and CacheCoherentUMA</h3>
+ * 
+  * <h3><a id="How_to_use_UMA_and_CacheCoherentUMA"></a><a id="how_to_use_uma_and_cachecoherentuma"></a><a id="HOW_TO_USE_UMA_AND_CACHECOHERENTUMA"></a>How to use UMA and CacheCoherentUMA</h3>
   * D3D12 apps should be concerned about managing memory residency and providing the optimal heap properties.
   *             D3D12 apps can stay simplified and run reasonably well across many GPU architectures by only managing the residency for resources in <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a>_DEFAULT heaps.
   *             Those apps only need to call <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo">IDXGIAdapter3::QueryVideoMemoryInfo</a> for DXGI_MEMORY_SEGMENT_GROUP_LOCAL, 
@@ -51,7 +52,9 @@
   *             As usual, single-adapter applications can simplify the landscape and ensure that the CPU writes to upload heaps use patterns that are write-combine-friendly.
   *             The lower-level details help reinforce the concepts for multi-adapter applications.
   *             Multi-adapter applications likely need to understand adapter architecture properties well enough to choose the optimal custom heap properties to efficiently move data between adapters.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_architecture
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

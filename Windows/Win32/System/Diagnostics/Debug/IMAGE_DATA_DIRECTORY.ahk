@@ -4,7 +4,8 @@
 /**
  * Represents the data directory.
  * @remarks
- * The following is a list of the data directories. Offsets are relative to the beginning of the optional header.
+ * 
+  * The following is a list of the data directories. Offsets are relative to the beginning of the optional header.
   * 
   * <table>
   * <tr>
@@ -76,7 +77,9 @@
   * <td>Reserved</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_data_directory
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_data_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

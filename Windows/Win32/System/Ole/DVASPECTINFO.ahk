@@ -3,7 +3,7 @@
 
 /**
  * Contains information that is used by the IViewObject::Draw method to optimize rendering of an inactive object by making more efficient use of the GDI.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvaspectinfo
+ * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-dvaspectinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

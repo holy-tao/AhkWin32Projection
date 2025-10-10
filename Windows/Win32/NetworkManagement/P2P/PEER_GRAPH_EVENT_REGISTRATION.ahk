@@ -3,7 +3,7 @@
 
 /**
  * The PEER_GRAPH_EVENT_REGISTRATION structure is used during registration for peer event notification. During registration it specifies which peer events an application requires notifications for.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_event_registration
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_graph_event_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -2,9 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the data for an Schannel credential. (SCHANNEL_CRED)
+ * Contains the data for an Schannel credential.
  * @remarks
- * The following certificate revocation flags are mutually exclusive.
+ * 
+  * The following certificate revocation flags are mutually exclusive.
   * 
   * 
   * 
@@ -26,7 +27,9 @@
   * 
   * 
   * When Schannel checks the revocation status of a certificate chain, these flags instruct it to ignore any CRYPT_E_NO_REVOCATION_CHECK and CRYPT_E_REVOCATION_OFFLINE errors, respectively. These flags are ignored if no certificate revocation flag is set.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cred
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-schannel_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -108,7 +111,7 @@ class SCHANNEL_CRED extends Win32Struct
      * 
      * Currently, the algorithm identifiers <b>CALG_AES</b>,
      * <b>CALG_AES_128</b>, and
-     * <b>CALG_AES_256</b> are not supported.
+     * <b>CALG_AES_256</b>are not supported.
      * @type {Pointer<UInt32>}
      */
     palgSupportedAlgs {
@@ -139,7 +142,7 @@ class SCHANNEL_CRED extends Win32Struct
      * <td width="60%">
      * Private Communications Technology 1.0 server side.
      * 
-     * <div class="alert"><b>Note</b> Obsolete.</div>
+     * <div class="alert"><b>Note</b>  Obselete.</div>
      * <div> </div>
      * </td>
      * </tr>
@@ -152,7 +155,7 @@ class SCHANNEL_CRED extends Win32Struct
      * <td width="60%">
      * Private Communications Technology 1.0 client side. 
      * 
-     * <div class="alert"><b>Note</b> Obsolete.</div>
+     * <div class="alert"><b>Note</b>  Obselete.</div>
      * <div> </div>
      * </td>
      * </tr>

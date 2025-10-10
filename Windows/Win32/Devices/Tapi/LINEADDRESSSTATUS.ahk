@@ -4,13 +4,16 @@
 /**
  * The LINEADDRESSSTATUS structure describes the current status of an address. The lineGetAddressStatus function and the TSPI_lineGetAddressStatus function return the LINEADDRESSSTATUS structure.
  * @remarks
- * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
   * 
   * This data structure is returned by the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetaddressstatus">lineGetAddressStatus</a> function. When items in this data structure change as a consequence of activities on the address, a 
   * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-addressstate">LINE_ADDRESSSTATE</a> message is sent to the application. A parameter to this message is the address state, one of the 
   * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressstate--constants">LINEADDRESSSTATE_ constants</a>, which indicates that the status item in this record changed.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineaddressstatus
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineaddressstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

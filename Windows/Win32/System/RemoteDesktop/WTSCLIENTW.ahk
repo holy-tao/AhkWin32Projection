@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a Remote Desktop Connection (RDC) client. (Unicode)
+ * Contains information about a Remote Desktop Connection (RDC) client.
  * @remarks
- * For the <b>ClientAddressFamily</b> member, <b>AF_INET</b>  (IPv4) will return in string format, for example "127.0.0.1". 
+ * 
+  * For the <b>ClientAddressFamily</b> member, <b>AF_INET</b>  (IPv4) will return in string format, for example "127.0.0.1". 
   * <b>AF_INET6</b> (IPv6) will return in binary form.
   * 
   * 
@@ -12,7 +13,8 @@
   * 
   * > [!NOTE]
   * > The wtsapi32.h header defines WTSCLIENT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtsclientw
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/ns-wtsapi32-wtsclientw
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  * @charset Unicode

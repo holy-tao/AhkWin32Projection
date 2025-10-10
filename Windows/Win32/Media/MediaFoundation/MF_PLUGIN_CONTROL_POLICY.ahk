@@ -2,7 +2,7 @@
 
 /**
  * Defines policy settings for the IMFPluginControl2::SetPolicy method.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_plugin_control_policy
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_plugin_control_policy
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The VDS_LUN_TYPE enumeration (vdshwprv.h) defines the set of valid types for a LUN.
+ * Defines the set of valid types for a LUN.
  * @remarks
- * The  
+ * 
+  * The  
   *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method passes a <b>VDS_LUN_TYPE</b> value as a parameter to set a new LUN type, and the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_prop">VDS_LUN_PROP</a> structure includes a <b>VDS_LUN_TYPE</b> value as a member to indicate an existing LUN type.
   * 
   * If the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method returns a <b>VDS_LUN_TYPE</b> value that the caller does not recognize, the caller should display the LUN type as unknown. The caller should not attempt to map the unrecognized LUN type to another LUN type.
   * 
   * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_TYPE</b> enumeration constant.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_lun_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_lun_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

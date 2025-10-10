@@ -2,7 +2,7 @@
 
 /**
  * Specifies the alternative name types that can be specified when initializing an IAlternativeName object.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-alternativenametype
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-alternativenametype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

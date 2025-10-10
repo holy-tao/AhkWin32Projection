@@ -3,7 +3,7 @@
 
 /**
  * Defines an array of subnet element data. Element data in the V4 structure contains client type information.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_info_array_v4
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_info_array_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

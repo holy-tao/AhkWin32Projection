@@ -4,10 +4,13 @@
 /**
  * The DD_DIRECTDRAW_GLOBAL structure contains driver information that describes the driver's device.
  * @remarks
- * DirectDraw allocates memory for this structure. Only one DD_DIRECTDRAW_GLOBAL definition exists per device. In a multimonitor system, each device has its own unique DD_DIRECTDRAW_GLOBAL structure. 
+ * 
+  * DirectDraw allocates memory for this structure. Only one DD_DIRECTDRAW_GLOBAL definition exists per device. In a multimonitor system, each device has its own unique DD_DIRECTDRAW_GLOBAL structure. 
   * 
   * The <b>dwReserved1</b> and <b>dwReserved2</b> members can be used as required by the driver. For example, a driver might store pointers to internal data structures in these members.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_directdraw_global
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_directdraw_global
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

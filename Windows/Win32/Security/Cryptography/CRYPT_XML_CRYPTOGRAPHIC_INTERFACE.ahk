@@ -3,7 +3,7 @@
 
 /**
  * Exposes the implemented CryptXML functions.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_cryptographic_interface
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_cryptographic_interface
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

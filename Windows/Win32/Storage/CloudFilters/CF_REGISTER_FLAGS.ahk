@@ -2,7 +2,7 @@
 
 /**
  * Flags for registering and updating a sync root.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_register_flags
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_register_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -27,7 +27,7 @@ class CF_REGISTER_FLAGS{
     static CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT => 2
 
     /**
-     * This flag allows a sync provider to mark the sync root to be registered in-sync simultaneously at the registration time. An alternative is to call [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) on the sync root later.
+     * This flag allows a sync provider to mark the sync root to be registered in-sync simultaneously at the registration time. An alternative is to call <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetinsyncstate">CfSetInSyncState</a> on the sync root later.
      * @type {Integer (Int32)}
      */
     static CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT => 4

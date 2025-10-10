@@ -2,7 +2,7 @@
 
 /**
  * Indicates additional shaping requirements for text.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_script_shapes
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_script_shapes
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

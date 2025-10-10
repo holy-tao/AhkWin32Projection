@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of dither algorithm to apply when converting between image formats.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapdithertype
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmapdithertype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

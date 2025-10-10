@@ -4,8 +4,11 @@
 /**
  * The SIZE structure defines the width and height of a rectangle.
  * @remarks
- * The rectangle dimensions stored in this structure can correspond to viewport extents, window extents, text extents, bitmap dimensions, or the aspect-ratio filter for some extended functions.
- * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-size
+ * 
+  * The rectangle dimensions stored in this structure can correspond to viewport extents, window extents, text extents, bitmap dimensions, or the aspect-ratio filter for some extended functions.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windef/ns-windef-size
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

@@ -4,7 +4,8 @@
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.
  * @remarks
- * To include double quotation marks in <b>pszParameters</b>, you must enclose each mark in a pair of quotation marks, as in the following example:
+ * 
+  *  To include double quotation marks in <b>pszParameters</b>, you must enclose each mark in a pair of quotation marks, as in the following example:
   * 
   * 				
   * 
@@ -15,7 +16,9 @@
   * 
   * 
   * In this case, the application receives three parameters: <i>An, example:, and "quoted text"</i>.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shcreateprocessinfow
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-shcreateprocessinfow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

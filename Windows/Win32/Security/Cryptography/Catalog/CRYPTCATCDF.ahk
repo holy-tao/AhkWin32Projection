@@ -4,8 +4,11 @@
 /**
  * Contains information used to create a signed catalog file (.cat) from a catalog definition file (CDF).
  * @remarks
- * A parser can update <i>dwCurFilePos</i> and <i>dwLastMemberOffset</i> as it reads the CDF. A user-defined callback function can use this information for recoverable parse errors in the CDF.
- * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatcdf
+ * 
+  * A parser can update <i>dwCurFilePos</i> and <i>dwLastMemberOffset</i> as it reads the CDF. A user-defined callback function can use this information for recoverable parse errors in the CDF.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mscat/ns-mscat-cryptcatcdf
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  * @version v4.0.30319
  */

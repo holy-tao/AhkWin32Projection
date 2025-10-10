@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information to pass to a subauthentication package.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_subauth_request
+ * Contains information to pass to an subauthentication package.
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-msv1_0_subauth_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

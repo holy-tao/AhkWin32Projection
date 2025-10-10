@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The PathData class is a helper class for the GraphicsPath and GraphicsPathIterator classes.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-pathdata
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

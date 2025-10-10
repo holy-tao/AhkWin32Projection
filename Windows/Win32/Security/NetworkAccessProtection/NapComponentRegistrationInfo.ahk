@@ -6,13 +6,16 @@
 /**
  * Defines a registered NAP component such as a SHA, SHV, or enforcement client.
  * @remarks
- * This registration information is not localized, it is provided in US-English only.
+ * 
+  * This registration information is not localized, it is provided in US-English only.
   * 
   * When NAP components are registered through the registration APIs, the <i>registrationDate</i> field is ignored.
   * 
   * When information about registered NAP
   *    components is retrieved, if there is no valid <i>infoClsid</i>,  <i>configClsid</i>, or <i>registrationDate</i>, they are set to 0.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-napcomponentregistrationinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-napcomponentregistrationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
@@ -80,7 +83,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     }
 
     /**
-     * The <a href="https://docs.microsoft.com/windows/win32/com/clsid-key-hklm">CLSID</a> of the COM object that implements
+     * The <a href="https://docs.microsoft.com/windows/win32/com/clsid-key-hklm">CLSID</a>of the COM object that implements
      *    the <a href="https://docs.microsoft.com/windows/desktop/NAP/inapcomponentinfo">INapComponentInfo</a> interface. This interface
      *    is used to retrieve more detailed and localized
      *    information about the NAP component.

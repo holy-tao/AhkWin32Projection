@@ -3,7 +3,7 @@
 
 /**
  * Defines animation parameters for the BP_PAINTPARAMS structure used by BeginBufferedPaint.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-bp_animationparams
+ * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-bp_animationparams
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information for the MiniDumpCallback function when the callback type is IncludeThreadCallback.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_include_thread_callback
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_include_thread_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

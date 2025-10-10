@@ -3,7 +3,7 @@
 
 /**
  * Represents a 3x2 matrix. Used with GetMatrixTransform and SetMatrixTransform to indicate the scaling and translation transform for SwapChainPanel swap chains.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_matrix_3x2_f
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/ns-dxgi1_3-dxgi_matrix_3x2_f
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

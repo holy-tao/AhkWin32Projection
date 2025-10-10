@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible subcomponents of an assessment.
- * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_type
+ * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_type
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */

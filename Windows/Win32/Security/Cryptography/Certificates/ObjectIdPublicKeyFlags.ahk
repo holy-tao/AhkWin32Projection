@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether a public key algorithm is used for signing or for encryption.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-objectidpublickeyflags
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-objectidpublickeyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

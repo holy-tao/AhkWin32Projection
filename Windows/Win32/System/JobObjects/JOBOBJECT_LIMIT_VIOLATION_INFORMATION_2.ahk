@@ -4,10 +4,13 @@
 /**
  * Contains extended information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation2 information class.
  * @remarks
- * When any notification limit specified in a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_notification_limit_information_2">JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2</a> structure is exceeded, the system sends a <b>JOB_OBJECT_MSG_NOTIFICATION_LIMIT</b> message to the I/O completion port associated with the job. 
+ * 
+  * When any notification limit specified in a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_notification_limit_information_2">JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2</a> structure is exceeded, the system sends a <b>JOB_OBJECT_MSG_NOTIFICATION_LIMIT</b> message to the I/O completion port associated with the job. 
   * 
   * To retrieve information about the limits that were exceeded, the application monitoring the I/O completion port must call the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function with the <b>JobObjectLimitViolationInformation2</b> information class and a pointer to a <b>JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_limit_violation_information_2
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_limit_violation_information_2
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */
@@ -36,7 +39,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * If the <b>ViolationLimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_JOB_READ_BYTES</b>, this member contains the total I/O read bytes for all processes in the job at the time the notification was sent.
+     * If the <b>ViolationLimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_READ_BYTES</b>, this member contains the total I/O read bytes for all processes in the job at the time the notification was sent.
      * @type {Integer}
      */
     IoReadBytes {
@@ -45,7 +48,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * If the <b>LimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_JOB_READ_BYTES</b>, this member contains the I/O read bytes notification limit in effect for the job.
+     * If the <b>LimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_READ_BYTES</b>, this member contains the I/O read bytes notification limit in effect for the job.
      * @type {Integer}
      */
     IoReadBytesLimit {
@@ -54,7 +57,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * If the <b>ViolationLimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_JOB_WRITE_BYTES</b>, this member contains the total I/O write bytes for all processes in the job at the time the notification was sent.
+     * If the <b>ViolationLimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_WRITE_BYTES</b>, this member contains the total I/O write bytes for all processes in the job at the time the notification was sent.
      * @type {Integer}
      */
     IoWriteBytes {
@@ -63,7 +66,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * If the <b>LimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_JOB_WRITE_BYTES</b>, this member contains the I/O write bytes notification limit in effect for the job.
+     * If the <b>LimitFlags</b> member specifies <b>JOB_OBJECT_LIMIT_WRITE_BYTES</b>, this member contains the I/O write bytes notification limit in effect for the job.
      * @type {Integer}
      */
     IoWriteBytesLimit {

@@ -3,7 +3,7 @@
 
 /**
  * The WMT_COLORSPACEINFO_EXTENSION_DATA structure contains information about the color format of output video samples. It is used as the value for the WM_SampleExtensionGUID_ColorSpaceInfo data unit extension.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_colorspaceinfo_extension_data
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_colorspaceinfo_extension_data
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

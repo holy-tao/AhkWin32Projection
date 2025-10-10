@@ -3,7 +3,7 @@
 
 /**
  * Used to set and retrieve information about a link item.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-litem
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-litem
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

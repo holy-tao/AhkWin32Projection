@@ -2,7 +2,7 @@
 
 /**
  * The VMR9_SampleFormat enumeration type describes the interlacing of a video stream.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9_sampleformat
+ * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9_sampleformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

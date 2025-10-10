@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a NOT restriction, which is used to apply a logical NOT operation to a restriction.
- * @remarks
- * For more information about the **SNotRestriction** structure, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/snotrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SNotRestriction extends Win32Struct
     static packingSize => 8
 
     /**
-     * > [in] Reserved; must be zero.
      * @type {Integer}
      */
     ulReserved {
@@ -25,7 +20,6 @@ class SNotRestriction extends Win32Struct
     }
 
     /**
-     * > Pointer to a [SRestriction](srestriction.md) structure describing the restriction to be joined to the logical **NOT** operator.
      * @type {Pointer<SRestriction>}
      */
     lpRes {

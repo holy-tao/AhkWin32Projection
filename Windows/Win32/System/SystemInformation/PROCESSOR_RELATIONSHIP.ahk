@@ -5,12 +5,15 @@
 /**
  * Represents information about affinity within a processor group. This structure is used with the GetLogicalProcessorInformationEx function.
  * @remarks
- * The <b>PROCESSOR_RELATIONSHIP</b> structure describes the logical processors associated with either a processor core or a processor package.  
+ * 
+  * The <b>PROCESSOR_RELATIONSHIP</b> structure describes the logical processors associated with either a processor core or a processor package.  
   * 
   * If the <b>PROCESSOR_RELATIONSHIP</b> structure represents a processor core, the <b>GroupCount</b> member is always 1.  
   * 
   * If the <b>PROCESSOR_RELATIONSHIP</b> structure represents a processor package, the  <b>GroupCount</b> member is 1 only if all processors are in the same processor group. If the package contains more than one NUMA node, the system might assign different NUMA nodes to different processor groups. In this case, the <b>GroupCount</b> member is the number of groups to which NUMA nodes in the package are assigned.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_relationship
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-processor_relationship
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

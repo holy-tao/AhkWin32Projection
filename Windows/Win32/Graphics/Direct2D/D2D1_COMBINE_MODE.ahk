@@ -3,11 +3,14 @@
 /**
  * Specifies the different methods by which two geometries can be combined.
  * @remarks
- * The following illustration shows the different geometry combine modes.
+ * 
+  * The following illustration shows the different geometry combine modes.
   * 
   * 
   * <img alt="Illustration of two geometries and the resulting shapes after various geometry combine modes" src="./images/geometry_combine_modes.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_combine_mode
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_combine_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

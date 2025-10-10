@@ -3,7 +3,7 @@
 
 /**
  * Defines the configuration of an Interaction Context object that enables, disables, or modifies the behavior of an interaction.
- * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_context_configuration
+ * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-interaction_context_configuration
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

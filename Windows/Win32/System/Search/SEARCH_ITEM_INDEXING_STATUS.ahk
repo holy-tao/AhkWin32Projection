@@ -3,7 +3,7 @@
 
 /**
  * Describes the status of a document to be indexed.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-search_item_indexing_status
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-search_item_indexing_status
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

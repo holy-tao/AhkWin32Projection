@@ -3,7 +3,7 @@
 
 /**
  * The WKSTA_USER_INFO_1 structure contains user information as it pertains to a specific workstation. The information includes the name of the current user and the domains accessed by the workstation.
- * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_user_info_1
+ * @see https://docs.microsoft.com/windows/win32/api//lmwksta/ns-lmwksta-wksta_user_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

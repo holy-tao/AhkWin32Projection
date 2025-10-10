@@ -3,8 +3,11 @@
 /**
  * The WMPLibraryType enumeration type defines the possible library types to which Windows Media Player can connect.
  * @remarks
- * Windows Media Player 10 Mobile: This enumeration is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmplibrarytype
+ * 
+  * Windows Media Player 10 Mobile: This enumeration is not supported.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmplibrarytype
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

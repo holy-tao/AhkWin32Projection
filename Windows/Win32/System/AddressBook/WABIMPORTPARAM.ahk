@@ -3,7 +3,7 @@
 
 /**
  * Do not use. Structure passed to Import that gives information about importing .wab files.
- * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wabimportparam
+ * @see https://docs.microsoft.com/windows/win32/api//wabapi/ns-wabapi-wabimportparam
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

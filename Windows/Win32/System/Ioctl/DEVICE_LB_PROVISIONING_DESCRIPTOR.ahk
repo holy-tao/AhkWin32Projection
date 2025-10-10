@@ -4,7 +4,8 @@
 /**
  * Contains the thin provisioning capabilities for a storage device.
  * @remarks
- * This structure is returned from a 
+ * 
+  * This structure is returned from a 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_query_property">IOCTL_STORAGE_QUERY_PROPERTY</a> request when the 
   *     <b>PropertyId</b> member of 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_property_query">STORAGE_PROPERTY_QUERY</a> is set to 
@@ -12,7 +13,9 @@
   * 
   * If <b>UnmapGranularityAlignmentValid</b> = 0, then any code using 
   *     <b>UnmapGranularityAlignment</b> should assume it has a value of 0.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_lb_provisioning_descriptor
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_lb_provisioning_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -18,13 +18,16 @@
 #Include .\VDS_SERVICE_NOTIFICATION.ahk
 
 /**
- * The VDS_NOTIFICATION structure (vdshwprv.h) defines the VDS notification structures specific to each notification target type (subject).
+ * Defines the VDS notification structures specific to each notification target type (subject).
  * @remarks
- * Applications pass this structure in the <i>pNotificationArray</i> parameter of  the 
+ * 
+  * Applications pass this structure in the <i>pNotificationArray</i> parameter of  the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsadvisesink-onnotify">IVdsAdviseSink::OnNotify</a> method.
   * 
   * The members of this structure are aligned on an 8-byte boundary.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_notification
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

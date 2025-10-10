@@ -2,7 +2,7 @@
 
 /**
  * Provides flags for the CoWaitForMultipleObjects function.
- * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-cwmo_flags
+ * @see https://docs.microsoft.com/windows/win32/api//combaseapi/ne-combaseapi-cwmo_flags
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

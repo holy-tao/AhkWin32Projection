@@ -3,7 +3,7 @@
 
 /**
  * The PEER_GROUP_PROPERTIES structure contains data about the membership policy of a peer group.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_group_properties
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_group_properties
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

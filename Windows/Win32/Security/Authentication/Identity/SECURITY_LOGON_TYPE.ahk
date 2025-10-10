@@ -2,7 +2,7 @@
 
 /**
  * Indicates the type of logon requested by a logon process.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-security_logon_type
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-security_logon_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

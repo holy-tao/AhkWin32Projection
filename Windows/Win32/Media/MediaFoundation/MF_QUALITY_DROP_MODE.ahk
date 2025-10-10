@@ -3,7 +3,8 @@
 /**
  * Specifies how aggressively a pipeline component should drop samples.
  * @remarks
- * In drop mode, a component drops samples, more or less aggressively depending on the level of the drop mode. The specific algorithm used depends on the component. Mode 1 is the least aggressive mode, and mode 5 is the most aggressive. A component is not required to implement all five levels.
+ * 
+  * In drop mode, a component drops samples, more or less aggressively depending on the level of the drop mode. The specific algorithm used depends on the component. Mode 1 is the least aggressive mode, and mode 5 is the most aggressive. A component is not required to implement all five levels.
   * 
   * For example, suppose an encoded video stream has three B-frames between each pair of P-frames. A decoder might implement the following drop modes:
   * 
@@ -26,7 +27,9 @@
   * </li>
   * </ul>
   * The enhanced video renderer (EVR) can drop video frames before sending them to the EVR mixer.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_quality_drop_mode
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_quality_drop_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

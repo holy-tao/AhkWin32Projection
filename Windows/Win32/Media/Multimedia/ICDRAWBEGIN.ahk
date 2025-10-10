@@ -3,7 +3,7 @@
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdrawbegin
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-icdrawbegin
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

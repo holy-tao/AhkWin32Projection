@@ -2,7 +2,7 @@
 
 /**
  * Specifies the units of a time span.
- * @see https://learn.microsoft.com/windows/win32/api/celib/ne-celib-enum_period
+ * @see https://docs.microsoft.com/windows/win32/api//celib/ne-celib-enum_period
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

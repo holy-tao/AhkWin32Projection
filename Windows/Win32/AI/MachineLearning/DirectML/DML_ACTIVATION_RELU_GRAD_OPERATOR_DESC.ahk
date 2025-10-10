@@ -3,7 +3,7 @@
 
 /**
  * Computes backpropagation gradients for a rectified linear unit (ReLU).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_activation_relu_grad_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_activation_relu_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

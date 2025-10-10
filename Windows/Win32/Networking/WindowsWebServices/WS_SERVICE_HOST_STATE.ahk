@@ -3,10 +3,12 @@
 /**
  * The states that a service host can be in.
  * @remarks
- * The following are the state transitions for a service host.
+ * 
+  * The following are the state transitions for a service host.
   * 
   * :::image type="content" source="./images/ServiceHostStates.png" border="false" alt-text="Diagram showing the possible states of a service host object and the transitions between them.":::
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_host_state
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_service_host_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

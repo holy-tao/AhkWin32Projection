@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Returned by EnumerateTraceGuids. Contains information about an event trace provider.
+ * The TRACE_GUID_PROPERTIES structure contains information about an event trace provider.
  * @remarks
- * Be sure to initialize the memory for this structure to zero before setting any
-  * members or passing to any functions.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_guid_properties
+ * 
+  * Be sure to initialize the memory for this structure to zero before setting any members or passing to any functions.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_guid_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -44,8 +46,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Value passed as the _EnableLevel_ parameter to the
-     * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
+     * Value passed as the <i>EnableLevel</i> parameter to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> function.
      * @type {Integer}
      */
     EnableLevel {
@@ -54,8 +56,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Value passed as the _EnableFlag_ parameter to the
-     * [EnableTrace](/windows/desktop/ETW/enabletrace) function.
+     * Value passed as the <i>EnableFlag</i> parameter to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> function.
      * @type {Integer}
      */
     EnableFlags {
@@ -64,9 +66,7 @@ class TRACE_GUID_PROPERTIES extends Win32Struct
     }
 
     /**
-     * If this member is **TRUE**, the element identified by the **Guid** member is
-     * currently enabled for the session identified by the **LoggerId** member. If this
-     * member is **FALSE**, all other members have no meaning and should be zero.
+     * If this member is <b>TRUE</b>, the element identified by the <b>Guid</b> member is currently enabled for the session identified by the <b>LoggerId</b> member. If this member is <b>FALSE</b>, all other members have no meaning and should be zero.
      * @type {Integer}
      */
     IsEnable {

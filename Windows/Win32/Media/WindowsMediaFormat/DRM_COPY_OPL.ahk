@@ -4,7 +4,7 @@
 
 /**
  * The DRM_COPY_OPL structure holds information about the output protection levels specified in a license for copy actions.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_copy_opl
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-drm_copy_opl
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

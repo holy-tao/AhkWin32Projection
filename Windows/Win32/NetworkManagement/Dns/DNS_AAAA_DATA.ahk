@@ -5,16 +5,19 @@
 /**
  * The DNS_AAAA_DATA structure represents a DNS IPv6 (AAAA) record as specified in RFC 3596.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>DNS_AAAA_DATA</b> structure is used in conjunction with the 
   * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_aaaa_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_aaaa_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
 class DNS_AAAA_DATA extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 

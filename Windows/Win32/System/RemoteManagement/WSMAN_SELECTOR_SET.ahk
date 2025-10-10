@@ -3,7 +3,7 @@
 
 /**
  * Defines a set of keys that represent the identity of a resource.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_selector_set
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_selector_set
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * When used with the CLUSPROP_DWORD structure, enables or disables the functionality of the EnableNetBIOS property of IP Address resources.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-clusprop_ipaddr_enablenetbios
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-clusprop_ipaddr_enablenetbios
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

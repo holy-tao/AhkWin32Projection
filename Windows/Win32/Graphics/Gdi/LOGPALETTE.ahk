@@ -5,8 +5,11 @@
 /**
  * The LOGPALETTE structure defines a logical palette.
  * @remarks
- * The colors in the palette-entry table should appear in order of importance because entries earlier in the logical palette are most likely to be placed in the system palette.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logpalette
+ * 
+  * The colors in the palette-entry table should appear in order of importance because entries earlier in the logical palette are most likely to be placed in the system palette.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-logpalette
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

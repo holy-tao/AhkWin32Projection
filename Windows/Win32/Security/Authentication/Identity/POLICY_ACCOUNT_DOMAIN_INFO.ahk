@@ -4,7 +4,7 @@
 
 /**
  * Used to set and query the name and SID of the system's account domain.
- * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-policy_account_domain_info
+ * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-policy_account_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

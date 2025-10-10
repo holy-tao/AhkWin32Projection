@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes how the BCryptBuffer structure represents a generic Cryptography API: Next Generation (CNG) buffer.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbuffer
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class BCryptBuffer extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size, in bytes, of the buffer.
      * @type {Integer}
      */
     cbBuffer {
@@ -25,7 +20,6 @@ class BCryptBuffer extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BufferType {
@@ -34,7 +28,6 @@ class BCryptBuffer extends Win32Struct
     }
 
     /**
-     * A 32-bit value defined by the *BufferType* member.
      * @type {Pointer<Void>}
      */
     pvBuffer {

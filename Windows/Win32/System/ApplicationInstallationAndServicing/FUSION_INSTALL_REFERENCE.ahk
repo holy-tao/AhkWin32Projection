@@ -3,7 +3,7 @@
 
 /**
  * The FUSION_INSTALL_REFERENCE structure contains information about the application which references the side-by-side assembly.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/ns-winsxs-fusion_install_reference
+ * @see https://docs.microsoft.com/windows/win32/api//winsxs/ns-winsxs-fusion_install_reference
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

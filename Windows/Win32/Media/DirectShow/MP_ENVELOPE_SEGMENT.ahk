@@ -3,7 +3,7 @@
 
 /**
  * The MP_ENVELOPE_SEGMENT structure defines an envelope segment used by an envelope-following parameter.
- * @see https://learn.microsoft.com/windows/win32/api/medparam/ns-medparam-mp_envelope_segment
+ * @see https://docs.microsoft.com/windows/win32/api//medparam/ns-medparam-mp_envelope_segment
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

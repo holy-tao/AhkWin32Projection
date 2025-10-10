@@ -3,7 +3,8 @@
 /**
  * Used by a writer at restore time to indicate how all the files included in a selected component, and all the files in any component set it defines, are to be restored.
  * @remarks
- * A target of <b>VSS_RT_UNDEFINED</b> indicates an error state.
+ * 
+  * A target of <b>VSS_RT_UNDEFINED</b> indicates an error state.
   * 
   * At backup time, writers set the default restore behavior by indicating a restore method 
   *     (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a>) set with 
@@ -41,7 +42,9 @@
   * 
   * See <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
   *     Locations</a> for more information.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restore_target
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_restore_target
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

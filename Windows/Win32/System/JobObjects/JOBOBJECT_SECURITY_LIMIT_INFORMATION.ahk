@@ -4,10 +4,13 @@
 /**
  * Contains the security limitations for a job object.
  * @remarks
- * After security limitations are placed on processes in a job, they cannot be revoked.
+ * 
+  * After security limitations are placed on processes in a job, they cannot be revoked.
   * 
   * Starting with Windows Vista, you must set security limitations individually for each process associated with a job object, rather than setting them for the job object by using <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a>. For information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_security_limit_information
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_security_limit_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

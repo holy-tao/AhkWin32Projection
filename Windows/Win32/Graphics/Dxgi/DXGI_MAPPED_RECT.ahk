@@ -4,8 +4,11 @@
 /**
  * Describes a mapped rectangle that is used to access a surface.
  * @remarks
- * The <b>DXGI_MAPPED_RECT</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface-map">IDXGISurface::Map</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_mapped_rect
+ * 
+  * The <b>DXGI_MAPPED_RECT</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface-map">IDXGISurface::Map</a> method.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_mapped_rect
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

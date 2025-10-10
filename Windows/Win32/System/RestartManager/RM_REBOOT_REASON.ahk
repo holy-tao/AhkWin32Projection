@@ -2,7 +2,7 @@
 
 /**
  * Describes the reasons a restart of the system is needed.
- * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_reboot_reason
+ * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_reboot_reason
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

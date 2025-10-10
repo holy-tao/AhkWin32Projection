@@ -3,7 +3,7 @@
 
 /**
  * Outputs the reduction of elements (sum, product, minimum, and so on) within one or more dimensions of the input tensor.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_reduce_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_reduce_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

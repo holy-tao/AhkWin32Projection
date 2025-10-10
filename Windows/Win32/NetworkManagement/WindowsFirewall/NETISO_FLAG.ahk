@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The NETISO_FLAG enumeration specifies whether binaries should be returned for app containers. (NETISO_FLAG)
+ * Specifies whether binaries should be returned for app containers.
  * @remarks
- * By default, binaries are not returned. <b>NETISO_FLAG_FORCE_COMPUTE_BINARIES</b> must be set in order for these to be returned.
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_flag
+ * 
+  * By default, binaries are not returned. <b>NETISO_FLAG_FORCE_COMPUTE_BINARIES</b> must be set in order for these to be returned.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//networkisolation/ne-networkisolation-netiso_flag
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

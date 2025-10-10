@@ -1,10 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The WPD\_SMS\_ENCODING\_TYPES enumeration type describes the encoding type of a short message service (SMS) message.
- * @remarks
- * This enumeration is used by the [WPD\_SMS\_ENCODING](sms-properties.md) property.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-sms-encoding-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

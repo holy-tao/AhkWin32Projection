@@ -4,8 +4,11 @@
 /**
  * The ADS_OCTET_STRING structure is an ADSI representation of the Octet String attribute syntax used in Active Directory.
  * @remarks
- * Memory for the byte array must be allocated separately.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_octet_string
+ * 
+  * Memory for the byte array must be allocated separately.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_octet_string
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

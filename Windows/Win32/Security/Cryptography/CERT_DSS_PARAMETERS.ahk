@@ -4,7 +4,7 @@
 
 /**
  * Contains parameters associated with a Digital Signature Standard (DSS) public key algorithm.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_dss_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_dss_parameters
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

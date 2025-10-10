@@ -2,7 +2,7 @@
 
 /**
  * The SHV_COMBINATION_TYPE enumeration type specifies the type of a System Health Validator (SHV) combination.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-shv_combination_type
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-shv_combination_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines if Extended Protection data should be validated.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_extended_protection_policy
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_extended_protection_policy
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class WS_EXTENDED_PROTECTION_POLICY{
  *                 
  * 
  * NOTE: If the client supports the extended protection feature, but did not include extended protection data in the authentication data, this setting will cause requests to fail. This 
- *                     scenario is possible when the operating system was patched but the client web services implementation does not send the necessary data.
+ *                     scenario is possible when the operating system was patched but the client web services implementation does not send the neccessary data.
  *                 
  * 
  * This is the default.

@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_POOL_ATTRIBUTES structure (vdshwprv.h) defines the attributes of a storage pool.
+ * Defines the attributes of a storage pool.
  * @remarks
- * If an attribute is set for a storage pool, that attribute setting must apply to all drive extents that make up the pool.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_pool_attributes
+ * 
+  * If an attribute is set for a storage pool, that attribute setting must apply to all drive extents that make up the pool.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_pool_attributes
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

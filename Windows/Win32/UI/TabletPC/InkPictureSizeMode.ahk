@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the picture behaves inside the InkPicture control.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpicturesizemode
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkpicturesizemode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

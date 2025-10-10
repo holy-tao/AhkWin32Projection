@@ -6,7 +6,8 @@
 /**
  * The BITMAPINFO structure defines the dimensions and color information for a DIB.
  * @remarks
- * A DIB consists of two distinct parts: a <b>BITMAPINFO</b> structure describing the dimensions and colors of the bitmap, and an array of bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros to end on a <b>LONG</b> data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is the lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
+ * 
+  * A DIB consists of two distinct parts: a <b>BITMAPINFO</b> structure describing the dimensions and colors of the bitmap, and an array of bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros to end on a <b>LONG</b> data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is the lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
   * 
   * A bitmap is packed when the bitmap array immediately follows the <b>BITMAPINFO</b> header. Packed bitmaps are referenced by a single pointer. For packed bitmaps, the <b>biClrUsed</b> member must be set to an even number when using the DIB_PAL_COLORS mode so that the DIB bitmap array starts on a <b>DWORD</b> boundary.
   * 
@@ -16,7 +17,9 @@
   * 
   * </div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-bitmapinfo
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -27,7 +30,7 @@ class BITMAPINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains information about the dimensions of color format.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd183376(v=vs.85)">BITMAPINFOHEADER</a> structure that contains information about the dimensions of color format.
      * 
      * .
      * @type {BITMAPINFOHEADER}
@@ -61,7 +64,7 @@ class BITMAPINFO extends Win32Struct
      * 
      * </li>
      * </ul>
-     * The number of entries in the array depends on the values of the <b>biBitCount</b> and <b>biClrUsed</b> members of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure.
+     * The number of entries in the array depends on the values of the <b>biBitCount</b> and <b>biClrUsed</b> members of the <a href="https://docs.microsoft.com/previous-versions/dd183376(v=vs.85)">BITMAPINFOHEADER</a> structure.
      * 
      * The colors in the <b>bmiColors</b> table appear in order of importance. For more information, see the Remarks section.
      * @type {Array<RGBQUAD>}

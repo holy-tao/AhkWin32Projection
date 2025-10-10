@@ -5,8 +5,11 @@
 /**
  * Contains information about an OLE or image object in a rich edit control.
  * @remarks
- * An OLE or image object  in a rich edit control occupies one character position in the plain text part of the in-memory backing store and have the value U+FFFC. They differ from "in-line objects" such as math objects. In-line objects occupy at least two character positions because they have an in-line object start delimiter (U+FDD0) and end delimiter  (U+FDEF).
- * @see https://learn.microsoft.com/windows/win32/api/richole/ns-richole-reobject
+ * 
+  * An OLE or image object  in a rich edit control occupies one character position in the plain text part of the in-memory backing store and have the value U+FFFC. They differ from "in-line objects" such as math objects. In-line objects occupy at least two character positions because they have an in-line object start delimiter (U+FDD0) and end delimiter  (U+FDEF).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//richole/ns-richole-reobject
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains parameters that specify a single entry in a list of Logical Block Address (LBA) ranges, for the LBA Range Type Feature in the Set Features command.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_ranget_type_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * An [NVME_LBA_RANGE_TYPES](ne-nvme-nvme_lba_range_types.md) value that specifies the type of the LBA range.
      * @type {Integer}
      */
     Type {
@@ -25,11 +20,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * Specifies attributes for the LBA range. Each bit defines an attribute, as follows:
-     * 
-     * - Bit 0 - If this bit is set to `1`, the LBA range may be overwritten. If this bit is cleared to `0`, the LBA range should not be overwritten.
-     * - Bit 1 - If this bit is set to `1`, the LBA range should be hidden from the OS/EFI/BIOS. If this bit is cleared to `0`, the area should be visible to the OS/EFI/BIOS.
-     * - Bits 2-7 - Reserved
      * @type {Integer}
      */
     Attributes {
@@ -38,7 +28,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<Byte>}
      */
     Reserved0{
@@ -50,7 +39,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * Specifies the 64-bit address of the first logical block that is part of this LBA range.
      * @type {Integer}
      */
     SLBA {
@@ -59,7 +47,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * Specifies the number of logical blocks that are part of this LBA range. This is a 0s based value.
      * @type {Integer}
      */
     NLB {
@@ -68,7 +55,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * A Global Unique Identifier (GUID) that uniquely specifies the type of this LBA range. Well known Types may be defined and are published on the [NVM Express website](https://nvmexpress.org/).
      * @type {Array<Byte>}
      */
     GUID{
@@ -80,7 +66,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Array<Byte>}
      */
     Reserved1{

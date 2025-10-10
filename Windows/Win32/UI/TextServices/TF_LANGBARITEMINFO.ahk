@@ -3,7 +3,7 @@
 
 /**
  * The TF_LANGBARITEMINFO structure is used to hold information about a language bar item.
- * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ns-ctfutb-tf_langbariteminfo
+ * @see https://docs.microsoft.com/windows/win32/api//ctfutb/ns-ctfutb-tf_langbariteminfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -24,8 +24,6 @@ class TF_LANGBARITEMINFO extends Win32Struct
 
     /**
      * Contains a <b>GUID</b> value that identifies the language bar item.
-     * 
-     * Starting with Windows 8, this value should be GUID_LBI_INPUTMODE (or the language bar item will be ignored). For more information, see [Third-party input method editors](https://docs.microsoft.com/en-us/windows/win32/w8cookbook/third-party-input-method-editors#manifestation) in the Compatibility cookbook for Windows.
      * @type {Pointer<Guid>}
      */
     guidItem {

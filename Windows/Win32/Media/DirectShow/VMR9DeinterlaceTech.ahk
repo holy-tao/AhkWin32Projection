@@ -2,7 +2,7 @@
 
 /**
  * The VMR9DeinterlaceTech enumeration type describes the algorithm used for deinterlacing a video stream. The flags are not mutually exclusive; drivers can set a combination of flags.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9deinterlacetech
+ * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9deinterlacetech
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

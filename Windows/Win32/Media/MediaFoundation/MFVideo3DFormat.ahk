@@ -3,8 +3,11 @@
 /**
  * Specifies how 3D video frames are stored in memory.
  * @remarks
- * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-3d-format">MF_MT_VIDEO_3D_FORMAT</a> attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideo3dformat
+ * 
+  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-3d-format">MF_MT_VIDEO_3D_FORMAT</a> attribute.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ne-mfapi-mfvideo3dformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

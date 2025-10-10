@@ -2,7 +2,7 @@
 
 /**
  * The SmartCardAssociationType enumeration type specifies a smart card association.
- * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-smartcardassociationtype
+ * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-smartcardassociationtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

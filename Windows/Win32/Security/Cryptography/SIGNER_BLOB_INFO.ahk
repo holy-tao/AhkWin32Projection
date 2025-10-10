@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies a BLOB to sign.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-blob-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class SIGNER_BLOB_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -23,7 +20,6 @@ class SIGNER_BLOB_INFO extends Win32Struct
     }
 
     /**
-     * A pointer to a **GUID** that specifies the Subject Interface Package (SIP) to load.
      * @type {Pointer<Guid>}
      */
     pGuidSubject {
@@ -32,7 +28,6 @@ class SIGNER_BLOB_INFO extends Win32Struct
     }
 
     /**
-     * The size, in bytes, of the BLOB to sign.
      * @type {Integer}
      */
     cbBlob {
@@ -41,7 +36,6 @@ class SIGNER_BLOB_INFO extends Win32Struct
     }
 
     /**
-     * A pointer to the BLOB to sign.
      * @type {Pointer<Byte>}
      */
     pbBlob {
@@ -50,7 +44,6 @@ class SIGNER_BLOB_INFO extends Win32Struct
     }
 
     /**
-     * The display name of the BLOB. This member can be set to **NULL**.
      * @type {Pointer<Char>}
      */
     pwszDisplayName {

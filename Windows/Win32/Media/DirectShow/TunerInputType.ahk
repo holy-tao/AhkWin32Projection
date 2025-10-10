@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the frequency of a TV tuner (cable or antenna). (TunerInputType)
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-tunerinputtype
+ * Specifies the frequency of a TV tuner (cable or antenna).
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-tunerinputtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

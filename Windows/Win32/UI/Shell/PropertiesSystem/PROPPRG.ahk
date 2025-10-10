@@ -3,7 +3,7 @@
 
 /**
  * This structure contains information from a .pif file. It is used by PifMgr_GetProperties.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-propprg
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-propprg
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

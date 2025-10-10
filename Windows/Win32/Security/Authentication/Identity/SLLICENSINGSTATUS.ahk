@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Represents the licensing status. (SLLICENSINGSTATUS)
- * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sllicensingstatus
+ * Represents the licensing status.
+ * @see https://docs.microsoft.com/windows/win32/api//slpublic/ne-slpublic-sllicensingstatus
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

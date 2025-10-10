@@ -4,7 +4,7 @@
 
 /**
  * Contains information used to update the cached item information for use with a virtual list view.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvcachehint
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvcachehint
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

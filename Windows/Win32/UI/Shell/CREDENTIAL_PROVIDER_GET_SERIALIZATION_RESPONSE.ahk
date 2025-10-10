@@ -2,7 +2,7 @@
 
 /**
  * Describes the response when a credential provider attempts to serialize credentials.
- * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response
+ * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,8 +3,8 @@
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
- * Contains information that describes a layer drop failure. (FWPM_NET_EVENT_CLASSIFY_DROP2)
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop2
+ * Contains information that describes a layer drop failure.
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

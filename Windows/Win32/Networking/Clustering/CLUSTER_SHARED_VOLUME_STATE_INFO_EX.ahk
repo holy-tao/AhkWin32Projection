@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents information about the state of a Cluster Shared Volume (CSV).
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-cluster_shared_volume_state_info_ex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -12,6 +14,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     static packingSize => 8
 
     /**
+     * A Unicode string that contains the volume name of the CSV. The string ends in a terminating null character. The name that is provided can be either the cluster-assigned friendly name or the volume GUID path of the form "\\?\Volume{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}\".
      * @type {String}
      */
     szVolumeName {
@@ -20,6 +23,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
+     * The node name of the node that hosts the CSV.
      * @type {String}
      */
     szNodeName {
@@ -28,6 +32,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_state">CLUSTER_SHARED_VOLUME_STATE</a> enumeration value that specifies the state of the CSV.
      * @type {Integer}
      */
     VolumeState {
@@ -36,6 +41,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
+     * The friendly name of the CSV.
      * @type {String}
      */
     szVolumeFriendlyName {
@@ -44,6 +50,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
+     * A bitmask that  specifies more specific reasons for the values stated in the <i>VolumeRedirectedIOReason</i> parameter.
      * @type {Integer}
      */
     RedirectedIOReason {
@@ -52,6 +59,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
+     * A bitmask that  specifies the reasons that direct access mode is enabled on the CSV.
      * @type {Integer}
      */
     VolumeRedirectedIOReason {

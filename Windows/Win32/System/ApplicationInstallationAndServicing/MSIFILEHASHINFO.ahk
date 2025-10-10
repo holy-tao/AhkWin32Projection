@@ -4,10 +4,13 @@
 /**
  * The MSIFILEHASHINFO structure contains the file hash information returned by MsiGetFileHash and used in the MsiFileHash table.
  * @remarks
- * The file hash entered into the fields of the MsiFileHash table must be obtained by calling 
+ * 
+  * The file hash entered into the fields of the MsiFileHash table must be obtained by calling 
   * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msigetfilehasha">MsiGetFileHash</a> or the 
   * <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-filehash">FileHash method</a>. Do not use other methods to generate a file hash.
- * @see https://learn.microsoft.com/windows/win32/api/msi/ns-msi-msifilehashinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//msi/ns-msi-msifilehashinfo
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The EMRRESTOREDC structure contains members for the RestoreDC enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrrestoredc
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrrestoredc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

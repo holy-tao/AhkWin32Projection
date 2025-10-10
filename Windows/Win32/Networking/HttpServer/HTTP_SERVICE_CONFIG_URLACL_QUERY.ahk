@@ -3,7 +3,7 @@
 
 /**
  * Used to specify a particular reservation record to query in the URL namespace reservation store.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_query
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_urlacl_query
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

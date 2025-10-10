@@ -2,7 +2,7 @@
 
 /**
  * Determines the format in which the counter data is saved to a file.
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-sysmonfiletype
+ * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-sysmonfiletype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

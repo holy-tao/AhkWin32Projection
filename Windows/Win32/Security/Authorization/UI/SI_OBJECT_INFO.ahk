@@ -3,7 +3,7 @@
 
 /**
  * Used to initialize the access control editor.
- * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-si_object_info
+ * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-si_object_info
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

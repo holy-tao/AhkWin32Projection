@@ -5,7 +5,7 @@
 
 /**
  * Type for specifying an endpoint identity represented by a DNS name.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_dns_endpoint_identity
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_dns_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class WS_DNS_ENDPOINT_IDENTITY extends Win32Struct
 
     /**
      * The DNS name of the endpoint that is represented by this endpoint identity.
-     *                     The acceptable forms of the name are as defined by <a href="https://datatracker.ietf.org/doc/html/rfc1035">RFC 1035</a>.
+     *                     The acceptable forms of the name are as defined by <a href="http://tools.ietf.org/html/rfc1035">RFC 1035</a>.
      *                     In particular, they include both a simple machine name as well as a fully qualified domain name (FQDN).
      * @type {WS_STRING}
      */

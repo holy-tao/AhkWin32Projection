@@ -2,7 +2,7 @@
 
 /**
  * The PEER_CONNECTION_FLAGS enumeration specifies the types of connections that a peer can have.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_connection_flags
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_connection_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

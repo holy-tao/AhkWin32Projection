@@ -2,7 +2,7 @@
 
 /**
  * Determines whether the enumeration operation should continue or stop.
- * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-eheapenumerationlevel
+ * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ne-avrfsdk-eheapenumerationlevel
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */

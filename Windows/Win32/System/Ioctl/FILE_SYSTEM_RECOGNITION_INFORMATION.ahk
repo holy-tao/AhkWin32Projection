@@ -3,7 +3,7 @@
 
 /**
  * Contains file system recognition information retrieved by the FSCTL_QUERY_FILE_SYSTEM_RECOGNITION control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_system_recognition_information
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_system_recognition_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

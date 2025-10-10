@@ -2,7 +2,7 @@
 
 /**
  * Specifies how closely an event must match a filter.
- * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_pathfilter_match
+ * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_pathfilter_match
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

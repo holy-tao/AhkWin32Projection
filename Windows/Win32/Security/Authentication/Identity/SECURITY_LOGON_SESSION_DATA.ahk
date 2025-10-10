@@ -5,11 +5,13 @@
 #Include .\LSA_LAST_INTER_LOGON_INFO.ahk
 
 /**
- * Contains information about a logon session. (SECURITY_LOGON_SESSION_DATA)
+ * Contains information about a logon session.
  * @remarks
- * This structure is allocated by the LSA. When the structure is no longer required, free it by using the 
+ * 
+  * This structure is allocated by the LSA. When the structure is no longer required, free it by using the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LSAFreeReturnBuffer</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-security_logon_session_data
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-security_logon_session_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -305,7 +307,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     }
 
     /**
-     * The time  when the user last changed the password.   <b>Note</b> It is up to the Authentication Package to initialize this value and it may not be initialized.
+     * The time  when the user last changed the password.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {Integer}
@@ -316,7 +318,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     }
 
     /**
-     * The password can be changed during the logon session. 
+     * The password can be changed during the logon session.
      * 
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {Integer}

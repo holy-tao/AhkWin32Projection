@@ -3,7 +3,7 @@
 
 /**
  * Contains global computer power policy settings that apply to all power schemes for all users.
- * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-global_machine_power_policy
+ * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-global_machine_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

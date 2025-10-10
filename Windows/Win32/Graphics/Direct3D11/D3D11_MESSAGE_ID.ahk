@@ -2,7 +2,7 @@
 
 /**
  * Debug messages for setting up an info-queue filter (see D3D11_INFO_QUEUE_FILTER); use these messages to allow or deny message categories to pass through the storage and retrieval filters.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ne-d3d11sdklayers-d3d11_message_id
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

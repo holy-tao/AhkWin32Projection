@@ -3,7 +3,7 @@
 
 /**
  * The EAP_UI_DATA_FORMAT union specifies the value of the attribute stored in the pbUiData member of the EAP_INTERACTIVE_UI_DATA structure.
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_ui_data_format
+ * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_ui_data_format
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class EAP_UI_DATA_FORMAT extends Win32Struct
     /**
      * case(<i>eapCredExpiryReq</i>)
      * 
-     * If <i>dwDataType</i> specifies a credential expiry request (<i>eapCredExpiryReq</i>), then the data pointed to by this parameter is defined by <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_cred_expiry_req">EAP_CRED_EXPIRY_REQ </a> structure.
+     * If <i>dwDataType</i> specifies a credential expiry request (<i>eapCredExpiryReq</i>), then the data pointed to by this parameter is defined by <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_cred_expiry_req">EAP_CRED_EXPIRY_REQ </a>structure.
      * 
      * case(<i>eapCredExpiryResp</i>)
      * 

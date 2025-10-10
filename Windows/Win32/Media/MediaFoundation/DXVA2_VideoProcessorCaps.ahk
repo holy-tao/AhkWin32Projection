@@ -3,7 +3,7 @@
 
 /**
  * Describes the capabilities of a DirectX Video Acceleration (DVXA) video processor mode.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
+ * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -96,7 +96,7 @@ class DXVA2_VideoProcessorCaps extends Win32Struct
     }
 
     /**
-     * Identifies the deinterlacing technique used by the device. This value is a bitwise <b>OR</b> of one or more of the following flags.
+     * Identifies the deinteracing technique used by the device. This value is a bitwise <b>OR</b> of one or more of the following flags.
      * 
      * <table>
      * <tr>

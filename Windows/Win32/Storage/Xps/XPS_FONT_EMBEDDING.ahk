@@ -2,7 +2,7 @@
 
 /**
  * Describes the option for embedding a font.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

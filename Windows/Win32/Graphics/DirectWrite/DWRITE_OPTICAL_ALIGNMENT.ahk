@@ -2,7 +2,7 @@
 
 /**
  * The optical margin alignment mode.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_optical_alignment
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/ne-dwrite_2-dwrite_optical_alignment
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

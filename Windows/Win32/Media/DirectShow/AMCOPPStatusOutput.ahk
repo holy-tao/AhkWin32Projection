@@ -3,7 +3,7 @@
 
 /**
  * The AMCOPPStatusOutput structure contains the result of a Certified Output Protection Protocol (COPP) status request.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppstatusoutput
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-amcoppstatusoutput
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

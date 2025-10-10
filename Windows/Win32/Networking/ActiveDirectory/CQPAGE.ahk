@@ -3,7 +3,7 @@
 
 /**
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.
- * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-cqpage
+ * @see https://docs.microsoft.com/windows/win32/api//cmnquery/ns-cmnquery-cqpage
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

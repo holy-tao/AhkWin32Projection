@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify the type of transfer job, such as download.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_type
+ * @see https://docs.microsoft.com/windows/win32/api//bits/ne-bits-bg_job_type
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

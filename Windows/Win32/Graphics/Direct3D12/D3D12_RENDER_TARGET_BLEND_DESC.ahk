@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)
+ * Describes the blend state for a render target.
  * @remarks
- * > [!NOTE]
+ * 
+  * > [!NOTE]
   * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
   * 
   * You specify an array of <b>D3D12_RENDER_TARGET_BLEND_DESC</b> structures in the <b>RenderTarget</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_blend_desc">D3D12_BLEND_DESC</a> structure to describe the blend states for render targets; you can bind up to eight render targets to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
@@ -59,7 +60,9 @@
   * <td>D3D12_COLOR_WRITE_ENABLE_ALL</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

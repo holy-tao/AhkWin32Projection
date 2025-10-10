@@ -5,7 +5,8 @@
 /**
  * The FWPM_CLASSIFY_OPTION0 structure.
  * @remarks
- * The following table lists possible values for the members of a <b>FWPM_CLASSIFY_OPTION0</b> structure.
+ * 
+  * The following table lists possible values for the members of a <b>FWPM_CLASSIFY_OPTION0</b> structure.
   * 
   * <table>
   * <tr>
@@ -61,7 +62,9 @@
   *  
   * 
   * <b>FWPM_CLASSIFY_OPTION0</b> is a specific implementation of FWPM_CLASSIFY_OPTION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_classify_option0
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_classify_option0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

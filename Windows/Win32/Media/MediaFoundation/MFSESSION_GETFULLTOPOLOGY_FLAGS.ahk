@@ -2,7 +2,7 @@
 
 /**
  * Defines flags for the IMFMediaSession::GetFullTopology method.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsession_getfulltopology_flags
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsession_getfulltopology_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a window that denied a request from BroadcastSystemMessageEx.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-bsminfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-bsminfo
  * @namespace Windows.Win32.System.StationsAndDesktops
  * @version v4.0.30319
  */

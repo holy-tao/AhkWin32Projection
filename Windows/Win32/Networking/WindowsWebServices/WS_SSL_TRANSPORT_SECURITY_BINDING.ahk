@@ -4,7 +4,7 @@
 
 /**
  * The security binding subtype for specifying the use of SSL/TLS protocol based transport security.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ssl_transport_security_binding
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_ssl_transport_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

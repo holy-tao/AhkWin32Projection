@@ -3,7 +3,7 @@
 
 /**
  * The PEER_DATA structure contains binary data.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_data
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

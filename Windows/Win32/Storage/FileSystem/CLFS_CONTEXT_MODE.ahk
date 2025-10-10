@@ -2,7 +2,7 @@
 
 /**
  * Specifies a context mode type that indicates the direction and access methods that a client uses to scan a log.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ne-clfs-clfs_context_mode
+ * @see https://docs.microsoft.com/windows/win32/api//clfs/ne-clfs-clfs_context_mode
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

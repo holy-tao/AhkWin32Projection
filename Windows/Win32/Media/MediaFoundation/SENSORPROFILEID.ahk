@@ -3,7 +3,7 @@
 
 /**
  * Describes a sensor profile ID.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-sensorprofileid
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-sensorprofileid
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

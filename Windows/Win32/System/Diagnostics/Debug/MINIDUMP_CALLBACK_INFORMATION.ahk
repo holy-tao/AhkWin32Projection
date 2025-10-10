@@ -3,7 +3,7 @@
 
 /**
  * Contains a pointer to an optional callback function that can be used by the MiniDumpWriteDump function.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_information
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_callback_information
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

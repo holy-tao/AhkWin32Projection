@@ -2,7 +2,7 @@
 
 /**
  * Specifies group policy flags.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentpolicyflags
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmentpolicyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

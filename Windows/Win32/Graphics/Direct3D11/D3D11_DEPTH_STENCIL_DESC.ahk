@@ -3,9 +3,10 @@
 #Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 
 /**
- * Describes depth-stencil state. (D3D11_DEPTH_STENCIL_DESC)
+ * Describes depth-stencil state.
  * @remarks
- * Pass a pointer to <b>D3D11_DEPTH_STENCIL_DESC</b> to the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilstate">ID3D11Device::CreateDepthStencilState</a> method to create the depth-stencil state object.
+ * 
+  * Pass a pointer to <b>D3D11_DEPTH_STENCIL_DESC</b> to the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilstate">ID3D11Device::CreateDepthStencilState</a> method to create the depth-stencil state object.
   * 
   * Depth-stencil state controls how depth-stencil testing is performed by the output-merger stage.
   * 
@@ -88,7 +89,9 @@
   *  
   * 
   * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_depth_stencil_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Enables or disables the maintenance mode on a cluster shared volume (CSV).
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_maintenance_mode_info
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_csv_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines a security attribute that can be associated with an authorization context.
- * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_v1
+ * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_security_attribute_v1
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

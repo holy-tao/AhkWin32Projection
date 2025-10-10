@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents information about call targets for Control Flow Guard (CFG).
- * @see https://learn.microsoft.com/windows/win32/Memory/-cfg-call-target-info
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class CFG_CALL_TARGET_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * Offset relative to a provided (start) virtual address. This offset should be 16 byte aligned.
      * @type {Pointer}
      */
     Offset {
@@ -23,7 +20,6 @@ class CFG_CALL_TARGET_INFO extends Win32Struct
     }
 
     /**
-     * Flags describing the operation to be performed on the address. If **CFG\_CALL\_TARGET\_VALID** is set, then the address will be marked valid for CFG. Otherwise, it will be marked an invalid call target.
      * @type {Pointer}
      */
     Flags {

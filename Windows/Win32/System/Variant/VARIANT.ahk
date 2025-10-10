@@ -5,7 +5,7 @@
 
 /**
  * VARIANTARG describes arguments passed within DISPPARAMS, and VARIANT to specify variant data that cannot be passed by reference.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-variant
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-variant
  * @namespace Windows.Win32.System.Variant
  * @version v4.0.30319
  */

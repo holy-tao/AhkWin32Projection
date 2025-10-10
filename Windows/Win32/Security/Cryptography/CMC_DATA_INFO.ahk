@@ -2,10 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides a means of communicating different pieces of tagged information. (CMC_DATA_INFO)
+ * Provides a means of communicating different pieces of tagged information.
  * @remarks
- * All tagged arrays are optional.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_data_info
+ * 
+  * All tagged arrays are optional.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmc_data_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

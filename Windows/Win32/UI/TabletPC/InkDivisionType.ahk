@@ -2,7 +2,7 @@
 
 /**
  * Defines values for the structural types within the IInkDivisionResult object.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/ne-msinkaut15-inkdivisiontype
+ * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/ne-msinkaut15-inkdivisiontype
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Represents the status of an ID3D11CryptoSession interface.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_crypto_session_status
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ne-d3d11_1-d3d11_crypto_session_status
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

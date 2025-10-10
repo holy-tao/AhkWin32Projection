@@ -2,7 +2,7 @@
 
 /**
  * The TERMINAL_DIRECTION enumeration is used to describe the direction of the media stream with respect to the local computer or the directional capabilities of a terminal.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-terminal_direction
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-terminal_direction
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

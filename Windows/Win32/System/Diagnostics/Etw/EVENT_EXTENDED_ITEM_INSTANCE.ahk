@@ -3,7 +3,7 @@
 
 /**
  * Defines the relationship between events if TraceEventInstance was used to log related events.
- * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_instance
+ * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_extended_item_instance
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

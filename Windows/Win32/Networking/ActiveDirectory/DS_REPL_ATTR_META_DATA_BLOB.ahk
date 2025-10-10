@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_ATTR_META_DATA_BLOB structure is used to contain replication state data for an object attribute.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_blob
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

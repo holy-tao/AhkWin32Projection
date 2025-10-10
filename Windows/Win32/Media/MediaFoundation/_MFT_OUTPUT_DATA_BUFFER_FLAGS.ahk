@@ -3,24 +3,24 @@
 /**
  * Defines flags for the IMFTransform::ProcessOutput method.
  * @remarks
- * The values in this enumeration are not bit flags, so they should not be combined with a bitwise <b>OR</b>. Also, the caller should test for these flags with the equality operator, not a bitwise <b>AND</b>:
+ * 
+  * The values in this enumeration are not bit flags, so they should not be combined with a bitwise <b>OR</b>. Also, the caller should test for these flags with the equality operator, not a bitwise <b>AND</b>:
   * 
-  * 
-  * ``` syntax
-  * // Correct.
+  * <pre class="syntax" xml:space="preserve"><code>// Correct.
   * if (Buffer.dwStatus == MFT_OUTPUT_DATA_BUFFER_STREAM_END)
   * {
   *     ...
   * }
   * 
   * // Incorrect.
-  * if ((Buffer.dwStatus & MFT_OUTPUT_DATA_BUFFER_STREAM_END) != 0)
+  * if ((Buffer.dwStatus &amp; MFT_OUTPUT_DATA_BUFFER_STREAM_END) != 0)
   * {
   *     ...
   * }
+  * </code></pre>
   * 
-  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_data_buffer_flags
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_output_data_buffer_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

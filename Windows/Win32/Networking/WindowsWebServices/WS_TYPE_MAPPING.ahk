@@ -3,9 +3,11 @@
 /**
  * How a WS_TYPE maps to or from XML when serialized or deserialized.
  * @remarks
- * See the documentation for each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> 
+ * 
+  * See the documentation for each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> 
   *                 for which <b>WS_TYPE_MAPPING</b> values are supported.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_type_mapping
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_type_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -21,23 +23,16 @@ class WS_TYPE_MAPPING{
  * The following calling sequence is used when writing an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsWriteStartElement(...)
  * WsWriteType(..., WS_ELEMENT_TYPE_MAPPING, ...)
- * WsWriteEndElement(...)
- * ```
- * 
+ * WsWriteEndElement(...)</code></pre>
  * The following calling sequence is used when reading an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsReadToStartElement(...)?
- * WsReadType(..., WS_ELEMENT_TYPE_MAPPING, ...)
- * ```
+ * WsReadType(..., WS_ELEMENT_TYPE_MAPPING, ...)</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_ELEMENT_TYPE_MAPPING => 1
@@ -50,25 +45,18 @@ class WS_TYPE_MAPPING{
  * The following calling sequence is used when writing an attribute value.
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsWriteStartAttribute(...)
  * WsWriteType(..., WS_ATTRIBUTE_TYPE_MAPPING, ...)
- * WsWriteEndAttribute(...)
- * ```
- * 
+ * WsWriteEndAttribute(...)</code></pre>
  * The following calling sequence is used when reading an attribute value.
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsFindAttribute(...)
  * WsReadStartAttribute(...)
  * WsReadType(..., WS_ATTRIBUTE_TYPE_MAPPING, ...)
- * WsReadEndAttribute(...)
- * ```
+ * WsReadEndAttribute(...)</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_ATTRIBUTE_TYPE_MAPPING => 2
@@ -84,32 +72,25 @@ class WS_TYPE_MAPPING{
  *                     of an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsWriteStartElement(...)
  * // Write attributes, if any
  * // Write other element content, if any
  * WsWriteType(..., WS_ELEMENT_CONTENT_TYPE_MAPPING, ...)
  * // Write other element content, if any
- * WsWriteEndElement(...)
- * ```
- * 
+ * WsWriteEndElement(...)</code></pre>
  * The following calling sequence is used when reading the contents of
  *                     an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsReadToStartElement(...)
  * // Read attributes, if any
  * WsReadStartElement(...)
  * // Read other element content, if any
  * WsReadType(..., WS_ELEMENT_CONTENT_TYPE_MAPPING, ...)
  * // Read other element content, if any
- * WsReadEndElement(...)
- * ```
+ * WsReadEndElement(...)</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_ELEMENT_CONTENT_TYPE_MAPPING => 3
@@ -125,22 +106,15 @@ class WS_TYPE_MAPPING{
  *                     an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
- * WsWriteType(..., WS_ANY_ELEMENT_TYPE_MAPPING, ...)
- * ```
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
+ * WsWriteType(..., WS_ANY_ELEMENT_TYPE_MAPPING, ...)</code></pre>
  * The following calling sequence is used when reading the contents of
  *                     an element:
  *                 
  * 
- * 
- * ``` syntax
- * 
+ * <pre class="syntax" xml:space="preserve"><code>
  * WsReadToStartElement(...)?
- * WsReadType(..., WS_ANY_ELEMENT_TYPE_MAPPING, ...)
- * ```
+ * WsReadType(..., WS_ANY_ELEMENT_TYPE_MAPPING, ...)</code></pre>
      * @type {Integer (Int32)}
      */
     static WS_ANY_ELEMENT_TYPE_MAPPING => 4

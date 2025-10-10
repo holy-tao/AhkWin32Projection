@@ -8,9 +8,10 @@
 #Include .\D3D11_TEX3D_RTV.ahk
 
 /**
- * Describes the subresources from a resource that are accessible using a render-target view. (D3D11_RENDER_TARGET_VIEW_DESC1)
+ * Describes the subresources from a resource that are accessible using a render-target view.
  * @remarks
- * A render-target-view description is passed into <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/nf-d3d11_3-id3d11device3-createrendertargetview1">ID3D11Device3::CreateRenderTargetView1</a> to create a render target.
+ * 
+  * A render-target-view description is passed into <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/nf-d3d11_3-id3d11device3-createrendertargetview1">ID3D11Device3::CreateRenderTargetView1</a> to create a render target.
   * 
   * A render-target-view can't use the following formats:
   * 
@@ -19,7 +20,9 @@
   * <li>DXGI_FORMAT_R32G32B32 if the view will be used to bind a buffer (vertex, index, constant, or stream-output).</li>
   * </ul>
   * If the format is set to DXGI_FORMAT_UNKNOWN, then the format of the resource that the view binds to the pipeline will be used.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_render_target_view_desc1
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/ns-d3d11_3-d3d11_render_target_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

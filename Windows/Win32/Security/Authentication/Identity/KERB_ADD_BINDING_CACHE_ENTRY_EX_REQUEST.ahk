@@ -5,7 +5,8 @@
 /**
  * Allows the user to bind to a specific domain controller (DC), overriding the Kerberos domain binding cache.
  * @remarks
- * To meet both the user's requirements and Kerberos' requirements, you need  to make two calls to override the Kerberos domain binding cache.
+ * 
+  * To meet both the user's requirements and Kerberos' requirements, you need  to make two calls to override the Kerberos domain binding cache.
   * 
   * <ol>
   * <li>
@@ -32,7 +33,9 @@
   * 
   * </li>
   * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_ex_request
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_ex_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

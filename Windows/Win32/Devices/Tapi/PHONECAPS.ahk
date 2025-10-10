@@ -4,10 +4,13 @@
 /**
  * The PHONECAPS structure describes the capabilities of a phone device. The phoneGetDevCaps and TSPI_phoneGetDevCaps functions return this structure.
  * @remarks
- * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
+ * 
+  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
   * 
   * The members <b>dwDeviceClassesSize</b> through <b>dwMonitoredHeadsetHookSwitchModes</b> are available only to applications that open the phone device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonecaps
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-phonecaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

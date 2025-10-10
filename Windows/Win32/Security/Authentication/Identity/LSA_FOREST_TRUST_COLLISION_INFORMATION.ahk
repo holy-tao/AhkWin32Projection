@@ -3,7 +3,7 @@
 
 /**
  * Contains information about Local Security Authority forest trust collisions.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_information
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

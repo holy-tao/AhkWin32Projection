@@ -3,7 +3,7 @@
 
 /**
  * A DNS_QUERY_RESULT structure contains the DNS query results returned from a call to DnsQueryEx.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_result
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_query_result
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

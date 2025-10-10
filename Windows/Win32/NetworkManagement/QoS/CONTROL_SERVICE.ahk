@@ -7,8 +7,11 @@
 /**
  * The CONTROL_SERVICE structure contains supported RSVP service types.
  * @remarks
- * The <b>Length</b> value can be added to the pointer to the structure to obtain the pointer to the next <b>CONTROL_SERVICE</b> structure in the list, until the <b>NumberOfServices</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_adspec">RSVP_ADSPEC</a> structure is exhausted.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-control_service
+ * 
+  * The <b>Length</b> value can be added to the pointer to the structure to obtain the pointer to the next <b>CONTROL_SERVICE</b> structure in the list, until the <b>NumberOfServices</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_adspec">RSVP_ADSPEC</a> structure is exhausted.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-control_service
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

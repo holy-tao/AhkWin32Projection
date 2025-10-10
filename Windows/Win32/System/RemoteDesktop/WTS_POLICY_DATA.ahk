@@ -4,7 +4,8 @@
 /**
  * Contains policy information that is passed by the Remote Desktop Services service to the protocol.
  * @remarks
- * This structure is used by the following methods:
+ * 
+  * This structure is used by the following methods:
   * 
   * <ul>
   * <li>
@@ -14,7 +15,8 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-getuserdata">GetUserData</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_policy_data
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_policy_data
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

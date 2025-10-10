@@ -8,12 +8,15 @@
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.
  * @remarks
- * On input, the caller fills in only the <b>Version</b> and <b>Flags</b> members of the 
+ * 
+  * On input, the caller fills in only the <b>Version</b> and <b>Flags</b> members of the 
   * <b>RPC_EXTENDED_ERROR_INFO</b> structure. All other members are filled upon output by RPC.
   * 
   * The 
   * <b>RPC_EXTENDED_ERROR_INFO</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_extended_error_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_extended_error_info
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

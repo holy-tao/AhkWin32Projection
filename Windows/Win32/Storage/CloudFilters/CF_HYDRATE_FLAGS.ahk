@@ -2,7 +2,7 @@
 
 /**
  * Placeholder data hydration flags.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_hydrate_flags
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_hydrate_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

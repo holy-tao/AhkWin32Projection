@@ -3,7 +3,7 @@
 
 /**
  * Contains information of IME's composition string in an app.
- * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imecompositionstringinfo
+ * @see https://docs.microsoft.com/windows/win32/api//imepad/ns-imepad-imecompositionstringinfo
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

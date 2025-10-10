@@ -3,8 +3,11 @@
 /**
  * Describes the optimal lighting for viewing a particular set of video content.
  * @remarks
- * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a> attribute.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideolighting
+ * 
+  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a> attribute.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfvideolighting
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The PDH_BROWSE_DLG_CONFIG_H structure is used by the PdhBrowseCountersH function to configure the Browse Performance Counters dialog box. (ANSI)
+ * The PDH_BROWSE_DLG_CONFIG_H structure is used by the PdhBrowseCountersH function to configure the Browse Performance Counters dialog box.
  * @remarks
- * Each time the 
+ * 
+  * Each time the 
   * <a href="https://docs.microsoft.com/windows/desktop/SysMon/counters-add">Add</a> button is clicked, the <b>szReturnPathBuffer</b> buffer contains the selected counter and the <b>pCallBack</b> callback function is called. The callback function should call the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function for each counter in the buffer.
   * 
@@ -14,7 +15,9 @@
   * 
   * > [!NOTE]
   * > The pdh.h header defines PDH_BROWSE_DLG_CONFIG_H as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_ha
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_browse_dlg_config_ha
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset ANSI

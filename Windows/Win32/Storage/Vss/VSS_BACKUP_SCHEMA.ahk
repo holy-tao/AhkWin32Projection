@@ -3,7 +3,8 @@
 /**
  * Used by a writer to indicate the types of backup operations it can participate in.
  * @remarks
- * Writer set their backup schemas with calls to 
+ * 
+  * Writer set their backup schemas with calls to 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema">IVssCreateWriterMetadata::SetBackupSchema</a>.
   * 
   * Requesters use 
@@ -21,7 +22,9 @@
   *     Logical Paths</a>), or by disabling the writer (see 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterclasses">IVssBackupComponents::DisableWriterClasses</a> or 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterinstances">IVssBackupComponents::DisableWriterInstances</a>).
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_backup_schema
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_backup_schema
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

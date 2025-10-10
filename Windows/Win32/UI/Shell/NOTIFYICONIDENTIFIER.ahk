@@ -4,7 +4,8 @@
 /**
  * Contains information used by Shell_NotifyIconGetRect to identify the icon for which to retrieve the bounding rectangle.
  * @remarks
- * The icon can be identified to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicongetrect">Shell_NotifyIconGetRect</a> through this structure in two ways:
+ * 
+  * The icon can be identified to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicongetrect">Shell_NotifyIconGetRect</a> through this structure in two ways:
   *             
   *                 
   * 
@@ -13,7 +14,8 @@
   * <li><i>hWnd</i> plus <i>uID</i></li>
   * </ul>
   * If <i>guidItem</i> is not <b>GUID_NULL</b>, <i>hWnd</i> and <i>uID</i> are ignored.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyiconidentifier
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-notifyiconidentifier
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

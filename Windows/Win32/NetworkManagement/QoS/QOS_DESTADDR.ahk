@@ -4,7 +4,7 @@
 
 /**
  * The QOS object QOS_DESTADDR is used during a call to the WSAIoctl (SIO_SET_QOS) function in order to avoid issuing a connect function call for a sending socket.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-qos_destaddr
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-qos_destaddr
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

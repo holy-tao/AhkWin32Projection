@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Defines a basic service set (BSS) network type.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-bss-type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

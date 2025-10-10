@@ -4,10 +4,13 @@
 /**
  * Contains information about a file association in RemoteApp and Desktop Connection.
  * @remarks
- * <b>MAX_FILE_ASSOC_EXTENSION_SIZE</b> is declared as follows:
+ * 
+  * <b>MAX_FILE_ASSOC_EXTENSION_SIZE</b> is declared as follows:
   * 
   * <c>#define MAX_FILE_ASSOC_EXTENSION_SIZE 256</c>
- * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2fileassociation
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/ns-tspubplugin2com-pluginresource2fileassociation
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

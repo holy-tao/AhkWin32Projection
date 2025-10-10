@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a cryptographic interface that a provider supports.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_provider_ref
+ * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-crypt_provider_ref
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

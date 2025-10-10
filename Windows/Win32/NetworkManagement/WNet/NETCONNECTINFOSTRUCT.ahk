@@ -3,7 +3,7 @@
 
 /**
  * The NETCONNECTINFOSTRUCT structure contains information about the performance of a network. It is used by the NPGetConnectionPerformance function.
- * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netconnectinfostruct
+ * @see https://docs.microsoft.com/windows/win32/api//winnetwk/ns-winnetwk-netconnectinfostruct
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @version v4.0.30319
  */

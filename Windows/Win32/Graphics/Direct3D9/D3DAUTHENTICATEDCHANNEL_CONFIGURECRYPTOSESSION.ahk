@@ -4,8 +4,6 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
- * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_CRYPTOSESSION command.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configurecryptosession
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -16,7 +14,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure that contains the command GUID and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT}
      */
     Parameters{
@@ -28,7 +25,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
     }
 
     /**
-     * A handle to the DirectX Video Acceleration 2 (DXVA-2) decoder device.
      * @type {Pointer<Void>}
      */
     DXVA2DecodeHandle {
@@ -37,7 +33,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
     }
 
     /**
-     * A handle to the cryptographic session.
      * @type {Pointer<Void>}
      */
     CryptoSessionHandle {
@@ -46,7 +41,6 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
     }
 
     /**
-     * A handle to the Direct3D device.
      * @type {Pointer<Void>}
      */
     DeviceHandle {

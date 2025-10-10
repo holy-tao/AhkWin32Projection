@@ -5,7 +5,8 @@
 /**
  * Contains a table of Address Resolution Protocol (ARP) entries for IPv4 addresses.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipnettable">GetIpNetTable</a> function retrieves the IPv4-to-physical address mapping table.
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipnettable">GetIpNetTable</a> function retrieves the IPv4-to-physical address mapping table.
   * 
   * 
   * on a local system and returns this information in a <b>MIB_IPNETTABLE</b> structure. 
@@ -19,7 +20,9 @@
   * 
   * 
   * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>MIB_IPNETTABLE</b> structure is defined in the <i>Ipmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ipmib.h</i> header file is automatically included in <i>Iprtrmib.h</i> which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ipmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipnettable
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ipmib/ns-ipmib-mib_ipnettable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

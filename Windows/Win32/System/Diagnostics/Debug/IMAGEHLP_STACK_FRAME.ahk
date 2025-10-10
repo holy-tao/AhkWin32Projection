@@ -3,7 +3,7 @@
 
 /**
  * Contains the stack frame information.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_stack_frame
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-imagehlp_stack_frame
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

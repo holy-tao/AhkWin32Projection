@@ -3,7 +3,7 @@
 
 /**
  * Contains the client credentials returned by a call to WlxQueryClientCredentials or WlxQueryInetConnectorCredentials.
- * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_client_credentials_info_v1_0
+ * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_client_credentials_info_v1_0
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

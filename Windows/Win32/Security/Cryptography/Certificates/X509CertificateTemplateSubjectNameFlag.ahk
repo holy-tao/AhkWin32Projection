@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify server and client actions concerning subject names.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplatesubjectnameflag
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificatetemplatesubjectnameflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

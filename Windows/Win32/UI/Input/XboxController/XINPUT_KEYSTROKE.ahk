@@ -4,7 +4,8 @@
 /**
  * Specifies keystroke data returned by XInputGetKeystroke.
  * @remarks
- * Future devices may return HID codes and virtual key values that are not supported on current devices, and are currently undefined. Applications should ignore these unexpected values.
+ * 
+  * Future devices may return HID codes and virtual key values that are not supported on current devices, and are currently undefined. Applications should ignore these unexpected values.
   * 
   * 
   * 
@@ -158,7 +159,9 @@
   * <td>Right thumbstick down and left </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_keystroke
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xinput/ns-xinput-xinput_keystroke
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

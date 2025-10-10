@@ -2,10 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Is used to store AuthIP's extended mode negotiation policy. (IKEEXT_EM_POLICY1)
+ * Is used to store AuthIP's extended mode negotiation policy.
  * @remarks
- * Applies only to AuthIP.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_em_policy1
+ * 
+  * Applies only to AuthIP.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_em_policy1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

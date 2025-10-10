@@ -4,7 +4,7 @@
 
 /**
  * The MIDIOPENDESC structure is a client-filled structure that provides information about how to open a MIDI device.
- * @see https://learn.microsoft.com/windows/win32/api/mmddk/ns-mmddk-midiopendesc
+ * @see https://docs.microsoft.com/windows/win32/api//mmddk/ns-mmddk-midiopendesc
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  * @version v4.0.30319
  */

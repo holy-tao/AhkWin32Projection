@@ -4,8 +4,11 @@
 /**
  * The PEER_EVENT_ENDPOINT_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_CHANGED or PEER_EVENT_MY_ENDPOINT_CHANGED event is raised on a peer participating in a peer collaboration network.
  * @remarks
- * This event is raised when information about the endpoint changes. An example of this being the endpoint name in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure is changed using <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabsetendpointname">PeerCollabSetEndpointName</a>.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_endpoint_changed_data
+ * 
+  * This event is raised when information about the endpoint changes. An example of this being the endpoint name in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure is changed using <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabsetendpointname">PeerCollabSetEndpointName</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_endpoint_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

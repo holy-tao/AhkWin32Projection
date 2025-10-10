@@ -2,7 +2,7 @@
 
 /**
  * Specifies the destination context, which is the process in which the unmarshaling is to be done.
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-mshctx
+ * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ne-wtypesbase-mshctx
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

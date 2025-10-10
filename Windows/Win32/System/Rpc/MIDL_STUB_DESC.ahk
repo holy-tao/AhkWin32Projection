@@ -3,7 +3,7 @@
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.
- * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-midl_stub_desc
+ * @see https://docs.microsoft.com/windows/win32/api//rpcndr/ns-rpcndr-midl_stub_desc
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

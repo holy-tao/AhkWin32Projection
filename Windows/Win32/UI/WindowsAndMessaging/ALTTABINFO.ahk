@@ -4,7 +4,7 @@
 
 /**
  * Contains status information for the application-switching (ALT+TAB) window.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-alttabinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-alttabinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -103,7 +103,7 @@ class ALTTABINFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The top-left corner of the first icon.
      * @type {POINT}

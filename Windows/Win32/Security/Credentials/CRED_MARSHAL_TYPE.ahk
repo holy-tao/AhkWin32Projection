@@ -2,7 +2,7 @@
 
 /**
  * Specifies the types of credential to be marshaled by CredMarshalCredential or unmarshaled by CredUnmarshalCredential.
- * @see https://learn.microsoft.com/windows/win32/api/wincred/ne-wincred-cred_marshal_type
+ * @see https://docs.microsoft.com/windows/win32/api//wincred/ne-wincred-cred_marshal_type
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

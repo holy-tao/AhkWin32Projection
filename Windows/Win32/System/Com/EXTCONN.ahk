@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The EXTCONN (objidlbase.h) enumeration specifies the type of external connection existing on an embedded object.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-extconn
+ * Specifies the type of external connection existing on an embedded object.
+ * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-extconn
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -3,8 +3,11 @@
 /**
  * Identifies a type of alpha texture.
  * @remarks
- * An alpha texture is a bitmap of alpha values, each representing opacity of a pixel or subpixel.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type
+ * 
+  * An alpha texture is a bitmap of alpha values, each representing opacity of a pixel or subpixel.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_texture_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

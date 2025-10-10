@@ -5,8 +5,8 @@
 #Include .\MINIDUMP_THREAD.ahk
 
 /**
- * Contains a list of threads. (MINIDUMP_THREAD_LIST)
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_list
+ * Contains a list of threads.
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_thread_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

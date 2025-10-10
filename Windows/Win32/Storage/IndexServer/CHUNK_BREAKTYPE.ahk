@@ -3,8 +3,11 @@
 /**
  * Describes the type of break that separates the current chunk from the previous chunk.
  * @remarks
- * A change in attributes implies a word, sentence, paragraph, or chapter break.
- * @see https://learn.microsoft.com/windows/win32/api/filter/ne-filter-chunk_breaktype
+ * 
+  * A change in attributes implies a word, sentence, paragraph, or chapter break.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//filter/ne-filter-chunk_breaktype
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

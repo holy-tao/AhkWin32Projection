@@ -3,7 +3,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains information about an event raised when content is being asynchronously loaded by a UI element.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiaasynccontentloadedeventargs
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiaasynccontentloadedeventargs
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

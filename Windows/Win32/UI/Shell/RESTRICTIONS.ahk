@@ -2,7 +2,7 @@
 
 /**
  * These flags are used with the SHRestricted function.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -509,7 +509,7 @@ class RESTRICTIONS{
     /**
      * If nonzero, the system administrator has restricted the programs the user can run.  Programs listed under the registry key 
  *                             
- *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowRun</b> may not be run from the <b>Run</b> dialog box, by double-clicking, or by selecting from the <b>File</b> menu.  Programs are listed by their full path (for example, "C:\Windows\system32\cmd.exe"). Applications should prevent users from running programs listed under that key. Applications that use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> function to run programs do not need to take any special action because those functions will check the policy.
+ *                                <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Policies</b>&#92;<b>Explorer</b>&#92;<b>DisallowRun</b>may not be run from the <b>Run</b> dialog box, by double-clicking, or by selecting from the <b>File</b> menu.  Programs are listed by their full path (for example, "C:\Windows\system32\cmd.exe"). Applications should prevent users from running programs listed under that key. Applications that use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> function to run programs do not need to take any special action because those functions will check the policy.
      * @type {Integer (Int32)}
      */
     static REST_DISALLOWRUN => 1073741886
@@ -560,28 +560,28 @@ class RESTRICTIONS{
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b> registry key. Applications do not need to perform any special actions.
+ *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOLOCALMACHINERUN => 1073741894
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b> registry key. Applications do not need to perform any special actions.
+ *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>Run</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOCURRENTUSERRUN => 1073741895
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b> registry key. Applications do not need to perform any special actions.
+ *                    <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOLOCALMACHINERUNONCE => 1073741896
 
     /**
      * If nonzero, the system administrator has disabled the execution of programs listed in the 
- *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b> registry key. Applications do not need to perform any special actions.
+ *                    <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>RunOnce</b>registry key. Applications do not need to perform any special actions.
      * @type {Integer (Int32)}
      */
     static REST_NOCURRENTUSERRUNONCE => 1073741897

@@ -17,8 +17,6 @@ class ApplicationVerifier {
 ;@region Methods
     /**
      * Enumerates operating system resources for use by debugging and support tools.
-     * @remarks
-     * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Verifier.dll.
      * @param {Pointer<Void>} Process A handle to the process in which resources are being enumerated.
      * 
      * When the <i>ResourceType</i> parameter is AvrfResrouceHeapAllocation, the handle must be opened with the PROCESS_VM_READ and PROCESS_QUERY_INFORMATION access rights.
@@ -30,8 +28,8 @@ class ApplicationVerifier {
      * 
      * The prototype is agnostic toward the type of resource being enumerated. The use will pass a prototype suitable for the type of enumeration being performed
      * @param {Pointer<Void>} EnumerationContext An application-specific pointer that is passed back to the callback function.
-     * @returns {Integer} This function returns one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/nf-avrfsdk-verifierenumerateresource
+     * @returns {Integer} This function returns one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/nf-avrfsdk-verifierenumerateresource
      */
     static VerifierEnumerateResource(Process, Flags, ResourceType, ResourceCallback, EnumerationContext) {
         result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", ResourceType, "ptr", ResourceCallback, "ptr", EnumerationContext, "uint")

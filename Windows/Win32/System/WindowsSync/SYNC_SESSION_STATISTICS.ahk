@@ -3,7 +3,7 @@
 
 /**
  * Represents statistics about a single, unidirectional synchronization session.
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_session_statistics
+ * @see https://docs.microsoft.com/windows/win32/api//winsync/ns-winsync-sync_session_statistics
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

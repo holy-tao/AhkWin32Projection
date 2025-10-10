@@ -4,8 +4,11 @@
 /**
  * Contains a table of pointers to service provider upcall functions.
  * @remarks
- * The **WSPUPCALLTABLE** structure contains a table of pointers to service provider upcall functions that are passed to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wspstartup">WSPStartup</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wspupcalltable
+ * 
+  * The **WSPUPCALLTABLE** structure contains a table of pointers to service provider upcall functions that are passed to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wspstartup">WSPStartup</a> function.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ns-ws2spi-wspupcalltable
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

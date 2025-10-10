@@ -3,7 +3,7 @@
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_write_cache_property
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_write_cache_property
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

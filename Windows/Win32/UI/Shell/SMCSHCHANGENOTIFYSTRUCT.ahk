@@ -3,7 +3,7 @@
 
 /**
  * Contains information about change notification. It is used by IShellMenuCallback::CallbackSM.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-smcshchangenotifystruct
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-smcshchangenotifystruct
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

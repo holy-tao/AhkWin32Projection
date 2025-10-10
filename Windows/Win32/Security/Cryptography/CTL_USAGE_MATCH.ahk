@@ -4,7 +4,7 @@
 
 /**
  * Provides parameters for finding certificate trust lists (CTL) used to build a certificate chain.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_usage_match
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ctl_usage_match
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

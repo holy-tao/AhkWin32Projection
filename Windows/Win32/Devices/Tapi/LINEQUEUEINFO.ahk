@@ -3,7 +3,7 @@
 
 /**
  * The LINEQUEUEINFO structure provides information about a queue on a line device. The lineGetQueueInfo function returns the LINEQUEUEINFO structure. This structure requires TAPI 3.0 version negotiation.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linequeueinfo
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linequeueinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

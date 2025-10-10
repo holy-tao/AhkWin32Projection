@@ -3,7 +3,7 @@
 
 /**
  * The DDGETPOLARITYOUTINFO structure contains the polarity information of the video port extensions (VPE) object.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgetpolarityoutinfo
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddgetpolarityoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

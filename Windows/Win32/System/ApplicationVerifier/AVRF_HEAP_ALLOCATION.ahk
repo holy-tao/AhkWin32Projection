@@ -3,7 +3,7 @@
 
 /**
  * Stores metadata information about heap allocation.
- * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_heap_allocation
+ * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ns-avrfsdk-avrf_heap_allocation
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */

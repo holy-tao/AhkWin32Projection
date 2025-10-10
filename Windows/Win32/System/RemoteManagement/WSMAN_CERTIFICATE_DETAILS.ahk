@@ -3,7 +3,7 @@
 
 /**
  * Stores client information for an inbound request that was sent with a client certificate.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_certificate_details
+ * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_certificate_details
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

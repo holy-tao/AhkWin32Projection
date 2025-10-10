@@ -3,7 +3,7 @@
 
 /**
  * Associates a parent object with a child object.
- * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-parentchildrelation
+ * @see https://docs.microsoft.com/windows/win32/api//xamlom/ns-xamlom-parentchildrelation
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

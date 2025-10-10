@@ -2,7 +2,7 @@
 
 /**
  * Defines the type of policy domain information.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_domain_information_class
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_domain_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

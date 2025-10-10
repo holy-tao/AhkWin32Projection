@@ -2,7 +2,7 @@
 
 /**
  * The AM_WST_STYLE enumeration is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/iwstdec/ne-iwstdec-am_wst_style
+ * @see https://docs.microsoft.com/windows/win32/api//iwstdec/ne-iwstdec-am_wst_style
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

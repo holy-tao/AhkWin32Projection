@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_IPADDRESS structure (vdshwprv.h) defines an IP address and port.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_ipaddress
+ * Defines an IP address and port.
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_ipaddress
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

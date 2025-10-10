@@ -2,7 +2,7 @@
 
 /**
  * Defines values for the type of attendee.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpencomapi_attendee_flags
+ * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-rdpencomapi_attendee_flags
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

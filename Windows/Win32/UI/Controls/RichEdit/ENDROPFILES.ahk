@@ -4,7 +4,7 @@
 
 /**
  * Contains information associated with an EN_DROPFILES notification code. A rich edit control sends this notification code when it receives a WM_DROPFILES message.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-endropfiles
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-endropfiles
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

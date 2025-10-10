@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the red, green, blue, and alpha components of a color. | DWRITE_COLOR_F (Dwrite\_2.h)
- * @remarks
- * For more information, see [**D3DCOLORVALUE**](../direct3d9/d3dcolorvalue.md).
- * @see https://learn.microsoft.com/windows/win32/DirectWrite/dwrite-color-f
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

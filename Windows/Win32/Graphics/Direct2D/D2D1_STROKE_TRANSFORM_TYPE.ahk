@@ -3,7 +3,8 @@
 /**
  * Defines how the world transform, dots per inch (dpi), and stroke width affect the shape of the pen used to stroke a primitive.
  * @remarks
- * If you specify <b>D2D1_STROKE_TRANSFORM_TYPE_FIXED</b> the stroke isn't affected by the world transform.
+ * 
+  * If you specify <b>D2D1_STROKE_TRANSFORM_TYPE_FIXED</b> the stroke isn't affected by the world transform.
   * 
   * If you specify <b>D2D1_STROKE_TRANSFORM_TYPE_FIXED</b> the application has the same behavior in Windows 7 and later.
   * 
@@ -21,7 +22,9 @@
   * And here is an illustration of a fixed width stroke which does not get transformed.
   * 
   * <img alt="An illustration of a fixed width stroke which does not get transformed." src="./images/fixedwidthstroke.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

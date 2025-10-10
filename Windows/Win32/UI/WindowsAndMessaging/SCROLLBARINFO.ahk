@@ -4,7 +4,7 @@
 
 /**
  * The SCROLLBARINFO structure contains scroll bar information.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-scrollbarinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-scrollbarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

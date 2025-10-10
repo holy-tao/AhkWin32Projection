@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters for the IDirectXVideoDecoder::Execute method.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodeexecuteparams
+ * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_decodeexecuteparams
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

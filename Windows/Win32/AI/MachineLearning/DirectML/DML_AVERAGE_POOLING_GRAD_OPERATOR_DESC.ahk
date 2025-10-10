@@ -3,7 +3,7 @@
 
 /**
  * Computes backpropagation gradients for average pooling (see [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc)).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_average_pooling_grad_operator_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_average_pooling_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Determines the type of COM security descriptor to get when calling CoGetSystemSecurityPermissions.
- * @see https://learn.microsoft.com/windows/win32/api/objbase/ne-objbase-comsd
+ * @see https://docs.microsoft.com/windows/win32/api//objbase/ne-objbase-comsd
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

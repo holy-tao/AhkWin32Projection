@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains a set of four floating-point numbers that represent the location and size of a rectangle.
- * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-rect
+ * A Rect object stores the upper-left corner, width, and height of a rectangle.
+ * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-rect
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -14,7 +14,6 @@ class Rect extends Win32Struct
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     X {
@@ -23,7 +22,6 @@ class Rect extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Y {
@@ -32,7 +30,6 @@ class Rect extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Width {
@@ -41,7 +38,6 @@ class Rect extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Height {

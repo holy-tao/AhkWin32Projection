@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of media for a connection.
- * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ne-wcmapi-wcm_media_type
+ * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ne-wcmapi-wcm_media_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

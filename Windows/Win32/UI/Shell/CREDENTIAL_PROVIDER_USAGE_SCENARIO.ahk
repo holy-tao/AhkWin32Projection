@@ -3,7 +3,8 @@
 /**
  * Declares the scenarios in which a credential provider is supported. A credential provider usage scenario (CPUS) enables the credential provider to provide distinct enumeration behavior and UI field setup across scenarios.
  * @remarks
- * Starting in Windows 10, the <b>CPUS_LOGON</b> and <b>CPUS_UNLOCK_WORKSTATION</b> user scenarios have been combined. This enables the system to support multiple users logging into a machine without creating and switching sessions unnecessarily. Any user on the machine can log into it once it has been locked without needing to back out of a current session and create a new one. Because of this, <b>CPUS_LOGON</b> can be used both for logging onto a system or when a workstation is unlocked. However, <b>CPUS_LOGON</b> cannot be used in all cases. Because of policy restrictions imposed by various systems, sometimes it is necessary for the user scenario to be <b>CPUS_UNLOCK_WORKSTATION</b>. Your credential provider should be robust enough to create the appropriate credential structure based on the scenario given to it. Windows will request the appropriate user scenario based on the situation. Some of the factors that impact whether or not a <b>CPUS_UNLOCK_WORKSTATION</b> scenario must be used include the following. Note that this is just a subset of possibilities.
+ * 
+  * Starting in Windows 10, the <b>CPUS_LOGON</b> and <b>CPUS_UNLOCK_WORKSTATION</b> user scenarios have been combined. This enables the system to support multiple users logging into a machine without creating and switching sessions unnecessarily. Any user on the machine can log into it once it has been locked without needing to back out of a current session and create a new one. Because of this, <b>CPUS_LOGON</b> can be used both for logging onto a system or when a workstation is unlocked. However, <b>CPUS_LOGON</b> cannot be used in all cases. Because of policy restrictions imposed by various systems, sometimes it is necessary for the user scenario to be <b>CPUS_UNLOCK_WORKSTATION</b>. Your credential provider should be robust enough to create the appropriate credential structure based on the scenario given to it. Windows will request the appropriate user scenario based on the situation. Some of the factors that impact whether or not a <b>CPUS_UNLOCK_WORKSTATION</b> scenario must be used include the following. Note that this is just a subset of possibilities.
   * 
   * <ul>
   * <li>The operating system of the device.</li>
@@ -11,7 +12,9 @@
   * <li>Group policies such as hiding entry points for fast user switching, or interactive logon that does not display the user's last name.</li>
   * </ul>
   * Credential providers that need to enumerate the currently user logged into the system as the default tile can keep track of the current user or leverage APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> to obtain that information.
- * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

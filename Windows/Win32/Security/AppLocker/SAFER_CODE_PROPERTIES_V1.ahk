@@ -2,10 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains code image information and criteria to be checked on the code image. (SAFER_CODE_PROPERTIES_V1)
+ * Contains code image information and criteria to be checked on the code image.
  * @remarks
- * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_code_properties_v2">SAFER_CODE_PROPERTIES</a>  was redefined to include additional members that allow Windows Store app to use the structure. Check the <b>cbSize</b> member for the appropriate size of the structure and for whether you should use the <b>SAFER_CODE_PROPERTIES</b> structure or the <b>SAFER_CODE_PROPERTIES_V1</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_code_properties_v1
+ * 
+  * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_code_properties_v2">SAFER_CODE_PROPERTIES</a>  was redefined to include additional members that allow Windows Store app to use the structure. Check the <b>cbSize</b> member for the appropriate size of the structure and for whether you should use the <b>SAFER_CODE_PROPERTIES</b> structure or the <b>SAFER_CODE_PROPERTIES_V1</b> structure.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsafer/ns-winsafer-safer_code_properties_v1
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the DDS image dimension, DXGI_FORMAT and alpha mode of contained data.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicddsparameters
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicddsparameters
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

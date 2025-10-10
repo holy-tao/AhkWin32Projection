@@ -3,7 +3,7 @@
 
 /**
  * DRT_BOOTSTRAP_PROVIDER structure defines the DRT interface that must be implemented by a bootstrap provider.
- * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_bootstrap_provider
+ * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_bootstrap_provider
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -6,7 +6,8 @@
 /**
  * The VIDEOINFOHEADER structure describes the bitmap and color information for a video image.
  * @remarks
- * For information about using the <b>rcSource</b> and <b>rcTarget</b> members, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
+ * 
+  * For information about using the <b>rcSource</b> and <b>rcTarget</b> members, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
   * 
   * <h3><a id="Frame_Rates"></a><a id="frame_rates"></a><a id="FRAME_RATES"></a>Frame Rates</h3>
   * The value of <b>AvgTimePerFrame</b> is usually set by the source filter, which obtains the value from the media stream. This value can be used to calculate the authored frame rate, which is the intended frame rate for the video to be rendered. During playback, the system may not be able to render the stream at the authored rate, so the actual frame rate may be less. This can happen if the machine's resources become over-committed. Also, the monitor's refresh rate can interfere with the playback rate of the video. For example, if the intended rate is 60,000/1001 (NTSC TV) and the monitor's refresh rate is 60Hz, the intended rate and the actual rate will never match. To retrieve the actual frame rate achieved during playback, use the <a href="https://docs.microsoft.com/previous-versions/ms786607(v=vs.85)">IQualProp::get_AvgFrameRate</a> method on the video renderer.
@@ -17,7 +18,9 @@
   * <li>If the old <a href="https://docs.microsoft.com/windows/desktop/DirectShow/video-renderer-filter">Video Renderer</a> filter is rendering, call the <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-ibasicvideo-get_avgtimeperframe">IBasicVideo::get_AvgTimePerFrame</a> method.</li>
   * <li>If the Video Mixing Renderer (VMR) is rendering, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-connectionmediatype">IPin::ConnectionMediaType</a> on the input pin and examine the format block. The VMR supports multiple input streams, and they are not required to have the same frame rates.</li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfoheader
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//amvideo/ns-amvideo-videoinfoheader
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

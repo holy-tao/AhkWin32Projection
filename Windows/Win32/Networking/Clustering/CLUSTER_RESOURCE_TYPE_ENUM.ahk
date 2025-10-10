@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_RESOURCE_TYPE_ENUM enumerations (msclus.h) describes the type of cluster object being enumerated by two specific functions.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_type_enum
+ * Describes the type of cluster object being enumerated by the ClusterResourceTypeEnum and ClusterResourceTypeOpenEnum functions.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_resource_type_enum
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

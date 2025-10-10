@@ -3,7 +3,7 @@
 
 /**
  * Represents the number and affinity of processors in a processor group.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_group_info
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-processor_group_info
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

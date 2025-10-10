@@ -3,7 +3,7 @@
 
 /**
  * The DHCPV6_STATELESS_STATS structure defines an array of stateless IPv6 subnet statistics.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_stats
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_stats
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about objects and text on the clipboard.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-ensaveclipboard
+ * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-ensaveclipboard
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

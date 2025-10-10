@@ -2,7 +2,7 @@
 
 /**
  * A member of the ADDRESS_CAPABILITY enum is used by the ITAddressCapabilities::get_AddressCapability method to indicate the address capability required.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_capability
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-address_capability
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

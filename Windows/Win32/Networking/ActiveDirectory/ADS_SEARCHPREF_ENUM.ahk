@@ -3,7 +3,8 @@
 /**
  * Specifies preferences for an IDirectorySearch object.
  * @remarks
- * To setup a search preference, assign appropriate values to the fields of an 
+ * 
+  * To setup a search preference, assign appropriate values to the fields of an 
   *      <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_searchpref_info">ADS_SEARCHPREF_INFO</a> structure passed to the server. The <b>vValue</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure is an <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure. The following list lists the <b>ADS_SEARCHPREF_ENUM</b> values, the corresponding values for the <b>dwType</b> member of the <b>ADSVALUE</b> structure, and the <b>ADSVALUE</b> member that is used for the specified type.
   * 
   * <table>
@@ -117,7 +118,10 @@
   * All options are supported by the LDAP system provider.
   * 
   * Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. You should use the numerical constants, instead, to set the appropriate flags in your VBScript applications. To use the symbolic constants, as a good programming practice, explicitly declare such constants, as done here, in your VBScript applications.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_searchpref_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

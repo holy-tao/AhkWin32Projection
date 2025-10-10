@@ -4,7 +4,7 @@
 
 /**
  * The CERT_PAIR structure contains a certificate and its pair cross certificate.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_pair
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_pair
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

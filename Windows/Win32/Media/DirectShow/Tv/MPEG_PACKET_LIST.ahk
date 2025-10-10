@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_PACKET_LIST structure contains a list of MPEG-2 sections.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_packet_list
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_packet_list
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

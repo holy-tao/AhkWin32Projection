@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MONITOR_STATE structure is part of the resapi.h header used by Windows Clustering.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-monitor_state
+ * TBD.
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-monitor_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

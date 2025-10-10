@@ -3,8 +3,6 @@
 #Include .\CLS_IO_STATISTICS_HEADER.ahk
 
 /**
- * Defines the statistics that are reported by GetLogIoStatistics.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class CLS_IO_STATISTICS extends Win32Struct
     static packingSize => 8
 
     /**
-     * The header for the statistics buffer.
      * @type {CLS_IO_STATISTICS_HEADER}
      */
     hdrIoStats{
@@ -27,7 +24,6 @@ class CLS_IO_STATISTICS extends Win32Struct
     }
 
     /**
-     * The frequency of  data flushes  for the logging session.
      * @type {Integer}
      */
     cFlush {
@@ -36,7 +32,6 @@ class CLS_IO_STATISTICS extends Win32Struct
     }
 
     /**
-     * The cumulative number of bytes of data  flushed in the logging session.
      * @type {Integer}
      */
     cbFlush {
@@ -45,7 +40,6 @@ class CLS_IO_STATISTICS extends Win32Struct
     }
 
     /**
-     * The frequency of  metadata flushes  for the logging session.
      * @type {Integer}
      */
     cMetaFlush {
@@ -54,7 +48,6 @@ class CLS_IO_STATISTICS extends Win32Struct
     }
 
     /**
-     * The cumulative number of bytes of metadata flushed in the logging session.
      * @type {Integer}
      */
     cbMetaFlush {

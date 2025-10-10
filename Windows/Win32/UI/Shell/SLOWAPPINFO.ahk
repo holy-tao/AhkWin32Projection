@@ -5,8 +5,11 @@
 /**
  * Provides specialized application information to Add/Remove Programs in Control Panel. This structure is not applicable to published applications.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getslowappinfo">IShellApp::GetSlowAppInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo">IShellApp::GetCachedSlowAppInfo</a> interfaces, neither of which are applicable to published applications. Therefore, this structure is also not applicable to published applications.
- * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ns-shappmgr-slowappinfo
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getslowappinfo">IShellApp::GetSlowAppInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo">IShellApp::GetCachedSlowAppInfo</a> interfaces, neither of which are applicable to published applications. Therefore, this structure is also not applicable to published applications.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shappmgr/ns-shappmgr-slowappinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

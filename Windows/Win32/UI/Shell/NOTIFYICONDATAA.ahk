@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (ANSI)
+ * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon.
  * @remarks
- * See "Notifications" in the Windows User Experience Interaction Guidelines for more information on notification UI and content best practices.
+ * 
+  * See "Notifications" in the Windows User Experience Interaction Guidelines for more information on notification UI and content best practices.
   * 
   * If you set the <b>NIF_INFO</b> flag in the <b>uFlags</b> member, the balloon-style notification is used. For more discussion of these notifications, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-tooltip-contro">Balloon tooltips</a>.
   * 
@@ -15,7 +16,8 @@
   * 
   * ```cpp
   * // Windows Vista and later:
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyicondataa
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-notifyicondataa
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset ANSI

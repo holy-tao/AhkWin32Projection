@@ -2,7 +2,7 @@
 
 /**
  * Contains values that specify the endpoints of a text range.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-textpatternrangeendpoint
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-textpatternrangeendpoint
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The values of the AUTHENTICATION_TYPE enumerated type are used to specify the authentication method.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-authentication_type
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-authentication_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

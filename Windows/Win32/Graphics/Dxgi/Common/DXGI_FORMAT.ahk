@@ -3,7 +3,8 @@
 /**
  * Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type.
  * @remarks
- * <h3><a id="Byte_Order__LSB_MSB_"></a><a id="byte_order__lsb_msb_"></a><a id="BYTE_ORDER__LSB_MSB_"></a>Byte Order (LSB/MSB)</h3>
+ * 
+  * <h3><a id="Byte_Order__LSB_MSB_"></a><a id="byte_order__lsb_msb_"></a><a id="BYTE_ORDER__LSB_MSB_"></a>Byte Order (LSB/MSB)</h3>
   * Most formats have byte-aligned components, and the components are in C-array order (the least address comes first).
   *             For those formats that don't have power-of-2-aligned components, the first named component is in the least-significant bits.
   *           
@@ -99,14 +100,14 @@
   * </tr>
   * <tr>
   * <td>_SNORM</td>
-  * <td>Signed normalized integer; which is interpreted in a resource as a signed integer, and is interpreted in a shader as a signed normalized floating-point value in the range [-1, 1]. For a 2's complement number, the maximum value is 1.0f (a 5-bit value 01111 maps to 1.0f), and the minimum value is -1.0f (a 5-bit value 10000 maps to -1.0f). In addition, the second-minimum number maps to -1.0f (a 5-bit value 10001 maps to -1.0f). The resulting integer representations are evenly spaced floating-point values in the range (-1.0f...0.0f), and also a complementary set of representations for numbers in the range (0.0f...1.0f).</td>
+  * <td>Signed normalized integer; which is interpreted in a resource as a signed integer, and is interpreted in a shader as a signed normalized floating-point value in the range [-1, 1]. For an 2's complement number, the maximum value is 1.0f (a 5-bit value 01111 maps to 1.0f), and the minimum value is -1.0f (a 5-bit value 10000 maps to -1.0f). In addition, the second-minimum number maps to -1.0f (a 5-bit value 10001 maps to -1.0f). The resulting integer representations are evenly spaced floating-point values in the range (-1.0f...0.0f), and also a complementary set of representations for numbers in the range (0.0f...1.0f).</td>
   * </tr>
   * <tr>
   * <td>_SRGB</td>
   * <td>
   * Standard RGB data, which roughly displays colors in a linear ramp of luminosity levels such that an average observer, under average viewing conditions, can view them on an average display.
   * 
-  * All 0's maps to 0.0f, and all 1's maps to 1.0f. The sequence of unsigned integer encodings between all 0's and all 1's represent a nonlinear progression in the floating-point interpretation of the numbers between 0.0f to 1.0f. For more detail, see the SRGB color standard, IEC 61996-2-1, at IEC (International Electrotechnical Commission).</p>Conversion to or from sRGB space is automatically done by D3DX10 or D3DX9 texture-load functions. If a format with _SRGB has an A channel, the A channel is stored in Gamma 1.0f data; the R, G, and B channels in the format are stored in sRGB Gamma (linear segment + 2.4 power) data.</td>
+  * All 0's maps to 0.0f, and all 1's maps to 1.0f. The sequence of unsigned integer encodings between all 0's and all 1's represent a nonlinear progression in the floating-point interpretation of the numbers between 0.0f to 1.0f. For more detail, see the SRGB color standard, IEC 61996-2-1, at IEC (International Electrotechnical Commission).</p>Conversion to or from sRGB space is automatically done by D3DX10 or D3DX9 texture-load functions. If a format with _SRGB has an A channel, the A channel is stored in Gamma 1.0f data; the R, G, and B channels in the format are stored in Gamma 2.2f data.</td>
   * </tr>
   * <tr>
   * <td>_TYPELESS</td>
@@ -153,7 +154,9 @@
   * <li>New Block-Compressed 1-2 channel UNORM/SNORM formats</li>
   * </ul>
   * The block compression formats can be used for any of the 2D or 3D texture types ( Texture2D, Texture2DArray, Texture3D, or TextureCube) including mipmap surfaces. The block compression techniques require texture dimensions to be a multiple of 4 (since the implementation compresses on blocks of 4x4 texels). In the texture sampler, compressed formats are always decompressed before texture filtering.
- * @see https://learn.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxgiformat/ne-dxgiformat-dxgi_format
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */
@@ -319,7 +322,7 @@ class DXGI_FORMAT{
      * Three partial-precision floating-point numbers encoded into a single 32-bit value (a variant of s10e5, which is sign bit, 10-bit mantissa, and 5-bit biased (15) exponent). 
  *         There are no sign bits, and there is a 5-bit biased (15) exponent for each channel, 6-bit mantissa  for R and G, and a 5-bit mantissa for B, as shown in the following illustration.<sup>5,7</sup>
  * 
- * <img alt="Illustration of the bits in the three partial-precision floating-point numbers, which shows that there are no sign bits." src="./images/R11G11B10_FLOAT.png"/>
+ * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/R11G11B10_FLOAT.png"/>
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_R11G11B10_FLOAT => 26
@@ -568,7 +571,7 @@ class DXGI_FORMAT{
      * Three partial-precision floating-point numbers encoded into a single 32-bit value all sharing the same 5-bit exponent (variant of s10e5, which is sign bit, 10-bit mantissa, and 5-bit biased (15) exponent). 
  *         There is no sign bit, and there is a shared 5-bit biased (15) exponent and a 9-bit mantissa for each channel, as shown in the following illustration. <sup>6,7</sup>.
  * 
- * <img alt="Illustration of the bits in the three partial-precision floating-point numbers, which shows a shared 5-bit biased exponent and a 9-bit mantissa in all channels." src="./images/RGBE.png"/>
+ * <img alt="Illustration of the bits in the three partial-precision floating-point numbers" src="./images/RGBE.png"/>
      * @type {Integer (Int32)}
      */
     static DXGI_FORMAT_R9G9B9E5_SHAREDEXP => 67

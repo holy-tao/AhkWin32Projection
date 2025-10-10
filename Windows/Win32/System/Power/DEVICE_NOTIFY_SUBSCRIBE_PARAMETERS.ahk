@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters used when registering for a power notification.
- * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-device_notify_subscribe_parameters
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

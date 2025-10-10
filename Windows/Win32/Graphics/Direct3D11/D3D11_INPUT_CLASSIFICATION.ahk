@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Type of data contained in an input slot. (D3D11_INPUT_CLASSIFICATION)
+ * Type of data contained in an input slot.
  * @remarks
- * Use these values to specify the type of data for a particular input element (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_input_element_desc">D3D11_INPUT_ELEMENT_DESC</a>) of an input-layout object.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_input_classification
+ * 
+  * Use these values to specify the type of data for a particular input element (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_input_element_desc">D3D11_INPUT_ELEMENT_DESC</a>) of an input-layout object.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_input_classification
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

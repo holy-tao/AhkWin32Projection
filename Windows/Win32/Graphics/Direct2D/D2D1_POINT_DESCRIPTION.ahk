@@ -4,7 +4,7 @@
 
 /**
  * Describes a point on a path geometry.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_point_description
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_point_description
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

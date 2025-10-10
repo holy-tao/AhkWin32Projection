@@ -2,7 +2,7 @@
 
 /**
  * The rendering priority affects the extent to which Direct2D will throttle its rendering workload.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/ne-d2d1_2-d2d1_rendering_priority
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -7,8 +7,11 @@
 /**
  * The WMMPEG2VIDEOINFO structure describes an MPEG-2 video stream.
  * @remarks
- * This structure is identical to the <b>MPEG2VIDEOINFO</b> structure defined in Dvdmedia.h. For more information, see the DirectShow documentation in the DirectX SDK.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmmpeg2videoinfo
+ * 
+  * This structure is identical to the <b>MPEG2VIDEOINFO</b> structure defined in Dvdmedia.h. For more information, see the DirectShow documentation in the DirectX SDK.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmmpeg2videoinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines constants used by Authorization Manager.
- * @see https://learn.microsoft.com/windows/win32/api/azroles/ne-azroles-az_prop_constants
+ * @see https://docs.microsoft.com/windows/win32/api//azroles/ne-azroles-az_prop_constants
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

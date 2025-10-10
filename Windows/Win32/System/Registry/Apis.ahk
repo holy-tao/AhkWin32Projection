@@ -4462,21 +4462,14 @@ class Registry {
 ;@region Methods
     /**
      * Closes a handle to the specified registry key.
-     * @remarks
-     * The handle for a specified key should not be used after it has been closed, because it will no longer be valid. Key handles should not be left open any longer than necessary.
-     * 
-     * The 
-     * <b>RegCloseKey</b> function does not necessarily write information to the registry before returning; it can take as much as several seconds for the cache to be flushed to the hard disk. If an application must explicitly write registry information to the hard disk, it can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regflushkey">RegFlushKey</a> function. 
-     * <b>RegFlushKey</b>, however, uses many system resources and should be called only when necessary.
      * @param {Pointer<Void>} hKey A handle to the open key to be closed. The handle must have been opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regclosekey
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regclosekey
      * @since windows5.0
      */
     static RegCloseKey(hKey) {
@@ -4486,36 +4479,30 @@ class Registry {
 
     /**
      * Maps a predefined registry key to the specified registry key.
-     * @remarks
-     * The 
-     * <b>RegOverridePredefKey</b> function is intended for software installation programs. It allows them to remap a predefined key, load a DLL component that will be installed on the system, call an entry point in the DLL, and examine the changes to the registry that the component attempted to make. The installation program can then write those changes to the locations intended by the DLL, or make changes to the data before writing it.
-     * 
-     * For example, consider an installation program that installs an ActiveX control as part of an application installation. The installation program needs to call the control's 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-dllregisterserver">DllRegisterServer</a> entry point to enable the control to register itself. Before this call, the installation program can call 
-     * <b>RegOverridePredefKey</b> to remap <b>HKEY_CLASSES_ROOT</b> to a temporary key such as <b>HKEY_CURRENT_USER</b>&#92;<b><i>TemporaryInstall</i></b>&#92;<b><i>DllRegistration</i></b>. It then calls <b>DllRegisterServer</b>, which causes the ActiveX control to write its registry entries to the temporary key. The installation program then calls 
-     * <b>RegOverridePredefKey</b> again to restore the original mapping of <b>HKEY_CLASSES_ROOT</b>. The installation program can modify the keys written to the temporary key, if necessary, before copying them to the original <b>HKEY_CLASSES_ROOT</b>.
-     * 
-     * After the call to 
-     * <b>RegOverridePredefKey</b>, you can safely call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> to close the <i>hNewHKey</i> handle. The system maintains its own reference to <i>hNewHKey</i>.
      * @param {Pointer<Void>} hKey A handle to one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
-     * - <b>HKEY_CLASSES_ROOT</b>
-     * - <b>HKEY_CURRENT_CONFIG</b>
-     * - <b>HKEY_CURRENT_USER</b>
-     * - <b>HKEY_LOCAL_MACHINE</b>
-     * - <b>HKEY_PERFORMANCE_DATA</b>
-     * - <b>HKEY_USERS</b>
+     * 
+     * 
+     * 
+     * <b>HKEY_CLASSES_ROOT</b>
+     * <b>HKEY_CURRENT_CONFIG</b>
+     * <b>HKEY_CURRENT_USER</b>
+     * <b>HKEY_LOCAL_MACHINE</b>
+     * <b>HKEY_PERFORMANCE_DATA</b>
+     * <b>HKEY_USERS</b>
      * @param {Pointer<Void>} hNewHKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It cannot be one of the predefined keys. The function maps <i>hKey</i> to refer to the <i>hNewHKey</i> key. This affects only the calling process. 
+     * 
+     * 
+     * 
      * 
      * If <i>hNewHKey</i> is <b>NULL</b>, the function restores the default mapping of the predefined key.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regoverridepredefkey
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regoverridepredefkey
      * @since windows5.0
      */
     static RegOverridePredefKey(hKey, hNewHKey) {
@@ -4525,17 +4512,6 @@ class Registry {
 
     /**
      * Retrieves a handle to the HKEY_CLASSES_ROOT key for a specified user. The user is identified by an access token.
-     * @remarks
-     * The 
-     * <b>RegOpenUserClassesRoot</b> function enables you to retrieve the merged <b>HKEY_CLASSES_ROOT</b> information for users other than the interactive user. For example, the server component of a client/server application could use 
-     * <b>RegOpenUserClassesRoot</b> to retrieve the merged information for a client.
-     * 
-     * <b>RegOpenUserClassesRoot</b> fails if the user profile for the specified user is not loaded. When a user logs on interactively, the system automatically loads the user's profile. For other users, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-loaduserprofilea">LoadUserProfile</a> function to load the user's profile. However, <b>LoadUserProfile</b> can be very time-consuming, so do not call it for this purpose unless it is absolutely necessary to have the user's merged <b>HKEY_CLASSES_ROOT</b> information.
-     * 
-     * Applications running in the security context of the interactively logged-on user do not need to use 
-     * <b>RegOpenUserClassesRoot</b>. These applications can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function to retrieve a merged view of the <b>HKEY_CLASSES_ROOT</b> key for the interactive user.
      * @param {Pointer<Void>} hToken A handle to a primary or impersonation access token that identifies the user of interest. This can be a token handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
@@ -4556,8 +4532,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenuserclassesroot
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenuserclassesroot
      * @since windows5.0
      */
     static RegOpenUserClassesRoot(hToken, samDesired, phkResult) {
@@ -4569,9 +4545,6 @@ class Registry {
 
     /**
      * Retrieves a handle to the HKEY_CURRENT_USER key for the user the current thread is impersonating.
-     * @remarks
-     * The <b>HKEY_CURRENT_USER</b> key maps to the root of the current user's branch in the <b>HKEY_USERS</b> key. It is cached for all threads in a process. Therefore, this value does not change when another user's profile is loaded. 
-     * <b>RegOpenCurrentUser</b> uses the thread's token to access the appropriate key, or the default if the profile is not loaded.
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. When you no longer need the returned handle, call the 
@@ -4579,8 +4552,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopencurrentuser
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopencurrentuser
      * @since windows5.0
      */
     static RegOpenCurrentUser(samDesired, phkResult) {
@@ -4590,14 +4563,11 @@ class Registry {
 
     /**
      * Disables handle caching of the predefined registry handle for HKEY_CURRENT_USER for the current process.
-     * @remarks
-     * Any access of <b>HKEY_CURRENT_USER</b> after this function is called will result in operations being performed on <b>HKEY_USERS</b>&#92;<b>SID_of_current_user</b>,  or on <b>HKEY_USERS\.DEFAULT</b> if the current user's hive is not loaded. For more information on SIDs, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablepredefinedcache
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdisablepredefinedcache
      * @since windows5.0
      */
     static RegDisablePredefinedCache() {
@@ -4607,18 +4577,11 @@ class Registry {
 
     /**
      * Disables handle caching for all predefined registry handles for the current process.
-     * @remarks
-     * This function does not work on a remote computer.
-     * 
-     * Services that change impersonation should call this function before using any of the predefined handles.
-     * 
-     * For example, any access of <b>HKEY_CURRENT_USER</b> after this function is called results in open and close operations being performed on <b>HKEY_USERS</b>&#92;<b>SID_of_current_user</b>, or on <b>HKEY_USERS\.DEFAULT</b> if the current user's hive is not loaded. For more information on SIDs, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablepredefinedcacheex
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdisablepredefinedcacheex
      * @since windows6.0.6000
      */
     static RegDisablePredefinedCacheEx() {
@@ -4627,30 +4590,7 @@ class Registry {
     }
 
     /**
-     * Establishes a connection to a predefined registry key on another computer. (ANSI)
-     * @remarks
-     * <b>RegConnectRegistry</b> requires the Remote Registry service to be running on the remote computer. By default, this service is configured to be started manually. To configure the Remote Registry service to start automatically, run Services.msc and change the Startup Type of the service to Automatic.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>The Remote Registry service is configured to start automatically by default.
-     * 
-     * When a handle returned by 
-     * <b>RegConnectRegistry</b> is no longer needed, it should be closed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>.
-     * 
-     * If the computer is joined to a workgroup and the "Force network logons using local accounts to authenticate as Guest" policy is enabled, the function fails. Note that this policy is enabled by default if the  computer is joined to a workgroup.
-     * 
-     * If the current user does not have proper access to the remote computer, the call to <b>RegConnectRegistry</b> fails. To connect to a remote registry, call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> with LOGON32_LOGON_NEW_CREDENTIALS and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a> before calling <b>RegConnectRegistry</b>.
-     * 
-     * <b>Windows 2000:  </b>One possible workaround is to establish a session to an administrative share such as IPC$ using a different set of credentials. To specify credentials other than those of the current user, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> function to connect to the share. When you have finished accessing the registry, cancel the connection. 
-     * 
-     * <b>Windows XP Home Edition:  </b>You cannot use this function  to connect to a remote computer running Windows XP Home Edition. This function does work with the name of the local computer even if it is running Windows XP Home Edition because this bypasses the authentication layer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegConnectRegistry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Establishes a connection to a predefined registry key on another computer.
      * @param {Pointer<Byte>} lpMachineName The name of the remote computer. The string has the following form: 
      * 
      * 
@@ -4674,8 +4614,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regconnectregistrya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regconnectregistrya
      * @since windows5.0
      */
     static RegConnectRegistryA(lpMachineName, hKey, phkResult) {
@@ -4686,30 +4626,7 @@ class Registry {
     }
 
     /**
-     * Establishes a connection to a predefined registry key on another computer. (Unicode)
-     * @remarks
-     * <b>RegConnectRegistry</b> requires the Remote Registry service to be running on the remote computer. By default, this service is configured to be started manually. To configure the Remote Registry service to start automatically, run Services.msc and change the Startup Type of the service to Automatic.
-     * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>The Remote Registry service is configured to start automatically by default.
-     * 
-     * When a handle returned by 
-     * <b>RegConnectRegistry</b> is no longer needed, it should be closed by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>.
-     * 
-     * If the computer is joined to a workgroup and the "Force network logons using local accounts to authenticate as Guest" policy is enabled, the function fails. Note that this policy is enabled by default if the  computer is joined to a workgroup.
-     * 
-     * If the current user does not have proper access to the remote computer, the call to <b>RegConnectRegistry</b> fails. To connect to a remote registry, call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> with LOGON32_LOGON_NEW_CREDENTIALS and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a> before calling <b>RegConnectRegistry</b>.
-     * 
-     * <b>Windows 2000:  </b>One possible workaround is to establish a session to an administrative share such as IPC$ using a different set of credentials. To specify credentials other than those of the current user, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> function to connect to the share. When you have finished accessing the registry, cancel the connection. 
-     * 
-     * <b>Windows XP Home Edition:  </b>You cannot use this function  to connect to a remote computer running Windows XP Home Edition. This function does work with the name of the local computer even if it is running Windows XP Home Edition because this bypasses the authentication layer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegConnectRegistry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Establishes a connection to a predefined registry key on another computer.
      * @param {Pointer<Char>} lpMachineName The name of the remote computer. The string has the following form: 
      * 
      * 
@@ -4733,8 +4650,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regconnectregistryw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regconnectregistryw
      * @since windows5.0
      */
     static RegConnectRegistryW(lpMachineName, hKey, phkResult) {
@@ -4775,25 +4692,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key. If the key already exists in the registry, the function opens it. (ANSI)
-     * @remarks
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * The <b>RegCreateKey</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key. If the key already exists in the registry, the function opens it.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -4823,8 +4722,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeya
      * @since windows5.0
      */
     static RegCreateKeyA(hKey, lpSubKey, phkResult) {
@@ -4835,25 +4734,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key. If the key already exists in the registry, the function opens it. (Unicode)
-     * @remarks
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * The <b>RegCreateKey</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key. If the key already exists in the registry, the function opens it.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -4883,8 +4764,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeyw
      * @since windows5.0
      */
     static RegCreateKeyW(hKey, lpSubKey, phkResult) {
@@ -4895,31 +4776,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive. (ANSI)
-     * @remarks
-     * The key that the 
-     * <b>RegCreateKeyEx</b> function creates has no values. An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function to set key values.
-     * 
-     * The <b>RegCreateKeyEx</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -4992,8 +4849,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyexa
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeyexa
      * @since windows5.0
      */
     static RegCreateKeyExA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
@@ -5007,31 +4864,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive. (Unicode)
-     * @remarks
-     * The key that the 
-     * <b>RegCreateKeyEx</b> function creates has no values. An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function to set key values.
-     * 
-     * The <b>RegCreateKeyEx</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5104,8 +4937,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyexw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeyexw
      * @since windows5.0
      */
     static RegCreateKeyExW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
@@ -5119,31 +4952,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key and associates it with a transaction. (ANSI)
-     * @remarks
-     * When a key is created using this function, subsequent operations on the key are transacted. If a non-transacted operation is performed on the key before the transaction is committed, the transaction is rolled back. After a transaction is committed or rolled back, you must re-open the key using <b>RegCreateKeyTransacted</b> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> with an active transaction handle to make additional operations transacted. For more information about transactions, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/kernel-transaction-manager-portal">Kernel Transaction Manager</a>.
-     * 
-     * Note that subsequent operations on subkeys of this key are not automatically transacted. Therefore,  <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeyexa">RegDeleteKeyEx</a> does not perform a transacted delete operation. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeytransacteda">RegDeleteKeyTransacted</a> function to perform a transacted delete operation.
-     * 
-     * The key that the 
-     * <b>RegCreateKeyTransacted</b> function creates has no values. An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function to set key values.
-     * 
-     * The <b>RegCreateKeyTransacted</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key and associates it with a transaction.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5217,8 +5026,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeytransacteda
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeytransacteda
      * @since windows6.0.6000
      */
     static RegCreateKeyTransactedA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
@@ -5232,31 +5041,7 @@ class Registry {
     }
 
     /**
-     * Creates the specified registry key and associates it with a transaction. (Unicode)
-     * @remarks
-     * When a key is created using this function, subsequent operations on the key are transacted. If a non-transacted operation is performed on the key before the transaction is committed, the transaction is rolled back. After a transaction is committed or rolled back, you must re-open the key using <b>RegCreateKeyTransacted</b> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> with an active transaction handle to make additional operations transacted. For more information about transactions, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/kernel-transaction-manager-portal">Kernel Transaction Manager</a>.
-     * 
-     * Note that subsequent operations on subkeys of this key are not automatically transacted. Therefore,  <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeyexa">RegDeleteKeyEx</a> does not perform a transacted delete operation. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeytransacteda">RegDeleteKeyTransacted</a> function to perform a transacted delete operation.
-     * 
-     * The key that the 
-     * <b>RegCreateKeyTransacted</b> function creates has no values. An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function to set key values.
-     * 
-     * The <b>RegCreateKeyTransacted</b> function creates all missing keys in the specified path. An application can take advantage of this behavior to create several keys at once. For example, an application can create a subkey four levels deep at the same time as the three preceding subkeys by specifying a string of the following form for the <i>lpSubKey</i> parameter:
-     * 
-     * <i>subkey1\subkey2\subkey3\subkey4
-     * 			</i>
-     * 
-     * Note that this behavior will result in creation of unwanted keys if an existing key in the path is spelled incorrectly. 
-     * 
-     * An application cannot create a key that is a direct child of <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b>. An application can create subkeys in lower levels of the <b>HKEY_USERS</b> or <b>HKEY_LOCAL_MACHINE</b> trees.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCreateKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates the specified registry key and associates it with a transaction.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5330,8 +5115,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeytransactedw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcreatekeytransactedw
      * @since windows6.0.6000
      */
     static RegCreateKeyTransactedW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
@@ -5345,12 +5130,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values. (ANSI)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
+     * Deletes a subkey and its values.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5375,8 +5155,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. To get a generic description of the error, you can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeya
      * @since windows5.0
      */
     static RegDeleteKeyA(hKey, lpSubKey) {
@@ -5387,12 +5167,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values. (Unicode)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
+     * Deletes a subkey and its values.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5417,8 +5192,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. To get a generic description of the error, you can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeyw
      * @since windows5.0
      */
     static RegDeleteKeyW(hKey, lpSubKey) {
@@ -5429,24 +5204,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values from the specified platform-specific view of the registry. (ANSI)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. This function enables an application to delete an entry in the alternate registry view.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * 
-     * If the function succeeds, <b>RegDeleteKeyEx</b> removes the specified key from the registry. The entire key, including all of its values, is removed.
-     * 
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a subkey and its values from the specified platform-specific view of the registry.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5499,8 +5257,8 @@ class Registry {
      * </table>
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyexa
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeyexa
      * @since windows6.0.6000
      */
     static RegDeleteKeyExA(hKey, lpSubKey, samDesired) {
@@ -5513,24 +5271,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values from the specified platform-specific view of the registry. (Unicode)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. This function enables an application to delete an entry in the alternate registry view.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * 
-     * If the function succeeds, <b>RegDeleteKeyEx</b> removes the specified key from the registry. The entire key, including all of its values, is removed.
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a subkey and its values from the specified platform-specific view of the registry.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5583,8 +5324,8 @@ class Registry {
      * </table>
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyexw
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeyexw
      * @since windows6.0.6000
      */
     static RegDeleteKeyExW(hKey, lpSubKey, samDesired) {
@@ -5597,23 +5338,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation. (ANSI)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. This function enables an application to delete an entry in the alternate registry view.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * 
-     * If the function succeeds, <b>RegDeleteKeyTransacted</b> removes the specified key from the registry. The entire key, including all of its values, is removed. To remove the entire tree as a transacted operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> function with a handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5667,8 +5392,8 @@ class Registry {
      * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeytransacteda
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeytransacteda
      * @since windows6.0.6000
      */
     static RegDeleteKeyTransactedA(hKey, lpSubKey, samDesired, hTransaction) {
@@ -5681,23 +5406,7 @@ class Registry {
     }
 
     /**
-     * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation. (Unicode)
-     * @remarks
-     * A deleted key is not removed until the last handle to it is closed.
-     * 
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. This function enables an application to delete an entry in the alternate registry view.
-     * 
-     * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * 
-     * If the function succeeds, <b>RegDeleteKeyTransacted</b> removes the specified key from the registry. The entire key, including all of its values, is removed. To remove the entire tree as a transacted operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> function with a handle returned from <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -5751,8 +5460,8 @@ class Registry {
      * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeytransactedw
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeytransactedw
      * @since windows6.0.6000
      */
     static RegDeleteKeyTransactedW(hKey, lpSubKey, samDesired, hTransaction) {
@@ -5766,19 +5475,15 @@ class Registry {
 
     /**
      * Disables registry reflection for the specified key. Disabling reflection for a key does not affect reflection of any subkeys.
-     * @remarks
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. Registry reflection copies specific registry keys and values between the two views.
-     * 
-     * To restore registry reflection for a disabled key, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenablereflectionkey">RegEnableReflectionKey</a> function.
      * @param {Pointer<Void>} hBase A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function; it cannot specify a key on a remote computer.
      * 
-     * If the key is not on the reflection list, the function succeeds but has no effect. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-redirector">Registry Redirector</a> and <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-reflection">Registry Reflection</a>.
+     * If the key is not on the reflection list, the function succeeds but has no effect. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-redirector">Registry Redirector</a>and <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-reflection">Registry Reflection</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablereflectionkey
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdisablereflectionkey
      * @since windows6.0.6000
      */
     static RegDisableReflectionKey(hBase) {
@@ -5788,17 +5493,15 @@ class Registry {
 
     /**
      * Restores registry reflection for the specified disabled key. Restoring reflection for a key does not affect reflection of any subkeys.
-     * @remarks
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit applications view. Registry reflection copies specific registry keys and values between the two views.
      * @param {Pointer<Void>} hBase A handle to the registry key that was previously disabled using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> function. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function; it cannot specify a key on a remote computer.
      * 
-     * If the key is not on the reflection list, this function succeeds but has no effect. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-redirector">Registry Redirector</a> and <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-reflection">Registry Reflection</a>.
+     * If the key is not on the reflection list, this function succeeds but has no effect. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-redirector">Registry Redirector</a>and <a href="https://docs.microsoft.com/windows/desktop/WinProg64/registry-reflection">Registry Reflection</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
-     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenablereflectionkey
+     * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenablereflectionkey
      * @since windows6.0.6000
      */
     static RegEnableReflectionKey(hBase) {
@@ -5808,14 +5511,6 @@ class Registry {
 
     /**
      * Determines whether reflection has been disabled or enabled for the specified key.
-     * @remarks
-     * On WOW64, 32-bit applications view a registry tree that is separate from the registry tree that 64-bit 
-     *     applications view. Registry reflection copies specific registry keys and values between the two views.
-     * 
-     * To disable registry reflection, use the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> function. To restore 
-     *     reflection for a disabled key, use the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenablereflectionkey">RegEnableReflectionKey</a> function.
      * @param {Pointer<Void>} hBase A handle to the registry key.
      *       This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
@@ -5824,9 +5519,9 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the
+     *        <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the
      *        FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryreflectionkey
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryreflectionkey
      * @since windows6.0.6000
      */
     static RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
@@ -5835,10 +5530,7 @@ class Registry {
     }
 
     /**
-     * Removes a named value from the specified registry key. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes a named value from the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -5851,7 +5543,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -5868,8 +5560,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletevaluea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletevaluea
      * @since windows5.0
      */
     static RegDeleteValueA(hKey, lpValueName) {
@@ -5880,10 +5572,7 @@ class Registry {
     }
 
     /**
-     * Removes a named value from the specified registry key. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes a named value from the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -5896,7 +5585,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -5913,8 +5602,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletevaluew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletevaluew
      * @since windows5.0
      */
     static RegDeleteValueW(hKey, lpValueName) {
@@ -5925,24 +5614,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the subkeys of the specified open registry key. (RegEnumKeyA)
-     * @remarks
-     * To enumerate subkeys, an application should initially call the 
-     * <b>RegEnumKey</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment the <i>dwIndex</i> parameter and call the 
-     * <b>RegEnumKey</b> function until there are no more subkeys (meaning the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last key on the first call to the function and decrement the index until the subkey with index 0 is enumerated. To retrieve the index of the last subkey, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a>.
-     * 
-     * While an application is using the 
-     * <b>RegEnumKey</b> function, it should not make calls to any registration functions that might change the key being queried.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegEnumKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the subkeys of the specified open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -5978,10 +5650,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeya
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumkeya
      * @since windows5.0
      */
     static RegEnumKeyA(hKey, dwIndex, lpName, cchName) {
@@ -5992,24 +5664,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the subkeys of the specified open registry key. (RegEnumKeyW)
-     * @remarks
-     * To enumerate subkeys, an application should initially call the 
-     * <b>RegEnumKey</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment the <i>dwIndex</i> parameter and call the 
-     * <b>RegEnumKey</b> function until there are no more subkeys (meaning the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last key on the first call to the function and decrement the index until the subkey with index 0 is enumerated. To retrieve the index of the last subkey, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a>.
-     * 
-     * While an application is using the 
-     * <b>RegEnumKey</b> function, it should not make calls to any registration functions that might change the key being queried.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegEnumKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the subkeys of the specified open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -6045,10 +5700,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumkeyw
      * @since windows5.0
      */
     static RegEnumKeyW(hKey, dwIndex, lpName, cchName) {
@@ -6059,22 +5714,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called. (ANSI)
-     * @remarks
-     * To enumerate subkeys, an application should initially call the 
-     * <b>RegEnumKeyEx</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment the <i>dwIndex</i> parameter and call 
-     * <b>RegEnumKeyEx</b> until there are no more subkeys (meaning the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last subkey on the first call to the function and decrement the index until the subkey with the index 0 is enumerated. To retrieve the index of the last subkey, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * 
-     * While an application is using the 
-     * <b>RegEnumKeyEx</b> function, it should not make calls to any registration functions that might change the key being enumerated.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
+     * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -6103,20 +5743,20 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcchName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
+     * @param {Pointer<UInt32>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
      * 
      * To determine the required buffer size, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function to determine the size of the largest subkey for the key identified by the <i>hKey</i> parameter.
      * @param {Pointer<Byte>} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcchClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
+     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time at which the enumerated subkey was last written. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyexa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumkeyexa
      * @since windows5.0
      */
     static RegEnumKeyExA(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
@@ -6130,19 +5770,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called. (Unicode)
-     * @remarks
-     * To enumerate subkeys, an application should initially call the 
-     * <b>RegEnumKeyEx</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment the <i>dwIndex</i> parameter and call 
-     * <b>RegEnumKeyEx</b> until there are no more subkeys (meaning the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last subkey on the first call to the function and decrement the index until the subkey with the index 0 is enumerated. To retrieve the index of the last subkey, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * 
-     * While an application is using the 
-     * <b>RegEnumKeyEx</b> function, it should not make calls to any registration functions that might change the key being enumerated.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
+     * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -6181,10 +5809,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyexw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumkeyexw
      * @since windows5.0
      */
     static RegEnumKeyExW(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
@@ -6198,25 +5826,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called. (ANSI)
-     * @remarks
-     * To enumerate values, an application should initially call the 
-     * <b>RegEnumValue</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment <i>dwIndex</i> and call the 
-     * <b>RegEnumValue</b> function until there are no more values (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last value on the first call to the function and decrement the index until the value with index 0 is enumerated. To retrieve the index of the last value, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * 
-     * While using 
-     * <b>RegEnumValue</b>, an application should not call any registry functions that might change the key being queried.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper <b>null</b>-terminating characters.  Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two <b>null</b>-terminating characters.)
-     * 
-     * To determine the maximum size of the name and data buffers, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
+     * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -6271,10 +5881,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the buffer specified by <i>lpValueName</i> or <i>lpData</i> is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumvaluea
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumvaluea
      * @since windows5.0
      */
     static RegEnumValueA(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
@@ -6287,22 +5897,7 @@ class Registry {
     }
 
     /**
-     * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called. (Unicode)
-     * @remarks
-     * To enumerate values, an application should initially call the 
-     * <b>RegEnumValue</b> function with the <i>dwIndex</i> parameter set to zero. The application should then increment <i>dwIndex</i> and call the 
-     * <b>RegEnumValue</b> function until there are no more values (until the function returns ERROR_NO_MORE_ITEMS).
-     * 
-     * The application can also set <i>dwIndex</i> to the index of the last value on the first call to the function and decrement the index until the value with index 0 is enumerated. To retrieve the index of the last value, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * 
-     * While using 
-     * <b>RegEnumValue</b>, an application should not call any registry functions that might change the key being queried.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper <b>null</b>-terminating characters.  Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two <b>null</b>-terminating characters.)
-     * 
-     * To determine the maximum size of the name and data buffers, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
+     * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -6355,10 +5950,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpData</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumvaluew
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regenumvaluew
      * @since windows5.0
      */
     static RegEnumValueW(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
@@ -6372,18 +5967,6 @@ class Registry {
 
     /**
      * Writes all the attributes of the specified open registry key into the registry.
-     * @remarks
-     * Calling <b>RegFlushKey</b> is an expensive operation that significantly affects system-wide performance as  it consumes disk bandwidth and blocks modifications to all keys by all processes in the registry hive that is being flushed until the flush operation completes. <b>RegFlushKey</b> should only be called explicitly when an application must guarantee that registry changes are persisted to disk immediately after modification. All modifications made to keys are visible to other processes without the need to flush them to disk.
-     * 
-     * Alternatively, the registry has a 'lazy flush' mechanism that flushes registry modifications to disk at regular intervals of time. In addition to this regular flush operation,  registry changes are also flushed to disk at system shutdown. Allowing the 'lazy flush' to flush registry changes is the most efficient way to manage registry writes to the registry store on  disk.
-     * 
-     * The 
-     * <b>RegFlushKey</b> function returns only when all the data for the hive that contains the specified key has been written to the registry store on disk.
-     * 
-     * The 
-     * <b>RegFlushKey</b> function writes out the data for other keys in the hive that have been modified since the last lazy flush or system start.
-     * 
-     *  After <b>RegFlushKey</b> returns, use <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> to close the handle to the registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -6404,8 +5987,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regflushkey
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regflushkey
      * @since windows5.0
      */
     static RegFlushKey(hKey) {
@@ -6415,12 +5998,6 @@ class Registry {
 
     /**
      * Retrieves a copy of the security descriptor protecting the specified open registry key.
-     * @remarks
-     * If the buffer specified by the <i>pSecurityDescriptor</i> parameter is too small, the function returns ERROR_INSUFFICIENT_BUFFER and the <i>lpcbSecurityDescriptor</i> parameter contains the number of bytes required for the requested security descriptor.
-     * 
-     * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) from the key's security descriptor, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the key or the key's DACL must grant the access.
-     * 
-     * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the key was opened. The correct way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
      * @param {Pointer<Void>} hKey A handle to an open key for which to retrieve the security descriptor.
      * @param {Integer} SecurityInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that indicates the requested security information.
@@ -6430,8 +6007,8 @@ class Registry {
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetkeysecurity
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-reggetkeysecurity
      * @since windows5.1.2600
      */
     static RegGetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
@@ -6440,22 +6017,7 @@ class Registry {
     }
 
     /**
-     * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey. (ANSI)
-     * @remarks
-     * There are two  registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * If <i>hKey</i> is a handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, then the path specified in <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>. To load a hive without requiring these special privileges, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadappkeya">RegLoadAppKey</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey.
      * @param {Pointer<Void>} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
@@ -6479,8 +6041,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadkeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadkeya
      * @since windows5.0
      */
     static RegLoadKeyA(hKey, lpSubKey, lpFile) {
@@ -6492,22 +6054,7 @@ class Registry {
     }
 
     /**
-     * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey. (Unicode)
-     * @remarks
-     * There are two  registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * If <i>hKey</i> is a handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, then the path specified in <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>. To load a hive without requiring these special privileges, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadappkeya">RegLoadAppKey</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey.
      * @param {Pointer<Void>} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
@@ -6531,8 +6078,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadkeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadkeyw
      * @since windows5.0
      */
     static RegLoadKeyW(hKey, lpSubKey, lpFile) {
@@ -6545,34 +6092,6 @@ class Registry {
 
     /**
      * Notifies the caller about changes to the attributes or contents of a specified registry key.
-     * @remarks
-     * This function detects a single change. After the caller receives a notification event, it should call the function again to receive the next notification.
-     * 
-     * <div class="alert"><b>Note</b>  On Windows NT, Windows 2000, and Windows XP calling <b>RegNotifyChangeKeyValue</b> for a particular key handle causes change notifications to continue to occur for as long as the key handle is valid. This causes a second call to <b>RegNotifyChangeKeyValue</b> to return immediately, if any changes have occurred in the interim period between the first and second calls. If the API is being used asynchronously, the passed event handle will be signaled immediately if any interim changes have occurred.</div>
-     * <div> </div>
-     * This function cannot be used to detect changes to the registry that result from using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> function.
-     * 
-     * If the specified key is closed, the event is signaled. This means that an application should not depend on the key being open after returning from a wait operation on the event.
-     * 
-     * The <b>REG_NOTIFY_THREAD_AGNOSTIC</b> flag introduced in Windows 8 enables the use of <b>RegNotifyChangeKeyValue</b> for ThreadPool threads.
-     * 
-     * If the thread that called 
-     * <b>RegNotifyChangeKeyValue</b> exits, the event is signaled. To continue to monitor additional changes in the value of the key, call 
-     * <b>RegNotifyChangeKeyValue</b> again from another thread.
-     * 				
-     * 
-     * With the exception of <b>RegNotifyChangeKeyValue</b> calls with <b>REG_NOTIFY_THREAD_AGNOSTIC</b> set, this function must be called on persistent threads. If the calling thread is from a thread pool and it is not persistent, the event is signaled every time the thread terminates, not just when there is a registry change. To ensure accurate results, run the thread pool work in a persistent thread by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setthreadpoolcallbackpersistent">SetThreadpoolCallbackPersistent</a> function, or create your own thread using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createthread">CreateThread</a>  function. (For the original thread pool API, specify WT_EXECUTEINPERSISTENTTHREAD using the <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem">QueueUserWorkItem</a> function.) 
-     * 
-     * This function should not be called multiple times with the same  value for the <i>hKey</i> but different values for the <i>bWatchSubtree</i> and <i>dwNotifyFilter</i> parameters. The function will succeed but the changes will be ignored. To change the  
-     * watch parameters, you must first close the key handle by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>, reopen the key handle by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, and then call <b>RegNotifyChangeKeyValue</b> with the new parameters. 
-     * 
-     * Each time a process calls <b>RegNotifyChangeKeyValue</b> with the same set of parameters, it establishes another wait operation, creating a resource leak. Therefore, check that you are not calling <b>RegNotifyChangeKeyValue</b> with the same parameters until the previous wait operation has completed.
-     * 
-     * To monitor registry operations in more detail, see <a href="https://docs.microsoft.com/windows/desktop/ETW/registry">Registry</a>.
-     * 
-     * <b>Windows XP/2000:  </b>When <b>RegNotifyChangeKeyValue</b> is called for a particular key handle, change notifications occur for as long as the key handle is valid. This causes a second call to <b>RegNotifyChangeKeyValue</b> to return immediately, if any changes occur in the interim between the first and second calls. If the function is being used asynchronously, the passed event handle will be signaled immediately if any changes occur in the interim.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6602,8 +6121,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regnotifychangekeyvalue
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regnotifychangekeyvalue
      * @since windows5.0
      */
     static RegNotifyChangeKeyValue(hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronous) {
@@ -6612,32 +6131,17 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key. (ANSI)
-     * @remarks
-     * The 
-     * <b>RegOpenKey</b> function uses the default security access mask to open a key. If opening the key requires a different access right, the function fails, returning ERROR_ACCESS_DENIED. An application should use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function to specify an access mask in this situation.
-     * 
-     * <b>RegOpenKey</b> does not create the specified key if the key does not exist in the database.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegOpenKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Opens the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
-     * * <b>HKEY_CLASSES_ROOT</b>
-     * * <b>HKEY_CURRENT_CONFIG</b>
-     * * <b>HKEY_CURRENT_USER</b>
-     * * <b>HKEY_LOCAL_MACHINE</b>
-     * * <b>HKEY_USERS</b>
+     * <b>HKEY_CLASSES_ROOT</b>
+     * <b>HKEY_CURRENT_CONFIG</b>
+     * <b>HKEY_CURRENT_USER</b>
+     * <b>HKEY_LOCAL_MACHINE</b>
+     * <b>HKEY_USERS</b>
      * @param {Pointer<Byte>} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * Key names are not case sensitive.
@@ -6651,8 +6155,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeya
      * @since windows5.0
      */
     static RegOpenKeyA(hKey, lpSubKey, phkResult) {
@@ -6663,32 +6167,17 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key. (Unicode)
-     * @remarks
-     * The 
-     * <b>RegOpenKey</b> function uses the default security access mask to open a key. If opening the key requires a different access right, the function fails, returning ERROR_ACCESS_DENIED. An application should use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function to specify an access mask in this situation.
-     * 
-     * <b>RegOpenKey</b> does not create the specified key if the key does not exist in the database.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegOpenKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Opens the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
-     * * <b>HKEY_CLASSES_ROOT</b>
-     * * <b>HKEY_CURRENT_CONFIG</b>
-     * * <b>HKEY_CURRENT_USER</b>
-     * * <b>HKEY_LOCAL_MACHINE</b>
-     * * <b>HKEY_USERS</b>
+     * <b>HKEY_CLASSES_ROOT</b>
+     * <b>HKEY_CURRENT_CONFIG</b>
+     * <b>HKEY_CURRENT_USER</b>
+     * <b>HKEY_LOCAL_MACHINE</b>
+     * <b>HKEY_USERS</b>
      * @param {Pointer<Char>} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * Key names are not case sensitive.
@@ -6702,8 +6191,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeyw
      * @since windows5.0
      */
     static RegOpenKeyW(hKey, lpSubKey, phkResult) {
@@ -6714,17 +6203,7 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key. Note that key names are not case sensitive. (ANSI)
-     * @remarks
-     * Unlike the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> function, the 
-     * <b>RegOpenKeyEx</b> function does not create the specified key if the key does not exist in the registry.
-     * 
-     * Certain registry operations perform access checks against the security descriptor of the key, not the access mask specified when the handle to the key was obtained. For example, even if a key is opened with a <i>samDesired</i> of KEY_READ, it can be used to create registry keys if the key's security descriptor permits. In contrast, the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function specifically requires that the key be opened with the KEY_SET_VALUE access right.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
+     * Opens the specified registry key. Note that key names are not case sensitive.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
@@ -6775,11 +6254,11 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * > [!NOTE] 
      * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyexa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeyexa
      * @since windows5.0
      */
     static RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
@@ -6790,17 +6269,7 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key. Note that key names are not case sensitive. (Unicode)
-     * @remarks
-     * Unlike the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> function, the 
-     * <b>RegOpenKeyEx</b> function does not create the specified key if the key does not exist in the registry.
-     * 
-     * Certain registry operations perform access checks against the security descriptor of the key, not the access mask specified when the handle to the key was obtained. For example, even if a key is opened with a <i>samDesired</i> of KEY_READ, it can be used to create registry keys if the key's security descriptor permits. In contrast, the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function specifically requires that the key be opened with the KEY_SET_VALUE access right.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
+     * Opens the specified registry key. Note that key names are not case sensitive.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
@@ -6851,8 +6320,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyexw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeyexw
      * @since windows5.0
      */
     static RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
@@ -6863,28 +6332,7 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key and associates it with a transaction. (ANSI)
-     * @remarks
-     * When a key is opened using this function, subsequent operations on the key are transacted. If a non-transacted operation is performed on the key before the transaction is committed, the transaction is rolled back. After a transaction is committed or rolled back, you must re-open the key using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> or <b>RegOpenKeyTransacted</b> function with an active transaction handle to make additional operations transacted. For more information about transactions, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/kernel-transaction-manager-portal">Kernel Transaction Manager</a>.
-     * 
-     * Note that subsequent operations on subkeys of this key are not automatically transacted. Therefore,  the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeyexa">RegDeleteKeyEx</a> function does not perform a transacted delete operation. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeytransacteda">RegDeleteKeyTransacted</a> function to perform a transacted delete operation.
-     * 
-     * Unlike the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> function, the 
-     * <b>RegOpenKeyTransacted</b> function does not create the specified key if the key does not exist in the registry.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * If the key returned in <i>phkResult</i> is a predefined registry key, it is not included in the provided transaction.
-     * 
-     * A single registry key can be opened only 65,534 times. When attempting the 65,535<sup>th</sup> open operation, this function fails with ERROR_NO_SYSTEM_RESOURCES.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegOpenKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Opens the specified registry key and associates it with a transaction.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
@@ -6915,8 +6363,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeytransacteda
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeytransacteda
      * @since windows6.0.6000
      */
     static RegOpenKeyTransactedA(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
@@ -6929,28 +6377,7 @@ class Registry {
     }
 
     /**
-     * Opens the specified registry key and associates it with a transaction. (Unicode)
-     * @remarks
-     * When a key is opened using this function, subsequent operations on the key are transacted. If a non-transacted operation is performed on the key before the transaction is committed, the transaction is rolled back. After a transaction is committed or rolled back, you must re-open the key using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> or <b>RegOpenKeyTransacted</b> function with an active transaction handle to make additional operations transacted. For more information about transactions, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/kernel-transaction-manager-portal">Kernel Transaction Manager</a>.
-     * 
-     * Note that subsequent operations on subkeys of this key are not automatically transacted. Therefore,  the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeyexa">RegDeleteKeyEx</a> function does not perform a transacted delete operation. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletekeytransacteda">RegDeleteKeyTransacted</a> function to perform a transacted delete operation.
-     * 
-     * Unlike the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a> function, the 
-     * <b>RegOpenKeyTransacted</b> function does not create the specified key if the key does not exist in the registry.
-     * 
-     * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
-     * 
-     * If the key returned in <i>phkResult</i> is a predefined registry key, it is not included in the provided transaction.
-     * 
-     * A single registry key can be opened only 65,534 times. When attempting the 65,535<sup>th</sup> open operation, this function fails with ERROR_NO_SYSTEM_RESOURCES.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegOpenKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Opens the specified registry key and associates it with a transaction.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
@@ -6981,8 +6408,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeytransactedw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regopenkeytransactedw
      * @since windows6.0.6000
      */
     static RegOpenKeyTransactedW(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
@@ -6995,10 +6422,7 @@ class Registry {
     }
 
     /**
-     * Retrieves information about the specified registry key. (ANSI)
-     * @remarks
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
+     * Retrieves information about the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7008,7 +6432,7 @@ class Registry {
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function. It can also be one of the following 
-     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:<pre><b></b>
+     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:<pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -7024,10 +6448,10 @@ class Registry {
      * 
      * If the <i>lpClass</i> parameter is a valid address, but the <i>lpcClass</i> parameter is not, for example, it is <b>NULL</b>, then the  function returns ERROR_INVALID_PARAMETER.
      * @param {Pointer<UInt32>} lpcSubKeys A pointer to a variable that receives the number of subkeys that are contained by the specified key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in ANSI characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in ANSI characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<UInt32>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in Unicode characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<UInt32>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in Unicode characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcValues A pointer to a variable that receives the number of values that are associated with the key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in ANSI characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<UInt32>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in Unicode characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcbMaxValueLen A pointer to a variable that receives the size of the longest data component among the key's values, in bytes. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcbSecurityDescriptor A pointer to a variable that receives the size of the key's security descriptor, in bytes. This parameter can be <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to a 
@@ -7041,10 +6465,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpClass</i> buffer is too small to receive the name of the class, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryinfokeya
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryinfokeya
      * @since windows5.0
      */
     static RegQueryInfoKeyA(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
@@ -7057,10 +6481,7 @@ class Registry {
     }
 
     /**
-     * Retrieves information about the specified registry key. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winreg.h header defines RegQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves information about the specified registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7070,7 +6491,7 @@ class Registry {
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function. It can also be one of the following 
-     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:<pre><b></b>
+     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:<pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -7103,10 +6524,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpClass</i> buffer is too small to receive the name of the class, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryinfokeyw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryinfokeyw
      * @since windows5.0
      */
     static RegQueryInfoKeyW(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
@@ -7119,20 +6540,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string. (ANSI)
-     * @remarks
-     * If the ANSI version of this function is used (either by explicitly calling <b>RegQueryValueA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer specified by the <i>lpValue</i> parameter.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper <b>null</b>-terminating characters.  Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two <b>null</b>-terminating characters.)
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegQueryValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7174,10 +6582,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpValue</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvaluea
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryvaluea
      * @since windows5.0
      */
     static RegQueryValueA(hKey, lpSubKey, lpData, lpcbData) {
@@ -7188,20 +6596,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string. (Unicode)
-     * @remarks
-     * If the ANSI version of this function is used (either by explicitly calling <b>RegQueryValueA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer specified by the <i>lpValue</i> parameter.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper <b>null</b>-terminating characters.  Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two <b>null</b>-terminating characters.)
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegQueryValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7243,10 +6638,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpValue</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvaluew
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryvaluew
      * @since windows5.0
      */
     static RegQueryValueW(hKey, lpSubKey, lpData, lpcbData) {
@@ -7257,21 +6652,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for a list of value names associated with an open registry key. (ANSI)
-     * @remarks
-     * The 
-     * <b>RegQueryMultipleValues</b> function allows an application to query one or more values of a static or dynamic key. If the target key is a static key, the system provides all of the values in an atomic fashion. To prevent excessive serialization, the aggregate data returned by the function cannot exceed one megabyte.
-     * 
-     * If the target key is a dynamic key, its provider must provide all the values in an atomic fashion. This means the provider should fill the results buffer synchronously, providing a consistent view of all the values in the buffer while avoiding excessive serialization. The provider can provide at most one megabyte of total output data during an atomic call to this function.
-     * 
-     * <b>RegQueryMultipleValues</b> is supported remotely; that is, the <i>hKey</i> parameter passed to the function can refer to a remote computer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegQueryMultipleValues as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the type and data for a list of value names associated with an open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
@@ -7324,7 +6705,7 @@ class Registry {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a> cannot instantiate or access the provider of the dynamic key.
+     * <a href="/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a> cannot instantiate or access the provider of the dynamic key.
      * 
      * </td>
      * </tr>
@@ -7351,7 +6732,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regquerymultiplevaluesa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regquerymultiplevaluesa
      * @since windows5.0
      */
     static RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
@@ -7360,21 +6741,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for a list of value names associated with an open registry key. (Unicode)
-     * @remarks
-     * The 
-     * <b>RegQueryMultipleValues</b> function allows an application to query one or more values of a static or dynamic key. If the target key is a static key, the system provides all of the values in an atomic fashion. To prevent excessive serialization, the aggregate data returned by the function cannot exceed one megabyte.
-     * 
-     * If the target key is a dynamic key, its provider must provide all the values in an atomic fashion. This means the provider should fill the results buffer synchronously, providing a consistent view of all the values in the buffer while avoiding excessive serialization. The provider can provide at most one megabyte of total output data during an atomic call to this function.
-     * 
-     * <b>RegQueryMultipleValues</b> is supported remotely; that is, the <i>hKey</i> parameter passed to the function can refer to a remote computer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegQueryMultipleValues as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the type and data for a list of value names associated with an open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7424,7 +6791,7 @@ class Registry {
      * </td>
      * <td width="60%">
      * 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a> cannot instantiate or access the provider of the dynamic key.
+     * <a href="/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a> cannot instantiate or access the provider of the dynamic key.
      * 
      * </td>
      * </tr>
@@ -7451,7 +6818,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regquerymultiplevaluesw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regquerymultiplevaluesw
      * @since windows5.0
      */
     static RegQueryMultipleValuesW(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
@@ -7460,19 +6827,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for the specified value name associated with an open registry key. (ANSI)
-     * @remarks
-     * An application typically calls <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a> to determine the value names and then <b>RegQueryValueEx</b> to retrieve the data for the names.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper terminating <b>null</b> characters. Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two terminating <b>null</b> characters.) One way an application can ensure that the string is properly terminated is to use <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-reggetvaluea">RegGetValue</a>, which adds terminating <b>null</b> characters if needed.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, and the ANSI version of this function is used (either by explicitly calling <b>RegQueryValueExA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer pointed to by <i>lpData</i>.
-     * 
-     * When calling the 
-     * <b>RegQueryValueEx</b> function with <i>hKey</i> set to the <b>HKEY_PERFORMANCE_DATA</b> handle and a value string of a specified object, the returned data structure sometimes has unrequested objects. Do not be surprised; this is normal behavior. When calling the 
-     * <b>RegQueryValueEx</b> function, you should always expect to walk the returned data structure to look for the requested object.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
+     * Retrieves the type and data for the specified value name associated with an open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7527,12 +6882,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpData</i> buffer is too small to receive the data, the function returns ERROR_MORE_DATA.
      * 
      * If the <i>lpValueName</i> registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvalueexa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryvalueexa
      * @since windows5.0
      */
     static RegQueryValueExA(hKey, lpValueName, lpType, lpData, lpcbData) {
@@ -7545,19 +6900,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for the specified value name associated with an open registry key. (Unicode)
-     * @remarks
-     * An application typically calls <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a> to determine the value names and then <b>RegQueryValueEx</b> to retrieve the data for the names.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, the string may not have been stored with the proper terminating <b>null</b> characters. Therefore, even if the function returns ERROR_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG_MULTI_SZ strings should have two terminating <b>null</b> characters.) One way an application can ensure that the string is properly terminated is to use <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-reggetvaluea">RegGetValue</a>, which adds terminating <b>null</b> characters if needed.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, and the ANSI version of this function is used (either by explicitly calling <b>RegQueryValueExA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer pointed to by <i>lpData</i>.
-     * 
-     * When calling the 
-     * <b>RegQueryValueEx</b> function with <i>hKey</i> set to the <b>HKEY_PERFORMANCE_DATA</b> handle and a value string of a specified object, the returned data structure sometimes has unrequested objects. Do not be surprised; this is normal behavior. When calling the 
-     * <b>RegQueryValueEx</b> function, you should always expect to walk the returned data structure to look for the requested object.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
+     * Retrieves the type and data for the specified value name associated with an open registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7612,12 +6955,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpData</i> buffer is too small to receive the data, the function returns ERROR_MORE_DATA.
      * 
      * If the <i>lpValueName</i> registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvalueexw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regqueryvalueexw
      * @since windows5.0
      */
     static RegQueryValueExW(hKey, lpValueName, lpType, lpData, lpcbData) {
@@ -7630,24 +6973,7 @@ class Registry {
     }
 
     /**
-     * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file. (ANSI)
-     * @remarks
-     * There are two different registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * The file specified by the <i>lpNewFile</i> parameter remains open until the system is restarted.
-     * 
-     * If <i>hKey</i> is a handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, then the paths specified in <i>lpNewFile</i> and <i>lpOldFile</i> are relative to the remote computer.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegReplaceKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
@@ -7677,8 +7003,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regreplacekeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regreplacekeya
      * @since windows5.0
      */
     static RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile) {
@@ -7691,24 +7017,7 @@ class Registry {
     }
 
     /**
-     * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file. (Unicode)
-     * @remarks
-     * There are two different registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * The file specified by the <i>lpNewFile</i> parameter remains open until the system is restarted.
-     * 
-     * If <i>hKey</i> is a handle returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, then the paths specified in <i>lpNewFile</i> and <i>lpOldFile</i> are relative to the remote computer.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegReplaceKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
@@ -7738,8 +7047,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regreplacekeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regreplacekeyw
      * @since windows5.0
      */
     static RegReplaceKeyW(hKey, lpSubKey, lpNewFile, lpOldFile) {
@@ -7752,29 +7061,7 @@ class Registry {
     }
 
     /**
-     * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys. (ANSI)
-     * @remarks
-     * There are two different registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * If any subkeys of the <i>hKey</i> parameter are open, 
-     * <b>RegRestoreKey</b> fails.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * This function replaces the keys and values below the specified key with the keys and values that are subsidiary to the top-level key in the file, no matter what the name of the top-level key in the file might be. For example, <i>hKey</i> might identify a key A with subkeys B and C, while the <i>lpFile</i> parameter specifies a file containing key X with subkeys Y and Z. After a call to 
-     * <b>RegRestoreKey</b>, the registry would contain key A with subkeys Y and Z. The value entries of A would be replaced by the value entries of X.
-     * 
-     * The new information in the file specified by <i>lpFile</i> overwrites the contents of the key specified by the <i>hKey</i> parameter, except for the key name.
-     * 
-     * If <i>hKey</i> represents a key in a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegRestoreKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -7794,8 +7081,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrestorekeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regrestorekeya
      * @since windows5.0
      */
     static RegRestoreKeyA(hKey, lpFile, dwFlags) {
@@ -7806,29 +7093,7 @@ class Registry {
     }
 
     /**
-     * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys. (Unicode)
-     * @remarks
-     * There are two different registry hive file formats. Registry hives created on current operating systems typically cannot be loaded by earlier ones.
-     * 
-     * If any subkeys of the <i>hKey</i> parameter are open, 
-     * <b>RegRestoreKey</b> fails.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * This function replaces the keys and values below the specified key with the keys and values that are subsidiary to the top-level key in the file, no matter what the name of the top-level key in the file might be. For example, <i>hKey</i> might identify a key A with subkeys B and C, while the <i>lpFile</i> parameter specifies a file containing key X with subkeys Y and Z. After a call to 
-     * <b>RegRestoreKey</b>, the registry would contain key A with subkeys Y and Z. The value entries of A would be replaced by the value entries of X.
-     * 
-     * The new information in the file specified by <i>lpFile</i> overwrites the contents of the key specified by the <i>hKey</i> parameter, except for the key name.
-     * 
-     * If <i>hKey</i> represents a key in a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegRestoreKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys.
      * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -7848,8 +7113,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrestorekeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regrestorekeyw
      * @since windows5.0
      */
     static RegRestoreKeyW(hKey, lpFile, dwFlags) {
@@ -7860,9 +7125,7 @@ class Registry {
     }
 
     /**
-     * Changes the name of the specified registry key. (RegRenameKey)
-     * @remarks
-     * This function can be used to rename an entire registry subtree. The caller must have KEY_CREATE_SUB_KEY access to the parent of the specified key and DELETE access to the entire subtree being renamed.
+     * Changes the name of the specified registry key.
      * @param {Pointer<Void>} hKey A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right. For more information, see [Registry Key Security and Access Rights](/windows/win32/SysInfo/registry-key-security-and-access-rights).
      * 
      * This handle is returned by the [RegCreateKeyEx](nf-winreg-regcreatekeyexa.md) or [RegOpenKeyEx](nf-winreg-regopenkeyexa.md) function, or it can be one of the following [Predefined Keys](/windows/win32/SysInfo/predefined-keys):
@@ -7872,12 +7135,12 @@ class Registry {
      * * HKEY_CURRENT_USER
      * * HKEY_LOCAL_MACHINE
      * * HKEY_USERS
-     * @param {Pointer<Char>} lpSubKeyName The name of the subkey to be renamed. This key must be a subkey of the key identified by the *hKey* parameter. This parameter can also be **NULL**, in which case the key identified by the *hKey* parameter will be renamed.
+     * @param {Pointer<Char>} lpSubKeyName The name of the subkey to be renamed. This key must be a subkey of the key identified by the *hKeySrc* parameter. This parameter can also be **NULL**, in which case the key identified by the *hKeySrc* parameter will be renamed.
      * @param {Pointer<Char>} lpNewKeyName The new name of the key. The new name must not already exist.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/desktop/api/winbase/nf-winbase-formatmessage) function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error. An error code of STATUS_ACCESS_DENIED indicates that the caller does not have the necessary access rights to the specified registry key or subkeys.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrenamekey
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regrenamekey
      */
     static RegRenameKey(hKey, lpSubKeyName, lpNewKeyName) {
         lpSubKeyName := lpSubKeyName is String? StrPtr(lpSubKeyName) : lpSubKeyName
@@ -7888,37 +7151,7 @@ class Registry {
     }
 
     /**
-     * Saves the specified key and all of its subkeys and values to a new file, in the standard format. (ANSI)
-     * @remarks
-     * If <i>hKey</i> represents a key on a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The 
-     * <b>RegSaveKey</b> function saves only nonvolatile keys. It does not save volatile keys. A key is made volatile or nonvolatile at its creation; see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>.
-     * 
-     * You can use the file created by 
-     * <b>RegSaveKey</b> in subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regreplacekeya">RegReplaceKey</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> functions. If 
-     * <b>RegSaveKey</b> fails part way through its operation, the file will be corrupt and subsequent calls to 
-     * <b>RegLoadKey</b>, 
-     * <b>RegReplaceKey</b>, or 
-     * <b>RegRestoreKey</b> for the file will fail.
-     * 
-     * Using <b>RegSaveKey</b> together with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> to copy subtrees in the registry is not recommended. This method does not trigger notifications and can invalidate handles used by other applications. Instead, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcopykeya">SHCopyKey</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcopytreea">RegCopyTree</a> function.
-     * 
-     * The calling process must have the SE_BACKUP_NAME privilege enabled. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSaveKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Saves the specified key and all of its subkeys and values to a new file, in the standard format.
      * @param {Pointer<Void>} hKey A handle to an open registry key. 
      * 
      * This handle is returned by the 
@@ -7942,10 +7175,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If the file already exists, the function fails with the ERROR_ALREADY_EXISTS error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeya
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsavekeya
      * @since windows5.0
      */
     static RegSaveKeyA(hKey, lpFile, lpSecurityAttributes) {
@@ -7956,37 +7189,7 @@ class Registry {
     }
 
     /**
-     * Saves the specified key and all of its subkeys and values to a new file, in the standard format. (Unicode)
-     * @remarks
-     * If <i>hKey</i> represents a key on a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The 
-     * <b>RegSaveKey</b> function saves only nonvolatile keys. It does not save volatile keys. A key is made volatile or nonvolatile at its creation; see 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>.
-     * 
-     * You can use the file created by 
-     * <b>RegSaveKey</b> in subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regreplacekeya">RegReplaceKey</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> functions. If 
-     * <b>RegSaveKey</b> fails part way through its operation, the file will be corrupt and subsequent calls to 
-     * <b>RegLoadKey</b>, 
-     * <b>RegReplaceKey</b>, or 
-     * <b>RegRestoreKey</b> for the file will fail.
-     * 
-     * Using <b>RegSaveKey</b> together with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> to copy subtrees in the registry is not recommended. This method does not trigger notifications and can invalidate handles used by other applications. Instead, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcopykeya">SHCopyKey</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcopytreea">RegCopyTree</a> function.
-     * 
-     * The calling process must have the SE_BACKUP_NAME privilege enabled. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSaveKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Saves the specified key and all of its subkeys and values to a new file, in the standard format.
      * @param {Pointer<Void>} hKey A handle to an open registry key. 
      * 
      * This handle is returned by the 
@@ -8010,10 +7213,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If the file already exists, the function fails with the ERROR_ALREADY_EXISTS error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsavekeyw
      * @since windows5.0
      */
     static RegSaveKeyW(hKey, lpFile, lpSecurityAttributes) {
@@ -8025,8 +7228,6 @@ class Registry {
 
     /**
      * Sets the security of an open registry key.
-     * @remarks
-     * If <i>hKey</i> is one of the predefined keys, use  the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close the predefined key to  ensure that the new security information is in effect the next time the predefined key is referenced.
      * @param {Pointer<Void>} hKey A handle to an open key for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> is set.
      * @param {Integer} SecurityInformation A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
@@ -8037,8 +7238,8 @@ class Registry {
      * 						
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeysecurity
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetkeysecurity
      * @since windows5.1.2600
      */
     static RegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor) {
@@ -8047,19 +7248,7 @@ class Registry {
     }
 
     /**
-     * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string. (ANSI)
-     * @remarks
-     * If the key specified by the <i>lpSubKey</i> parameter does not exist, the 
-     * <b>RegSetValue</b> function creates it.
-     * 
-     * If the ANSI version of this function is used (either by explicitly calling <b>RegSetValueA</b> or by not defining UNICODE before including the Windows.h file), the <i>lpData</i> parameter must be an ANSI character string. The string is converted to Unicode before it is stored in the registry.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8091,8 +7280,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvaluea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetvaluea
      * @since windows5.0
      */
     static RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData) {
@@ -8103,19 +7292,7 @@ class Registry {
     }
 
     /**
-     * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string. (Unicode)
-     * @remarks
-     * If the key specified by the <i>lpSubKey</i> parameter does not exist, the 
-     * <b>RegSetValue</b> function creates it.
-     * 
-     * If the ANSI version of this function is used (either by explicitly calling <b>RegSetValueA</b> or by not defining UNICODE before including the Windows.h file), the <i>lpData</i> parameter must be an ANSI character string. The string is converted to Unicode before it is stored in the registry.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8147,8 +7324,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvaluew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetvaluew
      * @since windows5.0
      */
     static RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData) {
@@ -8159,20 +7336,7 @@ class Registry {
     }
 
     /**
-     * Sets the data and type of a specified value under a registry key. (ANSI)
-     * @remarks
-     * Value sizes are limited by available memory. However, storing large values in the registry can affect its performance. Long values (more than 2,048 bytes) should be stored as files, with the locations of the files stored in the registry. 
-     * 
-     * Application elements such as icons, bitmaps, and executable files should be stored as files and not be placed in the registry.
-     * 
-     * If <i>dwType</i> is the REG_SZ, REG_MULTI_SZ, or REG_EXPAND_SZ type and the ANSI version of this function is used (either by explicitly calling <b>RegSetValueExA</b> or by not defining UNICODE before including the Windows.h file), the data pointed to by the <i>lpData</i> parameter must be an ANSI character string. The string is converted to Unicode before it is stored in the registry.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * Consider using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetkeyvaluea">RegSetKeyValue</a> function, which provides a more convenient way to set the value of a registry key.
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data and type of a specified value under a registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8209,8 +7373,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvalueexa
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetvalueexa
      * @since windows5.0
      */
     static RegSetValueExA(hKey, lpValueName, dwType, lpData, cbData) {
@@ -8223,20 +7387,7 @@ class Registry {
     }
 
     /**
-     * Sets the data and type of a specified value under a registry key. (Unicode)
-     * @remarks
-     * Value sizes are limited by available memory. However, storing large values in the registry can affect its performance. Long values (more than 2,048 bytes) should be stored as files, with the locations of the files stored in the registry. 
-     * 
-     * Application elements such as icons, bitmaps, and executable files should be stored as files and not be placed in the registry.
-     * 
-     * If <i>dwType</i> is the REG_SZ, REG_MULTI_SZ, or REG_EXPAND_SZ type and the ANSI version of this function is used (either by explicitly calling <b>RegSetValueExA</b> or by not defining UNICODE before including the Windows.h file), the data pointed to by the <i>lpData</i> parameter must be an ANSI character string. The string is converted to Unicode before it is stored in the registry.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * Consider using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetkeyvaluew">RegSetKeyValue</a> function, which provides a more convenient way to set the value of a registry key.
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data and type of a specified value under a registry key.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8273,8 +7424,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvalueexw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetvalueexw
      * @since windows5.0
      */
     static RegSetValueExW(hKey, lpValueName, dwType, lpData, cbData) {
@@ -8287,19 +7438,7 @@ class Registry {
     }
 
     /**
-     * Unloads the specified registry key and its subkeys from the registry. (ANSI)
-     * @remarks
-     * This function removes a hive from the registry but does not modify the file containing the registry information. A hive is a discrete body of keys, subkeys, and values that is rooted at the top of the registry hierarchy.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegUnLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Unloads the specified registry key and its subkeys from the registry.
      * @param {Pointer<Void>} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
@@ -8321,8 +7460,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regunloadkeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regunloadkeya
      * @since windows5.0
      */
     static RegUnLoadKeyA(hKey, lpSubKey) {
@@ -8333,19 +7472,7 @@ class Registry {
     }
 
     /**
-     * Unloads the specified registry key and its subkeys from the registry. (Unicode)
-     * @remarks
-     * This function removes a hive from the registry but does not modify the file containing the registry information. A hive is a discrete body of keys, subkeys, and values that is rooted at the top of the registry hierarchy.
-     * 
-     * The calling process must have the SE_RESTORE_NAME and SE_BACKUP_NAME privileges on the computer in which the registry resides. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegUnLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Unloads the specified registry key and its subkeys from the registry.
      * @param {Pointer<Void>} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
@@ -8364,8 +7491,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regunloadkeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regunloadkeyw
      * @since windows5.0
      */
     static RegUnLoadKeyW(hKey, lpSubKey) {
@@ -8376,18 +7503,7 @@ class Registry {
     }
 
     /**
-     * Removes the specified value from the specified registry key and subkey. (ANSI)
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes the specified value from the specified registry key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8400,7 +7516,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -8411,8 +7527,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyvaluea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeyvaluea
      * @since windows6.0.6000
      */
     static RegDeleteKeyValueA(hKey, lpSubKey, lpValueName) {
@@ -8424,18 +7540,7 @@ class Registry {
     }
 
     /**
-     * Removes the specified value from the specified registry key and subkey. (Unicode)
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Removes the specified value from the specified registry key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8448,7 +7553,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -8459,8 +7564,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyvaluew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletekeyvaluew
      * @since windows6.0.6000
      */
     static RegDeleteKeyValueW(hKey, lpSubKey, lpValueName) {
@@ -8472,17 +7577,7 @@ class Registry {
     }
 
     /**
-     * Sets the data for the specified value in the specified registry key and subkey. (ANSI)
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data for the specified value in the specified registry key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8495,7 +7590,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -8514,8 +7609,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeyvaluea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetkeyvaluea
      * @since windows6.0.6000
      */
     static RegSetKeyValueA(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
@@ -8527,17 +7622,7 @@ class Registry {
     }
 
     /**
-     * Sets the data for the specified value in the specified registry key and subkey. (Unicode)
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSetKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Sets the data for the specified value in the specified registry key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8550,7 +7635,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * 
-     * <pre><b></b>
+     * <pre xml:space="preserve"><b></b>
      *    <b>HKEY_CLASSES_ROOT</b>
      *    <b>HKEY_CURRENT_CONFIG</b>
      *    <b>HKEY_CURRENT_USER</b>
@@ -8569,8 +7654,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeyvaluew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsetkeyvaluew
      * @since windows6.0.6000
      */
     static RegSetKeyValueW(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
@@ -8582,29 +7667,13 @@ class Registry {
     }
 
     /**
-     * Deletes the subkeys and values of the specified key recursively. (ANSI)
-     * @remarks
-     * If the key has values, it must be opened with KEY_SET_VALUE or this function will fail with ERROR_ACCESS_DENIED.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes the subkeys and values of the specified key recursively.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
-     * This handle is returned by the
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>,
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>,
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function,
-     * or it can be one of the following 
+     * This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">Predefined Keys</a>:<dl>
      * <dd><b>HKEY_CLASSES_ROOT</b></dd>
      * <dd><b>HKEY_CURRENT_CONFIG</b></dd>
@@ -8616,8 +7685,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletetreea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletetreea
      * @since windows6.0.6000
      */
     static RegDeleteTreeA(hKey, lpSubKey) {
@@ -8628,29 +7697,13 @@ class Registry {
     }
 
     /**
-     * Deletes the subkeys and values of the specified key recursively. (Unicode)
-     * @remarks
-     * If the key has values, it must be opened with KEY_SET_VALUE or this function will fail with ERROR_ACCESS_DENIED.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * > [!NOTE] 
-     * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegDeleteTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes the subkeys and values of the specified key recursively.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
-     * This handle is returned by the
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>,
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>,
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function,
-     * or it can be one of the following 
+     * This handle is returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">Predefined Keys</a>:<dl>
      * <dd><b>HKEY_CLASSES_ROOT</b></dd>
      * <dd><b>HKEY_CURRENT_CONFIG</b></dd>
@@ -8662,8 +7715,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletetreew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regdeletetreew
      * @since windows6.0.6000
      */
     static RegDeleteTreeW(hKey, lpSubKey) {
@@ -8674,19 +7727,7 @@ class Registry {
     }
 
     /**
-     * Copies the specified registry key, along with its values and subkeys, to the specified destination key. (ANSI)
-     * @remarks
-     * This function also copies the security descriptor for the key.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCopyTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies the specified registry key, along with its values and subkeys, to the specified destination key.
      * @param {Pointer<Void>} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8708,8 +7749,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcopytreea
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcopytreea
      * @since windows6.0.6000
      */
     static RegCopyTreeA(hKeySrc, lpSubKey, hKeyDest) {
@@ -8720,25 +7761,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for the specified registry value. (ANSI)
-     * @remarks
-     * An application typically calls <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a> to determine the value names and then <b>RegGetValue</b> to retrieve the data for the names.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, and the ANSI version of this function is used (either by explicitly calling <b>RegGetValueA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer pointed to by <i>pvData</i>.
-     * 
-     * When calling this function with <i>hkey</i> set to the <b>HKEY_PERFORMANCE_DATA</b> handle and a value string of a specified object, the returned data structure sometimes has unrequested objects. Do not be surprised; this is normal behavior. You should always expect to walk the returned data structure to look for the requested object.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the type and data for the specified registry value.
      * @param {Pointer<Void>} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8794,14 +7817,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>pvData</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
      * 
-     * If the lpValue registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * 
      * If <i>dwFlags</i> specifies a combination of both <b>RRF_SUBKEY_WOW6464KEY</b> and  <b>RRF_SUBKEY_WOW6432KEY</b>, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetvaluea
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-reggetvaluea
      * @since windows6.0.6000
      */
     static RegGetValueA(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
@@ -8813,25 +7834,7 @@ class Registry {
     }
 
     /**
-     * Retrieves the type and data for the specified registry value. (Unicode)
-     * @remarks
-     * An application typically calls <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a> to determine the value names and then <b>RegGetValue</b> to retrieve the data for the names.
-     * 
-     * If the data has the REG_SZ, REG_MULTI_SZ or REG_EXPAND_SZ type, and the ANSI version of this function is used (either by explicitly calling <b>RegGetValueA</b> or by not defining UNICODE before including the Windows.h file), this function converts the stored Unicode string to an ANSI string before copying it to the buffer pointed to by <i>pvData</i>.
-     * 
-     * When calling this function with <i>hkey</i> set to the <b>HKEY_PERFORMANCE_DATA</b> handle and a value string of a specified object, the returned data structure sometimes has unrequested objects. Do not be surprised; this is normal behavior. You should always expect to walk the returned data structure to look for the requested object.
-     * 
-     * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the type and data for the specified registry value.
      * @param {Pointer<Void>} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8887,14 +7890,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>pvData</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
      * 
-     * If the lpValue registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * 
      * If <i>dwFlags</i> specifies a combination of both <b>RRF_SUBKEY_WOW6464KEY</b> and  <b>RRF_SUBKEY_WOW6432KEY</b>, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetvaluew
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-reggetvaluew
      * @since windows6.0.6000
      */
     static RegGetValueW(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
@@ -8906,19 +7907,7 @@ class Registry {
     }
 
     /**
-     * Copies the specified registry key, along with its values and subkeys, to the specified destination key. (Unicode)
-     * @remarks
-     * This function also copies the security descriptor for the key.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegCopyTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Copies the specified registry key, along with its values and subkeys, to the specified destination key.
      * @param {Pointer<Void>} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -8940,8 +7929,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcopytreew
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regcopytreew
      * @since windows6.0.6000
      */
     static RegCopyTreeW(hKeySrc, lpSubKey, hKeyDest) {
@@ -8952,19 +7941,7 @@ class Registry {
     }
 
     /**
-     * Loads the specified string from the specified key and subkey. (ANSI)
-     * @remarks
-     * The <b>RegLoadMUIString</b> function is supported only for Unicode. Although both Unicode (W) and ANSI (A) versions of this function are declared, the <b>RegLoadMUIStringA</b> function returns ERROR_CALL_NOT_IMPLEMENTED. Applications should explicitly call <b>RegLoadMUIStringW</b> or specify Unicode as the character set in platform invoke (PInvoke) calls. 
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadMUIString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads the specified string from the specified key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -9012,12 +7989,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>pcbData</i> buffer is too small to receive the string, the function returns ERROR_MORE_DATA.
      * 
      * The ANSI version of this function returns ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadmuistringa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadmuistringa
      * @since windows6.0.6000
      */
     static RegLoadMUIStringA(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
@@ -9029,19 +8006,7 @@ class Registry {
     }
 
     /**
-     * Loads the specified string from the specified key and subkey. (Unicode)
-     * @remarks
-     * The <b>RegLoadMUIString</b> function is supported only for Unicode. Although both Unicode (W) and ANSI (A) versions of this function are declared, the <b>RegLoadMUIStringA</b> function returns ERROR_CALL_NOT_IMPLEMENTED. Applications should explicitly call <b>RegLoadMUIStringW</b> or specify Unicode as the character set in platform invoke (PInvoke) calls. 
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadMUIString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads the specified string from the specified key and subkey.
      * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
@@ -9089,12 +8054,12 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>pcbData</i> buffer is too small to receive the string, the function returns ERROR_MORE_DATA.
      * 
      * The ANSI version of this function returns ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadmuistringw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadmuistringw
      * @since windows6.0.6000
      */
     static RegLoadMUIStringW(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
@@ -9106,30 +8071,7 @@ class Registry {
     }
 
     /**
-     * Loads the specified registry hive as an application hive. (ANSI)
-     * @remarks
-     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, <b>RegLoadAppKey</b> does not load the hive under HKEY_LOCAL_MACHINE or HKEY_USERS. Instead, the hive is loaded under a special root that cannot be enumerated. As a result, there is no way to enumerate hives currently loaded by <b>RegLoadAppKey</b>. All operations on hives loaded by <b>RegLoadAppKey</b> have to be performed relative to the handle returned in <i>phkResult.</i>
-     * 
-     *  
-     * 
-     * If two processes are required to perform operations on the same hive, each process must call <b>RegLoadAppKey</b> to retrieve a handle. During the <b>RegLoadAppKey</b> operation, the registry will  verify if the  file has already been loaded. If it has been loaded, the registry will return a handle to the previously loaded hive rather than re-loading the hive. 
-     * 
-     * 
-     * All keys inside the hive must have the same security descriptor, otherwise the function will fail. This security descriptor must grant the caller the access specified by the <i>samDesired</i> parameter or the function will fail. You cannot use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetkeysecurity">RegSetKeySecurity</a> function on any key inside the hive.
-     * 
-     * In Windows 8 and later, each process can call <b>RegLoadAppKey</b> to load multiple hives. In Windows 7 and earlier, each process can load only one hive using <b>RegLoadAppKey</b> at a time.
-     * 
-     * Any hive loaded using <b>RegLoadAppKey</b> is automatically unloaded when all handles to the keys inside the hive are closed using <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadAppKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads the specified registry hive as an application hive.
      * @param {Pointer<Byte>} lpFile The name of the  hive file. This hive must have been created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeyexa">RegSaveKeyEx</a> function. If the  file does not exist, an empty hive file is created with the specified name.
      * @param {Pointer<Void>} phkResult Pointer to the handle for the root key of the loaded hive.
@@ -9141,8 +8083,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadappkeya
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadappkeya
      * @since windows6.0.6000
      */
     static RegLoadAppKeyA(lpFile, phkResult, samDesired, dwOptions) {
@@ -9155,30 +8097,7 @@ class Registry {
     }
 
     /**
-     * Loads the specified registry hive as an application hive. (Unicode)
-     * @remarks
-     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, <b>RegLoadAppKey</b> does not load the hive under HKEY_LOCAL_MACHINE or HKEY_USERS. Instead, the hive is loaded under a special root that cannot be enumerated. As a result, there is no way to enumerate hives currently loaded by <b>RegLoadAppKey</b>. All operations on hives loaded by <b>RegLoadAppKey</b> have to be performed relative to the handle returned in <i>phkResult.</i>
-     * 
-     *  
-     * 
-     * If two processes are required to perform operations on the same hive, each process must call <b>RegLoadAppKey</b> to retrieve a handle. During the <b>RegLoadAppKey</b> operation, the registry will  verify if the  file has already been loaded. If it has been loaded, the registry will return a handle to the previously loaded hive rather than re-loading the hive. 
-     * 
-     * 
-     * All keys inside the hive must have the same security descriptor, otherwise the function will fail. This security descriptor must grant the caller the access specified by the <i>samDesired</i> parameter or the function will fail. You cannot use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetkeysecurity">RegSetKeySecurity</a> function on any key inside the hive.
-     * 
-     * In Windows 8 and later, each process can call <b>RegLoadAppKey</b> to load multiple hives. In Windows 7 and earlier, each process can load only one hive using <b>RegLoadAppKey</b> at a time.
-     * 
-     * Any hive loaded using <b>RegLoadAppKey</b> is automatically unloaded when all handles to the keys inside the hive are closed using <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a>.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegLoadAppKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Loads the specified registry hive as an application hive.
      * @param {Pointer<Char>} lpFile The name of the  hive file. This hive must have been created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeyexa">RegSaveKeyEx</a> function. If the  file does not exist, an empty hive file is created with the specified name.
      * @param {Pointer<Void>} phkResult Pointer to the handle for the root key of the loaded hive.
@@ -9190,8 +8109,8 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadappkeyw
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regloadappkeyw
      * @since windows6.0.6000
      */
     static RegLoadAppKeyW(lpFile, phkResult, samDesired, dwOptions) {
@@ -9204,39 +8123,7 @@ class Registry {
     }
 
     /**
-     * Saves the specified key and all of its subkeys and values to a registry file, in the specified format. (ANSI)
-     * @remarks
-     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a>, this function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
-     * 
-     * If <i>hKey</i> represents a key on a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The 
-     * <b>RegSaveKeyEx</b> function saves only nonvolatile keys. It does not save volatile keys. A key is made volatile or nonvolatile at its creation; see 
-     * <b>RegCreateKeyEx</b>.
-     * 
-     * You can use the file created by 
-     * <b>RegSaveKeyEx</b> in subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regreplacekeya">RegReplaceKey</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> function. If 
-     * <b>RegSaveKeyEx</b> fails partway through its operation, the file will be corrupt and subsequent calls to 
-     * <b>RegLoadKey</b>, 
-     * <b>RegReplaceKey</b>, or 
-     * <b>RegRestoreKey</b> for the file will fail.
-     * 
-     * Using <b>RegSaveKeyEx</b> together with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> to copy subtrees in the registry is not recommended. This method does not trigger notifications and can invalidate handles used by other applications. Instead, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcopykeya">SHCopyKey</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcopytreea">RegCopyTree</a> function.
-     * 
-     * The calling process must have the SE_BACKUP_NAME privilege enabled. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSaveKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Saves the specified key and all of its subkeys and values to a registry file, in the specified format.
      * @param {Pointer<Void>} hKey A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
@@ -9254,10 +8141,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If more than one of the possible values listed above for the <i>Flags</i> parameter is specified in one call to this function—for example, if two or more values are OR'ed— or if REG_NO_COMPRESSION is specified and <i>hKey</i> specifies a key that is not the root of a hive, this function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyexa
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsavekeyexa
      * @since windows5.1.2600
      */
     static RegSaveKeyExA(hKey, lpFile, lpSecurityAttributes, Flags) {
@@ -9268,39 +8155,7 @@ class Registry {
     }
 
     /**
-     * Saves the specified key and all of its subkeys and values to a registry file, in the specified format. (Unicode)
-     * @remarks
-     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a>, this function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
-     * 
-     * If <i>hKey</i> represents a key on a remote computer, the path described by <i>lpFile</i> is relative to the remote computer.
-     * 
-     * The 
-     * <b>RegSaveKeyEx</b> function saves only nonvolatile keys. It does not save volatile keys. A key is made volatile or nonvolatile at its creation; see 
-     * <b>RegCreateKeyEx</b>.
-     * 
-     * You can use the file created by 
-     * <b>RegSaveKeyEx</b> in subsequent calls to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regreplacekeya">RegReplaceKey</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> function. If 
-     * <b>RegSaveKeyEx</b> fails partway through its operation, the file will be corrupt and subsequent calls to 
-     * <b>RegLoadKey</b>, 
-     * <b>RegReplaceKey</b>, or 
-     * <b>RegRestoreKey</b> for the file will fail.
-     * 
-     * Using <b>RegSaveKeyEx</b> together with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regrestorekeya">RegRestoreKey</a> to copy subtrees in the registry is not recommended. This method does not trigger notifications and can invalidate handles used by other applications. Instead, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcopykeya">SHCopyKey</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcopytreea">RegCopyTree</a> function.
-     * 
-     * The calling process must have the SE_BACKUP_NAME privilege enabled. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winreg.h header defines RegSaveKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Saves the specified key and all of its subkeys and values to a registry file, in the specified format.
      * @param {Pointer<Void>} hKey A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
@@ -9318,10 +8173,10 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
+     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If more than one of the possible values listed above for the <i>Flags</i> parameter is specified in one call to this function—for example, if two or more values are OR'ed— or if REG_NO_COMPRESSION is specified and <i>hKey</i> specifies a key that is not the root of a hive, this function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyexw
+     * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regsavekeyexw
      * @since windows5.1.2600
      */
     static RegSaveKeyExW(hKey, lpFile, lpSecurityAttributes, Flags) {

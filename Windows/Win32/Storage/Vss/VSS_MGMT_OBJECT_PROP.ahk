@@ -7,7 +7,7 @@
 
 /**
  * Defines the properties of a volume, shadow copy storage volume, or a shadow copy storage area.
- * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_mgmt_object_prop
+ * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ns-vsmgmt-vss_mgmt_object_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

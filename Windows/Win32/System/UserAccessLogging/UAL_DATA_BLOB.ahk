@@ -4,7 +4,7 @@
 
 /**
  * Specifies information about a User Access Logging (UAL) session.
- * @see https://learn.microsoft.com/windows/win32/api/ual/ns-ual-ual_data_blob
+ * @see https://docs.microsoft.com/windows/win32/api//ual/ns-ual-ual_data_blob
  * @namespace Windows.Win32.System.UserAccessLogging
  * @version v4.0.30319
  */

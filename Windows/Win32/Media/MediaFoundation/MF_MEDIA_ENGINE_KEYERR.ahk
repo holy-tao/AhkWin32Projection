@@ -3,8 +3,11 @@
 /**
  * Defines media key error codes for the media engine.
  * @remarks
- * <b>MF_MEDIA_ENGINE_KEYERR</b> is used with the <i>code</i> parameter of  <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyerror">IMFMediaKeySessionNotify::KeyError</a> and the <i>code</i> value returned from <a href="https://docs.microsoft.com/windows/desktop/medfound/imfmediakeysession-geterror">IMFMediaKeySession::GetError</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_keyerr
+ * 
+  * <b>MF_MEDIA_ENGINE_KEYERR</b> is used with the <i>code</i> parameter of  <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyerror">IMFMediaKeySessionNotify::KeyError</a> and the <i>code</i> value returned from <a href="https://docs.microsoft.com/windows/desktop/medfound/imfmediakeysession-geterror">IMFMediaKeySession::GetError</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_keyerr
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

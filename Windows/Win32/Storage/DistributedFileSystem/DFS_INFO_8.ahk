@@ -3,7 +3,7 @@
 
 /**
  * Contains the name, status, GUID, time-out, property flags, metadata size, DFS target information, and link reparse point security descriptor for a root or link.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_8
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_8
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

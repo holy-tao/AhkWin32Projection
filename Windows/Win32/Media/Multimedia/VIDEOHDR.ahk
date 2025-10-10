@@ -3,7 +3,7 @@
 
 /**
  * The VIDEOHDR structure is used by the capVideoStreamCallback function.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-videohdr
+ * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-videohdr
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

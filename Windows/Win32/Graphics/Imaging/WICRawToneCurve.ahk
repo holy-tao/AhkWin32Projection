@@ -4,7 +4,7 @@
 
 /**
  * Represents a raw image tone curve.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawtonecurve
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicrawtonecurve
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

@@ -1243,13 +1243,10 @@ class Hypervisor {
     }
 
     /**
-     * HdvInitializeDeviceHost function
+     * 
      * @param {Pointer<Void>} computeSystem 
      * @param {Pointer<Void>} deviceHostHandle 
-     * @returns {HRESULT} If the function succeeds, the return value is `S_OK`.
-     * 
-     * If the function fails, the return value is an  `HRESULT` error code.
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvInitializeDeviceHost
+     * @returns {HRESULT} 
      */
     static HdvInitializeDeviceHost(computeSystem, deviceHostHandle) {
         result := DllCall("vmdevicehost.dll\HdvInitializeDeviceHost", "ptr", computeSystem, "ptr", deviceHostHandle, "int")
@@ -1275,20 +1272,9 @@ class Hypervisor {
     }
 
     /**
-     * HdvTeardownDeviceHost
+     * 
      * @param {Pointer<Void>} deviceHostHandle 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`DeviceHost` |Handle to the device host to tear down.|
-     * |    |    |
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvTeardownDeviceHost
+     * @returns {HRESULT} 
      */
     static HdvTeardownDeviceHost(deviceHostHandle) {
         result := DllCall("vmdevicehost.dll\HdvTeardownDeviceHost", "ptr", deviceHostHandle, "int")
@@ -1299,7 +1285,7 @@ class Hypervisor {
     }
 
     /**
-     * HdvCreateDeviceInstance
+     * 
      * @param {Pointer<Void>} deviceHostHandle 
      * @param {Integer} deviceType 
      * @param {Pointer<Guid>} deviceClassId 
@@ -1307,24 +1293,7 @@ class Hypervisor {
      * @param {Pointer<Void>} deviceInterface 
      * @param {Pointer<Void>} deviceContext 
      * @param {Pointer<Void>} deviceHandle 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`DeviceHost` | Handle to the device host in which to create the new device.|
-     * |`DeviceType` | Specifies the [HDV_DEVICE_TYPE](HdvDeviceType.md) type of the device instance to create.|
-     * |`DeviceClassId` | Supplies the client-defined class ID of the device instance to create.|
-     * |`DeviceInterface` | Supplies the client-defined instance ID of the device instance to create.|
-     * |`DeviceInterface` | Supplies a function table representing the interface exposed by the device instance. The actual type of this parameter is implied by the DeviceType parameter.|
-     * |`DeviceContext` | An optional opaque context pointer that will be supplied to the device instance callbacks.|
-     * |`DeviceHandle` | Receives a handle to the created device instance.|
-     * |     |     |
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvCreateDeviceInstance
+     * @returns {HRESULT} 
      */
     static HdvCreateDeviceInstance(deviceHostHandle, deviceType, deviceClassId, deviceInstanceId, deviceInterface, deviceContext, deviceHandle) {
         result := DllCall("vmdevicehost.dll\HdvCreateDeviceInstance", "ptr", deviceHostHandle, "int", deviceType, "ptr", deviceClassId, "ptr", deviceInstanceId, "ptr", deviceInterface, "ptr", deviceContext, "ptr", deviceHandle, "int")
@@ -1335,26 +1304,12 @@ class Hypervisor {
     }
 
     /**
-     * HdvReadGuestMemory
+     * 
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
      * @param {Pointer<Byte>} buffer 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`Requestor` |Handle to the device requesting memory access.|
-     * |`GuestPhysicalAddress`|Guest physical address at which the read operation starts.|
-     * |`ByteCount`|Number of bytes to read.|
-     * |`Buffer`|Target buffer for the read operation. |
-     * |    |    |
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvReadGuestMemory
+     * @returns {HRESULT} 
      */
     static HdvReadGuestMemory(requestor, guestPhysicalAddress, byteCount, buffer) {
         result := DllCall("vmdevicehost.dll\HdvReadGuestMemory", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "char*", buffer, "int")
@@ -1365,25 +1320,12 @@ class Hypervisor {
     }
 
     /**
-     * HdvWriteGuestMemory
+     * 
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
      * @param {Pointer<Byte>} buffer 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`Requestor` |Handle to the device requesting memory access.|
-     * |`GuestPhysicalAddress` |Guest physical address at which the write operation starts.|
-     * |`ByteCount` |Number of bytes to write.|
-     * |`Buffer` |Source buffer for the write operation.|
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvWriteGuestMemory
+     * @returns {HRESULT} 
      */
     static HdvWriteGuestMemory(requestor, guestPhysicalAddress, byteCount, buffer) {
         result := DllCall("vmdevicehost.dll\HdvWriteGuestMemory", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "char*", buffer, "int")
@@ -1394,28 +1336,13 @@ class Hypervisor {
     }
 
     /**
-     * HdvCreateGuestMemoryAperture
+     * 
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
      * @param {Integer} writeProtected 
      * @param {Pointer<Void>} mappedAddress 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`Requestor` | Handle to the device requesting memory access.|
-     * |`GuestPhysicalAddress` | Base physical address at which the aperture starts.|
-     * |`ByteCount` | Size of the aperture in bytes.|
-     * |`WriteProtected` | If TRUE, the process is only granted read access to the mapped memory.|
-     * |`MappedAddress` | Receives the virtual address (in the calling process) at which the requested guest memory region has been mapped.|
-     * |    |    |
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvCreateGuestMemoryAperture
+     * @returns {HRESULT} 
      */
     static HdvCreateGuestMemoryAperture(requestor, guestPhysicalAddress, byteCount, writeProtected, mappedAddress) {
         result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "int", writeProtected, "ptr", mappedAddress, "int")
@@ -1440,24 +1367,11 @@ class Hypervisor {
     }
 
     /**
-     * HdvDeliverGuestInterrupt
+     * 
      * @param {Pointer<Void>} requestor 
      * @param {Integer} msiAddress 
      * @param {Integer} msiData 
-     * @returns {HRESULT} |Parameter|Description|
-     * |---|---|---|---|---|---|---|---|
-     * |`Requestor` |Handle to the device requesting the interrupt.|
-     * |`MsiAddress` |The guest address to which the interrupt message is written.|
-     * |`MsiData`|The data to write at MsiAddress.|
-     * |    |    |
-     * 
-     * 
-     * |Return Value     |Description|
-     * |---|---|
-     * |`S_OK` | Returned if function succeeds.|
-     * |`HRESULT` | An error code is returned if the function fails.
-     * |     |     |
-     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvDeliverGuestInterrupt
+     * @returns {HRESULT} 
      */
     static HdvDeliverGuestInterrupt(requestor, msiAddress, msiData) {
         result := DllCall("vmdevicehost.dll\HdvDeliverGuestInterrupt", "ptr", requestor, "uint", msiAddress, "uint", msiData, "int")

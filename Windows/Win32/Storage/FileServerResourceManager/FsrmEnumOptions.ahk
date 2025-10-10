@@ -3,8 +3,11 @@
 /**
  * Defines the options for enumerating collections of objects.
  * @remarks
- * The <b>FsrmEnumOptions_Asynchronous</b> option is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmenumoptions
+ * 
+  * The <b>FsrmEnumOptions_Asynchronous</b> option is not supported.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmenumoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

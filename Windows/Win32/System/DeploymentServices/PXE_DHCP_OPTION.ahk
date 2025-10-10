@@ -3,7 +3,7 @@
 
 /**
  * The PXE_DHCP_OPTION structure can be used with the Windows Deployment Services PXE Server API.
- * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcp_option
+ * @see https://docs.microsoft.com/windows/win32/api//wdspxe/ns-wdspxe-pxe_dhcp_option
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

@@ -4,9 +4,12 @@
 /**
  * Contains audit information for a layered service provider (LSP) entry in Windows Sockets 2.
  * @remarks
- * The 
+ * 
+  * The 
   * **WSC_PROVIDER_AUDIT_INFO** structure is not currently used.
- * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wsc_provider_audit_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ns-ws2spi-wsc_provider_audit_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -5,7 +5,8 @@
 /**
  * Represents an 8 byte floating point value.
  * @remarks
- * The textual representation of the value has enough digits to preserve the floating point value.
+ * 
+  * The textual representation of the value has enough digits to preserve the floating point value.
   *       
   * 
   * Negative zero is represented by the text "-0".
@@ -21,7 +22,8 @@
   *       
   * 
   * For more information on this representation, refer to IEEE Standard for Binary Floating-Point Arithmetic, available on the Web site http://www.ieee.org/.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_double_text
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_double_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

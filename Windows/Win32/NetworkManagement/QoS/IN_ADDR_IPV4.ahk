@@ -4,8 +4,11 @@
 /**
  * The IN_ADDR_IPV4 union stores an IPv4 address for use with RSVP FILTERSPECs.
  * @remarks
- * When working with IPv6 addresses, use <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv6">IN_ADDR_IPV6</a>.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-in_addr_ipv4
+ * 
+  * When working with IPv6 addresses, use <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv6">IN_ADDR_IPV6</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-in_addr_ipv4
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

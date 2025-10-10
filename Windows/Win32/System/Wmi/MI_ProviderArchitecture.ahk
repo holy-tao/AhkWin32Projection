@@ -2,7 +2,7 @@
 
 /**
  * This enumeration defines the WMI provider architecture used on the server.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_providerarchitecture
+ * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_providerarchitecture
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

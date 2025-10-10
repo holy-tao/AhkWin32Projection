@@ -3,7 +3,7 @@
 
 /**
  * Specifies the individual documents that make up the service metadata.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_metadata_document
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_metadata_document
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

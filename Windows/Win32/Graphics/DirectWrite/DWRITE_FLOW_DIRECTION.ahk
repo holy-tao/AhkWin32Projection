@@ -2,7 +2,7 @@
 
 /**
  * Indicates the direction of how lines of text are placed relative to one another.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_flow_direction
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

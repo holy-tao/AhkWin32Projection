@@ -3,7 +3,8 @@
 /**
  * Specifies the default save location.
  * @remarks
- * These values cannot be combined.
+ * 
+  * These values cannot be combined.
   * 
   * <h3><a id="Used_By"></a><a id="used_by"></a><a id="USED_BY"></a>Used By</h3>
   * <ul>
@@ -14,7 +15,9 @@
   * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setdefaultsavefolder">IShellLibrary::SetDefaultSaveFolder</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-defaultsavefoldertype
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-defaultsavefoldertype
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies the indices of the system sub-properties that may be present in any property.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_subproperty
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_subproperty
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class D2D1_SUBPROPERTY{
     static D2D1_SUBPROPERTY_DISPLAYNAME => -2147483648
 
     /**
-     * A Boolean indicating whether the parent property is writable.
+     * A Boolean indicating whether the parent property is writeable.
      * @type {Integer (Int32)}
      */
     static D2D1_SUBPROPERTY_ISREADONLY => -2147483647

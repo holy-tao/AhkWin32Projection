@@ -3,10 +3,13 @@
 #Include .\OPM_RANDOM_NUMBER.ahk
 
 /**
- * OPM_STANDARD_INFORMATION (opmapi.h) contains the result from an Output Protection Manager (OPM) status request.
+ * Contains the result from an Output Protection Manager (OPM) status request.
  * @remarks
- * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatusdata">DXVA_COPPStatusData</a> structure used in Certified Output Protection Protocol (COPP).
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_standard_information
+ * 
+  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatusdata">DXVA_COPPStatusData</a> structure used in Certified Output Protection Protocol (COPP).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_standard_information
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

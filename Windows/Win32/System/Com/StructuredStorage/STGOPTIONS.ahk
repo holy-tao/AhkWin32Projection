@@ -4,8 +4,11 @@
 /**
  * Specifies features of the storage object, such as sector size, in the StgCreateStorageEx and StgOpenStorageEx functions.
  * @remarks
- * <b>STGOPTIONS</b> is only supported on Unicode APIs.
- * @see https://learn.microsoft.com/windows/win32/api/coml2api/ns-coml2api-stgoptions
+ * 
+  * <b>STGOPTIONS</b> is only supported on Unicode APIs.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//coml2api/ns-coml2api-stgoptions
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

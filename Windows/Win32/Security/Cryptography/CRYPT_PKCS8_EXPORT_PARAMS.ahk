@@ -3,7 +3,7 @@
 
 /**
  * Identifies the private key and a callback function to encrypt the private key. CRYPT_PKCS8_EXPORT_PARAMS is used as a parameter to the CryptExportPKCS8Ex function, which exports a private key in PKCS
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_pkcs8_export_params
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_pkcs8_export_params
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,10 +3,13 @@
 /**
  * The ConnectorType enumeration indicates the type of connection that a connector is part of.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iconnector-gettype">IConnector::GetType</a> method uses the constants defined in the <b>ConnectorType</b> enumeration.
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iconnector-gettype">IConnector::GetType</a> method uses the constants defined in the <b>ConnectorType</b> enumeration.
   * 
   * For more information about connector types, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
- * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ne-devicetopology-connectortype
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines the level of control that an attendee has on a session.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-ctrl_level
+ * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-ctrl_level
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

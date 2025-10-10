@@ -2,7 +2,7 @@
 
 /**
  * The CALLHUB_EVENT enum describes CallHub events. The ITCallHubEvent::get_Event method returns a member of this enum to indicate the type of CallHub event that occurred.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callhub_event
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-callhub_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

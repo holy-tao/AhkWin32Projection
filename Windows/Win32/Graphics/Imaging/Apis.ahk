@@ -1577,8 +1577,6 @@ class Imaging {
 ;@region Methods
     /**
      * Obtains a IWICBitmapSource in the desired pixel format from a given IWICBitmapSource.
-     * @remarks
-     * If the <i>pISrc</i> bitmap is already in the desired format, then <i>pISrc</i> is copied to the destination bitmap pointer and a reference is added. If it is not in the desired format however, <b>WICConvertBitmapSource</b> will instantiate a <i>dstFormat</i> format converter and initialize it with <i>pISrc</i>.
      * @param {Pointer<Guid>} dstFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format to convert to.
@@ -1591,7 +1589,7 @@ class Imaging {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicconvertbitmapsource
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicconvertbitmapsource
      * @since windows5.1.2600
      */
     static WICConvertBitmapSource(dstFormat, pISrc, ppIDst) {
@@ -1603,9 +1601,7 @@ class Imaging {
     }
 
     /**
-     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle. (WICCreateBitmapFromSection)
-     * @remarks
-     * The <b>WICCreateBitmapFromSection</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-wiccreatebitmapfromsectionex">WICCreateBitmapFromSectionEx</a> function with the <i>desiredAccessLevel</i> parameter set to <b>WICSectionAccessLevelRead</b>.
+     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle.
      * @param {Integer} width Type: <b>UINT</b>
      * 
      * The width of the bitmap pixels.
@@ -1629,8 +1625,8 @@ class Imaging {
      * A pointer that receives the bitmap.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsection
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsection
      * @since windows5.1.2600
      */
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset, ppIBitmap) {
@@ -1642,7 +1638,7 @@ class Imaging {
     }
 
     /**
-     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle. (WICCreateBitmapFromSectionEx)
+     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle.
      * @param {Integer} width Type: <b>UINT</b>
      * 
      * The width of the bitmap pixels.
@@ -1669,8 +1665,8 @@ class Imaging {
      * A pointer that receives the bitmap.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsectionex
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsectionex
      * @since windows6.1
      */
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel, ppIBitmap) {
@@ -1683,13 +1679,6 @@ class Imaging {
 
     /**
      * Obtains the short name associated with a given GUID.
-     * @remarks
-     * Windows Imaging Component (WIC) short name mappings can be found within the following registry key:
-     *             <pre><b>HKEY_CLASSES_ROOT</b>
-     *    <b>CLSID</b>
-     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
-     *          <b>Namespace</b>
-     *             <b>...</b></pre>
      * @param {Pointer<Guid>} guid Type: <b>REFGUID</b>
      * 
      * The GUID to retrieve the short name for.
@@ -1704,8 +1693,8 @@ class Imaging {
      * The actual size needed to retrieve the entire short name associated with the GUID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapguidtoshortname
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapguidtoshortname
      * @since windows5.1.2600
      */
     static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
@@ -1720,18 +1709,6 @@ class Imaging {
 
     /**
      * Obtains the GUID associated with the given short name.
-     * @remarks
-     * You can extend the short name mapping by adding to  the following registry key:
-     * 
-     * 
-     * <pre><b>HKEY_CLASSES_ROOT</b>
-     *    <b>CLSID</b>
-     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
-     *          <b>Namespace</b>
-     *             <b>...</b></pre>
-     * 
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-howtowriteacodec">How to Write a WIC-Enabled Codec</a>.
      * @param {Pointer<Char>} wzName Type: <b>const WCHAR*</b>
      * 
      * A pointer to the short name.
@@ -1740,8 +1717,8 @@ class Imaging {
      * A pointer that receives the GUID associated with the given short name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapshortnametoguid
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapshortnametoguid
      * @since windows5.1.2600
      */
     static WICMapShortNameToGuid(wzName, pguid) {
@@ -1756,19 +1733,6 @@ class Imaging {
 
     /**
      * Obtains the name associated with a given schema.
-     * @remarks
-     * You can extend the schema name mapping by adding to the following registry key:
-     * 
-     * 
-     * <pre><b>HKEY_CLASSES_ROOT</b>
-     *    <b>CLSID</b>
-     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
-     *          <b>Schemas</b>
-     *             <b>BB5ACC38-F216-4CEC-A6C5-5F6E739763A9</b>
-     *                <b>...</b></pre>
-     * 
-     * 
-     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-howtowriteacodec">How to Write a WIC-Enabled Codec</a>.
      * @param {Pointer<Guid>} guidMetadataFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-guids-clsids">REFGUID</a></b>
      * 
      * The metadata format GUID.
@@ -1788,8 +1752,8 @@ class Imaging {
      * The actual buffer size needed to retrieve the entire schema name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapschematoname
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapschematoname
      * @since windows5.1.2600
      */
     static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName, pcchActual) {
@@ -1819,8 +1783,8 @@ class Imaging {
      * A pointer that receives a metadata format GUID for the given parameters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
      * @since windows5.1.2600
      */
     static WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
@@ -1847,8 +1811,8 @@ class Imaging {
      * A pointer to the stream in which to write the metadata.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
      * @since windows5.1.2600
      */
     static WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
@@ -1872,8 +1836,8 @@ class Imaging {
      * A pointer that receives the size of the metadata content.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter, pcbSize) {

@@ -4,8 +4,11 @@
 /**
  * The VMRGUID structure is a member of the VMRMONITORINFO structure and is used to identify a monitor on the system (VMR-7 only).
  * @remarks
- * In DirectX 9.0 and later, the monitor is identified by an integer index, not by a GUID.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrguid
+ * 
+  * In DirectX 9.0 and later, the monitor is identified by an integer index, not by a GUID.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrguid
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

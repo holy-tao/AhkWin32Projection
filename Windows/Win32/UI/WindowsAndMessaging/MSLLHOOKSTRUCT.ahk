@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a low-level mouse input event.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msllhookstruct
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-msllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class MSLLHOOKSTRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The x- and y-coordinates of the cursor, in <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">per-monitor-aware</a> screen coordinates.
      * @type {POINT}

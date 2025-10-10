@@ -4,23 +4,20 @@
 /**
  * Describes information about present that helps the operating system optimize presentation.
  * @remarks
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">Present1</a> method.
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">Present1</a> method.
   * 
   * The scroll rectangle and the list of dirty rectangles could overlap.  In this situation, the dirty rectangles take priority. Applications can then have pieces of dynamic content on top of a scrolled area. For example, an application could scroll a page and play video at the same time.
   * 
   * The following diagram and coordinates illustrate this example.
   * 
   * <img alt="Illustration of scroll and dirty rectangles overlapping" border="" src="./images/DXGIPresentParam.png"/>
-  * 
-  * ``` syntax
-  * DirtyRectsCount = 2
+  * <pre class="syntax" xml:space="preserve"><code>DirtyRectsCount = 2
   * pDirtyRects[ 0 ] = { 10, 30, 40, 50 } // Video
   * pDirtyRects[ 1 ] = { 0, 70, 50, 80 } // New line
   * *pScrollRect = { 0, 0, 50, 70 }
   * *pScrollOffset = { 0, -10 }
-  * 
-  * ```
-  * 
+  * </code></pre>
   * Parts of the previous frame and content that the application renders are combined to produce the final frame that the operating system presents on the display screen. Most of the window is scrolled from the previous frame. The  application must update the video frame with the new chunk of content that appears due to scrolling.
   * 
   * The dashed rectangle shows the scroll rectangle in the current frame. The scroll rectangle is  specified by the <b>pScrollRect</b> member.
@@ -32,7 +29,9 @@
   * The actual implementation of composition and necessary bitblts is different for the bitblt model and the flip model. For more info about these models, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">DXGI Flip Model</a>.
   * 
   * For more info about the flip-model swap chain and optimizing presentation, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-2-presentation-improvements">Enhancing presentation with the flip model, dirty rectangles, and scrolled areas</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

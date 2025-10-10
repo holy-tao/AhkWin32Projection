@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
@@ -16,9 +12,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The current network generation (incremented each time the configuration is changed).
      * @type {Integer}
      */
     ullGenerationId {
@@ -27,9 +20,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
-     * 
-     * Flags for the proxy settings (for example, **WINHTTP_PROXY_TYPE_DIRECT**).
      * @type {Integer}
      */
     ullFlags {
@@ -38,9 +28,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The PAC URL for the network (for example, L"http://proxy.contoso.com/wpad.dat").
      * @type {Pointer<Char>}
      */
     pcwszAutoconfigUrl {
@@ -49,9 +36,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The proxy address and port for HTTP traffic (for example, L"http://192.168.1.1:8888").
      * @type {Pointer<Char>}
      */
     pcwszProxy {
@@ -60,9 +44,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The proxy address and port for HTTPS traffic (for example, L"http://192.168.1.1:8888").
      * @type {Pointer<Char>}
      */
     pcwszSecureProxy {
@@ -71,9 +52,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The number of entries in the proxy bypass list (*rgpcwszProxyBypasses*).
      * @type {Integer}
      */
     cProxyBypasses {
@@ -82,9 +60,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)\***
-     * 
-     * An array of strings containing each site in the proxy bypass list. (for example, L"contoso.com").
      * @type {Pointer<Char>}
      */
     rgpcwszProxyBypasses {
@@ -93,9 +68,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The interface index for which settings were retrieved.
      * @type {Integer}
      */
     dwInterfaceIndex {
@@ -104,9 +76,6 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
-     * 
-     * The WCM connection name for which settings were retrieved.
      * @type {Pointer<Char>}
      */
     pcwszConnectionName {

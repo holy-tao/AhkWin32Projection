@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_PROPERTY_FORMAT enumeration (msclus.h) specifies the data type of a property value in a property list.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_format
+ * Specifies the data type of a property value in a property list.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_property_format
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class CLUSTER_PROPERTY_FORMAT{
     static CLUSPROP_FORMAT_ULARGE_INTEGER => 6
 
     /**
-     * Data is a signed <b>LONG</b> value.
+     * Data is an signed <b>LONG</b> value.
      * @type {Integer (Int32)}
      */
     static CLUSPROP_FORMAT_LONG => 7

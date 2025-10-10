@@ -2,7 +2,7 @@
 
 /**
  * The EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID enumeration specifies the values used to get the status of a subscription or the status of a particular event source with respect to a subscription.
- * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id
+ * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_runtime_status_info_id
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

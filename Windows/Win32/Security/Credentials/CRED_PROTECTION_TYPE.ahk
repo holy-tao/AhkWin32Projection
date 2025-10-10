@@ -2,7 +2,7 @@
 
 /**
  * Specifies the security context in which credentials are encrypted when using the CredProtect function.
- * @see https://learn.microsoft.com/windows/win32/api/wincred/ne-wincred-cred_protection_type
+ * @see https://docs.microsoft.com/windows/win32/api//wincred/ne-wincred-cred_protection_type
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

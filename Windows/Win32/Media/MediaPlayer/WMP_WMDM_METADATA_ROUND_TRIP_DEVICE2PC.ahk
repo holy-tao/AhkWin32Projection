@@ -4,8 +4,11 @@
 /**
  * The WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC structure is used by Windows Media Player to receive accelerated metadata synchronization information from portable devices that do not support MTP.
  * @remarks
- * The Windows Media Device Manager service provider should return as many object path names as will fit in the buffer size specified by the <i>pnOutBufferSize</i> parameter of the <b>DeviceIoControl</b> method. If the buffer is not large enough to contain the path name strings for all the changes, the device must set the <b>dwUnretrievedObjectCount</b> member to the appropriate (nonzero) value.
- * @see https://learn.microsoft.com/windows/win32/api/wmpdevices/ns-wmpdevices-wmp_wmdm_metadata_round_trip_device2pc
+ * 
+  * The Windows Media Device Manager service provider should return as many object path names as will fit in the buffer size specified by the <i>pnOutBufferSize</i> parameter of the <b>DeviceIoControl</b> method. If the buffer is not large enough to contain the path name strings for all the changes, the device must set the <b>dwUnretrievedObjectCount</b> member to the appropriate (nonzero) value.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmpdevices/ns-wmpdevices-wmp_wmdm_metadata_round_trip_device2pc
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

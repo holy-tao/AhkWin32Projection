@@ -2,7 +2,7 @@
 
 /**
  * The INSTALLSPECTYPE enumeration values define the ways a group policy application can be specified to the InstallApplication function. The values are used in the Type member of INSTALLDATA.
- * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ne-appmgmt-installspectype
+ * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ne-appmgmt-installspectype
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

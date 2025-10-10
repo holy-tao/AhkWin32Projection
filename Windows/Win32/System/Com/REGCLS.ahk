@@ -3,7 +3,8 @@
 /**
  * Controls the type of connections to a class object.
  * @remarks
- * In <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, members of both the <b>REGCLS</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumerations, taken together, determine how the class object is registered.
+ * 
+  * In <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a>, members of both the <b>REGCLS</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumerations, taken together, determine how the class object is registered.
   * 
   * 
   * 
@@ -50,7 +51,9 @@
   * <td>Error</td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-regcls
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//combaseapi/ne-combaseapi-regcls
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -2,8 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (Unicode)
- * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilename_nt4w
+ * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400.
+ * @remarks
+ * 
+  * > [!NOTE]
+  * > The commdlg.h header defines OPENFILENAME_NT4 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-openfilename_nt4w
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode
@@ -15,7 +21,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     lStructSize {
@@ -24,7 +29,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     hwndOwner {
@@ -33,7 +37,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     hInstance {
@@ -42,7 +45,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrFilter {
@@ -51,7 +53,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrCustomFilter {
@@ -60,7 +61,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nMaxCustFilter {
@@ -69,7 +69,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nFilterIndex {
@@ -78,7 +77,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrFile {
@@ -87,7 +85,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nMaxFile {
@@ -96,7 +93,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrFileTitle {
@@ -105,7 +101,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nMaxFileTitle {
@@ -114,7 +109,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrInitialDir {
@@ -123,7 +117,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrTitle {
@@ -132,7 +125,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
@@ -141,7 +133,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nFileOffset {
@@ -150,7 +141,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nFileExtension {
@@ -159,7 +149,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpstrDefExt {
@@ -168,7 +157,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer}
      */
     lCustData {
@@ -177,7 +165,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<LPOFNHOOKPROC>}
      */
     lpfnHook {
@@ -186,7 +173,6 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Char>}
      */
     lpTemplateName {

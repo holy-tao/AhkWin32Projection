@@ -4,8 +4,6 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
- * Contains the response to a D3DAUTHENTICATEDQUERY\_ACCESSIBILITYATTRIBUTES query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryinfobustype-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -16,7 +14,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     static packingSize => 8
 
     /**
-     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
     Output{
@@ -28,7 +25,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     }
 
     /**
-     * A bitwise **OR** of flags from the [**D3DBUSTYPE**](d3dbustype.md) enumeration.
      * @type {Integer}
      */
     BusType {
@@ -37,7 +33,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     }
 
     /**
-     * If **TRUE**, contiguous blocks of video memory may be accessible to the CPU or the bus.
      * @type {Integer}
      */
     bAccessibleInContiguousBlocks {
@@ -46,7 +41,6 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     }
 
     /**
-     * If **TRUE**, non-contiguous blocks of video memory may be accessible to the CPU or the bus.
      * @type {Integer}
      */
     bAccessibleInNonContiguousBlocks {

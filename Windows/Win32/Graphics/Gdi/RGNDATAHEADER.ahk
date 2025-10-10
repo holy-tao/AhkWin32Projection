@@ -4,7 +4,7 @@
 
 /**
  * The RGNDATAHEADER structure describes the data returned by the GetRegionData function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgndataheader
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rgndataheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

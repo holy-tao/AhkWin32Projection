@@ -3,8 +3,6 @@
 #Include .\CIEXYZ.ahk
 
 /**
- * The CIEXYZTRIPLE structure contains the x,y, and z coordinates of the three colors that correspond to the red, green, and blue endpoints for a specified logical color space.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ciexyztriple
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class CIEXYZTRIPLE extends Win32Struct
     static packingSize => 8
 
     /**
-     * The xyz coordinates of red endpoint.
      * @type {CIEXYZ}
      */
     ciexyzRed{
@@ -27,7 +24,6 @@ class CIEXYZTRIPLE extends Win32Struct
     }
 
     /**
-     * The xyz coordinates of green endpoint.
      * @type {CIEXYZ}
      */
     ciexyzGreen{
@@ -39,7 +35,6 @@ class CIEXYZTRIPLE extends Win32Struct
     }
 
     /**
-     * The xyz coordinates of blue endpoint.
      * @type {CIEXYZ}
      */
     ciexyzBlue{

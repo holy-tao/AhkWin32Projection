@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The WPD\_RENDERING\_INFORMATION\_PROFILE\_ENTRY\_TYPES enumeration type indicates whether the rendering information profile entry corresponds to an Object or a Resource.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-rendering-information-profile-entry-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

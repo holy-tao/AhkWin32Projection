@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a specified server.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_402
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_402
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

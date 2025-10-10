@@ -2,7 +2,7 @@
 
 /**
  * Defines values that indicate the current state of the write operation when using the IDiscFormat2TrackAtOnceEventArgs interface.
- * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_tao_write_action
+ * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_format2_tao_write_action
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

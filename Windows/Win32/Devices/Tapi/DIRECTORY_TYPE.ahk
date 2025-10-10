@@ -2,7 +2,7 @@
 
 /**
  * The DIRECTORY_TYPE enum is used to indicate the type of directory server.
- * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-directory_type
+ * @see https://docs.microsoft.com/windows/win32/api//rend/ne-rend-directory_type
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides detail about whether a DirectML device supports a particular data type within tensors.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_feature_data_tensor_data_type_support
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_feature_data_tensor_data_type_support
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

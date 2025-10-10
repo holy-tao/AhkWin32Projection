@@ -2,7 +2,7 @@
 
 /**
  * Options for Group Policy Management Console reports.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmreportingoptions
+ * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/ne-gpmgmt-gpmreportingoptions
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

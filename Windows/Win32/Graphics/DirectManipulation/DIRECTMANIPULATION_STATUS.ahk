@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible states of Direct Manipulation.
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_status
+ * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_status
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

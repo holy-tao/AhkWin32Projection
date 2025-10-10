@@ -5,8 +5,11 @@
 /**
  * Contains the information needed to access a specific data stream in a minidump file.
  * @remarks
- * In this context, a data stream is a block of data within a minidump file.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_directory
+ * 
+  * In this context, a data stream is a block of data within a minidump file.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

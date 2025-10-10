@@ -2,7 +2,7 @@
 
 /**
  * Identifies the pointer device types.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-pointer_device_type
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-pointer_device_type
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-updatelayeredwindowinfo
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-updatelayeredwindowinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
     }
 
     /**
-     * Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
+     * Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * The new screen position of the layered window. If the new position is unchanged from the current position, <b>pptDst</b> can be <b>NULL</b>.
      * @type {Pointer<POINT>}
@@ -51,7 +51,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
     }
 
     /**
-     * Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
+     * Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
      * 
      * The new size of the layered window. If the size of the window will not change, this parameter can be <b>NULL</b>. If <b>hdcSrc</b> is <b>NULL</b>, <b>psize</b> must be <b>NULL</b>.
      * @type {Pointer<SIZE>}
@@ -73,7 +73,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
     }
 
     /**
-     * Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
+     * Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * The location of the layer in the device context. If <b>hdcSrc</b> is <b>NULL</b>, <b>pptSrc</b> should be <b>NULL</b>.
      * @type {Pointer<POINT>}

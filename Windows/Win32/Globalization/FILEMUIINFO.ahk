@@ -4,7 +4,8 @@
 /**
  * Contains information about a file, related to its use with MUI.
  * @remarks
- * All offsets are from the base of the structure. An offset of 0 indicates that the data is not available.
+ * 
+  * All offsets are from the base of the structure. An offset of 0 indicates that the data is not available.
   * 
   * The following is an example showing how to access data for the position in the structure that is described by an offset. This example accesses the language name string with the position defined by <i>dwLanguageNameOffset</i>.
   * 
@@ -56,7 +57,9 @@
   *         }
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-filemuiinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnls/ns-winnls-filemuiinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

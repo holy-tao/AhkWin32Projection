@@ -3,7 +3,7 @@
 
 /**
  * Represents a timestamp.
- * @see https://learn.microsoft.com/windows/win32/api/wsdxml/ns-wsdxml-wsd_datetime
+ * @see https://docs.microsoft.com/windows/win32/api//wsdxml/ns-wsdxml-wsd_datetime
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

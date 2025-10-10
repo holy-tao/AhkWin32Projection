@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_FONT_METRICS structure specifies the metrics that are applicable to all glyphs within the font face.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_font_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -16,7 +16,7 @@ class DWRITE_FONT_METRICS extends Win32Struct
     /**
      * Type: <b>UINT16</b>
      * 
-     * The number of font design units per em unit. Font files use their own coordinate system of font design units. A font design unit is the smallest measurable unit in the em square, an imaginary square that is used to size and align glyphs. The concept of em square is used as a reference scale factor when defining font size and device transformation semantics. The size of one em square is also commonly used to compute the paragraph indentation value.
+     * The number of font design units per em unit. Font files use their own coordinate system of font design units. A font design unit is the smallest measurable unit in the em square, an imaginary square that is used to size and align glyphs. The concept of em square is used as a reference scale factor when defining font size and device transformation semantics. The size of one em square is also commonly used to compute the paragraph identation value.
      * @type {Integer}
      */
     designUnitsPerEm {

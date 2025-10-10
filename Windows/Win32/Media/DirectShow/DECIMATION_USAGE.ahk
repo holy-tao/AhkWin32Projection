@@ -2,7 +2,7 @@
 
 /**
  * Describes the strategy that the Overlay Mixer Filter filter uses to scale the video image down to a smaller size.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-decimation_usage
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-decimation_usage
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

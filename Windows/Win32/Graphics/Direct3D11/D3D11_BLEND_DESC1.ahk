@@ -3,9 +3,10 @@
 #Include .\D3D11_RENDER_TARGET_BLEND_DESC1.ahk
 
 /**
- * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object. (D3D11_BLEND_DESC1)
+ * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object.
  * @remarks
- * Here are the default values for blend state.
+ * 
+  * Here are the default values for blend state.
   * 
   * <table>
   * <tr>
@@ -65,7 +66,9 @@
   * If the driver type is set to <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE_HARDWARE</a>, the feature level is set to less than or equal to <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL_9_3</a>, and the pixel format of the render target is set to <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_R8G8B8A8_UNORM_SRGB</a>, <b>DXGI_FORMAT_B8G8R8A8_UNORM_SRGB</b>, or <b>DXGI_FORMAT_B8G8R8X8_UNORM_SRGB</b>, the display device performs the blend in standard RGB (sRGB) space and not in linear space. However, if the feature level is set to greater than <b>D3D_FEATURE_LEVEL_9_3</b>, the display device performs the blend in linear space, which is ideal.
   * 
   * When you set the <b>LogicOpEnable</b> member of the first element of the <b>RenderTarget</b> array (<b>RenderTarget</b>[0]) to <b>TRUE</b>, you must also set the <b>BlendEnable</b> member of <b>RenderTarget</b>[0] to <b>FALSE</b>, and the <b>IndependentBlendEnable</b> member of this <b>D3D11_BLEND_DESC1</b> to <b>FALSE</b>. This reflects the limitation in hardware that you can't mix logic operations with blending across multiple render targets, and that when you use a logic operation, you must apply the same logic operation to all render targets.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_blend_desc1
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ns-d3d11_1-d3d11_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

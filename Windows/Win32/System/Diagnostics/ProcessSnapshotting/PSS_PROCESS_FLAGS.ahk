@@ -3,8 +3,11 @@
 /**
  * Flags that describe a process.
  * @remarks
- * There are <b>PSS_PROCESS_FLAGS</b> members in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_process_information">PSS_PROCESS_INFORMATION</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_handle_entry">PSS_HANDLE_ENTRY</a> structures.
- * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_process_flags
+ * 
+  * There are <b>PSS_PROCESS_FLAGS</b> members in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_process_information">PSS_PROCESS_INFORMATION</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_handle_entry">PSS_HANDLE_ENTRY</a> structures.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_process_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

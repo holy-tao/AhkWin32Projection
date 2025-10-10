@@ -886,7 +886,7 @@ class Credentials {
      * @param {Pointer<Int32>} isReady If the operational prerequisite will succeed (True) or (False).
      * @param {Pointer<Int32>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
      * @returns {HRESULT} Returns an HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
+     * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
     static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType, isReady, keyCredentialManagerOperationErrorStates) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, "int*", isReady, "int*", keyCredentialManagerOperationErrorStates, "int")
@@ -899,9 +899,9 @@ class Credentials {
     /**
      * API to perform the requested WHFB operation.
      * @param {Pointer<Void>} hWndOwner Window handle of the calling app.
-     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
+     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/en-us/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
      * @returns {HRESULT} Returns an HRESULT
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
+     * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
      */
     static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "int")
@@ -915,7 +915,7 @@ class Credentials {
      * API to get a unique identifier of the users enrollment.
      * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
      * @returns {HRESULT} Returns an HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
+     * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation(keyCredentialManagerInfo) {
         result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr", keyCredentialManagerInfo, "int")
@@ -929,27 +929,14 @@ class Credentials {
      * API to free the KeyCredentialManagerInfo pointer variable from the KeyCredentialManagerGetInformation call.
      * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
+     * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
      */
     static KeyCredentialManagerFreeInformation(keyCredentialManagerInfo) {
         DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo)
     }
 
     /**
-     * Creates a new credential or modifies an existing credential in the user's credential set. (Unicode)
-     * @remarks
-     * This function creates a credential if a credential with the specified <b>TargetName</b> and <b>Type</b> does not exist. If a credential with the specified <b>TargetName</b> and <b>Type</b> exists, the new specified credential replaces the existing one.
-     * 
-     * When this function writes a CRED_TYPE_CERTIFICATE credential, the <i>Credential</i>-&gt;<b>CredentialBlob</b> member specifies the PIN protecting the private key of the certificate specified by the <i>Credential</i>-&gt;<b>UserName</b> member. The credential manager does not maintain the PIN. Rather, the PIN is passed to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) indicated on the certificate for later use by the CSP and the authentication packages. The CSP defines the lifetime of the PIN. Most CSPs flush the PIN when the smart card removal from the smart card reader.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function does not support writing to target names that contain wildcards. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a new credential or modifies an existing credential in the user's credential set.
      * @param {Pointer<CREDENTIALW>} Credential A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure to be written.
      * @param {Integer} Flags Flags that control the function's operation. The following flag is defined.
      * 
@@ -972,7 +959,7 @@ class Credentials {
      * </table>
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
+     * If the function fails, it returns <b>FALSE</b>. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
      * 
      * Other smart card errors can be returned when writing a CRED_TYPE_CERTIFICATE credential.
      * 
@@ -1078,7 +1065,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritew
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credwritew
      * @since windows5.1.2600
      */
     static CredWriteW(Credential, Flags) {
@@ -1092,20 +1079,7 @@ class Credentials {
     }
 
     /**
-     * Creates a new credential or modifies an existing credential in the user's credential set. (ANSI)
-     * @remarks
-     * This function creates a credential if a credential with the specified <b>TargetName</b> and <b>Type</b> does not exist. If a credential with the specified <b>TargetName</b> and <b>Type</b> exists, the new specified credential replaces the existing one.
-     * 
-     * When this function writes a CRED_TYPE_CERTIFICATE credential, the <i>Credential</i>-&gt;<b>CredentialBlob</b> member specifies the PIN protecting the private key of the certificate specified by the <i>Credential</i>-&gt;<b>UserName</b> member. The credential manager does not maintain the PIN. Rather, the PIN is passed to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) indicated on the certificate for later use by the CSP and the authentication packages. The CSP defines the lifetime of the PIN. Most CSPs flush the PIN when the smart card removal from the smart card reader.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function does not support writing to target names that contain wildcards. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates a new credential or modifies an existing credential in the user's credential set.
      * @param {Pointer<CREDENTIALA>} Credential A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure to be written.
      * @param {Integer} Flags Flags that control the function's operation. The following flag is defined.
      * 
@@ -1128,7 +1102,7 @@ class Credentials {
      * </table>
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
+     * If the function fails, it returns <b>FALSE</b>. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
      * 
      * Other smart card errors can be returned when writing a CRED_TYPE_CERTIFICATE credential.
      * 
@@ -1234,7 +1208,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritea
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credwritea
      * @since windows5.1.2600
      */
     static CredWriteA(Credential, Flags) {
@@ -1248,20 +1222,12 @@ class Credentials {
     }
 
     /**
-     * Reads a credential from the user's credential set. (Unicode)
-     * @remarks
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function can return only one credential of the specified type.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredRead as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads a credential from the user's credential set.
      * @param {Pointer<Char>} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
      * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
      * @param {Pointer<CREDENTIALW>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -1284,7 +1250,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreadw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credreadw
      * @since windows5.1.2600
      */
     static CredReadW(TargetName, Type, Credential) {
@@ -1302,20 +1268,12 @@ class Credentials {
     }
 
     /**
-     * Reads a credential from the user's credential set. (ANSI)
-     * @remarks
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function can return only one credential of the specified type.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredRead as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads a credential from the user's credential set.
      * @param {Pointer<Byte>} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
      * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
      * @param {Pointer<CREDENTIALA>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -1338,7 +1296,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreada
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credreada
      * @since windows5.1.2600
      */
     static CredReadA(TargetName, Type, Credential) {
@@ -1356,10 +1314,7 @@ class Credentials {
     }
 
     /**
-     * Enumerates the credentials from the user's credential set. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredEnumerate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the credentials from the user's credential set.
      * @param {Pointer<Char>} Filter Pointer to a <b>null</b>-terminated string that contains the filter for the returned credentials. Only credentials with a <i>TargetName</i> matching the filter will be returned. The filter specifies a name prefix followed by an asterisk. For instance, the filter "FRED*" will return all credentials with a <i>TargetName</i> beginning with the string "FRED".
      * 
      * 
@@ -1367,7 +1322,7 @@ class Credentials {
      * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
      * @param {Pointer<CREDENTIALW>} Credential Pointer to an array of pointers to credentials.
      * The returned credential is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
      * 
      * <table>
      * <tr>
@@ -1411,7 +1366,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credenumeratew
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credenumeratew
      * @since windows5.1.2600
      */
     static CredEnumerateW(Filter, Count, Credential) {
@@ -1429,10 +1384,7 @@ class Credentials {
     }
 
     /**
-     * Enumerates the credentials from the user's credential set. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredEnumerate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Enumerates the credentials from the user's credential set.
      * @param {Pointer<Byte>} Filter Pointer to a <b>null</b>-terminated string that contains the filter for the returned credentials. Only credentials with a <i>TargetName</i> matching the filter will be returned. The filter specifies a name prefix followed by an asterisk. For instance, the filter "FRED*" will return all credentials with a <i>TargetName</i> beginning with the string "FRED".
      * 
      * 
@@ -1440,7 +1392,7 @@ class Credentials {
      * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
      * @param {Pointer<CREDENTIALA>} Credential Pointer to an array of pointers to credentials.
      * The returned credential is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
      * 
      * <table>
      * <tr>
@@ -1484,7 +1436,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credenumeratea
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credenumeratea
      * @since windows5.1.2600
      */
     static CredEnumerateA(Filter, Count, Credential) {
@@ -1502,19 +1454,7 @@ class Credentials {
     }
 
     /**
-     * Writes domain credentials to the user's credential set. (Unicode)
-     * @remarks
-     * When this function writes a CRED_TYPE_CERTIFICATE credential, the <i>Credential</i>-&gt;<b>CredentialBlob</b> member specifies the PIN that protects the private key of the certificate specified by the <i>Credential</i>-&gt;<b>UserName</b>. The credential manager does not maintain the PIN. Rather, the PIN is passed to the CSP of the certificate for later use by the CSP and authentication packages. The CSP defines the lifetime of the PIN. For instance, most CSPs flush the PIN upon smart card removal.
-     * 
-     * <b>CredWriteDomainCredentials</b> differs from <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> in that it handles the idiosyncrasies of domain (CRED_TYPE_DOMAIN_PASSWORD or CRED_TYPE_DOMAIN_CERTIFICATE) credentials. Domain credentials contain more than one target member.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredWriteDomainCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Writes domain credentials to the user's credential set.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} TargetInfo Identifies the target server. At least one of the naming members must be non-<b>NULL</b> and can be <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, or <b>DnsTreeName</b>.
      * @param {Pointer<CREDENTIALW>} Credential Credential to be written. 
      * 
@@ -1543,7 +1483,7 @@ class Credentials {
      * </table>
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
+     * If the function fails, it returns <b>FALSE</b>. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
      * 
      * Other smart card errors can be returned when writing a CRED_TYPE_CERTIFICATE credential.
      * 
@@ -1641,7 +1581,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritedomaincredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credwritedomaincredentialsw
      * @since windows5.1.2600
      */
     static CredWriteDomainCredentialsW(TargetInfo, Credential, Flags) {
@@ -1655,19 +1595,7 @@ class Credentials {
     }
 
     /**
-     * Writes domain credentials to the user's credential set. (ANSI)
-     * @remarks
-     * When this function writes a CRED_TYPE_CERTIFICATE credential, the <i>Credential</i>-&gt;<b>CredentialBlob</b> member specifies the PIN that protects the private key of the certificate specified by the <i>Credential</i>-&gt;<b>UserName</b>. The credential manager does not maintain the PIN. Rather, the PIN is passed to the CSP of the certificate for later use by the CSP and authentication packages. The CSP defines the lifetime of the PIN. For instance, most CSPs flush the PIN upon smart card removal.
-     * 
-     * <b>CredWriteDomainCredentials</b> differs from <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> in that it handles the idiosyncrasies of domain (CRED_TYPE_DOMAIN_PASSWORD or CRED_TYPE_DOMAIN_CERTIFICATE) credentials. Domain credentials contain more than one target member.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credential</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredWriteDomainCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Writes domain credentials to the user's credential set.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONA>} TargetInfo Identifies the target server. At least one of the naming members must be non-<b>NULL</b> and can be <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, or <b>DnsTreeName</b>.
      * @param {Pointer<CREDENTIALA>} Credential Credential to be written. 
      * 
@@ -1696,7 +1624,7 @@ class Credentials {
      * </table>
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns <b>FALSE</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
+     * If the function fails, it returns <b>FALSE</b>. Call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get a more specific status code. The following status codes can be returned.
      * 
      * Other smart card errors can be returned when writing a CRED_TYPE_CERTIFICATE credential.
      * 
@@ -1794,7 +1722,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritedomaincredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credwritedomaincredentialsa
      * @since windows5.1.2600
      */
     static CredWriteDomainCredentialsA(TargetInfo, Credential, Flags) {
@@ -1808,34 +1736,7 @@ class Credentials {
     }
 
     /**
-     * Reads the domain credentials from the user's credential set. (Unicode)
-     * @remarks
-     * This function returns the most specific credentials matching the naming parameters. For instance, if there is a credential that matches the target server name and a credential that matches the target domain name, only the server specific credential is returned. This is the credential that would be used.
-     * 
-     * The following list specifies the order (from most specific to least specific) of what credential is returned if more than one matches:
-     * 
-     * <ul>
-     * <li>The credential target name is of the form &lt;<i>DfsRoot</i>&gt;\&lt;<i>DfsShare</i>&gt;, and it is an exact match on the <i>TargetName</i>.</li>
-     * <li>An exact match on the <i>DnsServerName</i>.</li>
-     * <li>An exact match on the <i>NetBIOSServerName</i>.</li>
-     * <li>An exact match on <i>TargetName</i>.</li>
-     * <li>A match of the <i>DnsServerName</i> to a wildcard server credential. If more than one wildcard server credential matches, the credential with the longer TargetName is used. That is, a credential for *.example.microsoft.com is used instead of a credential for *.microsoft.com.</li>
-     * <li>An exact match of the <i>DnsDomainName</i> to a wildcard domain credential of the form &lt;<i>DnsDomainName</i>&gt;\*.</li>
-     * <li>An exact match of the <i>NetBIOSDomainName </i> to a wildcard domain credential of the form &lt;<i>NetBIOSDomainName</i>&gt;\*</li>
-     * <li>The credential named CRED_SESSION_WILDCARD_NAME.</li>
-     * <li>The credential named "*".</li>
-     * </ul>
-     * <b>CredReadDomainCredentials</b> differs from <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> in that it handles the idiosyncrasies of domain (CRED_TYPE_DOMAIN_PASSWORD or CRED_TYPE_DOMAIN_CERTIFICATE) credentials. Domain credentials contain more than one target member.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credentials</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function can return only one credential of the specified type.
-     * 
-     * This function can return multiple credentials of this type, but <b>CRED_TYPE_DOMAIN_EXTENDED</b> cannot be mixed with other types in the <b>CredTypes</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credential_target_informationa">CREDENTIAL_TARGET_INFORMATION</a> structure specified by the <i>TargetInfo</i> parameter.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredReadDomainCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads the domain credentials from the user's credential set.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} TargetInfo Target information that identifies the target server. At least one of the naming members must not be <b>NULL</b>: NetbiosServerName, DnsServerName, NetbiosDomainName, DnsDomainName or DnsTreeName.
      * @param {Integer} Flags Flags controlling the operation of the function. 
      * 
@@ -1862,7 +1763,7 @@ class Credentials {
      * 
      * 
      * The returned buffer is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER 
@@ -1890,7 +1791,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreaddomaincredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credreaddomaincredentialsw
      * @since windows5.1.2600
      */
     static CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
@@ -1904,34 +1805,7 @@ class Credentials {
     }
 
     /**
-     * Reads the domain credentials from the user's credential set. (ANSI)
-     * @remarks
-     * This function returns the most specific credentials matching the naming parameters. For instance, if there is a credential that matches the target server name and a credential that matches the target domain name, only the server specific credential is returned. This is the credential that would be used.
-     * 
-     * The following list specifies the order (from most specific to least specific) of what credential is returned if more than one matches:
-     * 
-     * <ul>
-     * <li>The credential target name is of the form &lt;<i>DfsRoot</i>&gt;\&lt;<i>DfsShare</i>&gt;, and it is an exact match on the <i>TargetName</i>.</li>
-     * <li>An exact match on the <i>DnsServerName</i>.</li>
-     * <li>An exact match on the <i>NetBIOSServerName</i>.</li>
-     * <li>An exact match on <i>TargetName</i>.</li>
-     * <li>A match of the <i>DnsServerName</i> to a wildcard server credential. If more than one wildcard server credential matches, the credential with the longer TargetName is used. That is, a credential for *.example.microsoft.com is used instead of a credential for *.microsoft.com.</li>
-     * <li>An exact match of the <i>DnsDomainName</i> to a wildcard domain credential of the form &lt;<i>DnsDomainName</i>&gt;\*.</li>
-     * <li>An exact match of the <i>NetBIOSDomainName </i> to a wildcard domain credential of the form &lt;<i>NetBIOSDomainName</i>&gt;\*</li>
-     * <li>The credential named CRED_SESSION_WILDCARD_NAME.</li>
-     * <li>The credential named "*".</li>
-     * </ul>
-     * <b>CredReadDomainCredentials</b> differs from <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> in that it handles the idiosyncrasies of domain (CRED_TYPE_DOMAIN_PASSWORD or CRED_TYPE_DOMAIN_CERTIFICATE) credentials. Domain credentials contain more than one target member.
-     * 
-     * If the value of the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure specified by the <i>Credentials</i>  parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, a namespace must be specified in the target name. This function can return only one credential of the specified type.
-     * 
-     * This function can return multiple credentials of this type, but <b>CRED_TYPE_DOMAIN_EXTENDED</b> cannot be mixed with other types in the <b>CredTypes</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credential_target_informationa">CREDENTIAL_TARGET_INFORMATION</a> structure specified by the <i>TargetInfo</i> parameter.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredReadDomainCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Reads the domain credentials from the user's credential set.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONA>} TargetInfo Target information that identifies the target server. At least one of the naming members must not be <b>NULL</b>: NetbiosServerName, DnsServerName, NetbiosDomainName, DnsDomainName or DnsTreeName.
      * @param {Integer} Flags Flags controlling the operation of the function. 
      * 
@@ -1958,7 +1832,7 @@ class Credentials {
      * 
      * 
      * The returned buffer is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_INVALID_PARAMETER 
@@ -1986,7 +1860,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreaddomaincredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credreaddomaincredentialsa
      * @since windows5.1.2600
      */
     static CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
@@ -2000,15 +1874,12 @@ class Credentials {
     }
 
     /**
-     * Deletes a credential from the user's credential set. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredDelete as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a credential from the user's credential set.
      * @param {Pointer<Char>} TargetName Pointer to a null-terminated string that contains the name of the credential to delete.
      * @param {Integer} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
      * 
      * If the value of this parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, this function can delete a credential that specifies a user name when there are multiple credentials for the same target. The value of the <i>TargetName</i> parameter must specify the user name as <i>Target</i><b>|</b><i>UserName</i>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 						
      * 
      * <ul>
@@ -2032,7 +1903,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creddeletew
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creddeletew
      * @since windows5.1.2600
      */
     static CredDeleteW(TargetName, Type) {
@@ -2050,15 +1921,12 @@ class Credentials {
     }
 
     /**
-     * Deletes a credential from the user's credential set. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredDelete as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Deletes a credential from the user's credential set.
      * @param {Pointer<Byte>} TargetName Pointer to a null-terminated string that contains the name of the credential to delete.
      * @param {Integer} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
      * 
      * If the value of this parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, this function can delete a credential that specifies a user name when there are multiple credentials for the same target. The value of the <i>TargetName</i> parameter must specify the user name as <i>Target</i><b>|</b><i>UserName</i>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 						
      * 
      * <ul>
@@ -2082,7 +1950,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creddeletea
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creddeletea
      * @since windows5.1.2600
      */
     static CredDeleteA(TargetName, Type) {
@@ -2100,14 +1968,11 @@ class Credentials {
     }
 
     /**
-     * CredRename is no longer supported. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredRename as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * CredRename is no longer supported.
      * @param {Pointer<Char>} OldTargetName Pointer to a null-terminated string that contains the current name of the credential to be renamed.
      * @param {Pointer<Char>} NewTargetName Pointer to a null-terminated string that contains the new name for the credential.
      * @param {Integer} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -2135,7 +2000,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credrenamew
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credrenamew
      * @since windows5.1.2600
      */
     static CredRenameW(OldTargetName, NewTargetName, Type) {
@@ -2154,14 +2019,11 @@ class Credentials {
     }
 
     /**
-     * CredRename is no longer supported. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredRename as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * CredRename is no longer supported.
      * @param {Pointer<Byte>} OldTargetName Pointer to a null-terminated string that contains the current name of the credential to be renamed.
      * @param {Pointer<Byte>} NewTargetName Pointer to a null-terminated string that contains the new name for the credential.
      * @param {Integer} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -2189,7 +2051,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credrenamea
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credrenamea
      * @since windows5.1.2600
      */
     static CredRenameA(OldTargetName, NewTargetName, Type) {
@@ -2208,10 +2070,7 @@ class Credentials {
     }
 
     /**
-     * The CredGetTargetInfo function retrieves all known target name information for the named target computer. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredGetTargetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredGetTargetInfo function retrieves all known target name information for the named target computer.
      * @param {Pointer<Char>} TargetName Pointer to a null-terminated string that contains the name of the target computer for which information is to be retrieved.
      * @param {Integer} Flags Flags controlling the operation of the function. The following flag can be used: 
      * 
@@ -2224,7 +2083,7 @@ class Credentials {
      * 
      * This is useful if the application does not call an authentication package directly. The application can pass the <i>TargetName</i> to another layer of software to authenticate to the server, and that layer of software might resolve the name and pass the resolved name to the authentication package. As such, there will be no target information for the original <i>TargetName</i>.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -2234,7 +2093,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgettargetinfow
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credgettargetinfow
      * @since windows5.1.2600
      */
     static CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
@@ -2250,10 +2109,7 @@ class Credentials {
     }
 
     /**
-     * The CredGetTargetInfo function retrieves all known target name information for the named target computer. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredGetTargetInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredGetTargetInfo function retrieves all known target name information for the named target computer.
      * @param {Pointer<Byte>} TargetName Pointer to a null-terminated string that contains the name of the target computer for which information is to be retrieved.
      * @param {Integer} Flags Flags controlling the operation of the function. The following flag can be used: 
      * 
@@ -2266,7 +2122,7 @@ class Credentials {
      * 
      * This is useful if the application does not call an authentication package directly. The application can pass the <i>TargetName</i> to another layer of software to authenticate to the server, and that layer of software might resolve the name and pass the resolved name to the authentication package. As such, there will be no target information for the original <i>TargetName</i>.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONA>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * <ul>
      * <li>ERROR_NOT_FOUND 
@@ -2276,7 +2132,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgettargetinfoa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credgettargetinfoa
      * @since windows5.1.2600
      */
     static CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
@@ -2292,10 +2148,7 @@ class Credentials {
     }
 
     /**
-     * The CredMarshalCredential function transforms a credential into a text string. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredMarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredMarshalCredential function transforms a credential into a text string.
      * @param {Integer} CredType Type of the credential to marshal.
      * @param {Pointer<Void>} Credential Credential to marshal. 
      * 
@@ -2307,12 +2160,12 @@ class Credentials {
      * If <i>CredType</i> is <i>UsernameTargetCredential</i>, <i>Credential</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * @param {Pointer<Char>} MarshaledCredential Pointer to a <b>null</b>-terminated 
      * 						string that contains the marshaled credential. The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * ERROR_INVALID_PARAMETER
      * 
      * <i>CredType</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credmarshalcredentialw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credmarshalcredentialw
      * @since windows5.1.2600
      */
     static CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
@@ -2326,10 +2179,7 @@ class Credentials {
     }
 
     /**
-     * The CredMarshalCredential function transforms a credential into a text string. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredMarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredMarshalCredential function transforms a credential into a text string.
      * @param {Integer} CredType Type of the credential to marshal.
      * @param {Pointer<Void>} Credential Credential to marshal. 
      * 
@@ -2341,12 +2191,12 @@ class Credentials {
      * If <i>CredType</i> is <i>UsernameTargetCredential</i>, <i>Credential</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * @param {Pointer<Byte>} MarshaledCredential Pointer to a <b>null</b>-terminated 
      * 						string that contains the marshaled credential. The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * ERROR_INVALID_PARAMETER
      * 
      * <i>CredType</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credmarshalcredentiala
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credmarshalcredentiala
      * @since windows5.1.2600
      */
     static CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
@@ -2360,10 +2210,7 @@ class Credentials {
     }
 
     /**
-     * The CredUnmarshalCredential function transforms a marshaled credential back into its original form. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnmarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredUnmarshalCredential function transforms a marshaled credential back into its original form.
      * @param {Pointer<Char>} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @param {Pointer<Int32>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
@@ -2372,12 +2219,12 @@ class Credentials {
      * @param {Pointer<Void>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * 
      * The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * ERROR_INVALID_PARAMETER
      * 
      * <i>MarshaledCredential</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunmarshalcredentialw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunmarshalcredentialw
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialW(MarshaledCredential, CredType, Credential) {
@@ -2393,10 +2240,7 @@ class Credentials {
     }
 
     /**
-     * The CredUnmarshalCredential function transforms a marshaled credential back into its original form. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnmarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredUnmarshalCredential function transforms a marshaled credential back into its original form.
      * @param {Pointer<Byte>} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @param {Pointer<Int32>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
@@ -2405,12 +2249,12 @@ class Credentials {
      * @param {Pointer<Void>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * 
      * The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
-     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * ERROR_INVALID_PARAMETER
      * 
      * <i>MarshaledCredential</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunmarshalcredentiala
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunmarshalcredentiala
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialA(MarshaledCredential, CredType, Credential) {
@@ -2426,13 +2270,10 @@ class Credentials {
     }
 
     /**
-     * Determines whether a specified user name string is a marshaled credential previously marshaled by CredMarshalCredential. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredIsMarshaledCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines whether a specified user name string is a marshaled credential previously marshaled by CredMarshalCredential.
      * @param {Pointer<Char>} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @returns {Integer} This function returns <b>TRUE</b> if <i>MarshaledCredential</i> is a marshaled credential and <b>FALSE</b> if it is not.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credismarshaledcredentialw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credismarshaledcredentialw
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialW(MarshaledCredential) {
@@ -2443,13 +2284,10 @@ class Credentials {
     }
 
     /**
-     * Determines whether a specified user name string is a marshaled credential previously marshaled by CredMarshalCredential. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredIsMarshaledCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Determines whether a specified user name string is a marshaled credential previously marshaled by CredMarshalCredential.
      * @param {Pointer<Byte>} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @returns {Integer} This function returns <b>TRUE</b> if <i>MarshaledCredential</i> is a marshaled credential and <b>FALSE</b> if it is not.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credismarshaledcredentiala
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credismarshaledcredentiala
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialA(MarshaledCredential) {
@@ -2460,17 +2298,7 @@ class Credentials {
     }
 
     /**
-     * Converts an authentication buffer returned by a call to the CredUIPromptForWindowsCredentials function into a string user name and password. (Unicode)
-     * @remarks
-     * Beginning with  Windows 8 and Windows Server 2012, the authentication buffer can be a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure, which can be optionally encrypted by using the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> function with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option. This credential format is returned by a Credential Provider of an Identity Provider by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> function. This structure can also be constructed by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function. 
-     * If the authentication buffer <i>pAuthBuffer</i> represents a nonpassword credential, such as <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_certificate_logon">KERB_CERTIFICATE_LOGON</a> or <b>SEC_WINNT_AUTH_IDENTITY_EX2</b>, the function must marshal the credential as character strings, returned as user name, domain name, and password strings. The marshaling is done by using a specific procedure. When <i>dwFlags</i> contains the CRED_PACK_PROTECTED_CREDENTIALS flag, the caller must run in the same logon session in which the credential was encrypted.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts an authentication buffer returned by a call to the CredUIPromptForWindowsCredentials function into a string user name and password.
      * @param {Integer} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
      * 
      * How the decryption is done depends on the format of the authentication buffer.
@@ -2500,7 +2328,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
      * 
      * <table>
      * <tr>
@@ -2544,7 +2372,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunpackauthenticationbufferw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunpackauthenticationbufferw
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferW(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
@@ -2562,17 +2390,7 @@ class Credentials {
     }
 
     /**
-     * Converts an authentication buffer returned by a call to the CredUIPromptForWindowsCredentials function into a string user name and password. (ANSI)
-     * @remarks
-     * Beginning with  Windows 8 and Windows Server 2012, the authentication buffer can be a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure, which can be optionally encrypted by using the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> function with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option. This credential format is returned by a Credential Provider of an Identity Provider by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> function. This structure can also be constructed by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function. 
-     * If the authentication buffer <i>pAuthBuffer</i> represents a nonpassword credential, such as <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_certificate_logon">KERB_CERTIFICATE_LOGON</a> or <b>SEC_WINNT_AUTH_IDENTITY_EX2</b>, the function must marshal the credential as character strings, returned as user name, domain name, and password strings. The marshaling is done by using a specific procedure. When <i>dwFlags</i> contains the CRED_PACK_PROTECTED_CREDENTIALS flag, the caller must run in the same logon session in which the credential was encrypted.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts an authentication buffer returned by a call to the CredUIPromptForWindowsCredentials function into a string user name and password.
      * @param {Integer} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
      * 
      * How the decryption is done depends on the format of the authentication buffer.
@@ -2602,7 +2420,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
      * 
      * <table>
      * <tr>
@@ -2646,7 +2464,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunpackauthenticationbuffera
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunpackauthenticationbuffera
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferA(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchlMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
@@ -2664,10 +2482,7 @@ class Credentials {
     }
 
     /**
-     * Converts a string user name and password into an authentication buffer. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string user name and password into an authentication buffer.
      * @param {Integer} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
      * 
      * <table>
@@ -2739,7 +2554,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, which may return the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, which may return the following error codes.
      * 
      * <table>
      * <tr>
@@ -2758,7 +2573,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credpackauthenticationbufferw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credpackauthenticationbufferw
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferW(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
@@ -2775,10 +2590,7 @@ class Credentials {
     }
 
     /**
-     * Converts a string user name and password into an authentication buffer. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Converts a string user name and password into an authentication buffer.
      * @param {Integer} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
      * 
      * <table>
@@ -2850,7 +2662,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, which may return the following error codes.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, which may return the following error codes.
      * 
      * <table>
      * <tr>
@@ -2869,7 +2681,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credpackauthenticationbuffera
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credpackauthenticationbuffera
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferA(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
@@ -2886,15 +2698,7 @@ class Credentials {
     }
 
     /**
-     * Encrypts the specified credentials so that only the current security context can decrypt them. (Unicode)
-     * @remarks
-     * Note that the output of the <b>CredProtect</b> function is not integrity protected, so if the output is modified, the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunprotecta">CredUnprotect</a> function is not updated and may produce incorrect results.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredProtect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Encrypts the specified credentials so that only the current security context can decrypt them.
      * @param {Integer} fAsSelf Set to <b>TRUE</b> to specify that the credentials are encrypted in the security context of the current process. Set to <b>FALSE</b> to specify that credentials are encrypted in the security context of the calling thread security context.
      * @param {Pointer<Char>} pszCredentials A pointer to a string that specifies the credentials to encrypt. The function encrypts the number of characters provided in the <i>cchCredentials</i> parameter.
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
@@ -2904,8 +2708,8 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credprotectw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credprotectw
      * @since windows6.0.6000
      */
     static CredProtectW(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
@@ -2922,15 +2726,7 @@ class Credentials {
     }
 
     /**
-     * Encrypts the specified credentials so that only the current security context can decrypt them. (ANSI)
-     * @remarks
-     * Note that the output of the <b>CredProtect</b> function is not integrity protected, so if the output is modified, the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunprotecta">CredUnprotect</a> function is not updated and may produce incorrect results.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredProtect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Encrypts the specified credentials so that only the current security context can decrypt them.
      * @param {Integer} fAsSelf Set to <b>TRUE</b> to specify that the credentials are encrypted in the security context of the current process. Set to <b>FALSE</b> to specify that credentials are encrypted in the security context of the calling thread security context.
      * @param {Pointer<Byte>} pszCredentials A pointer to a string that specifies the credentials to encrypt. The function encrypts the number of characters provided in the <i>cchCredentials</i> parameter.
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
@@ -2940,8 +2736,8 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credprotecta
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credprotecta
      * @since windows6.0.6000
      */
     static CredProtectA(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
@@ -2958,10 +2754,7 @@ class Credentials {
     }
 
     /**
-     * Decrypts credentials that were previously encrypted by using the CredProtect function. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnprotect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Decrypts credentials that were previously encrypted by using the CredProtect function.
      * @param {Integer} fAsSelf Set to <b>TRUE</b> to specify that the credentials were encrypted in the security context of the current process. Set to <b>FALSE</b> to specify that credentials were encrypted in the security context of the calling thread security context.
      * @param {Pointer<Char>} pszProtectedCredentials A pointer to a string that specifies the encrypted credentials.
      * @param {Integer} cchProtectedCredentials The size, in characters, of the <i>pszProtectedCredentials</i> buffer.
@@ -2970,7 +2763,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
      * 
      * <table>
      * <tr>
@@ -3002,7 +2795,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunprotectw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunprotectw
      * @since windows6.0.6000
      */
     static CredUnprotectW(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
@@ -3019,10 +2812,7 @@ class Credentials {
     }
 
     /**
-     * Decrypts credentials that were previously encrypted by using the CredProtect function. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUnprotect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Decrypts credentials that were previously encrypted by using the CredProtect function.
      * @param {Integer} fAsSelf Set to <b>TRUE</b> to specify that the credentials were encrypted in the security context of the current process. Set to <b>FALSE</b> to specify that credentials were encrypted in the security context of the calling thread security context.
      * @param {Pointer<Byte>} pszProtectedCredentials A pointer to a string that specifies the encrypted credentials.
      * @param {Integer} cchProtectedCredentials The size, in characters, of the <i>pszProtectedCredentials</i> buffer.
@@ -3031,7 +2821,7 @@ class Credentials {
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following table shows common values for the <b>GetLastError</b> function.
      * 
      * <table>
      * <tr>
@@ -3063,7 +2853,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunprotecta
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credunprotecta
      * @since windows6.0.6000
      */
     static CredUnprotectA(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
@@ -3080,17 +2870,14 @@ class Credentials {
     }
 
     /**
-     * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredIsProtected as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function.
      * @param {Pointer<Char>} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
      * @param {Pointer<Int32>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credisprotectedw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credisprotectedw
      * @since windows6.0.6000
      */
     static CredIsProtectedW(pszProtectedCredentials, pProtectionType) {
@@ -3106,17 +2893,14 @@ class Credentials {
     }
 
     /**
-     * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredIsProtected as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function.
      * @param {Pointer<Byte>} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
      * @param {Pointer<Int32>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credisprotecteda
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credisprotecteda
      * @since windows6.0.6000
      */
     static CredIsProtectedA(pszProtectedCredentials, pProtectionType) {
@@ -3132,10 +2916,7 @@ class Credentials {
     }
 
     /**
-     * Searches the Credentials Management (CredMan) database for the set of generic credentials that are associated with the current logon session and that best match the specified target resource. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredFindBestCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Searches the Credentials Management (CredMan) database for the set of generic credentials that are associated with the current logon session and that best match the specified target resource.
      * @param {Pointer<Char>} TargetName A pointer to a null-terminated string that contains the name of the target resource for which to find credentials.
      * @param {Integer} Type The type of credentials to search for. Currently, this function supports only <b>CRED_TYPE_GENERIC</b>.
      * @param {Integer} Flags Reserved.
@@ -3145,8 +2926,8 @@ class Credentials {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfindbestcredentialw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credfindbestcredentialw
      * @since windows6.0.6000
      */
     static CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
@@ -3162,10 +2943,7 @@ class Credentials {
     }
 
     /**
-     * Searches the Credentials Management (CredMan) database for the set of generic credentials that are associated with the current logon session and that best match the specified target resource. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredFindBestCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Searches the Credentials Management (CredMan) database for the set of generic credentials that are associated with the current logon session and that best match the specified target resource.
      * @param {Pointer<Byte>} TargetName A pointer to a null-terminated string that contains the name of the target resource for which to find credentials.
      * @param {Integer} Type The type of credentials to search for. Currently, this function supports only <b>CRED_TYPE_GENERIC</b>.
      * @param {Integer} Flags Reserved.
@@ -3175,8 +2953,8 @@ class Credentials {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfindbestcredentiala
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credfindbestcredentiala
      * @since windows6.0.6000
      */
     static CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
@@ -3266,12 +3044,12 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
+     * @returns {Integer} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * ERROR_NO_SUCH_LOGON_SESSION
      * 
      * The logon session does not exist or there is no credential set associated with this logon session. Network logon sessions do not have an associated credential set.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgetsessiontypes
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credgetsessiontypes
      * @since windows5.1.2600
      */
     static CredGetSessionTypes(MaximumPersistCount, MaximumPersist) {
@@ -3288,7 +3066,7 @@ class Credentials {
      * The CredFree function frees a buffer returned by any of the credentials management functions.
      * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfree
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-credfree
      * @since windows5.1.2600
      */
     static CredFree(Buffer) {
@@ -3296,51 +3074,7 @@ class Credentials {
     }
 
     /**
-     * Creates and displays a configurable dialog box that accepts credentials information from a user. (Unicode)
-     * @remarks
-     * The <b>CredUIPromptForCredentials</b> function creates and displays an application modal dialog box. After the dialog box is displayed and until it is closed by the user or application, no other window in the application can become active.
-     * 
-     * The flags CREDUI_FLAGS_REQUIRE_SMARTCARD, CREDUI_FLAGS_REQUIRE_CERTIFICATE, and CREDUI_FLAGS_EXCLUDE_CERTIFICATE are mutually exclusive.
-     * 
-     * If CREDUI_FLAGS_DO_NOT_PERSIST is specified, either <i>pszTargetName</i> must be specified or <i>uiInfo-&gt;pszMessageText</i> and <i>uiInfo-&gt;pszCaption</i> must be specified.
-     * 
-     * The flags CREDUI_FLAG_USERNAME_TARGET_CREDENTIALS and CREDUI_FLAGS_GENERIC_CREDENTIALS are mutually exclusive. If neither is specified, the credential is a domain credential.
-     * 
-     * An X509 certificate must have an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">enhanced key usage</a> (EKU) value of <b>szOID_KP_SMARTCARD_LOGON</b> (1.3.6.1.4.1.311.20.2.2) to be displayed.
-     * 
-     * <b>Windows XP:  </b>This EKU value is not required to display X509 certificates.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is not specified or CREDUI_FLAGS_COMPLETE_USERNAME is specified, the typed name is <i>syntax checked</i>. Syntax checking applies the same rules as applied by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>. If the typed name is not valid, the user is prompted for a valid one. If the domain portion of the typed name is missing, one will be supplied based on the target name.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and CREDUI_FLAGS_VALIDATE_USERNAME is also specified, the typed name is syntax checked. If the typed name is not valid, the user is prompted for a valid one.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and neither CREDUI_FLAGS_COMPLETE_USERNAME nor CREDUI_FLAGS_VALIDATE_USERNAME is specified, the typed name is not syntax checked in any way.
-     * 
-     * If neither CREDUI_FLAGS_PERSIST nor CREDUI_FLAGS_DO_NOT_PERSIST is set, the <b>Save</b> check box is shown, and it controls whether the credential is saved.
-     * 
-     * Calling Modes
-     * 
-     * <ul>
-     * <li>The caller will attempt to access the target resource, call credui (passing a description of the target resource and the failure status), call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>, access the target resource again, and then call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiconfirmcredentialsa">CredUIConfirmCredentials</a>.</li>
-     * <li>The caller can prompt for credentials without accessing any resources by passing CREDUI_FLAGS_DO_NOT_PERSIST.</li>
-     * <li>For generic credentials, there is no authentication package. Therefore, the application needs to access the credential to do the authentication. Prompt for credentials, not passing CREDUI_FLAGS_ALWAYS_SHOW_UI before the first authentication. The user interface will appear only if there is no credential in the credential manager. On all subsequent messages from within the application, CREDUI_FLAGS_ALWAYS_SHOW_UI will be passed because the credential in the credential manager is clearly not valid for that resource.</li>
-     * </ul>
-     * Target Information
-     * 
-     * Target Information is  information about the location of the resource to be accessed. For a list of all potential target names for a resource, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>. <b>CredGetTargetInfo</b> returns information that was cached by the Negotiate, NTLM, or Kerberos authentication package when one of those packages was used to authenticate to the named target. <b>CredGetTargetInfo</b> returns some or all of the following names for the target:
-     * 
-     * <ul>
-     * <li>NetBIOS server name of the computer </li>
-     * <li>DNS server name of the computer</li>
-     * <li>NetBIOS domain name of the domain the computer belongs to</li>
-     * <li>DNS domain name of the domain the computer belongs to</li>
-     * <li>DNS tree name of the tree the computer belongs to</li>
-     * <li>Name of the package that collected the information</li>
-     * </ul>
-     * Any piece of this information can be missing if the information does not apply to the target computer. For instance, a computer that is a member of a workgroup does not have a NetBIOS domain name.
-     * 
-     * Credentials are stored in the credential manager based on target name. Each target name is stored as generally as possible without colliding with credentials already stored in the credential manager. Because credentials are stored by target name, a particular user can only have one credential per target stored in the credential manager.
+     * Creates and displays a configurable dialog box that accepts credentials information from a user.
      * @param {Pointer<CREDUI_INFOW>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box.
      * @param {Pointer<Char>} pszTargetName A pointer to a null-terminated string that contains  the name of the target for the credentials, typically a server name. For Distributed File System (DFS) connections, this string is of the form <i>ServerName</i>&#92;<i>ShareName</i>. This parameter is used to identify target information when storing and retrieving credentials.
      * @param {Integer} dwAuthError Specifies why the credential dialog box is needed. A caller can pass this Windows error parameter, returned by another authentication call, to allow the dialog box to accommodate certain errors. For example, if the password expired status code is passed, the dialog box could prompt the user to change the password on the account.
@@ -3410,7 +3144,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements:
+     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements:
      * 
      * <ul>
      * <li>The <b>cbSize</b> member must be one.</li>
@@ -3427,7 +3161,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * The credential manager cannot be used. Typically, this error is handled by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
+     * The credential manager cannot be used. Typically, this error is handled by calling <a href="/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
      * 
      * </td>
      * </tr>
@@ -3443,7 +3177,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduipromptforcredentialsw
      * @since windows5.1.2600
      */
     static CredUIPromptForCredentialsW(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
@@ -3458,58 +3192,7 @@ class Credentials {
     }
 
     /**
-     * Creates and displays a configurable dialog box that accepts credentials information from a user. (ANSI)
-     * @remarks
-     * The <b>CredUIPromptForCredentials</b> function creates and displays an application modal dialog box. After the dialog box is displayed and until it is closed by the user or application, no other window in the application can become active.
-     * 
-     * The flags CREDUI_FLAGS_REQUIRE_SMARTCARD, CREDUI_FLAGS_REQUIRE_CERTIFICATE, and CREDUI_FLAGS_EXCLUDE_CERTIFICATE are mutually exclusive.
-     * 
-     * If CREDUI_FLAGS_DO_NOT_PERSIST is specified, either <i>pszTargetName</i> must be specified or <i>uiInfo-&gt;pszMessageText</i> and <i>uiInfo-&gt;pszCaption</i> must be specified.
-     * 
-     * The flags CREDUI_FLAG_USERNAME_TARGET_CREDENTIALS and CREDUI_FLAGS_GENERIC_CREDENTIALS are mutually exclusive. If neither is specified, the credential is a domain credential.
-     * 
-     * An X509 certificate must have an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">enhanced key usage</a> (EKU) value of <b>szOID_KP_SMARTCARD_LOGON</b> (1.3.6.1.4.1.311.20.2.2) to be displayed.
-     * 
-     * <b>Windows XP:  </b>This EKU value is not required to display X509 certificates.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is not specified or CREDUI_FLAGS_COMPLETE_USERNAME is specified, the typed name is <i>syntax checked</i>. Syntax checking applies the same rules as applied by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>. If the typed name is not valid, the user is prompted for a valid one. If the domain portion of the typed name is missing, one will be supplied based on the target name.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and CREDUI_FLAGS_VALIDATE_USERNAME is also specified, the typed name is syntax checked. If the typed name is not valid, the user is prompted for a valid one.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and neither CREDUI_FLAGS_COMPLETE_USERNAME nor CREDUI_FLAGS_VALIDATE_USERNAME is specified, the typed name is not syntax checked in any way.
-     * 
-     * If neither CREDUI_FLAGS_PERSIST nor CREDUI_FLAGS_DO_NOT_PERSIST is set, the <b>Save</b> check box is shown, and it controls whether the credential is saved.
-     * 
-     * Calling Modes
-     * 
-     * <ul>
-     * <li>The caller will attempt to access the target resource, call credui (passing a description of the target resource and the failure status), call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>, access the target resource again, and then call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiconfirmcredentialsa">CredUIConfirmCredentials</a>.</li>
-     * <li>The caller can prompt for credentials without accessing any resources by passing CREDUI_FLAGS_DO_NOT_PERSIST.</li>
-     * <li>For generic credentials, there is no authentication package. Therefore, the application needs to access the credential to do the authentication. Prompt for credentials, not passing CREDUI_FLAGS_ALWAYS_SHOW_UI before the first authentication. The user interface will appear only if there is no credential in the credential manager. On all subsequent messages from within the application, CREDUI_FLAGS_ALWAYS_SHOW_UI will be passed because the credential in the credential manager is clearly not valid for that resource.</li>
-     * </ul>
-     * Target Information
-     * 
-     * Target Information is  information about the location of the resource to be accessed. For a list of all potential target names for a resource, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>. <b>CredGetTargetInfo</b> returns information that was cached by the Negotiate, NTLM, or Kerberos authentication package when one of those packages was used to authenticate to the named target. <b>CredGetTargetInfo</b> returns some or all of the following names for the target:
-     * 
-     * <ul>
-     * <li>NetBIOS server name of the computer </li>
-     * <li>DNS server name of the computer</li>
-     * <li>NetBIOS domain name of the domain the computer belongs to</li>
-     * <li>DNS domain name of the domain the computer belongs to</li>
-     * <li>DNS tree name of the tree the computer belongs to</li>
-     * <li>Name of the package that collected the information</li>
-     * </ul>
-     * Any piece of this information can be missing if the information does not apply to the target computer. For instance, a computer that is a member of a workgroup does not have a NetBIOS domain name.
-     * 
-     * Credentials are stored in the credential manager based on target name. Each target name is stored as generally as possible without colliding with credentials already stored in the credential manager. Because credentials are stored by target name, a particular user can only have one credential per target stored in the credential manager.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIPromptForCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates and displays a configurable dialog box that accepts credentials information from a user.
      * @param {Pointer<CREDUI_INFOA>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box.
      * @param {Pointer<Byte>} pszTargetName A pointer to a null-terminated string that contains  the name of the target for the credentials, typically a server name. For Distributed File System (DFS) connections, this string is of the form <i>ServerName</i>&#92;<i>ShareName</i>. This parameter is used to identify target information when storing and retrieving credentials.
      * @param {Integer} dwAuthError Specifies why the credential dialog box is needed. A caller can pass this Windows error parameter, returned by another authentication call, to allow the dialog box to accommodate certain errors. For example, if the password expired status code is passed, the dialog box could prompt the user to change the password on the account.
@@ -3579,7 +3262,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements:
+     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements:
      * 
      * <ul>
      * <li>The <b>cbSize</b> member must be one.</li>
@@ -3596,7 +3279,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * The credential manager cannot be used. Typically, this error is handled by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
+     * The credential manager cannot be used. Typically, this error is handled by calling <a href="/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
      * 
      * </td>
      * </tr>
@@ -3612,7 +3295,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduipromptforcredentialsa
      * @since windows5.1.2600
      */
     static CredUIPromptForCredentialsA(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
@@ -3627,17 +3310,7 @@ class Credentials {
     }
 
     /**
-     * Creates and displays a configurable dialog box that allows users to supply credential information by using any credential provider installed on the local computer. (Unicode)
-     * @remarks
-     * This function does not save credentials.
-     * 
-     * Applications that use <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/sspi">SSPI</a> to authenticate users should not call this function. Instead, call <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIPromptForWindowsCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates and displays a configurable dialog box that allows users to supply credential information by using any credential provider installed on the local computer.
      * @param {Pointer<CREDUI_INFOW>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box that this function displays. 
      *    
      * 
@@ -3666,7 +3339,7 @@ class Credentials {
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduipromptforwindowscredentialsw
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
@@ -3675,17 +3348,7 @@ class Credentials {
     }
 
     /**
-     * Creates and displays a configurable dialog box that allows users to supply credential information by using any credential provider installed on the local computer. (ANSI)
-     * @remarks
-     * This function does not save credentials.
-     * 
-     * Applications that use <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/sspi">SSPI</a> to authenticate users should not call this function. Instead, call <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIPromptForWindowsCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Creates and displays a configurable dialog box that allows users to supply credential information by using any credential provider installed on the local computer.
      * @param {Pointer<CREDUI_INFOA>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box that this function displays. 
      *    
      * 
@@ -3714,7 +3377,7 @@ class Credentials {
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduipromptforwindowscredentialsa
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsA(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
@@ -3723,41 +3386,7 @@ class Credentials {
     }
 
     /**
-     * The CredUIParseUserName function extracts the domain and user account name from a fully qualified user name. (Unicode)
-     * @remarks
-     * This function parses the user name information returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> functions so that the resulting credentials can be passed to functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, that require the user name and domain as separate strings.
-     * 
-     * The following formats are supported:
-     * 
-     * <ul>
-     * <li>&lt;MarshalledCredentialReference&gt; 
-     * 
-     * 
-     * Marshaled credential reference as defined by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credismarshaledcredentiala">CredIsMarshaledCredential</a>. Such a credential is returned in the <i>User</i> parameter. The <i>Domain</i> parameter is set to an empty string.
-     * 
-     * </li>
-     * <li>&lt;DomainName&gt;\&lt;UserName&gt; 
-     * 
-     * 
-     * &lt;UserName&gt; is returned in the <i>User</i> parameter and the &lt;DomainName&gt; is returned is the <i>Domain</i> parameter. The name is considered to have this syntax if the <i>UserName</i> contains a backslash (\\).
-     * 
-     * </li>
-     * <li>&lt;UserName&gt;@&lt;DNSDomainName&gt; 
-     * 
-     * 
-     * The entire string is returned in the <i>User</i> parameter. The <i>Domain</i> parameter is set to an empty string. For this syntax, the last @ in the string is used because &lt;UserName&gt; can contain an @ but &lt;DNSDomainName&gt; cannot.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIParseUserName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredUIParseUserName function extracts the domain and user account name from a fully qualified user name.
      * @param {Pointer<Char>} UserName Pointer to a <b>null</b>-terminated string that contains the user name to be parsed. The name must be in UPN or down-level format, or a certificate. Typically, <i>UserName</i> is received from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentials</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentials</a>.
@@ -3807,7 +3436,7 @@ class Credentials {
      * </ul>
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiparseusernamew
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduiparseusernamew
      * @since windows5.1.2600
      */
     static CredUIParseUserNameW(UserName, user, userBufferSize, domain, domainBufferSize) {
@@ -3820,41 +3449,7 @@ class Credentials {
     }
 
     /**
-     * The CredUIParseUserName function extracts the domain and user account name from a fully qualified user name. (ANSI)
-     * @remarks
-     * This function parses the user name information returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> functions so that the resulting credentials can be passed to functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, that require the user name and domain as separate strings.
-     * 
-     * The following formats are supported:
-     * 
-     * <ul>
-     * <li>&lt;MarshalledCredentialReference&gt; 
-     * 
-     * 
-     * Marshaled credential reference as defined by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credismarshaledcredentiala">CredIsMarshaledCredential</a>. Such a credential is returned in the <i>User</i> parameter. The <i>Domain</i> parameter is set to an empty string.
-     * 
-     * </li>
-     * <li>&lt;DomainName&gt;\&lt;UserName&gt; 
-     * 
-     * 
-     * &lt;UserName&gt; is returned in the <i>User</i> parameter and the &lt;DomainName&gt; is returned is the <i>Domain</i> parameter. The name is considered to have this syntax if the <i>UserName</i> contains a backslash (\\).
-     * 
-     * </li>
-     * <li>&lt;UserName&gt;@&lt;DNSDomainName&gt; 
-     * 
-     * 
-     * The entire string is returned in the <i>User</i> parameter. The <i>Domain</i> parameter is set to an empty string. For this syntax, the last @ in the string is used because &lt;UserName&gt; can contain an @ but &lt;DNSDomainName&gt; cannot.
-     * 
-     * </li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIParseUserName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The CredUIParseUserName function extracts the domain and user account name from a fully qualified user name.
      * @param {Pointer<Byte>} userName Pointer to a <b>null</b>-terminated string that contains the user name to be parsed. The name must be in UPN or down-level format, or a certificate. Typically, <i>pszUserName</i> is received from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a>.
@@ -3904,7 +3499,7 @@ class Credentials {
      * </ul>
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiparseusernamea
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduiparseusernamea
      * @since windows5.1.2600
      */
     static CredUIParseUserNameA(userName, user, userBufferSize, domain, domainBufferSize) {
@@ -3917,55 +3512,7 @@ class Credentials {
     }
 
     /**
-     * Prompts for and accepts credential information from a user working in a command-line (console) application. The name and password typed by the user are passed back to the calling application for verification. (Unicode)
-     * @remarks
-     * The CREDUI_FLAGS_REQUIRE_SMARTCARD, CREDUI_FLAGS_REQUIRE_CERTIFICATE, and CREDUI_FLAGS_EXCLUDE_CERTIFICATE flags are mutually exclusive.
-     * 
-     * If CREDUI_FLAGS_DO_NOT_PERSIST is specified, either <i>pszTargetName</i> must be specified or  <i>uiInfo-&gt;pszMessageText</i> and <i>uiInfo-&gt;pszCaption</i> must be specified.
-     * 
-     * The CREDUI_FLAG_USERNAME_TARGET_CREDENTIALS and CREDUI_FLAGS_GENERIC_CREDENTIALS flags are mutually exclusive. If neither is specified, the credential is a domain credential.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is not specified or CREDUI_FLAGS_COMPLETE_USERNAME is specified, the typed name is <i>syntax checked</i>. Syntax checked means that the same rules are used as are implied by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>. If the typed name is not valid, the user is prompted for a valid one. If the domain portion of the typed name is missing, one will be supplied based on the target name.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and CREDUI_FLAGS_VALIDATE_USERNAME is also specified, the typed name is syntax checked. If the typed name is not valid, the user is prompted for a valid one.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and neither CREDUI_FLAGS_COMPLETE_USERNAME nor CREDUI_FLAGS_VALIDATE_USERNAME is specified, the typed name is not syntax checked in any way.
-     * 
-     * If neither CREDUI_FLAGS_PERSIST nor CREDUI_FLAGS_DO_NOT_PERSIST are set, the save message is shown, and it controls whether the credential is saved or not.
-     * 
-     * If CREDUI_FLAGS_PROMPT_FOR_SAVE is specified, the <i>pfSave</i> parameter must not be <b>NULL</b>.
-     * 
-     * The CREDUI_FLAGS_REQUIRE_SMARTCARD and CREDUI_FLAGS_EXCLUDE_CERTIFICATES flags are mutually exclusive. <b>CredUICmdLinePromptForCredentials</b> supports prompting for a smart card certificate or a password-based credential. It does not support certificates that are not smart card certificates or prompting for both on a single call.
-     * 
-     * Calling Modes
-     * 
-     * <ul>
-     * <li>The caller will attempt to access the target resource, call credui (passing a description of the target resource and the failure status), call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>, access the target resource again, and then call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiconfirmcredentialsa">CredUIConfirmCredentials</a>.</li>
-     * <li>The caller can prompt for credentials without accessing any resources by passing CREDUI_FLAGS_DO_NOT_PERSIST.</li>
-     * </ul>
-     * Target Information
-     * 
-     * Target Information is  information about the location of the resource to be accessed. For a list of all potential target names for a resource, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>. <b>CredGetTargetInfo</b> returns information that was cached by the Negotiate, NTLM, or Kerberos authentication package when one of those packages was used to authenticate to the named target. <b>CredGetTargetInfo</b> returns some or all of the following names for the target:
-     * 
-     * <ul>
-     * <li>NetBIOS server name of the computer</li>
-     * <li>DNS server name of the computer</li>
-     * <li>NetBIOS domain name of the domain the computer belongs to</li>
-     * <li>DNS domain name of the domain the computer belongs to</li>
-     * <li>DNS tree name of the tree the computer belongs to</li>
-     * <li>Name of the package that collected the information</li>
-     * </ul>
-     *  Any piece of this information can be missing if the information does not apply to the target computer. For instance, a computer that is a member of a workgroup does not have a NetBIOS domain name. A computer that is a member of a Windows domain does not have a DNS domain name or DNS tree name.
-     * 
-     * Credentials are stored in the credential manager based on target name. Each target name is stored as generally as possible without colliding with credentials already stored in the credential manager. An important effect of storing credentials by target name is that a particular user can  have only one credential per target stored in the credential manager.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUICmdLinePromptForCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Prompts for and accepts credential information from a user working in a command-line (console) application. The name and password typed by the user are passed back to the calling application for verification.
      * @param {Pointer<Char>} pszTargetName A pointer to a <b>null</b>-terminated string that contains the name of the target for the credentials, typically a server name. For DFS connections, this string is of the form <i>ServerName</i><b>\\</b><i>ShareName</i>. The <i>pszTargetName</i> parameter is used to identify the target information and is used to store and retrieve the credential.
      * @param {Integer} dwAuthError Specifies why prompting for credentials is needed. A caller can pass this Windows error parameter, returned by another authentication call, to allow the dialog box to accommodate certain errors. For example, if the password expired status code is passed, the dialog box prompts the user to change the password on the account.
      * @param {Pointer<Char>} UserName A pointer to a <b>null</b>-terminated string that contains the credential user name. If a nonzero-length string is specified for <i>pszUserName</i>, the user will be prompted only for the password. In the case of credentials other than user name/password, a marshaled format of the credential can be passed in. This string is created by calling 
@@ -4027,7 +3574,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements: 
+     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements: 
      * 
      * <ul>
      * <li>The <b>cbSize</b> member must be one.</li>
@@ -4044,7 +3591,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * The credential manager cannot be used. Typically, this error is handled by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
+     * The credential manager cannot be used. Typically, this error is handled by calling <a href="/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
      * 
      * </td>
      * </tr>
@@ -4060,7 +3607,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduicmdlinepromptforcredentialsw
      * @since windows5.1.2600
      */
     static CredUICmdLinePromptForCredentialsW(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
@@ -4075,55 +3622,7 @@ class Credentials {
     }
 
     /**
-     * Prompts for and accepts credential information from a user working in a command-line (console) application. The name and password typed by the user are passed back to the calling application for verification. (ANSI)
-     * @remarks
-     * The CREDUI_FLAGS_REQUIRE_SMARTCARD, CREDUI_FLAGS_REQUIRE_CERTIFICATE, and CREDUI_FLAGS_EXCLUDE_CERTIFICATE flags are mutually exclusive.
-     * 
-     * If CREDUI_FLAGS_DO_NOT_PERSIST is specified, either <i>pszTargetName</i> must be specified or  <i>uiInfo-&gt;pszMessageText</i> and <i>uiInfo-&gt;pszCaption</i> must be specified.
-     * 
-     * The CREDUI_FLAG_USERNAME_TARGET_CREDENTIALS and CREDUI_FLAGS_GENERIC_CREDENTIALS flags are mutually exclusive. If neither is specified, the credential is a domain credential.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is not specified or CREDUI_FLAGS_COMPLETE_USERNAME is specified, the typed name is <i>syntax checked</i>. Syntax checked means that the same rules are used as are implied by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>. If the typed name is not valid, the user is prompted for a valid one. If the domain portion of the typed name is missing, one will be supplied based on the target name.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and CREDUI_FLAGS_VALIDATE_USERNAME is also specified, the typed name is syntax checked. If the typed name is not valid, the user is prompted for a valid one.
-     * 
-     * If CREDUI_FLAGS_GENERIC_CREDENTIALS is specified and neither CREDUI_FLAGS_COMPLETE_USERNAME nor CREDUI_FLAGS_VALIDATE_USERNAME is specified, the typed name is not syntax checked in any way.
-     * 
-     * If neither CREDUI_FLAGS_PERSIST nor CREDUI_FLAGS_DO_NOT_PERSIST are set, the save message is shown, and it controls whether the credential is saved or not.
-     * 
-     * If CREDUI_FLAGS_PROMPT_FOR_SAVE is specified, the <i>pfSave</i> parameter must not be <b>NULL</b>.
-     * 
-     * The CREDUI_FLAGS_REQUIRE_SMARTCARD and CREDUI_FLAGS_EXCLUDE_CERTIFICATES flags are mutually exclusive. <b>CredUICmdLinePromptForCredentials</b> supports prompting for a smart card certificate or a password-based credential. It does not support certificates that are not smart card certificates or prompting for both on a single call.
-     * 
-     * Calling Modes
-     * 
-     * <ul>
-     * <li>The caller will attempt to access the target resource, call credui (passing a description of the target resource and the failure status), call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiparseusernamea">CredUIParseUserName</a>, access the target resource again, and then call <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduiconfirmcredentialsa">CredUIConfirmCredentials</a>.</li>
-     * <li>The caller can prompt for credentials without accessing any resources by passing CREDUI_FLAGS_DO_NOT_PERSIST.</li>
-     * </ul>
-     * Target Information
-     * 
-     * Target Information is  information about the location of the resource to be accessed. For a list of all potential target names for a resource, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>. <b>CredGetTargetInfo</b> returns information that was cached by the Negotiate, NTLM, or Kerberos authentication package when one of those packages was used to authenticate to the named target. <b>CredGetTargetInfo</b> returns some or all of the following names for the target:
-     * 
-     * <ul>
-     * <li>NetBIOS server name of the computer</li>
-     * <li>DNS server name of the computer</li>
-     * <li>NetBIOS domain name of the domain the computer belongs to</li>
-     * <li>DNS domain name of the domain the computer belongs to</li>
-     * <li>DNS tree name of the tree the computer belongs to</li>
-     * <li>Name of the package that collected the information</li>
-     * </ul>
-     *  Any piece of this information can be missing if the information does not apply to the target computer. For instance, a computer that is a member of a workgroup does not have a NetBIOS domain name. A computer that is a member of a Windows domain does not have a DNS domain name or DNS tree name.
-     * 
-     * Credentials are stored in the credential manager based on target name. Each target name is stored as generally as possible without colliding with credentials already stored in the credential manager. An important effect of storing credentials by target name is that a particular user can  have only one credential per target stored in the credential manager.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The wincred.h header defines CredUICmdLinePromptForCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Prompts for and accepts credential information from a user working in a command-line (console) application. The name and password typed by the user are passed back to the calling application for verification.
      * @param {Pointer<Byte>} pszTargetName A pointer to a <b>null</b>-terminated string that contains the name of the target for the credentials, typically a server name. For DFS connections, this string is of the form <i>ServerName</i><b>\\</b><i>ShareName</i>. The <i>pszTargetName</i> parameter is used to identify the target information and is used to store and retrieve the credential.
      * @param {Integer} dwAuthError Specifies why prompting for credentials is needed. A caller can pass this Windows error parameter, returned by another authentication call, to allow the dialog box to accommodate certain errors. For example, if the password expired status code is passed, the dialog box prompts the user to change the password on the account.
      * @param {Pointer<Byte>} UserName A pointer to a <b>null</b>-terminated string that contains the credential user name. If a nonzero-length string is specified for <i>pszUserName</i>, the user will be prompted only for the password. In the case of credentials other than user name/password, a marshaled format of the credential can be passed in. This string is created by calling 
@@ -4185,7 +3684,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements: 
+     * Either <i>pszTargetName</i> is <b>NULL</b>, the empty string, or longer than CREDUI_MAX_DOMAIN_LENGTH, or <i>pUiInfo</i> is not <b>NULL</b> and the <a href="/windows/desktop/api/wincred/ns-wincred-credui_infoa">CredUI_INFO</a> structure pointed to did not meet one of the following requirements: 
      * 
      * <ul>
      * <li>The <b>cbSize</b> member must be one.</li>
@@ -4202,7 +3701,7 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * The credential manager cannot be used. Typically, this error is handled by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
+     * The credential manager cannot be used. Typically, this error is handled by calling <a href="/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a> and passing in the CREDUI_FLAGS_DO_NOT_PERSIST flag.
      * 
      * </td>
      * </tr>
@@ -4218,7 +3717,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduicmdlinepromptforcredentialsa
      * @since windows5.1.2600
      */
     static CredUICmdLinePromptForCredentialsA(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
@@ -4233,10 +3732,7 @@ class Credentials {
     }
 
     /**
-     * Is called after CredUIPromptForCredentials or CredUICmdLinePromptForCredentials, to confirm the validity of the credential harvested. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIConfirmCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Is called after CredUIPromptForCredentials or CredUICmdLinePromptForCredentials, to confirm the validity of the credential harvested.
      * @param {Pointer<Char>} pszTargetName Pointer to a <b>null</b>-terminated string that contains the name of the target for the credentials, typically a domain or server application name. This must be the same value passed as <i>pszTargetName</i> to <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a>
      * @param {Integer} bConfirm Specifies whether the credentials returned from the prompt function are valid. If <b>TRUE</b>, the credentials are stored in the credential manager as defined by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a>. If <b>FALSE</b>, the credentials are not stored and various pieces of memory are cleaned up.
      * @returns {Integer} Status of the operation is returned. The caller can check this status to determine whether the credential confirm operation succeeded. Most applications ignore this status code because the application's connection to the resource has already been done. The operation can fail because the credential was not found on the list of credentials awaiting confirmation, or because the attempt to write or delete the credential failed. Failure to find the credential on the list can occur because the credential was never queued or as a result of too many credentials being queued. Up to five credentials can be queued before older ones are discarded as newer ones are queued.
@@ -4280,7 +3776,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiconfirmcredentialsw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduiconfirmcredentialsw
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsW(pszTargetName, bConfirm) {
@@ -4291,10 +3787,7 @@ class Credentials {
     }
 
     /**
-     * Is called after CredUIPromptForCredentials or CredUICmdLinePromptForCredentials, to confirm the validity of the credential harvested. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The wincred.h header defines CredUIConfirmCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Is called after CredUIPromptForCredentials or CredUICmdLinePromptForCredentials, to confirm the validity of the credential harvested.
      * @param {Pointer<Byte>} pszTargetName Pointer to a <b>null</b>-terminated string that contains the name of the target for the credentials, typically a domain or server application name. This must be the same value passed as <i>pszTargetName</i> to <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a>
      * @param {Integer} bConfirm Specifies whether the credentials returned from the prompt function are valid. If <b>TRUE</b>, the credentials are stored in the credential manager as defined by <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</a>. If <b>FALSE</b>, the credentials are not stored and various pieces of memory are cleaned up.
      * @returns {Integer} Status of the operation is returned. The caller can check this status to determine whether the credential confirm operation succeeded. Most applications ignore this status code because the application's connection to the resource has already been done. The operation can fail because the credential was not found on the list of credentials awaiting confirmation, or because the attempt to write or delete the credential failed. Failure to find the credential on the list can occur because the credential was never queued or as a result of too many credentials being queued. Up to five credentials can be queued before older ones are discarded as newer ones are queued.
@@ -4338,7 +3831,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiconfirmcredentialsa
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduiconfirmcredentialsa
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsA(pszTargetName, bConfirm) {
@@ -4355,7 +3848,7 @@ class Credentials {
      * @param {Pointer<Char>} pszPassword Pointer to a <b>null</b>-terminated string that specifies the user's password. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Integer} bPersist Boolean value that specifies whether the credentials are persisted. If this value is <b>TRUE</b>, the credentials are persisted. If this value is <b>FALSE</b>, the credentials are not persisted.
      * @returns {Integer} The return value is a <b>DWORD</b>. A return value of ERROR_SUCCESS indicates the function was successful.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduistoressocredw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduistoressocredw
      * @since windows5.1.2600
      */
     static CredUIStoreSSOCredW(pszRealm, pszUsername, pszPassword, bPersist) {
@@ -4401,7 +3894,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduireadssocredw
+     * @see https://docs.microsoft.com/windows/win32/api//wincred/nf-wincred-creduireadssocredw
      * @since windows5.1.2600
      */
     static CredUIReadSSOCredW(pszRealm, ppszUsername) {
@@ -4413,21 +3906,12 @@ class Credentials {
 
     /**
      * Establishes the resource manager context (the scope) within which database operations are performed.
-     * @remarks
-     * The context handle returned by <b>SCardEstablishContext</b> can be used by database query and management functions. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To release an established resource manager context, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a>.
-     * 
-     * If the client attempts a smart card operation in a remote session, such as a client session running on a terminal server, and the operating system in use does not support smart card redirection, this function returns ERROR_BROKEN_PIPE.
      * @param {Integer} dwScope 
      * @param {Pointer<UIntPtr>} phContext A handle to the established <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. This handle can now be supplied to other functions attempting to do work within this context.
      * @returns {Integer} If the function succeeds, the function returns SCARD_S_SUCCESS. 
      * 
-     * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardestablishcontext
+     * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardestablishcontext
      * @since windows5.1.2600
      */
     static SCardEstablishContext(dwScope, phContext) {
@@ -4466,12 +3950,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreleasecontext
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardreleasecontext
      * @since windows5.1.2600
      */
     static SCardReleaseContext(hContext) {
@@ -4481,9 +3965,6 @@ class Credentials {
 
     /**
      * Determines whether a smart card context handle is valid.
-     * @remarks
-     * Call this function to determine whether a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> context handle is still valid. After a smart card context handle has been set by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>, it may become not valid if the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> service has been shut down.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @returns {Integer} This function returns one of the following values.
@@ -4523,12 +4004,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardisvalidcontext
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardisvalidcontext
      * @since windows5.1.2600
      */
     static SCardIsValidContext(hContext) {
@@ -4537,12 +4018,7 @@ class Credentials {
     }
 
     /**
-     * Provides the list of reader groups that have previously been introduced to the system. (ANSI)
-     * @remarks
-     * A group is returned only if it contains at least one <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a>. This includes the group <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SCard$DefaultReaders</a>. The group <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SCard$AllReaders</a> cannot be returned, since it only exists implicitly.
-     * 
-     * The <b>SCardListReaderGroups</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides the list of reader groups that have previously been introduced to the system.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. 
      * 
      * If this parameter is set to <b>NULL</b>, the search for reader groups is not limited to any context.
@@ -4626,12 +4102,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadergroupsa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreadergroupsa
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsA(hContext, mszGroups, pcchGroups) {
@@ -4642,12 +4118,7 @@ class Credentials {
     }
 
     /**
-     * Provides the list of reader groups that have previously been introduced to the system. (Unicode)
-     * @remarks
-     * A group is returned only if it contains at least one <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a>. This includes the group <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SCard$DefaultReaders</a>. The group <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SCard$AllReaders</a> cannot be returned, since it only exists implicitly.
-     * 
-     * The <b>SCardListReaderGroups</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides the list of reader groups that have previously been introduced to the system.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. 
      * 
      * If this parameter is set to <b>NULL</b>, the search for reader groups is not limited to any context.
@@ -4731,12 +4202,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadergroupsw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreadergroupsw
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsW(hContext, mszGroups, pcchGroups) {
@@ -4747,10 +4218,7 @@ class Credentials {
     }
 
     /**
-     * Provides the list of readers within a set of named reader groups, eliminating duplicates. (ANSI)
-     * @remarks
-     * The <b>SCardListReaders</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides the list of readers within a set of named reader groups, eliminating duplicates.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. 
      * 
      * If this parameter is set to <b>NULL</b>, the search for readers is not limited to any context.
@@ -4859,12 +4327,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadersa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreadersa
      * @since windows5.1.2600
      */
     static SCardListReadersA(hContext, mszGroups, mszReaders, pcchReaders) {
@@ -4876,10 +4344,7 @@ class Credentials {
     }
 
     /**
-     * Provides the list of readers within a set of named reader groups, eliminating duplicates. (Unicode)
-     * @remarks
-     * The <b>SCardListReaders</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides the list of readers within a set of named reader groups, eliminating duplicates.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. 
      * 
      * If this parameter is set to <b>NULL</b>, the search for readers is not limited to any context.
@@ -4988,12 +4453,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadersw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreadersw
      * @since windows5.1.2600
      */
     static SCardListReadersW(hContext, mszGroups, mszReaders, pcchReaders) {
@@ -5005,20 +4470,7 @@ class Credentials {
     }
 
     /**
-     * Searches the smart card database and provides a list of named cards previously introduced to the system by the user. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * To return all smart cards introduced to the subsystem, set <i>pbAtr</i> and <i>rgguidInterfaces</i> to <b>NULL</b>.
-     * 
-     * The <b>SCardListCards</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
-     * 
-     * Calling this function should be done outside of a transaction. If an application begins a transaction with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardbegintransaction">SCardBeginTransaction</a> function and then calls this function, it resets the <i>hCard</i> parameter (of type <b>SCARDHANDLE</b>) of the <b>SCardBeginTransaction</b> function.
-     * 
-     * <b>Windows Server 2008 R2 and Windows 7:  </b>Calling this function within a transaction could result in your computer becoming unresponsive.
-     * 
-     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Not applicable.
+     * Searches the smart card database and provides a list of named cards previously introduced to the system by the user.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * 
      * If this parameter is set to <b>NULL</b>, the search for cards is not limited to any context.
@@ -5054,12 +4506,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistcardsa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistcardsa
      * @since windows5.1.2600
      */
     static SCardListCardsA(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
@@ -5070,20 +4522,7 @@ class Credentials {
     }
 
     /**
-     * Searches the smart card database and provides a list of named cards previously introduced to the system by the user. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * To return all smart cards introduced to the subsystem, set <i>pbAtr</i> and <i>rgguidInterfaces</i> to <b>NULL</b>.
-     * 
-     * The <b>SCardListCards</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
-     * 
-     * Calling this function should be done outside of a transaction. If an application begins a transaction with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardbegintransaction">SCardBeginTransaction</a> function and then calls this function, it resets the <i>hCard</i> parameter (of type <b>SCARDHANDLE</b>) of the <b>SCardBeginTransaction</b> function.
-     * 
-     * <b>Windows Server 2008 R2 and Windows 7:  </b>Calling this function within a transaction could result in your computer becoming unresponsive.
-     * 
-     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Not applicable.
+     * Searches the smart card database and provides a list of named cards previously introduced to the system by the user.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * 
      * If this parameter is set to <b>NULL</b>, the search for cards is not limited to any context.
@@ -5119,12 +4558,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistcardsw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistcardsw
      * @since windows5.1.2600
      */
     static SCardListCardsW(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
@@ -5135,12 +4574,7 @@ class Credentials {
     }
 
     /**
-     * Provides a list of interfaces supplied by a given card. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function when attempting a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardListInterfaces</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides a list of interfaces supplied by a given card.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szCard Name of the smart card already introduced to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a>.
      * @param {Pointer<Guid>} pguidInterfaces Array of interface identifiers (GUIDs) that indicate the interfaces supported by the smart card. If this value is <b>NULL</b>, <b>SCardListInterfaces</b> ignores the array length supplied in <i>pcguidInterfaces</i>, returning the size of the array that would have been returned if this parameter had not been <b>NULL</b> to <i>pcguidInterfaces</i> and a success code.
@@ -5172,12 +4606,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistinterfacesa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistinterfacesa
      * @since windows5.1.2600
      */
     static SCardListInterfacesA(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
@@ -5188,12 +4622,7 @@ class Credentials {
     }
 
     /**
-     * Provides a list of interfaces supplied by a given card. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function when attempting a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardListInterfaces</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Provides a list of interfaces supplied by a given card.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szCard Name of the smart card already introduced to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a>.
      * @param {Pointer<Guid>} pguidInterfaces Array of interface identifiers (GUIDs) that indicate the interfaces supported by the smart card. If this value is <b>NULL</b>, <b>SCardListInterfaces</b> ignores the array length supplied in <i>pcguidInterfaces</i>, returning the size of the array that would have been returned if this parameter had not been <b>NULL</b> to <i>pcguidInterfaces</i> and a success code.
@@ -5225,12 +4654,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistinterfacesw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistinterfacesw
      * @since windows5.1.2600
      */
     static SCardListInterfacesW(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
@@ -5241,12 +4670,7 @@ class Credentials {
     }
 
     /**
-     * Returns the identifier (GUID) of the primary service provider for a given card. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardGetProviderId</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Returns the identifier (GUID) of the primary service provider for a given card.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szCard Name of the card defined to the system.
@@ -5277,12 +4701,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetproviderida
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetproviderida
      * @since windows5.1.2600
      */
     static SCardGetProviderIdA(hContext, szCard, pguidProviderId) {
@@ -5293,12 +4717,7 @@ class Credentials {
     }
 
     /**
-     * Returns the identifier (GUID) of the primary service provider for a given card. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardGetProviderId</b> function is a database query function. For more information on other database query functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-query-functions">Smart Card Database Query Functions</a>.
+     * Returns the identifier (GUID) of the primary service provider for a given card.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szCard Name of the card defined to the system.
@@ -5329,12 +4748,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetprovideridw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetprovideridw
      * @since windows5.1.2600
      */
     static SCardGetProviderIdW(hContext, szCard, pguidProviderId) {
@@ -5345,12 +4764,7 @@ class Credentials {
     }
 
     /**
-     * Returns the name of the module (dynamic link library) that contains the provider for a given card name and provider type. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * Upon successful completion of this function, the value in <i>szProvider</i> can be used as the third parameter in a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
+     * Returns the name of the module (dynamic link library) that contains the provider for a given card name and provider type.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This value can be <b>NULL</b> if the call to <b>SCardGetCardTypeProviderName</b> is not directed to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
      * @param {Pointer<Byte>} szCardName Name of the card type with which this provider name is associated.
@@ -5441,12 +4855,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetcardtypeprovidernamea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetcardtypeprovidernamea
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
@@ -5458,12 +4872,7 @@ class Credentials {
     }
 
     /**
-     * Returns the name of the module (dynamic link library) that contains the provider for a given card name and provider type. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * Upon successful completion of this function, the value in <i>szProvider</i> can be used as the third parameter in a call to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
+     * Returns the name of the module (dynamic link library) that contains the provider for a given card name and provider type.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This value can be <b>NULL</b> if the call to <b>SCardGetCardTypeProviderName</b> is not directed to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
      * @param {Pointer<Char>} szCardName Name of the card type with which this provider name is associated.
@@ -5554,12 +4963,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetcardtypeprovidernamew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetcardtypeprovidernamew
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
@@ -5571,15 +4980,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a reader group to the smart card subsystem. However, the reader group is not created until the group is specified when adding a reader to the smart card database. (ANSI)
-     * @remarks
-     * The <b>SCardIntroduceReaderGroup</b> function is provided for PC/SC specification compatibility. Reader groups are not stored until a reader is added to the group.
-     * 
-     * The <b>SCardIntroduceReaderGroup</b> function is a database management function. For a description of other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a reader group, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetreadergroupa">SCardForgetReaderGroup</a>.
+     * Introduces a reader group to the smart card subsystem. However, the reader group is not created until the group is specified when adding a reader to the smart card database.
      * @param {Pointer} hContext Supplies the handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. If this parameter is <b>NULL</b>, the scope of the resource manager is SCARD_SCOPE_SYSTEM.
      * @param {Pointer<Byte>} szGroupName Supplies the display name to be assigned to the new reader group.
@@ -5660,12 +5061,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadergroupa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducereadergroupa
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupA(hContext, szGroupName) {
@@ -5676,15 +5077,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a reader group to the smart card subsystem. However, the reader group is not created until the group is specified when adding a reader to the smart card database. (Unicode)
-     * @remarks
-     * The <b>SCardIntroduceReaderGroup</b> function is provided for PC/SC specification compatibility. Reader groups are not stored until a reader is added to the group.
-     * 
-     * The <b>SCardIntroduceReaderGroup</b> function is a database management function. For a description of other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a reader group, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetreadergroupa">SCardForgetReaderGroup</a>.
+     * Introduces a reader group to the smart card subsystem. However, the reader group is not created until the group is specified when adding a reader to the smart card database.
      * @param {Pointer} hContext Supplies the handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. If this parameter is <b>NULL</b>, the scope of the resource manager is SCARD_SCOPE_SYSTEM.
      * @param {Pointer<Char>} szGroupName Supplies the display name to be assigned to the new reader group.
@@ -5765,12 +5158,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadergroupw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducereadergroupw
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupW(hContext, szGroupName) {
@@ -5781,10 +5174,7 @@ class Credentials {
     }
 
     /**
-     * Removes a previously introduced smart card reader group from the smart card subsystem. Although this function automatically clears all readers from the group, it does not affect the existence of the individual readers in the database. (ANSI)
-     * @remarks
-     * The <b>SCardForgetReaderGroup</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes a previously introduced smart card reader group from the smart card subsystem. Although this function automatically clears all readers from the group, it does not affect the existence of the individual readers in the database.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szGroupName Display name of the reader group to be removed. System-defined reader groups cannot be removed from the database.
@@ -5865,12 +5255,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadergroupa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetreadergroupa
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupA(hContext, szGroupName) {
@@ -5881,10 +5271,7 @@ class Credentials {
     }
 
     /**
-     * Removes a previously introduced smart card reader group from the smart card subsystem. Although this function automatically clears all readers from the group, it does not affect the existence of the individual readers in the database. (Unicode)
-     * @remarks
-     * The <b>SCardForgetReaderGroup</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes a previously introduced smart card reader group from the smart card subsystem. Although this function automatically clears all readers from the group, it does not affect the existence of the individual readers in the database.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szGroupName Display name of the reader group to be removed. System-defined reader groups cannot be removed from the database.
@@ -5965,12 +5352,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadergroupw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetreadergroupw
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupW(hContext, szGroupName) {
@@ -5981,15 +5368,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a new name for an existing smart card reader. (ANSI)
-     * @remarks
-     * All readers installed on the system are automatically introduced by their system name. Typically, <b>SCardIntroduceReader</b> is called only to change the name of an existing reader.
-     * 
-     * The <b>SCardIntroduceReader</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a reader, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetreadera">SCardForgetReader</a>.
+     * Introduces a new name for an existing smart card reader.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Display name to be assigned to the reader.
@@ -6020,12 +5399,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadera
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducereadera
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderA(hContext, szReaderName, szDeviceName) {
@@ -6037,15 +5416,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a new name for an existing smart card reader. (Unicode)
-     * @remarks
-     * All readers installed on the system are automatically introduced by their system name. Typically, <b>SCardIntroduceReader</b> is called only to change the name of an existing reader.
-     * 
-     * The <b>SCardIntroduceReader</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a reader, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetreadera">SCardForgetReader</a>.
+     * Introduces a new name for an existing smart card reader.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Display name to be assigned to the reader.
@@ -6076,12 +5447,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereaderw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducereaderw
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderW(hContext, szReaderName, szDeviceName) {
@@ -6093,12 +5464,7 @@ class Credentials {
     }
 
     /**
-     * Removes a previously introduced reader from control by the smart card subsystem. It is removed from the smart card database, including from any reader group that it may have been added to. (ANSI)
-     * @remarks
-     * If the specified reader is the last member of a reader group, the reader group is automatically removed as well.
-     * 
-     * The <b>SCardForgetReader</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes a previously introduced reader from control by the smart card subsystem. It is removed from the smart card database, including from any reader group that it may have been added to.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Display name of the reader to be removed from the smart card database.
@@ -6128,12 +5494,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadera
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetreadera
      * @since windows5.1.2600
      */
     static SCardForgetReaderA(hContext, szReaderName) {
@@ -6144,12 +5510,7 @@ class Credentials {
     }
 
     /**
-     * Removes a previously introduced reader from control by the smart card subsystem. It is removed from the smart card database, including from any reader group that it may have been added to. (Unicode)
-     * @remarks
-     * If the specified reader is the last member of a reader group, the reader group is automatically removed as well.
-     * 
-     * The <b>SCardForgetReader</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes a previously introduced reader from control by the smart card subsystem. It is removed from the smart card database, including from any reader group that it may have been added to.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Display name of the reader to be removed from the smart card database.
@@ -6179,12 +5540,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreaderw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetreaderw
      * @since windows5.1.2600
      */
     static SCardForgetReaderW(hContext, szReaderName) {
@@ -6195,12 +5556,7 @@ class Credentials {
     }
 
     /**
-     * Adds a reader to a reader group. (ANSI)
-     * @remarks
-     * <b>SCardAddReaderToGroup</b> automatically creates the reader group specified if it does not already exist. 
-     * 
-     * The <b>SCardAddReaderToGroup</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Adds a reader to a reader group.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Display name of the reader that you are adding.
@@ -6282,12 +5638,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaddreadertogroupa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardaddreadertogroupa
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupA(hContext, szReaderName, szGroupName) {
@@ -6299,12 +5655,7 @@ class Credentials {
     }
 
     /**
-     * Adds a reader to a reader group. (Unicode)
-     * @remarks
-     * <b>SCardAddReaderToGroup</b> automatically creates the reader group specified if it does not already exist. 
-     * 
-     * The <b>SCardAddReaderToGroup</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Adds a reader to a reader group.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Display name of the reader that you are adding.
@@ -6386,12 +5737,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaddreadertogroupw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardaddreadertogroupw
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupW(hContext, szReaderName, szGroupName) {
@@ -6403,15 +5754,7 @@ class Credentials {
     }
 
     /**
-     * Removes a reader from an existing reader group. This function has no effect on the reader. (ANSI)
-     * @remarks
-     * When the last reader is removed from a group, the group is automatically forgotten.
-     * 
-     * The <b>SCardRemoveReaderFromGroup</b> function is a database management function. For information about other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To add a reader to a reader group, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardaddreadertogroupa">SCardAddReaderToGroup</a>.
+     * Removes a reader from an existing reader group. This function has no effect on the reader.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Display name of the reader to be removed.
@@ -6493,12 +5836,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardremovereaderfromgroupa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardremovereaderfromgroupa
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupA(hContext, szReaderName, szGroupName) {
@@ -6510,15 +5853,7 @@ class Credentials {
     }
 
     /**
-     * Removes a reader from an existing reader group. This function has no effect on the reader. (Unicode)
-     * @remarks
-     * When the last reader is removed from a group, the group is automatically forgotten.
-     * 
-     * The <b>SCardRemoveReaderFromGroup</b> function is a database management function. For information about other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To add a reader to a reader group, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardaddreadertogroupa">SCardAddReaderToGroup</a>.
+     * Removes a reader from an existing reader group. This function has no effect on the reader.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Display name of the reader to be removed.
@@ -6600,12 +5935,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardremovereaderfromgroupw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardremovereaderfromgroupw
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupW(hContext, szReaderName, szGroupName) {
@@ -6617,15 +5952,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a smart card to the smart card subsystem (for the active user) by adding it to the smart card database. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardIntroduceCardType</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a smart card, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetcardtypea">SCardForgetCardType</a>.
+     * Introduces a smart card to the smart card subsystem (for the active user) by adding it to the smart card database.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szCardName Name by which the user can recognize the card.
@@ -6662,12 +5989,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducecardtypea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducecardtypea
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeA(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
@@ -6678,15 +6005,7 @@ class Credentials {
     }
 
     /**
-     * Introduces a smart card to the smart card subsystem (for the active user) by adding it to the smart card database. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardIntroduceCardType</b> function is a database management function. For more information on other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
-     * 
-     * To remove a smart card, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardforgetcardtypea">SCardForgetCardType</a>.
+     * Introduces a smart card to the smart card subsystem (for the active user) by adding it to the smart card database.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szCardName Name by which the user can recognize the card.
@@ -6723,12 +6042,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducecardtypew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardintroducecardtypew
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeW(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
@@ -6739,12 +6058,7 @@ class Credentials {
     }
 
     /**
-     * Specifies the name of the module (dynamic link library) containing the provider for a given card name and provider type. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function  when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * This function sets the provider name, while 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetcardtypeprovidernamea">SCardGetCardTypeProviderName</a> can be used to retrieve the provider name.
+     * Specifies the name of the module (dynamic link library) containing the provider for a given card name and provider type.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This value can be <b>NULL</b> if the call to <b>SCardSetCardTypeProviderName</b> is not directed to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
      * @param {Pointer<Byte>} szCardName Name of the card type with which this <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">provider name</a> is associated.
@@ -6828,12 +6142,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetcardtypeprovidernamea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardsetcardtypeprovidernamea
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider) {
@@ -6845,12 +6159,7 @@ class Credentials {
     }
 
     /**
-     * Specifies the name of the module (dynamic link library) containing the provider for a given card name and provider type. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function  when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * This function sets the provider name, while 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetcardtypeprovidernamea">SCardGetCardTypeProviderName</a> can be used to retrieve the provider name.
+     * Specifies the name of the module (dynamic link library) containing the provider for a given card name and provider type.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context can be set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This value can be <b>NULL</b> if the call to <b>SCardSetCardTypeProviderName</b> is not directed to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
      * @param {Pointer<Char>} szCardName Name of the card type with which this <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">provider name</a> is associated.
@@ -6934,12 +6243,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetcardtypeprovidernamew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardsetcardtypeprovidernamew
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider) {
@@ -6951,12 +6260,7 @@ class Credentials {
     }
 
     /**
-     * Removes an introduced smart card from the smart card subsystem. (ANSI)
-     * @remarks
-     * This function is not redirected, but calling the function <b>SCardForgetCardType</b> when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardForgetCardType</b> function is a database management function. For more information about other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes an introduced smart card from the smart card subsystem.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szCardName Display name of the card to be removed from the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card database</a>.
@@ -6986,12 +6290,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetcardtypea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetcardtypea
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeA(hContext, szCardName) {
@@ -7002,12 +6306,7 @@ class Credentials {
     }
 
     /**
-     * Removes an introduced smart card from the smart card subsystem. (Unicode)
-     * @remarks
-     * This function is not redirected, but calling the function <b>SCardForgetCardType</b> when inside a Remote Desktop session  will not result in an error. It only means that the result will be from the remote computer instead of the local computer. 
-     * 
-     * The <b>SCardForgetCardType</b> function is a database management function. For more information about other database management functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-database-management-functions">Smart Card Database Management Functions</a>.
+     * Removes an introduced smart card from the smart card subsystem.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szCardName Display name of the card to be removed from the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card database</a>.
@@ -7037,12 +6336,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetcardtypew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardforgetcardtypew
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeW(hContext, szCardName) {
@@ -7083,12 +6382,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardfreememory
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardfreememory
      * @since windows5.1.2600
      */
     static SCardFreeMemory(hContext, pvMem) {
@@ -7098,15 +6397,10 @@ class Credentials {
 
     /**
      * Returns an event handle when an event signals that the smart card resource manager is started.
-     * @remarks
-     * The event-object handle returned can be specified in a call to one of the wait functions.
-     * 
-     * Do not close the handle returned by this function.
-     * When you have finished using the handle, decrement the reference count by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasestartedevent">SCardReleaseStartedEvent</a> function.
      * @returns {Pointer<Void>} The function returns an event HANDLE if it succeeds or <b>NULL</b> if it fails.
      * 
-     *  If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function provides information on the cause of the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaccessstartedevent
+     *  If the function fails, the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function provides information on the cause of the failure.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardaccessstartedevent
      * @since windows5.1.2600
      */
     static SCardAccessStartedEvent() {
@@ -7122,7 +6416,7 @@ class Credentials {
     /**
      * Decrements the reference count for a handle acquired by a previous call to the SCardAccessStartedEvent function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreleasestartedevent
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardreleasestartedevent
      * @since windows5.1.2600
      */
     static SCardReleaseStartedEvent() {
@@ -7130,19 +6424,7 @@ class Credentials {
     }
 
     /**
-     * Searches the readers listed in the rgReaderStates parameter for a card with an ATR string that matches one of the card names specified in mszCards, returning immediately with the result. (ANSI)
-     * @remarks
-     * This service is especially useful when used in conjunction with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetstatuschangea">SCardGetStatusChange</a>. If no matching cards are found by means of <b>SCardLocateCards</b>, the calling application may use <b>SCardGetStatusChange</b> to wait for card availability changes.
-     * 
-     * The <b>SCardLocateCards</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For more information on other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
-     * 
-     * Calling this function should be done outside of a transaction. If an application begins a transaction with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardbegintransaction">SCardBeginTransaction</a> function and then calls this function, it resets the <i>hCard</i> parameter (of type <b>SCARDHANDLE</b>) of the <b>SCardBeginTransaction</b> function.
-     * 
-     * <b>Windows Server 2008 R2 and Windows 7:  </b>Calling this function within a transaction could result in your computer becoming unresponsive.
-     * 
-     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Not applicable.
+     * Searches the readers listed in the rgReaderStates parameter for a card with an ATR string that matches one of the card names specified in mszCards, returning immediately with the result.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Byte>} mszCards A multiple string that contains the names of the cards to search for.
      * @param {Pointer<SCARD_READERSTATEA>} rgReaderStates An array of <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATE</a> structures that, on input, specify the readers to search and that, on output, receives the result.
@@ -7173,12 +6455,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsa
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlocatecardsa
      * @since windows5.1.2600
      */
     static SCardLocateCardsA(hContext, mszCards, rgReaderStates, cReaders) {
@@ -7189,19 +6471,7 @@ class Credentials {
     }
 
     /**
-     * Searches the readers listed in the rgReaderStates parameter for a card with an ATR string that matches one of the card names specified in mszCards, returning immediately with the result. (Unicode)
-     * @remarks
-     * This service is especially useful when used in conjunction with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetstatuschangea">SCardGetStatusChange</a>. If no matching cards are found by means of <b>SCardLocateCards</b>, the calling application may use <b>SCardGetStatusChange</b> to wait for card availability changes.
-     * 
-     * The <b>SCardLocateCards</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For more information on other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
-     * 
-     * Calling this function should be done outside of a transaction. If an application begins a transaction with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardbegintransaction">SCardBeginTransaction</a> function and then calls this function, it resets the <i>hCard</i> parameter (of type <b>SCARDHANDLE</b>) of the <b>SCardBeginTransaction</b> function.
-     * 
-     * <b>Windows Server 2008 R2 and Windows 7:  </b>Calling this function within a transaction could result in your computer becoming unresponsive.
-     * 
-     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Not applicable.
+     * Searches the readers listed in the rgReaderStates parameter for a card with an ATR string that matches one of the card names specified in mszCards, returning immediately with the result.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Char>} mszCards A multiple string that contains the names of the cards to search for.
      * @param {Pointer<SCARD_READERSTATEW>} rgReaderStates An array of <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATE</a> structures that, on input, specify the readers to search and that, on output, receives the result.
@@ -7232,12 +6502,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlocatecardsw
      * @since windows5.1.2600
      */
     static SCardLocateCardsW(hContext, mszCards, rgReaderStates, cReaders) {
@@ -7248,19 +6518,7 @@ class Credentials {
     }
 
     /**
-     * Searches the readers listed in the rgReaderStates parameter for a card with a name that matches one of the card names contained in one of the SCARD_ATRMASK structures specified by the rgAtrMasks parameter. (ANSI)
-     * @remarks
-     * This service is especially useful when used in conjunction with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetstatuschangea">SCardGetStatusChange</a>. If no matching cards are found by means of <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlocatecardsa">SCardLocateCards</a>, the calling application may use <b>SCardGetStatusChange</b> to wait for card availability changes.
-     * 
-     * The <b>SCardLocateCardsByATR</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For information about other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winscard.h header defines SCardLocateCardsByATR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Searches the readers listed in the rgReaderStates parameter for a card with a name that matches one of the card names contained in one of the SCARD_ATRMASK structures specified by the rgAtrMasks parameter.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<SCARD_ATRMASK>} rgAtrMasks Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-scard_atrmask">SCARD_ATRMASK</a> structures that contain the names of the cards for which to search.
@@ -7293,12 +6551,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * Error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsbyatra
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlocatecardsbyatra
      * @since windows5.1.2600
      */
     static SCardLocateCardsByATRA(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders) {
@@ -7307,19 +6565,7 @@ class Credentials {
     }
 
     /**
-     * Searches the readers listed in the rgReaderStates parameter for a card with a name that matches one of the card names contained in one of the SCARD_ATRMASK structures specified by the rgAtrMasks parameter. (Unicode)
-     * @remarks
-     * This service is especially useful when used in conjunction with 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetstatuschangea">SCardGetStatusChange</a>. If no matching cards are found by means of <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlocatecardsa">SCardLocateCards</a>, the calling application may use <b>SCardGetStatusChange</b> to wait for card availability changes.
-     * 
-     * The <b>SCardLocateCardsByATR</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For information about other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winscard.h header defines SCardLocateCardsByATR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Searches the readers listed in the rgReaderStates parameter for a card with a name that matches one of the card names contained in one of the SCARD_ATRMASK structures specified by the rgAtrMasks parameter.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<SCARD_ATRMASK>} rgAtrMasks Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-scard_atrmask">SCARD_ATRMASK</a> structures that contain the names of the cards for which to search.
@@ -7352,12 +6598,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * Error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsbyatrw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlocatecardsbyatrw
      * @since windows5.1.2600
      */
     static SCardLocateCardsByATRW(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders) {
@@ -7366,10 +6612,7 @@ class Credentials {
     }
 
     /**
-     * Blocks execution until the current availability of the cards in a specific set of readers changes. (ANSI)
-     * @remarks
-     * The <b>SCardGetStatusChange</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For more information about other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
+     * Blocks execution until the current availability of the cards in a specific set of readers changes.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function.
      * @param {Integer} dwTimeout The maximum amount of time, in milliseconds, to wait for an action. A value of zero causes the function to return immediately. A value of INFINITE causes this function never to time out.
@@ -7407,12 +6650,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetstatuschangea
      * @since windows5.1.2600
      */
     static SCardGetStatusChangeA(hContext, dwTimeout, rgReaderStates, cReaders) {
@@ -7421,10 +6664,7 @@ class Credentials {
     }
 
     /**
-     * Blocks execution until the current availability of the cards in a specific set of readers changes. (Unicode)
-     * @remarks
-     * The <b>SCardGetStatusChange</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> tracking function. For more information about other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
+     * Blocks execution until the current availability of the cards in a specific set of readers changes.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function.
      * @param {Integer} dwTimeout The maximum amount of time, in milliseconds, to wait for an action. A value of zero causes the function to return immediately. A value of INFINITE causes this function never to time out.
@@ -7462,12 +6702,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetstatuschangew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetstatuschangew
      * @since windows5.1.2600
      */
     static SCardGetStatusChangeW(hContext, dwTimeout, rgReaderStates, cReaders) {
@@ -7477,9 +6717,6 @@ class Credentials {
 
     /**
      * Terminates all outstanding actions within a specific resource manager context.
-     * @remarks
-     * The <b>SCardCancel</b> function is a smart card tracking function. For a description of other tracking functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-tracking-functions">Smart Card Tracking Functions</a>.
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
@@ -7508,12 +6745,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardcancel
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardcancel
      * @since windows5.1.2600
      */
     static SCardCancel(hContext) {
@@ -7522,10 +6759,7 @@ class Credentials {
     }
 
     /**
-     * Establishes a connection (using a specific resource manager context) between the calling application and a smart card contained by a specific reader. If no card exists in the specified reader, an error is returned. (ANSI)
-     * @remarks
-     * The <b>SCardConnect</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For more information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
+     * Establishes a connection (using a specific resource manager context) between the calling application and a smart card contained by a specific reader. If no card exists in the specified reader, an error is returned.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Byte>} szReader The name of the reader that contains the target card.
@@ -7670,7 +6904,7 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
@@ -7686,7 +6920,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardconnecta
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardconnecta
      * @since windows5.1.2600
      */
     static SCardConnectA(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
@@ -7697,10 +6931,7 @@ class Credentials {
     }
 
     /**
-     * Establishes a connection (using a specific resource manager context) between the calling application and a smart card contained by a specific reader. If no card exists in the specified reader, an error is returned. (Unicode)
-     * @remarks
-     * The <b>SCardConnect</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For more information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
+     * Establishes a connection (using a specific resource manager context) between the calling application and a smart card contained by a specific reader. If no card exists in the specified reader, an error is returned.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Char>} szReader The name of the reader that contains the target card.
@@ -7845,7 +7076,7 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
@@ -7861,7 +7092,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardconnectw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardconnectw
      * @since windows5.1.2600
      */
     static SCardConnectW(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
@@ -7873,9 +7104,6 @@ class Credentials {
 
     /**
      * Reestablishes an existing connection between the calling application and a smart card.
-     * @remarks
-     * <b>SCardReconnect</b> is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
      * @param {Pointer} hCard Reference value obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwShareMode Flag that indicates whether other applications may form connections to this card.
@@ -8030,12 +7258,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreconnect
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardreconnect
      * @since windows5.1.2600
      */
     static SCardReconnect(hCard, dwShareMode, dwPreferredProtocols, dwInitialization, pdwActiveProtocol) {
@@ -8045,12 +7273,6 @@ class Credentials {
 
     /**
      * Terminates a connection previously opened between the calling application and a smart card in the target reader.
-     * @remarks
-     * If an application (which previously called 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>) exits without calling <b>SCardDisconnect</b>, the card is automatically reset.
-     * 
-     * The <b>SCardDisconnect</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For more information on other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
      * @param {Pointer} hCard Reference value obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwDisposition Action to take on the card in the connected reader on close. 
@@ -8128,12 +7350,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarddisconnect
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scarddisconnect
      * @since windows5.1.2600
      */
     static SCardDisconnect(hCard, dwDisposition) {
@@ -8143,21 +7365,16 @@ class Credentials {
 
     /**
      * Starts a transaction.
-     * @remarks
-     * If a transaction is held on the card for more than five seconds with no operations happening on that card, then the card is reset. Calling any of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a> or <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/direct-card-access-functions">Direct Card Access Functions</a> on the card that is transacted results in the timer being reset to continue allowing the transaction to be used.
-     * 
-     * The <b>SCardBeginTransaction</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For more information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
      * @param {Pointer} hCard A reference value obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
-     * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * If another process or thread has reset the card, SCARD_W_RESET_CARD is returned as expected.
      * 
-     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This function returns <b>SCARD_S_SUCCESS</b> even if another process or thread has reset the card. To determine whether the card has been reset, call the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardstatusa">SCardStatus</a> function immediately after calling this function.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardbegintransaction
+     * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This function returns <b>SCARD_S_SUCCESS</b> even if another process or thread has reset the card. To determine whether the card has been reset, call the <a href="/windows/desktop/api/winscard/nf-winscard-scardstatusa">SCardStatus</a> function immediately after calling this function.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardbegintransaction
      * @since windows5.1.2600
      */
     static SCardBeginTransaction(hCard) {
@@ -8167,9 +7384,6 @@ class Credentials {
 
     /**
      * Completes a previously declared transaction, allowing other applications to resume interactions with the card.
-     * @remarks
-     * The <b>SCardEndTransaction</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For more information on other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
      * @param {Pointer} hCard Reference value obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>. This value would also have been used in an earlier call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardbegintransaction">SCardBeginTransaction</a>.
@@ -8224,7 +7438,7 @@ class Credentials {
      * </table>
      * @returns {Integer} If the function succeeds, the function returns <b>SCARD_S_SUCCESS</b>. 
      * 
-     * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.   Possible error codes follow.
+     * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.   Possible error codes follow.
      * 
      * <table>
      * <tr>
@@ -8239,14 +7453,14 @@ class Credentials {
      * </dl>
      * </td>
      * <td width="60%">
-     * The transaction was released. Any future communication with the card requires a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreconnect">SCardReconnect</a> function.
+     * The transaction was released. Any future communication with the card requires a call to the <a href="/windows/desktop/api/winscard/nf-winscard-scardreconnect">SCardReconnect</a> function.
      * 
-     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>The transaction was not released. The application must immediately call the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scarddisconnect">SCardDisconnect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreconnect">SCardReconnect</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a> function to avoid an existing transaction blocking other threads and processes from communicating with the smart card.
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>The transaction was not released. The application must immediately call the <a href="/windows/desktop/api/winscard/nf-winscard-scarddisconnect">SCardDisconnect</a>, <a href="/windows/desktop/api/winscard/nf-winscard-scardreconnect">SCardReconnect</a>, or <a href="/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a> function to avoid an existing transaction blocking other threads and processes from communicating with the smart card.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardendtransaction
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardendtransaction
      * @since windows5.1.2600
      */
     static SCardEndTransaction(hCard, dwDisposition) {
@@ -8269,10 +7483,7 @@ class Credentials {
     }
 
     /**
-     * Provides the current status of a smart card in a reader. (ANSI)
-     * @remarks
-     * The <b>SCardStatus</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
+     * Provides the current status of a smart card in a reader.
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Pointer<Byte>} mszReaderNames List of display names (multiple string) by which the currently connected reader is known.
@@ -8395,11 +7606,11 @@ class Credentials {
      * </table>
      * @param {Pointer<Byte>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
      * @param {Pointer<UInt32>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
-     * @returns {Integer} If the function successfully provides the current status of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
+     * @returns {Integer} If the function successfully provides the current status of a <a href="/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardstatusa
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardstatusa
      * @since windows5.1.2600
      */
     static SCardStatusA(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
@@ -8410,10 +7621,7 @@ class Credentials {
     }
 
     /**
-     * Provides the current status of a smart card in a reader. (Unicode)
-     * @remarks
-     * The <b>SCardStatus</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
+     * Provides the current status of a smart card in a reader.
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Pointer<Char>} mszReaderNames List of display names (multiple string) by which the currently connected reader is known.
@@ -8536,11 +7744,11 @@ class Credentials {
      * </table>
      * @param {Pointer<Byte>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
      * @param {Pointer<UInt32>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
-     * @returns {Integer} If the function successfully provides the current status of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
+     * @returns {Integer} If the function successfully provides the current status of a <a href="/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardstatusw
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardstatusw
      * @since windows5.1.2600
      */
     static SCardStatusW(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
@@ -8552,11 +7760,6 @@ class Credentials {
 
     /**
      * Sends a service request to the smart card and expects to receive data back from the card.
-     * @remarks
-     * The <b>SCardTransmit</b> function is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reader</a> access function. For information about other access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/smart-card-and-reader-access-functions">Smart Card and Reader Access Functions</a>.
-     * 
-     * For the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">T=0 protocol</a>, the data received back are the SW1 and SW2 status codes, possibly preceded by response data. The following paragraphs provide information about the send and receive buffers used to transfer data and issue a command.
      * @param {Pointer} hCard A reference value returned from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a> function.
      * @param {Pointer<SCARD_IO_REQUEST>} pioSendPci A pointer to the protocol header structure for the instruction. This buffer is in the format of an <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/scard-io-request">SCARD_IO_REQUEST</a> structure, followed by the specific protocol control information (PCI). 
@@ -8653,11 +7856,11 @@ class Credentials {
      * This value cannot be SCARD_AUTOALLOCATE because <b>SCardTransmit</b> does not support SCARD_AUTOALLOCATE.
      * 
      * For T=0, the receive buffer must be at least two bytes long to receive the SW1 and SW2 status bytes.
-     * @returns {Integer} If the function successfully sends a service request to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>, the return value is SCARD_S_SUCCESS.
+     * @returns {Integer} If the function successfully sends a service request to the <a href="/windows/desktop/SecGloss/s-gly">smart card</a>, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardtransmit
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardtransmit
      * @since windows5.1.2600
      */
     static SCardTransmit(hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, pbRecvBuffer, pcbRecvLength) {
@@ -8672,8 +7875,8 @@ class Credentials {
      * @param {Pointer<UInt32>} pcTransmitCount A pointer to the number of transmit operations that have completed since the specified card reader was inserted.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
-     * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgettransmitcount
+     * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgettransmitcount
      * @since windows6.0.6000
      */
     static SCardGetTransmitCount(hCard, pcTransmitCount) {
@@ -8683,9 +7886,6 @@ class Credentials {
 
     /**
      * Gives you direct control of the reader. You can call it any time after a successful call to SCardConnect and before a successful call to SCardDisconnect.
-     * @remarks
-     * The <b>SCardControl</b> function is a direct card access function. For more information on other direct access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/direct-card-access-functions">Direct Card Access Functions</a>.
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwControlCode Control code for the operation. This value identifies the specific operation to be performed.
@@ -8720,12 +7920,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardcontrol
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardcontrol
      * @since windows5.1.2600
      */
     static SCardControl(hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -8735,9 +7935,6 @@ class Credentials {
 
     /**
      * Retrieves the current reader attributes for the given handle. It does not affect the state of the reader, driver, or card.
-     * @remarks
-     * The <b>SCardGetAttrib</b> function is a direct card access function. For more information on other direct access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/direct-card-access-functions">Direct Card Access Functions</a>.
      * @param {Pointer} hCard Reference value returned from <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwAttrId Identifier for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> to get. The following table lists possible values for <i>dwAttrId</i>. These values are read-only. Note that vendors may not support all attributes. 
      * 
@@ -9164,12 +8361,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetattrib
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetattrib
      * @since windows5.1.2600
      */
     static SCardGetAttrib(hCard, dwAttrId, pbAttr, pcbAttrLen) {
@@ -9179,9 +8376,6 @@ class Credentials {
 
     /**
      * Sets the given reader attribute for the given handle.
-     * @remarks
-     * The <b>SCardSetAttrib</b> function is a direct card access function. For information about other direct access functions, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/direct-card-access-functions">Direct Card Access Functions</a>.
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwAttrId Identifier for the attribute to set. The values are write-only. Note that vendors may not support all attributes. 
@@ -9235,12 +8429,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetattrib
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardsetattrib
      * @since windows5.1.2600
      */
     static SCardSetAttrib(hCard, dwAttrId, pbAttr, cbAttrLen) {
@@ -9249,57 +8443,14 @@ class Credentials {
     }
 
     /**
-     * Displays the smart card Select Card dialog box. (ANSI)
-     * @remarks
-     * The <b>SCardUIDlgSelectCard</b> function provides a method for connecting to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>. When called, this function performs a search for appropriate smart cards matching the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencard_search_criteriaa">OPENCARD_SEARCH_CRITERIA</a> member specified by the <i>pDlgStruc</i> parameter. Depending on the <b>dwFlags</b> member of <b>pDlgStruc</b>, this function takes the following actions.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Action</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_FORCE_UI
-     * 
-     * </td>
-     * <td>
-     * Connects to the card selected by the user from the smart card <b>Select Card</b> dialog box.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_MINIMAL_UI
-     * 
-     * </td>
-     * <td>
-     * Selects the smart card if only one smart card meets the criteria, or returns information about the user's selection if more than one smart card meets the criteria.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_NO_UI
-     * 
-     * </td>
-     * <td>
-     * Selects the first available card.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This function replaces 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a>. The <b>GetOpenCardName</b> function is maintained for backward compatibility with version 1.0 of the Microsoft Smart Card Base Components.
+     * Displays the smart card Select Card dialog box.
      * @param {Pointer<OPENCARDNAME_EXA>} param0 
      * @returns {Integer} If the function successfully displays the 
      * 						<b>Select Card</b> dialog box, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarduidlgselectcarda
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scarduidlgselectcarda
      * @since windows5.1.2600
      */
     static SCardUIDlgSelectCardA(param0) {
@@ -9308,57 +8459,14 @@ class Credentials {
     }
 
     /**
-     * Displays the smart card Select Card dialog box. (Unicode)
-     * @remarks
-     * The <b>SCardUIDlgSelectCard</b> function provides a method for connecting to a specific <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>. When called, this function performs a search for appropriate smart cards matching the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencard_search_criteriaa">OPENCARD_SEARCH_CRITERIA</a> member specified by the <i>pDlgStruc</i> parameter. Depending on the <b>dwFlags</b> member of <b>pDlgStruc</b>, this function takes the following actions.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Action</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_FORCE_UI
-     * 
-     * </td>
-     * <td>
-     * Connects to the card selected by the user from the smart card <b>Select Card</b> dialog box.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_MINIMAL_UI
-     * 
-     * </td>
-     * <td>
-     * Selects the smart card if only one smart card meets the criteria, or returns information about the user's selection if more than one smart card meets the criteria.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SC_DLG_NO_UI
-     * 
-     * </td>
-     * <td>
-     * Selects the first available card.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This function replaces 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a>. The <b>GetOpenCardName</b> function is maintained for backward compatibility with version 1.0 of the Microsoft Smart Card Base Components.
+     * Displays the smart card Select Card dialog box.
      * @param {Pointer<OPENCARDNAME_EXW>} param0 
      * @returns {Integer} If the function successfully displays the 
      * 						<b>Select Card</b> dialog box, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarduidlgselectcardw
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scarduidlgselectcardw
      * @since windows5.1.2600
      */
     static SCardUIDlgSelectCardW(param0) {
@@ -9367,10 +8475,7 @@ class Credentials {
     }
 
     /**
-     * The GetOpenCardName function displays the smart card &quot;select card&quot; dialog box. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines GetOpenCardName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetOpenCardName function displays the smart card &quot;select card&quot; dialog box.
      * @param {Pointer<OPENCARDNAMEA>} param0 
      * @returns {Integer} The function returns different values depending on whether it succeeds or fails.
      * 						
@@ -9401,12 +8506,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-getopencardnamea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-getopencardnamea
      * @since windows5.1.2600
      */
     static GetOpenCardNameA(param0) {
@@ -9415,10 +8520,7 @@ class Credentials {
     }
 
     /**
-     * The GetOpenCardName function displays the smart card &quot;select card&quot; dialog box. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines GetOpenCardName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The GetOpenCardName function displays the smart card &quot;select card&quot; dialog box.
      * @param {Pointer<OPENCARDNAMEW>} param0 
      * @returns {Integer} The function returns different values depending on whether it succeeds or fails.
      * 						
@@ -9449,12 +8551,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-getopencardnamew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-getopencardnamew
      * @since windows5.1.2600
      */
     static GetOpenCardNameW(param0) {
@@ -9472,10 +8574,7 @@ class Credentials {
     }
 
     /**
-     * Retrieves the value portion of a name-value pair from the global cache maintained by the Smart Card Resource Manager. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardReadCache as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the value portion of a name-value pair from the global cache maintained by the Smart Card Resource Manager.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies a smart card. The name-value pair that this function reads from the global cache is associated with this smart card.
@@ -9485,7 +8584,7 @@ class Credentials {
      * @param {Pointer<UInt32>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
-     * If the function fails, it returns one of the following error codes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * <table>
      * <tr>
@@ -9517,7 +8616,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreadcachea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardreadcachea
      * @since windows6.0.6000
      */
     static SCardReadCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9528,10 +8627,7 @@ class Credentials {
     }
 
     /**
-     * Retrieves the value portion of a name-value pair from the global cache maintained by the Smart Card Resource Manager. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardReadCache as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the value portion of a name-value pair from the global cache maintained by the Smart Card Resource Manager.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies a smart card. The name-value pair that this function reads from the global cache is associated with this smart card.
@@ -9541,7 +8637,7 @@ class Credentials {
      * @param {Pointer<UInt32>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
-     * If the function fails, it returns one of the following error codes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * <table>
      * <tr>
@@ -9573,7 +8669,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreadcachew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardreadcachew
      * @since windows6.0.6000
      */
     static SCardReadCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9584,10 +8680,7 @@ class Credentials {
     }
 
     /**
-     * Writes a name-value pair from a smart card to the global cache maintained by the Smart Card Resource Manager. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardWriteCache as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Writes a name-value pair from a smart card to the global cache maintained by the Smart Card Resource Manager.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies the smart card from which the name-value pair was read.
@@ -9597,7 +8690,7 @@ class Credentials {
      * @param {Integer} DataLen The size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
-     * If the function fails, it returns one of the following error codes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * <table>
      * <tr>
@@ -9617,7 +8710,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardwritecachea
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardwritecachea
      * @since windows6.0.6000
      */
     static SCardWriteCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9628,10 +8721,7 @@ class Credentials {
     }
 
     /**
-     * Writes a name-value pair from a smart card to the global cache maintained by the Smart Card Resource Manager. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardWriteCache as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Writes a name-value pair from a smart card to the global cache maintained by the Smart Card Resource Manager.
      * @param {Pointer} hContext A handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. The resource manager context is set by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies the smart card from which the name-value pair was read.
@@ -9641,7 +8731,7 @@ class Credentials {
      * @param {Integer} DataLen The size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
-     * If the function fails, it returns one of the following error codes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * <table>
      * <tr>
@@ -9661,7 +8751,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardwritecachew
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardwritecachew
      * @since windows6.0.6000
      */
     static SCardWriteCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9672,9 +8762,7 @@ class Credentials {
     }
 
     /**
-     * Gets an icon of the smart card reader for a given reader's name. (ANSI)
-     * @remarks
-     * The icon should be 256 × 256 pixels with no alpha channel.
+     * Gets an icon of the smart card reader for a given reader's name.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
@@ -9705,12 +8793,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreadericona
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetreadericona
      * @since windows8.0
      */
     static SCardGetReaderIconA(hContext, szReaderName, pbIcon, pcbIcon) {
@@ -9721,9 +8809,7 @@ class Credentials {
     }
 
     /**
-     * Gets an icon of the smart card reader for a given reader's name. (Unicode)
-     * @remarks
-     * The icon should be 256 × 256 pixels with no alpha channel.
+     * Gets an icon of the smart card reader for a given reader's name.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
@@ -9754,12 +8840,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreadericonw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetreadericonw
      * @since windows8.0
      */
     static SCardGetReaderIconW(hContext, szReaderName, pbIcon, pcbIcon) {
@@ -9770,10 +8856,7 @@ class Credentials {
     }
 
     /**
-     * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardGetDeviceTypeId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be NULL.
      * @param {Pointer<Byte>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer<UInt32>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
@@ -9803,12 +8886,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetdevicetypeida
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetdevicetypeida
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdA(hContext, szReaderName, pdwDeviceTypeId) {
@@ -9819,10 +8902,7 @@ class Credentials {
     }
 
     /**
-     * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winscard.h header defines SCardGetDeviceTypeId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be NULL.
      * @param {Pointer<Char>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer<UInt32>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
@@ -9852,12 +8932,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetdevicetypeidw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetdevicetypeidw
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdW(hContext, szReaderName, pdwDeviceTypeId) {
@@ -9868,9 +8948,7 @@ class Credentials {
     }
 
     /**
-     * Gets the device instance identifier of the card reader for the given reader name. This function does not affect the state of the reader. (ANSI)
-     * @remarks
-     * This function is not redirected. Calling the <b>SCardGetReaderDeviceInstanceId</b> function when inside a Remote Desktop session fails with the SCARD_E_READER_UNAVAILABLE error code.
+     * Gets the device instance identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer<Byte>} szDeviceInstanceId Buffer that receives the device instance ID of the reader. If this value is <b>NULL</b>, the function ignores the buffer length supplied in <i>cchDeviceInstanceId</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>cchDeviceInstanceId</i>, and returns a success code.
@@ -9901,12 +8979,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetreaderdeviceinstanceida
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdA(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
@@ -9918,9 +8996,7 @@ class Credentials {
     }
 
     /**
-     * Gets the device instance identifier of the card reader for the given reader name. This function does not affect the state of the reader. (Unicode)
-     * @remarks
-     * This function is not redirected. Calling the <b>SCardGetReaderDeviceInstanceId</b> function when inside a Remote Desktop session fails with the SCARD_E_READER_UNAVAILABLE error code.
+     * Gets the device instance identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer<Char>} szDeviceInstanceId Buffer that receives the device instance ID of the reader. If this value is <b>NULL</b>, the function ignores the buffer length supplied in <i>cchDeviceInstanceId</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>cchDeviceInstanceId</i>, and returns a success code.
@@ -9951,12 +9027,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreaderdeviceinstanceidw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardgetreaderdeviceinstanceidw
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdW(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
@@ -9968,9 +9044,7 @@ class Credentials {
     }
 
     /**
-     * Gets the list of readers that have provided a device instance identifier. This function does not affect the state of the reader. (ANSI)
-     * @remarks
-     * This function is not redirected. Calling the <b>SCardListReadersWithDeviceInstanceId</b> function when inside a Remote Desktop session fails with the SCARD_E_READER_UNAVAILABLE error code.
+     * Gets the list of readers that have provided a device instance identifier. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Byte>} szDeviceInstanceId Device instance ID of the reader. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida">SCardGetReaderDeviceInstanceId</a> function with the reader name or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceinstanceida">SetupDiGetDeviceInstanceId</a> function from the DDK.
      * @param {Pointer<Byte>} mszReaders A multi-string that contain the smart card readers within the supplied device instance identifier. If this value is <b>NULL</b>, then the function ignores the buffer length supplied in the <i>pcchReaders</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
@@ -10001,12 +9075,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreaderswithdeviceinstanceida
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreaderswithdeviceinstanceida
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdA(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
@@ -10018,9 +9092,7 @@ class Credentials {
     }
 
     /**
-     * Gets the list of readers that have provided a device instance identifier. This function does not affect the state of the reader. (Unicode)
-     * @remarks
-     * This function is not redirected. Calling the <b>SCardListReadersWithDeviceInstanceId</b> function when inside a Remote Desktop session fails with the SCARD_E_READER_UNAVAILABLE error code.
+     * Gets the list of readers that have provided a device instance identifier. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Char>} szDeviceInstanceId Device instance ID of the reader. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida">SCardGetReaderDeviceInstanceId</a> function with the reader name or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceinstanceida">SetupDiGetDeviceInstanceId</a> function from the DDK.
      * @param {Pointer<Char>} mszReaders A multi-string that contain the smart card readers within the supplied device instance identifier. If this value is <b>NULL</b>, then the function ignores the buffer length supplied in the <i>pcchReaders</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
@@ -10051,12 +9123,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreaderswithdeviceinstanceidw
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardlistreaderswithdeviceinstanceidw
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdW(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
@@ -10069,8 +9141,6 @@ class Credentials {
 
     /**
      * Writes event messages to the Windows application log Microsoft-Windows-SmartCard-Audit/Authentication.
-     * @remarks
-     * This function is not redirected. An application calling the <b>SCardAudit</b> function from within a Remote Desktop session will log the event on the remote system.
      * @param {Pointer} hContext Handle that identifies the resource manager context. The resource manager context can be set by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Integer} dwEvent The event to log.
      * 
@@ -10128,12 +9198,12 @@ class Credentials {
      * </td>
      * <td width="60%">
      * An error code. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
+     * <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaudit
+     * @see https://docs.microsoft.com/windows/win32/api//winscard/nf-winscard-scardaudit
      * @since windows8.0
      */
     static SCardAudit(hContext, dwEvent) {

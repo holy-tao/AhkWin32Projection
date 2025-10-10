@@ -3,7 +3,7 @@
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_crl_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_revocation_crl_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

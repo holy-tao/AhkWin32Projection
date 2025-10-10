@@ -6,7 +6,8 @@
  * Specifies the activation parameters for a call to ActivateAudioInterfaceAsync.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

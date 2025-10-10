@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents context parameters that are used as input for the CLUSCTL_RESOURCE_GET_OPERATION_CONTEXT control code.
+ * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-get_operation_context_params
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -12,6 +14,7 @@ class GET_OPERATION_CONTEXT_PARAMS extends Win32Struct
     static packingSize => 4
 
     /**
+     * The size of this structure, in bytes.
      * @type {Integer}
      */
     Size {
@@ -20,6 +23,7 @@ class GET_OPERATION_CONTEXT_PARAMS extends Win32Struct
     }
 
     /**
+     * The version of this structure.
      * @type {Integer}
      */
     Version {
@@ -28,6 +32,7 @@ class GET_OPERATION_CONTEXT_PARAMS extends Win32Struct
     }
 
     /**
+     * A  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ne-resapi-resdll_context_operation_type">RESDLL_CONTEXT_OPERATION_TYPE</a> enumeration value that specifies the context operation type.
      * @type {Integer}
      */
     Type {
@@ -36,6 +41,7 @@ class GET_OPERATION_CONTEXT_PARAMS extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     Priority {

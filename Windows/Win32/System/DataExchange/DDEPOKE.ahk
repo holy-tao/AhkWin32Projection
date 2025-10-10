@@ -3,7 +3,7 @@
 
 /**
  * Contains the data, and information about the data, sent as part of a WM_DDE_POKE message.
- * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddepoke
+ * @see https://docs.microsoft.com/windows/win32/api//dde/ns-dde-ddepoke
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

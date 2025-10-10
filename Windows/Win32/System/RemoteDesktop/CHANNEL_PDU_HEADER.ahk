@@ -4,7 +4,8 @@
 /**
  * Contains information about a data block being received by the server end of a virtual channel.
  * @remarks
- * In certain cases, Remote Desktop Services places a 
+ * 
+  * In certain cases, Remote Desktop Services places a 
   *     <b>CHANNEL_PDU_HEADER</b> structure at the beginning 
   *     of each chunk of data read by a call to the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelread">WTSVirtualChannelRead</a> function. This will 
@@ -12,7 +13,9 @@
   *     <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function to initialize the 
   *     virtual channel. This will also occur if the channel is a dynamic virtual channel written to by using the 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write">IWTSVirtualChannel::Write</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/pchannel/ns-pchannel-channel_pdu_header
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//pchannel/ns-pchannel-channel_pdu_header
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

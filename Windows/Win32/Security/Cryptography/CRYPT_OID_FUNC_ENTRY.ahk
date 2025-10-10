@@ -3,7 +3,7 @@
 
 /**
  * Contains an object identifier (OID) and a pointer to its related function.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_oid_func_entry
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_oid_func_entry
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

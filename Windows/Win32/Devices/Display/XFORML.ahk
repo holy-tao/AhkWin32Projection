@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The FLOATOBJ_XFORM structure describes an arbitrary linear two-dimensional transform, such as for geometric wide lines.F
- * @remarks
- * All elements are specified as <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> values. The transform can be downloaded to the driver. Structure members can be operated on by the <b>FLOATOBJ_</b><i>Xxx</i> routines.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-xforml
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class XFORML extends Win32Struct
     static packingSize => 4
 
     /**
-     * 
      * @type {Float}
      */
     eM11 {
@@ -25,7 +20,6 @@ class XFORML extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eM12 {
@@ -34,7 +28,6 @@ class XFORML extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eM21 {
@@ -43,7 +36,6 @@ class XFORML extends Win32Struct
     }
 
     /**
-     * Are the four <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> elements that comprise a 2x2 row-major matrix. The <b>eM11</b> member specifies the matrix element at row 1, column 1, the <b>eM12</b> member specifies the matrix element at row 1, column2, and so on.
      * @type {Float}
      */
     eM22 {
@@ -52,7 +44,6 @@ class XFORML extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eDx {
@@ -61,7 +52,6 @@ class XFORML extends Win32Struct
     }
 
     /**
-     * Are the x- and y-translation components of the transform.
      * @type {Float}
      */
     eDy {

@@ -2,7 +2,7 @@
 
 /**
  * The WMT_INDEX_TYPE enumeration type defines the type of object that will be associated with an index.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_index_type
+ * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_index_type
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

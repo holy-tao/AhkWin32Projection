@@ -4,7 +4,7 @@
 
 /**
  * Specifies a message to add a binding cache entry.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_request
+ * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

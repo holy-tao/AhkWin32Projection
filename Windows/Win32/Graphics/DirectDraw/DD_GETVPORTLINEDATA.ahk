@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTLINEDATA structure contains the current line number of the hardware video port.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportlinedata
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportlinedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

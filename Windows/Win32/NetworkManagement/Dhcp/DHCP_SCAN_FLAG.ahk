@@ -2,7 +2,7 @@
 
 /**
  * The DHCP_SCAN_FLAG enumeration defines the set of possible targets of synchronization during a database scan operation.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_scan_flag
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_scan_flag
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

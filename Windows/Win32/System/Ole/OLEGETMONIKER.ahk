@@ -3,8 +3,11 @@
 /**
  * Controls aspects of the behavior of the IOleObject::GetMoniker and IOleClientSite::GetMoniker methods.
  * @remarks
- * If the OLEGETMONIKER_FORCEASSIGN flag causes a container to create a moniker for the object, the container should notify the object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getmoniker">IOleObject::GetMoniker</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olegetmoniker
+ * 
+  * If the OLEGETMONIKER_FORCEASSIGN flag causes a container to create a moniker for the object, the container should notify the object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getmoniker">IOleObject::GetMoniker</a> method.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olegetmoniker
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

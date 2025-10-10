@@ -3,7 +3,7 @@
 
 /**
  * The DX_IRQDATA structure contains the IRQ information supplied by the driver.
- * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-dx_irqdata
+ * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-dx_irqdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

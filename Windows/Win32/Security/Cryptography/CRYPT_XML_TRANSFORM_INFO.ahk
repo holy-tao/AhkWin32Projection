@@ -4,8 +4,11 @@
 /**
  * Contains information that is used when applying the data transform.
  * @remarks
- * For XML canonicalization transforms, the buffer size specified by the <b>cbBufferSize</b> member must be large enough to accommodate an entire <b>Start</b> element with all attribute values.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_transform_info
+ * 
+  * For XML canonicalization transforms, the buffer size specified by the <b>cbBufferSize</b> member must be large enough to accommodate an entire <b>Start</b> element with all attribute values.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_transform_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

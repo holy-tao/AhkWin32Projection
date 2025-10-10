@@ -2,7 +2,7 @@
 
 /**
  * Contains flags for the IMFSourceReader::ReadSample method.
- * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/ne-mfreadwrite-mf_source_reader_control_flag
+ * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/ne-mfreadwrite-mf_source_reader_control_flag
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

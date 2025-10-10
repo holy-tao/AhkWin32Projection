@@ -3,7 +3,7 @@
 
 /**
  * Contains the virtual IP address assigned to a session.
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_session_address
+ * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/ns-wtsapi32-wts_session_address
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

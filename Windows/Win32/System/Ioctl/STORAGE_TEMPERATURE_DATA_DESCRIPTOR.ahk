@@ -4,7 +4,7 @@
 
 /**
  * This structure is used in conjunction with IOCTL_STORAGE_QUERY_PROPERTY to return temperature data from a storage device or adapter.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_temperature_data_descriptor
+ * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_temperature_data_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

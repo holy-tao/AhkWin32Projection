@@ -4,12 +4,15 @@
 /**
  * Defines a property binding to a pair of functions which get and set the corresponding property.
  * @remarks
- * The <b>propertyName</b> is used to cross-correlate the property binding with the registration XML. The <b>propertyName</b> must be present in the XML call or the registration will fail.
+ * 
+  * The <b>propertyName</b> is used to cross-correlate the property binding with the registration XML. The <b>propertyName</b> must be present in the XML call or the registration will fail.
   * 
   * 
   * 
   * All properties must be bound.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The TERMINAL_MEDIA_STATE enum indicates the state of a file terminal.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-terminal_media_state
+ * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-terminal_media_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

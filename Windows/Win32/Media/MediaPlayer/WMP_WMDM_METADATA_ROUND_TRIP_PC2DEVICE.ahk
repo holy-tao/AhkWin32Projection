@@ -3,7 +3,7 @@
 
 /**
  * The WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE structure is used by Windows Media Player to request accelerated metadata synchronization information from portable devices that do not support MTP.
- * @see https://learn.microsoft.com/windows/win32/api/wmpdevices/ns-wmpdevices-wmp_wmdm_metadata_round_trip_pc2device
+ * @see https://docs.microsoft.com/windows/win32/api//wmpdevices/ns-wmpdevices-wmp_wmdm_metadata_round_trip_pc2device
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

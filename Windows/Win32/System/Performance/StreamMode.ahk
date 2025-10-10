@@ -2,7 +2,7 @@
 
 /**
  * Defines where the trace events are delivered.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-streammode
+ * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-streammode
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

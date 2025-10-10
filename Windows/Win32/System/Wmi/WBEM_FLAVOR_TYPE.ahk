@@ -2,7 +2,7 @@
 
 /**
  * Lists qualifier flavors.
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_flavor_type
+ * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ne-wbemcli-wbem_flavor_type
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the metafile picture format used for exchanging metafile data through the clipboard.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metafilepict
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-metafilepict
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

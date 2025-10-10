@@ -3,7 +3,7 @@
 
 /**
  * Contains status flags that a DDE application passes to its partner as part of the WM_DDE_ACK message.
- * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddeack
+ * @see https://docs.microsoft.com/windows/win32/api//dde/ns-dde-ddeack
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

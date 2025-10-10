@@ -7,7 +7,7 @@
 
 /**
  * The EMREXTTEXTOUTA and EMREXTTEXTOUTW structures contain members for the ExtTextOut, TextOut, or DrawText enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrexttextouta
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrexttextouta
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

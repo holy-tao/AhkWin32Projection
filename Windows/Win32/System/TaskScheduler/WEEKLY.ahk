@@ -4,7 +4,8 @@
 /**
  * Defines the interval, in weeks, between invocations of a task.
  * @remarks
- * The 
+ * 
+  *  The 
   * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> union uses an instance of this structure as part of the <b>Type</b> member of the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure definition.
   * 
@@ -16,7 +17,9 @@
   * example.WeeksInterval = 2;
   * example.rgfDaysOfTheWeek = TASK_SUNDAY | TASK_WEDNESDAY | TASK_FRIDAY;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-weekly
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mstask/ns-mstask-weekly
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

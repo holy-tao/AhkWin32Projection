@@ -2,7 +2,7 @@
 
 /**
  * Describes the size of a thumbnail image.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_thumbnail_size
+ * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_thumbnail_size
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

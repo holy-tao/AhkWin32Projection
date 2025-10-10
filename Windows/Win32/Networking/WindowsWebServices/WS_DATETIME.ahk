@@ -3,7 +3,7 @@
 
 /**
  * This structure is used to represent dates and times.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_datetime
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_datetime
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

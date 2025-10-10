@@ -3,7 +3,7 @@
 
 /**
  * The DD_CLIPPER_LOCAL structure contains local data for each individual DirectDrawClipper object.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_clipper_local
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_clipper_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

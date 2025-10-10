@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (Unicode)
+ * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>WSAQUERYSET</b> structure is used as part of the original namespace provider version 1 architecture available on Windows 95 and later. A newer version 2 of the namespace architecture  is available on Windows Vista and later. 
   * 
   * In most instances, applications interested in only a particular transport protocol should constrain their query by address family and protocol rather than by namespace. This would allow an application that needs to locate a TCP/IP service, for example, to have its query processed by all available namespaces such as the local hosts file, DNS, and NIS.
@@ -15,7 +16,9 @@
   * 
   * > [!NOTE]
   * > The winsock2.h header defines WSAQUERYSET as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaquerysetw
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsaquerysetw
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset Unicode

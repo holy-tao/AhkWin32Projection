@@ -3,7 +3,7 @@
 
 /**
  * Contains information that defines a gamut shell, which is represented by a list of indexed triangles. The vertex buffer contains the vertices data.
- * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutshell
+ * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/ns-wcsplugin-gamutshell
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

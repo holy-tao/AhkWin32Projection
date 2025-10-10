@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_FAILOVER_STATISTICS structure defines DHCP server scope statistics that are part of a failover relationship.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_statistics
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_failover_statistics
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

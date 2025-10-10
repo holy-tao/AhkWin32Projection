@@ -2,7 +2,7 @@
 
 /**
  * Defines the reason for locking the System Monitor.
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-sysmonbatchreason
+ * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-sysmonbatchreason
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

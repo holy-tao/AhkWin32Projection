@@ -2,7 +2,7 @@
 
 /**
  * The values of the ATTRIBUTEINFO type enumerate characteristics of a specified attribute.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributeinfo
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributeinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

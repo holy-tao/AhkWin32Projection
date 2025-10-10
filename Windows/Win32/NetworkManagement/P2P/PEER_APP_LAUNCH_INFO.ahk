@@ -3,7 +3,7 @@
 
 /**
  * The PEER_APP_LAUNCH_INFO structure contains the peer application application launch information provided by a contact in a previous peer invite request.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_app_launch_info
+ * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_app_launch_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Specifies how a shortcut should be handled by the browser.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-ieshortcutflags
+ * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ne-shlobj_core-ieshortcutflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

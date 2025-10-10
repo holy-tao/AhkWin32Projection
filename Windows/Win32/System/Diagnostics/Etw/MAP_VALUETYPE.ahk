@@ -2,7 +2,7 @@
 
 /**
  * Defines if the value map value is in a ULONG data type or a string.
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-map_valuetype
+ * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-map_valuetype
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

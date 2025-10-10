@@ -4,7 +4,7 @@
 
 /**
  * Describes the start and end points of a line recognition segment, such as the baseline or midline.
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-line_segment
+ * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-line_segment
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

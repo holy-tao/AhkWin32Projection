@@ -5,7 +5,7 @@
 
 /**
  * The EMREXCLUDECLIPRECT and EMRINTERSECTCLIPRECT structures contain members for the ExcludeClipRect and IntersectClipRect enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrexcludecliprect
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrexcludecliprect
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

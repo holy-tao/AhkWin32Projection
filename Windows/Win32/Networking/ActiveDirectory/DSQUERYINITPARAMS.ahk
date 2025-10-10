@@ -4,10 +4,13 @@
 /**
  * Describes the data used to initialize a browse dialog box in the directory service query.
  * @remarks
- * This structure is specific to the <b>CLSID_DsQuery</b> query handler. This structure is used for the <b>pHandlerParameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/ns-cmnquery-openquerywindow">OPENQUERYWINDOW</a> structure when <b>CLSID_DsQuery</b> is set for the <b>clsidHandler</b> member of the 
+ * 
+  * This structure is specific to the <b>CLSID_DsQuery</b> query handler. This structure is used for the <b>pHandlerParameters</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/ns-cmnquery-openquerywindow">OPENQUERYWINDOW</a> structure when <b>CLSID_DsQuery</b> is set for the <b>clsidHandler</b> member of the 
   * <b>OPENQUERYWINDOW</b> structure. For more information, and a code example for  using this, and other related APIs, see 
   * <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nf-cmnquery-icommonquery-openquerywindow">ICommonQuery::OpenQueryWindow</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryinitparams
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dsquery/ns-dsquery-dsqueryinitparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

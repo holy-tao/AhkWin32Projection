@@ -2,7 +2,7 @@
 
 /**
  * Indicates information about the type of media file accessed.
- * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_media_type
+ * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_media_type
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

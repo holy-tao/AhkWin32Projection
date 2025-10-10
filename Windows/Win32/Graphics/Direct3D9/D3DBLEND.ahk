@@ -1,19 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Defines the supported blend mode.
- * @remarks
- * In the preceding member descriptions, the RGBA values of the source and destination are indicated by the s and d subscripts.
-  * 
-  * The values in this enumerated type are used by the following render states:
-  * 
-  * -   D3DRS\_DESTBLEND
-  * -   D3DRS\_SRCBLEND
-  * -   D3DRS\_DESTBLENDALPHA
-  * -   D3DRS\_SRCBLENDALPHA
-  * 
-  * See [**D3DRENDERSTATETYPE**](./d3drenderstatetype.md)
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dblend
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

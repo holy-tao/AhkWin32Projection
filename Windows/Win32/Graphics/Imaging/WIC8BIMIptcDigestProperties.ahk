@@ -2,7 +2,7 @@
 
 /**
  * Specifies the identifiers of the metadata items in an 8BIM IPTC digest metadata block.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wic8bimiptcdigestproperties
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wic8bimiptcdigestproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

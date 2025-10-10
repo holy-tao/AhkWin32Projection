@@ -2,7 +2,7 @@
 
 /**
  * Describes the possible access denied remediation (ADR) client error types.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adrclienterrortype
+ * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-adrclienterrortype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

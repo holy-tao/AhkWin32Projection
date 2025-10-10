@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's security identifier (SID).
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_23
+ * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_23
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

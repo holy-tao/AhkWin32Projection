@@ -2,7 +2,7 @@
 
 /**
  * Callback flags for canceling data fetching for a placeholder file or folder.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_cancel_flags
+ * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_callback_cancel_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

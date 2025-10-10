@@ -2,7 +2,7 @@
 
 /**
  * The AppPolicyThreadInitializationType enumeration indicates the kind of initialization that should be automatically performed for a process when beginthread[ex] creates a thread.
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicythreadinitializationtype
+ * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicythreadinitializationtype
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

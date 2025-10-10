@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify the type of a resource in a resource dictionary.
- * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-resourcetype
+ * @see https://docs.microsoft.com/windows/win32/api//xamlom/ne-xamlom-resourcetype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

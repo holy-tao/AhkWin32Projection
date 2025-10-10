@@ -3,7 +3,7 @@
 
 /**
  * Contains the subject to import into the CryptUIWizImport function.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_import_src_info
+ * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_import_src_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

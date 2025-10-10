@@ -3,7 +3,7 @@
 
 /**
  * Contains information about message strings with identifiers in the range indicated by the LowId and HighId members.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_block
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-message_resource_block
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

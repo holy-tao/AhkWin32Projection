@@ -2,7 +2,7 @@
 
 /**
  * The WMPOpenState enumeration type defines the possible operational states of Windows Media Player as it opens a digital media file.
- * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpopenstate
+ * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpopenstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

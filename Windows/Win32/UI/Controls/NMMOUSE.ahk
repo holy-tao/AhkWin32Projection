@@ -5,7 +5,7 @@
 
 /**
  * Contains information used with mouse notification messages.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmmouse
+ * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmmouse
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -52,9 +52,9 @@ class NMMOUSE extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the client coordinates of the mouse when the click occurred.
+     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the client coordinates of the mouse when the click occurred.
      * @type {POINT}
      */
     pt{

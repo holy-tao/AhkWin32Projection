@@ -3,8 +3,11 @@
 /**
  * Indicates the audio format of a DVD.
  * @remarks
- * This enumeration is a member of the [DVD_AudioAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_audioattributes) structure.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_format
+ * 
+  * This enumeration is a member of the [DVD_AudioAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_audioattributes) structure.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_audio_format
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

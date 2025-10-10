@@ -3,8 +3,6 @@
 #Include .\ARM64_NT_NEON128.ahk
 
 /**
- * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations.C
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-arm64_nt_context
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

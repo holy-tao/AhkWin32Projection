@@ -6,7 +6,7 @@
 
 /**
  * Gets or sets tunnel specific custom configuration for a demand dial interfaces.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_if_custominfoex0
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_if_custominfoex0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

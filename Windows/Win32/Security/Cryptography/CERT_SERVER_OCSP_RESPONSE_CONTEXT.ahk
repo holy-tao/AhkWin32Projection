@@ -3,7 +3,7 @@
 
 /**
  * Contains an encoded OCSP response.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_server_ocsp_response_context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible priorities for a download operation.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-downloadpriority
+ * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-downloadpriority
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

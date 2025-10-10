@@ -2,7 +2,7 @@
 
 /**
  * Defines the outcome status of a WPS session.
- * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ne-wcndevice-wcn_session_status
+ * @see https://docs.microsoft.com/windows/win32/api//wcndevice/ne-wcndevice-wcn_session_status
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

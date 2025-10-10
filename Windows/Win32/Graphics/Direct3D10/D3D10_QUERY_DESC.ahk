@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a query. (D3D10_QUERY_DESC)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_query_desc
+ * Describes a query.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_query_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

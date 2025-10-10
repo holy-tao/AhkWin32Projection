@@ -2,7 +2,7 @@
 
 /**
  * Identifies the type of thread information that will be written to the minidump file by the MiniDumpWriteDump function.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-thread_write_flags
+ * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ne-minidumpapiset-thread_write_flags
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

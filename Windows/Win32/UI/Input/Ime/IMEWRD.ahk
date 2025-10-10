@@ -3,7 +3,7 @@
 
 /**
  * Contains data about a word in the Word data of the Microsoft IME dictionary.
- * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-imewrd
+ * @see https://docs.microsoft.com/windows/win32/api//msime/ns-msime-imewrd
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The DOC\_INFO\_1 structure describes a document that will be printed.
- * @see https://learn.microsoft.com/windows/win32/printdocs/doc-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI
@@ -15,7 +13,6 @@ class DOC_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
-     * Pointer to a null-terminated string that specifies the name of the document.
      * @type {Pointer<Byte>}
      */
     pDocName {
@@ -24,7 +21,6 @@ class DOC_INFO_1A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that specifies the name of an output file. To print to a printer, set this to **NULL**.
      * @type {Pointer<Byte>}
      */
     pOutputFile {
@@ -33,7 +29,6 @@ class DOC_INFO_1A extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated string that identifies the type of data used to record the document.
      * @type {Pointer<Byte>}
      */
     pDatatype {

@@ -3,7 +3,7 @@
 
 /**
  * This structure is used by the OperationStart function.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-operation_start_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-operation_start_parameters
  * @namespace Windows.Win32.Storage.OperationRecorder
  * @version v4.0.30319
  */

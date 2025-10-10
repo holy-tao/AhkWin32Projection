@@ -4,7 +4,7 @@
 
 /**
  * Contains a relative distinguished name (RDN) attribute value.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_name_value
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_name_value
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

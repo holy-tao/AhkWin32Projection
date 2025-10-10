@@ -4,7 +4,7 @@
 
 /**
  * Contains process parameter information.
- * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-rtl_user_process_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winternl/ns-winternl-rtl_user_process_parameters
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

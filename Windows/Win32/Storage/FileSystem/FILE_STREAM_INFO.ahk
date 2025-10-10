@@ -4,7 +4,8 @@
 /**
  * Receives file stream information for the specified file.
  * @remarks
- * The <b>FILE_STREAM_INFO</b> structure is used to enumerate the streams for a file.
+ * 
+  * The <b>FILE_STREAM_INFO</b> structure is used to enumerate the streams for a file.
   * 
   * 
   * 
@@ -13,7 +14,9 @@
   * 
   * 
   * The <b>FILE_STREAM_INFO</b> structure must be aligned on a <b>LONGLONG</b> (8-byte) boundary. If a buffer contains two or more of these structures, the <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_stream_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_stream_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

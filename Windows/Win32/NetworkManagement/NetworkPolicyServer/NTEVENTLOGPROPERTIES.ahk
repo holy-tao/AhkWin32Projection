@@ -2,7 +2,7 @@
 
 /**
  * The values of the NTEVENTLOGPROPERTIES enumeration type enumerate what types of events should be logged in the NT Event Log.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-nteventlogproperties
+ * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-nteventlogproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

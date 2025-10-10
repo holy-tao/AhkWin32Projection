@@ -4,7 +4,8 @@
 /**
  * Describes the descriptor heap.
  * @remarks
- * This structure is used by the following:
+ * 
+  * This structure is used by the following:
   *         
   * 
   * <ul>
@@ -15,7 +16,9 @@
   * <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap">ID3D12Device::CreateDescriptorHeap</a>
   * </li>
   * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_descriptor_heap_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

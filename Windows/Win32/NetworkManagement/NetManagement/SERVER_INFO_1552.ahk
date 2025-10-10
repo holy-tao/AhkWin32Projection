@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1552 structure specifies the maximum time allowed for a link delay.
- * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1552
+ * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1552
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

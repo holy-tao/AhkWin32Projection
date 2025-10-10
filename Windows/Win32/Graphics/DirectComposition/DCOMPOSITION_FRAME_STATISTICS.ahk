@@ -5,8 +5,11 @@
 /**
  * Describes timing and composition statistics for a frame.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-idcompositiondevice-getframestatistics">IDCompositionDevice::GetFrameStatistics</a> method fills this structure. An application can use the information in this structure to estimate the timestamp of the next few frames that will be started by the composition engine. Note that this is only an estimate because the composition engine may or may not compose the next frame, depending on whether any active animations or other work are pending for that frame. In addition, the composition engine may change frame rates according to the cost of composing individual frames.
- * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-dcomposition_frame_statistics
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nf-dcomp-idcompositiondevice-getframestatistics">IDCompositionDevice::GetFrameStatistics</a> method fills this structure. An application can use the information in this structure to estimate the timestamp of the next few frames that will be started by the composition engine. Note that this is only an estimate because the composition engine may or may not compose the next frame, depending on whether any active animations or other work are pending for that frame. In addition, the composition engine may change frame rates according to the cost of composing individual frames.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dcomptypes/ns-dcomptypes-dcomposition_frame_statistics
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

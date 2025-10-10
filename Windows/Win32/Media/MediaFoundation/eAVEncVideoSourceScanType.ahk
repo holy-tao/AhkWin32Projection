@@ -2,7 +2,7 @@
 
 /**
  * Specifies whether the input frames for an encoder are progressive or interlaced. This enumeration is used with the AVEncVideoForceSourceScanType property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideosourcescantype
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideosourcescantype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

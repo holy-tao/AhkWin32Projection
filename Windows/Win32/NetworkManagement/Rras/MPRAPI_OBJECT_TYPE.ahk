@@ -2,7 +2,7 @@
 
 /**
  * Specifies the structure type in a MPRAPI_OBJECT_HEADER structure.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-mprapi_object_type
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-mprapi_object_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

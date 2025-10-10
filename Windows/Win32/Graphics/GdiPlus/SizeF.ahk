@@ -3,7 +3,7 @@
 
 /**
  * Creates a D2D1_SIZE_F structure that contains the specified width and height.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-sizef
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1helper/nf-d2d1helper-sizef
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

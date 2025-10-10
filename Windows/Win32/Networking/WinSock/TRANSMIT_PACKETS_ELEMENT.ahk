@@ -3,7 +3,7 @@
 
 /**
  * Specifies a single data element to be transmitted by the TransmitPackets function.
- * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_packets_element
+ * @see https://docs.microsoft.com/windows/win32/api//mswsock/ns-mswsock-transmit_packets_element
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

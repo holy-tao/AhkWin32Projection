@@ -2,7 +2,7 @@
 
 /**
  * The DS_REPSYNCALL_ERROR enumeration is used with the DS_REPSYNCALL_ERRINFO structure to indicate where in the replication process an error occurred.
- * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repsyncall_error
+ * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_repsyncall_error
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

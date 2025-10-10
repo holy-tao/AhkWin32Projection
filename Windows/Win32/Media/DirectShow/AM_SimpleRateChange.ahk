@@ -4,7 +4,8 @@
 /**
  * The AM_SimpleRateChange structure is used to change the playback rate for an MPEG-2 stream.
  * @remarks
- * <h3><a id="Version_1.1_Semantics"></a><a id="version_1.1_semantics"></a><a id="VERSION_1.1_SEMANTICS"></a>Version 1.1 Semantics</h3>
+ * 
+  * <h3><a id="Version_1.1_Semantics"></a><a id="version_1.1_semantics"></a><a id="VERSION_1.1_SEMANTICS"></a>Version 1.1 Semantics</h3>
   * For version 1.1 of this property set, the <b>StartTime</b> member can be -1. This value indicates that the rate change applies to the decoder's <i>most forward</i> sample, defined as the sample at the head of the decoder's outgoing queue.  To get the actual start time of the rate change, query the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/am-rate-querylastratesegpts-property">AM_RATE_QueryLastRateSegPTS</a> property.
   * 
   * The decoder should adjust the time stamps on every queued sample to reflect the new rate. Queued samples might be incompatible with the new rate, especially for audio decoders. If so, the decoder may simply drop the queued samples. After dropping samples, it should set the discontinuity flag on the first sample it delivers.
@@ -89,7 +90,10 @@
   * <img alt="A diagram showing the x intercept of the r2." src="./images/dvd_rate_change2.png"/>
   * 
   * In the special case where playback is 1x at time 0, r1 = 1 and xi1 = 0.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_simpleratechange
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_simpleratechange
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

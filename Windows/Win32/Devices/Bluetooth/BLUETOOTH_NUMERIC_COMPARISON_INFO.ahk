@@ -3,7 +3,7 @@
 
 /**
  * BLUETOOTH_NUMERIC_COMPARISON_INFO structure contains the numeric value used for authentication via numeric comparison.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_numeric_comparison_info
+ * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_numeric_comparison_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

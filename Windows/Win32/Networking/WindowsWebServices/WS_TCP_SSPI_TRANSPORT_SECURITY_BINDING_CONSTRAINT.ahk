@@ -4,7 +4,7 @@
 
 /**
  * A security binding constraint that corresponds to the WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_transport_security_binding_constraint
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_tcp_sspi_transport_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

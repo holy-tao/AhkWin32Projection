@@ -3,7 +3,7 @@
 
 /**
  * The CERT_EXTENSIONS structure contains an array of extensions.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_extensions
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_extensions
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

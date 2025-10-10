@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * The CLUSTER_RESOURCE_CLASS enumeration (msclus.h) defines the class of a resource.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_class
+ * Defines the class of a resource.
+ * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_resource_class
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

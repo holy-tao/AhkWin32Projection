@@ -2,7 +2,7 @@
 
 /**
  * PEERDIST_STATUS enumeration defines the possible status values of the Peer Distribution service.
- * @see https://learn.microsoft.com/windows/win32/api/peerdist/ne-peerdist-peerdist_status
+ * @see https://docs.microsoft.com/windows/win32/api//peerdist/ne-peerdist-peerdist_status
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

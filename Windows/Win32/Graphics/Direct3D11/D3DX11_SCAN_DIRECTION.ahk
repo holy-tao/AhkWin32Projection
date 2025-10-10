@@ -2,7 +2,7 @@
 
 /**
  * Direction to perform scan in.
- * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ne-d3dcsx-d3dx11_scan_direction
+ * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/ne-d3dcsx-d3dx11_scan_direction
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

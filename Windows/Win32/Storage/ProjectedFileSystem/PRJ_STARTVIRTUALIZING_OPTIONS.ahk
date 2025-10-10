@@ -3,7 +3,7 @@
 
 /**
  * Options to provide when starting a virtualization instance.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_startvirtualizing_options
+ * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_startvirtualizing_options
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

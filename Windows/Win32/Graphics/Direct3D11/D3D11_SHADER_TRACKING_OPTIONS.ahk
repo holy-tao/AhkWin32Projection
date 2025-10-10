@@ -3,7 +3,8 @@
 /**
  * Options that specify how to perform shader debug tracking.
  * @remarks
- * This enumeration is used by the following methods:
+ * 
+  * This enumeration is used by the following methods:
   *         
   * 
   * <ul>
@@ -23,7 +24,9 @@
   * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.
   *       </div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

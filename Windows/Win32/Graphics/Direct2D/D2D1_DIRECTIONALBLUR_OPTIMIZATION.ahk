@@ -2,7 +2,7 @@
 
 /**
  * Specifies the optimization mode for the Directional blur effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_directionalblur_optimization
+ * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_directionalblur_optimization
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

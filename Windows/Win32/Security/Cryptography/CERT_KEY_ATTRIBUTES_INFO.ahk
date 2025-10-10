@@ -5,7 +5,7 @@
 
 /**
  * The CERT_KEY_ATTRIBUTES_INFO structure contains optional additional information about the public key being certified.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_attributes_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_key_attributes_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

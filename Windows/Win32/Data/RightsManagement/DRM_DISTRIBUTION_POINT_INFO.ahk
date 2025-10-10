@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of distribution point to retrieve information about when calling DRMGetIssuanceLicenseInfo.
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_distribution_point_info
+ * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drm_distribution_point_info
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

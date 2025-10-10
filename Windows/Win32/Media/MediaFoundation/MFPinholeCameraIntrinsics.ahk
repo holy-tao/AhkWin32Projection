@@ -7,7 +7,7 @@
 
 /**
  * Contains zero or 1 pinhole camera intrinsic models that describe how to project a 3D point in physical world onto the 2D image frame of a camera.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsics
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfpinholecameraintrinsics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

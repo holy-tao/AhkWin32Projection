@@ -4,8 +4,11 @@
 /**
  * The EMI_VERSION structure describes the version of the Energy Metering Interface (EMI) that is supported by a device.
  * @remarks
- * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_version">IOCTL_EMI_GET_VERSION</a> IOCTL request.
- * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_version
+ * 
+  * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_version">IOCTL_EMI_GET_VERSION</a> IOCTL request.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//emi/ns-emi-emi_version
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

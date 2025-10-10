@@ -4,10 +4,13 @@
 /**
  * Represents a DNS Option (OPT) resource record (RR) as specified in section 4 of RFC 2671.
  * @remarks
- * The 
+ * 
+  * The 
   * <b>DNS_OPT_DATA</b> structure is used in conjunction with the 
   * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_opt_data
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_opt_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

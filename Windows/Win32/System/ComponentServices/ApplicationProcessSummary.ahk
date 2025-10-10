@@ -3,7 +3,7 @@
 
 /**
  * Represents summary information about a process hosting COM+ applications.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationprocesssummary
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-applicationprocesssummary
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

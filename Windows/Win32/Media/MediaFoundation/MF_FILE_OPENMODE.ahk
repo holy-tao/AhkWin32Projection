@@ -2,7 +2,7 @@
 
 /**
  * Specifies how to open or create a file.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_openmode
+ * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_file_openmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

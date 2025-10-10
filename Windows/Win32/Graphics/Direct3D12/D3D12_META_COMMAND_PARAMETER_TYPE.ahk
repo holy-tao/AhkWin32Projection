@@ -2,7 +2,7 @@
 
 /**
  * Defines constants that specify the data type of a parameter to a meta command.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_meta_command_parameter_type
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_meta_command_parameter_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

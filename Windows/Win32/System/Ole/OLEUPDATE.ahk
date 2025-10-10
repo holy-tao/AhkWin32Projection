@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the linked object updates the cached data for the linked object automatically or only when the container calls either the IOleObject::Update or IOleLink::Update methods. The constants are used in the IOleLink interface.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-oleupdate
+ * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-oleupdate
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -6,8 +6,11 @@
 /**
  * Defines a color value for Microsoft Direct3D 11 video.
  * @remarks
- * The anonymous union can represent both RGB and YCbCr colors. The interpretation of the union depends on the context.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_color
+ * 
+  * The anonymous union can represent both RGB and YCbCr colors. The interpretation of the union depends on the context.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_color
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

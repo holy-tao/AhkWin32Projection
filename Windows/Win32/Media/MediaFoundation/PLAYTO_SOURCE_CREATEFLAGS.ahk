@@ -2,7 +2,7 @@
 
 /**
  * Contains flags for the IPlayToSourceClassFactory::CreateInstance method.
- * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ne-mfsharingengine-playto_source_createflags
+ * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/ne-mfsharingengine-playto_source_createflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

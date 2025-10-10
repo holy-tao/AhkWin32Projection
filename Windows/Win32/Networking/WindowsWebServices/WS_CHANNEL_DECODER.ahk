@@ -4,7 +4,8 @@
 /**
  * A structure that is used to specify a set of callbacks that can transform the content type and encoded bytes of a received message.
  * @remarks
- * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> may wish to decompress, modify, or otherwise transform
+ * 
+  * A <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-channel">WS_CHANNEL</a> may wish to decompress, modify, or otherwise transform
   *                 the encoded bytes of a message as soon as they are received. A <b>WS_CHANNEL_DECODER</b> 
   *                 provides the necessary hooks to intercept and perform these modifications.
   *             
@@ -19,16 +20,12 @@
   * 
   *               
   * 
-  * 
-  * ``` syntax
-  * 
+  * <pre class="syntax" xml:space="preserve"><code>
   * decodercalls := create decoderloop* free
   * decoderloop  := decodestart
   *              |  decodestart getcontenttype
   *              |  decodestart getcontenttype (decode*)
-  *              |  decodestart getcontenttype (decode*) decodeend
-  * ```
-  * 
+  *              |  decodestart getcontenttype (decode*) decodeend</code></pre>
   * The decoder may not see the full decode sequence for a message if the channel 
   *               or the decoder encounters an error while reading the message.  A decoder must be 
   *               prepared to handle transitioning to the appropriate state based upon the callbacks invoked.
@@ -44,7 +41,8 @@
   * 
   * When the channel is finished using the decoder instance it will free it via the 
   *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_decoder
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_channel_decoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -64,7 +62,7 @@ class WS_CHANNEL_DECODER extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a> callback that creates an instance of a decoder.
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a> callback that creates an instance of an decoder.
      * @type {Pointer<WS_CREATE_DECODER_CALLBACK>}
      */
     createDecoderCallback {
@@ -110,7 +108,7 @@ class WS_CHANNEL_DECODER extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a> callback that frees an instance of a decoder.
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a> callback that frees an instance of an decoder.
      * @type {Pointer<WS_FREE_DECODER_CALLBACK>}
      */
     freeDecoderCallback {

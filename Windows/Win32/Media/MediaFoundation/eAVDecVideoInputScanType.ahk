@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the decoded video stream is interlaced. This enumeration is used with the AVDecVideoInputScanType property.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecvideoinputscantype
+ * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecvideoinputscantype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

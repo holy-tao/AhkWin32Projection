@@ -3,7 +3,7 @@
 
 /**
  * Describes a resource to resolve to at the conclusion of a render pass.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_ending_access_resolve_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_pass_ending_access_resolve_parameters
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

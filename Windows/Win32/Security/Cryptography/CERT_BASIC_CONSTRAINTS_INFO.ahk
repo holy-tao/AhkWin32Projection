@@ -4,7 +4,7 @@
 
 /**
  * The CERT_BASIC_CONSTRAINTS_INFO structure contains information that indicates whether the certified subject can act as a certification authority (CA), an end entity, or both.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_basic_constraints_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_basic_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

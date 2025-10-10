@@ -3,7 +3,7 @@
 
 /**
  * Represents statistical information about a COM+ component hosted in a particular process.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componentstatistics
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-componentstatistics
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

@@ -3,8 +3,11 @@
 /**
  * Specifies the method of encapsulating Ethernet II and SNAP traffic. Reserved.
  * @remarks
- * This enumeration is reserved.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_ether_encap_method
+ * 
+  * This enumeration is reserved.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_ether_encap_method
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -2,17 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a Microsoft-extended property.
+ * Contains information about an extended property.
  * @remarks
- * The **ExtendedProperty** object has these types of members:
+ * 
+  * This structure is used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437294(v=vs.85)">IUIAutomationStylesPattern::GetCachedExtendedPropertiesArray</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437295(v=vs.85)">GetCurrentExtendedPropertiesArray</a> methods.
   * 
-  * -   [Properties](#properties)
-  * 
-  * 
-  * The **ExtendedProperty** object is used by the [**ExtendedProperties**](extendedproperties.md) collection.
-  * 
-  * The **ExtendedProperty** object can be created, and it is not safe for scripting. The ProgID for the **ExtendedProperty** object is CAPICOM.ExtendedProperty.1.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/extendedproperty
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/ns-uiautomationclient-extendedproperty
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -23,6 +18,9 @@ class ExtendedProperty extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: <b>BSTR</b>
+     * 
+     * A localized string that contains the name of the extended property.
      * @type {Pointer<Char>}
      */
     PropertyName {
@@ -31,6 +29,9 @@ class ExtendedProperty extends Win32Struct
     }
 
     /**
+     * Type: <b>BSTR</b>
+     * 
+     * A string that represents the value of the extended property.   This string should be localized, if appropriate.
      * @type {Pointer<Char>}
      */
     PropertyValue {

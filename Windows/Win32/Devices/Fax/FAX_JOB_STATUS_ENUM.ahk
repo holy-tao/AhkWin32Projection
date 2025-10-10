@@ -2,7 +2,7 @@
 
 /**
  * The FAX_JOB_STATUS_ENUM enumeration defines the status values for a fax job.Note  The members fjsPAUSED and fjsNOLINE are modifiers; they can be used in combination with any other member of this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_status_enum
+ * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_job_status_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

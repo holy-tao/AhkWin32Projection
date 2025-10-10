@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A 3D vector.
- * @see https://learn.microsoft.com/windows/win32/direct3d10/d3d10-d3dvector
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
@@ -14,10 +12,6 @@ class D3DVECTOR extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: **float**
-     * 
-     * 
-     * The x component.
      * @type {Float}
      */
     x {
@@ -26,10 +20,6 @@ class D3DVECTOR extends Win32Struct
     }
 
     /**
-     * Type: **float**
-     * 
-     * 
-     * The y component.
      * @type {Float}
      */
     y {
@@ -38,10 +28,6 @@ class D3DVECTOR extends Win32Struct
     }
 
     /**
-     * Type: **float**
-     * 
-     * 
-     * The z component.
      * @type {Float}
      */
     z {

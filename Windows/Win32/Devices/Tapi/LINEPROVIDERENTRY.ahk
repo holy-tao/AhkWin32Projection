@@ -4,8 +4,11 @@
 /**
  * The LINEPROVIDERENTRY structure provides the information for a single service provider entry. An array of these structures is returned as part of the LINEPROVIDERLIST structure returned by the function lineGetProviderList.
  * @remarks
- * Not extensible.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineproviderentry
+ * 
+  * Not extensible.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineproviderentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

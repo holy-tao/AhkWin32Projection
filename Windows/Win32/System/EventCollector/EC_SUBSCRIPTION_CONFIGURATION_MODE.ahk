@@ -3,7 +3,8 @@
 /**
  * Specifies different configuration modes that change the default settings for a subscription.
  * @remarks
- * The settings for each configuration mode can be found in the Event Collector registry located at: <pre><b>HKEY_LOCAL_MACHINE</b>
+ * 
+  * The settings for each configuration mode can be found in the Event Collector registry located at: <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
   *    <b>SOFTWARE</b>
   *       <b>Microsoft</b>
   *          <b>Windows</b>
@@ -13,7 +14,8 @@
   * 
   * 
   * For more information about the subscription delivery mode and properties see, <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_delivery_mode">EC_SUBSCRIPTION_DELIVERY_MODE</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a>.
- * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_configuration_mode
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_configuration_mode
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

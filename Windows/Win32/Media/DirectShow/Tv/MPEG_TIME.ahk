@@ -4,10 +4,13 @@
 /**
  * The MPEG_TIME structure represents a time of day, or a duration.
  * @remarks
- * The <b>MPEG_DURATION</b> structure is a <c>typedef</c> for the <b>MPEG_TIME</b> structure.
+ * 
+  * The <b>MPEG_DURATION</b> structure is a <c>typedef</c> for the <b>MPEG_TIME</b> structure.
   * 
   * <pre class="syntax" xml:space="preserve"><c>typedef MPEG_TIME MPEG_DURATION;</c></pre>
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_time
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_time
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

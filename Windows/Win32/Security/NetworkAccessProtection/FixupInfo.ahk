@@ -5,12 +5,15 @@
 /**
  * Contains fix-up information for the Sysytem Health Agent (SHA).
  * @remarks
- * If your SHA remediation process supports the reporting of percentage values during update, <b>percentage</b> is used to communicate the current progress as an integer percentage value. When the remediation update is complete, <b>percentage</b> must be set to 100, and <b>state</b> must be set to <b>fixupStateSuccess</b>. If remediation is not complete, <b>percentage</b> must be set to a value between 0 and 99, inclusive, and <b>state</b> must be set to <b>fixupStateInProgress</b>.
+ * 
+  * If your SHA remediation process supports the reporting of percentage values during update, <b>percentage</b> is used to communicate the current progress as an integer percentage value. When the remediation update is complete, <b>percentage</b> must be set to 100, and <b>state</b> must be set to <b>fixupStateSuccess</b>. If remediation is not complete, <b>percentage</b> must be set to a value between 0 and 99, inclusive, and <b>state</b> must be set to <b>fixupStateInProgress</b>.
   * 
   * If your remediation process does not support the reporting of percentage values, then as long as <b>state</b> is set to <b>fixupStateInProgress</b>, <b>percentage</b> must be set to a value of 101, which indicates the remediation process is in a general "updating" state but the amount of completion is unknown. When remediation completes, <b>state</b> must be set to <b>fixupStateSuccess</b> and <b>percentage</b> must be set to 100.
   * 
   * If the SHA cannot update the fix-up information, then <b>state</b> must be set to <b>fixupStateCouldNotUpdate</b>.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-fixupinfo
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-fixupinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

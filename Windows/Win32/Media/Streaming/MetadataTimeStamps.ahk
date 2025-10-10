@@ -4,13 +4,15 @@
 /**
  * The MetadataTimeStamps structure describes the blob format for the MF_CAPTURE_METADATA_FACEROITIMESTAMPS attribute.
  * @remarks
- * The <b>MF_CAPTURE_METADATA_FACEROITIMESTAMPS</b> attribute contains the time stamp information for the face ROIs identified in <b>MF_CAPTURE_METADATA_FACEROIS</b>.  For a  device that cannot provide the time stamp for face ROIs, this attribute should be omitted.
+ * 
+  * The <b>MF_CAPTURE_METADATA_FACEROITIMESTAMPS</b> attribute contains the time stamp information for the face ROIs identified in <b>MF_CAPTURE_METADATA_FACEROIS</b>.  For a  device that cannot provide the time stamp for face ROIs, this attribute should be omitted.
   * 
   * For the <b>Flags</b> field, the following bit flags  indicate which time stamp is valid:
   * 
   * 
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-metadatatimestamps
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-metadatatimestamps
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_PATH_ID structure (vdshwprv.h) defines a unique identification for a path.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_path_id
+ * Defines a unique identification for a path.
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_path_id
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

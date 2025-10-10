@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Holds the negotiated security package keys.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negokeys
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     static packingSize => 8
 
     /**
-     * The key type.
      * @type {Integer}
      */
     KeyType {
@@ -25,7 +20,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * The length of the key, in bytes.
      * @type {Integer}
      */
     KeyLength {
@@ -34,7 +28,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * The key value.
      * @type {Pointer<Byte>}
      */
     KeyValue {
@@ -43,7 +36,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * The key type for the verification key.
      * @type {Integer}
      */
     VerifyKeyType {
@@ -52,7 +44,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * The length of the verification key, in bytes.
      * @type {Integer}
      */
     VerifyKeyLength {
@@ -61,7 +52,6 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * The verification key value.
      * @type {Pointer<Byte>}
      */
     VerifyKeyValue {

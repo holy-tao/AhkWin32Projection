@@ -3,7 +3,7 @@
 
 /**
  * Contains a set of typographic features to be applied during text shaping.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_typographic_features
+ * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_typographic_features
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

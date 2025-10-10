@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Specifies the type of process that is identified in the D3DAUTHENTICATEDCHANNEL\_QUERYRESTRICTEDSHAREDRESOURCEPROCESS\_OUTPUT structure.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-processidentifiertype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

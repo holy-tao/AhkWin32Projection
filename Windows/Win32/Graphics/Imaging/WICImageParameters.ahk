@@ -5,7 +5,8 @@
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.
  * @remarks
- * If this parameter is not passed to the encoding API, the encoder uses these settings.
+ * 
+  * If this parameter is not passed to the encoding API, the encoder uses these settings.
   * 
   * <ul>
   * <li>A pixel format of (<a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT_B8G8R8A8_UNORM</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-d2d1_alpha_mode">D2D1_ALPHA_MODE_PREMULTIPLIED</a>).</li>
@@ -14,7 +15,9 @@
   * </ul>
   * <div class="alert"><b>Note</b>  The parameters as specified can't result in a scale. The encoder can use a larger portion of the input image based on the passed in DPI and the pixel width and height.</div>
   * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicimageparameters
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicimageparameters
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents activation parameters for a spatial audio render stream. Pass this structure to ISpatialAudioClient::ActivateSpatialAudioStream when activating a stream.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams
+ * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

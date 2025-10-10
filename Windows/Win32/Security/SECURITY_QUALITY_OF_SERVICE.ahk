@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to support client impersonation.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-security_quality_of_service
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-security_quality_of_service
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

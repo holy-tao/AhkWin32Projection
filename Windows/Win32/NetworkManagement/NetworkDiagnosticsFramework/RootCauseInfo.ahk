@@ -3,7 +3,7 @@
 
 /**
  * Contains detailed information about the root cause of an incident.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-rootcauseinfo
+ * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ns-ndattrib-rootcauseinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The MBN_INTERFACE_CAPS structure represents the interface capabilities.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_interface_caps
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_interface_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

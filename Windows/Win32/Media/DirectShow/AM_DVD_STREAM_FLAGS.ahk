@@ -2,7 +2,7 @@
 
 /**
  * Describes a DVD stream type (video, audio, or subpicture).
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_dvd_stream_flags
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-am_dvd_stream_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

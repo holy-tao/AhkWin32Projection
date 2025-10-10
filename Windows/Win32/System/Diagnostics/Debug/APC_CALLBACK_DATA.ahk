@@ -2,10 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The APC_CALLBACK_DATA structure (processthreadsapi.h) specifies the data for a user-mode asynchronous procedure call (APC) object.
- * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-apc_callback_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -16,7 +12,6 @@ class APC_CALLBACK_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * The data passed to the function using the dwData parameter of the [QueueUserAPC](nf-processthreadsapi-queueuserapc.md) function.
      * @type {Pointer}
      */
     Parameter {
@@ -25,7 +20,6 @@ class APC_CALLBACK_DATA extends Win32Struct
     }
 
     /**
-     * The processor context that was interrupted when the thread was directed to call the APC function.
      * @type {Pointer<CONTEXT>}
      */
     ContextRecord {
@@ -34,7 +28,6 @@ class APC_CALLBACK_DATA extends Win32Struct
     }
 
     /**
-     * Reserved for future use; must be zero.
      * @type {Pointer}
      */
     Reserved0 {
@@ -43,7 +36,6 @@ class APC_CALLBACK_DATA extends Win32Struct
     }
 
     /**
-     * Reserved for future use; must be zero.
      * @type {Pointer}
      */
     Reserved1 {

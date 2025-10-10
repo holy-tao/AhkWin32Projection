@@ -4,8 +4,11 @@
 /**
  * The RGBQUAD structure describes a color consisting of relative intensities of red, green, and blue.
  * @remarks
- * The <b>bmiColors</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure consists of an array of <b>RGBQUAD</b> structures.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgbquad
+ * 
+  * The <b>bmiColors</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure consists of an array of <b>RGBQUAD</b> structures.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rgbquad
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

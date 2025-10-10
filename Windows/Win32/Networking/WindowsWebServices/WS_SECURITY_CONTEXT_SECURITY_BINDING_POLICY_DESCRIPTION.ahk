@@ -6,7 +6,7 @@
 
 /**
  * This type description is used with template APIs to describe the security context related templates generated accordingly to input policy setting.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_security_binding_policy_description
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_context_security_binding_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION extends Win32Struc
     }
 
     /**
-     * Specifies the security properties for the service channel according to the specific policy.
+     * Specifies the security properties for the service channel according to the spcific policy.
      * @type {WS_SECURITY_PROPERTIES}
      */
     securityProperties{

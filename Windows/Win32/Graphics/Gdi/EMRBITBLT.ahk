@@ -6,7 +6,7 @@
 
 /**
  * The EMRBITBLT structure contains members for the BitBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrbitblt
+ * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrbitblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

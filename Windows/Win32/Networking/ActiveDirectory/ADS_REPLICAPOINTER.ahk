@@ -3,7 +3,7 @@
 
 /**
  * Represents an ADSI representation of the Replica Pointer attribute syntax.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_replicapointer
+ * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_replicapointer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

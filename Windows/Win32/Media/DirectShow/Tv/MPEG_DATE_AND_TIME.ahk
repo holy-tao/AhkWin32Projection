@@ -5,7 +5,7 @@
 
 /**
  * The MPEG_DATE_AND_TIME structure specifies a date and time.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_date_and_time
+ * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_date_and_time
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

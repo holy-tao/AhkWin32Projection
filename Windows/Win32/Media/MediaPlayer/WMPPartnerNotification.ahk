@@ -2,7 +2,7 @@
 
 /**
  * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The WMPPartnerNotification enumeration defines operational states of an online store.
- * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ne-contentpartner-wmppartnernotification
+ * @see https://docs.microsoft.com/windows/win32/api//contentpartner/ne-contentpartner-wmppartnernotification
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

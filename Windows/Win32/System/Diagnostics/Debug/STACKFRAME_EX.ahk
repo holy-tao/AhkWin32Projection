@@ -5,7 +5,7 @@
 
 /**
  * Represents an extended stack frame.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-stackframe_ex
+ * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-stackframe_ex
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

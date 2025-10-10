@@ -3,8 +3,11 @@
 /**
  * Values that identify parts of the content of an arbitrary length data buffer.
  * @remarks
- * These values are passed to the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dgetblobpart">D3DGetBlobPart</a> or  <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dsetblobpart">D3DSetBlobPart</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/ne-d3dcompiler-d3d_blob_part
+ * 
+  * These values are passed to the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dgetblobpart">D3DGetBlobPart</a> or  <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dsetblobpart">D3DSetBlobPart</a> function.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/ne-d3dcompiler-d3d_blob_part
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  * @version v4.0.30319
  */

@@ -324,8 +324,8 @@ class AppLocker {
      * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @param {Pointer<UInt32>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safergetpolicyinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safergetpolicyinformation
      * @since windows5.1.2600
      */
     static SaferGetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer, InfoBufferRetSize) {
@@ -448,8 +448,8 @@ class AppLocker {
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
      * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetpolicyinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safersetpolicyinformation
      * @since windows5.1.2600
      */
     static SaferSetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer) {
@@ -582,8 +582,8 @@ class AppLocker {
      * 						
      * 
      * For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercreatelevel
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safercreatelevel
      * @since windows5.1.2600
      */
     static SaferCreateLevel(dwScopeId, dwLevelId, OpenFlags, pLevelHandle) {
@@ -602,8 +602,8 @@ class AppLocker {
      * Closes a SAFER_LEVEL_HANDLE that was opened by using the SaferIdentifyLevel function or the SaferCreateLevel function.
      * @param {Pointer<Void>} hLevelHandle The SAFER_LEVEL_HANDLE to be closed.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercloselevel
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safercloselevel
      * @since windows5.1.2600
      */
     static SaferCloseLevel(hLevelHandle) {
@@ -626,8 +626,8 @@ class AppLocker {
      * 
      * Beginning with Windows 8 and Windows Server 2012 SRP_POLICY_APPX is defined as Windows Store app.
      * @returns {Integer} <b>TRUE</b> if a SAFER_LEVEL_HANDLE was opened; otherwise,  <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferidentifylevel
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-saferidentifylevel
      * @since windows5.1.2600
      */
     static SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpReserved) {
@@ -649,8 +649,8 @@ class AppLocker {
      * @param {Pointer<Void>} lpReserved If the <b>SAFER_TOKEN_COMPARE_ONLY</b>  flag is set, this parameter, on output, specifies the result of the token comparison. The output value is an <b>LPDWORD</b>. A value of –1 indicates that the resulting token would be less privileged than the token specified by the <i>InAccessToken</i> parameter.
      * 
      * If the <b>SAFER_TOKEN_WANT_FLAGS</b> flag is set, and the <b>SAFER_TOKEN_COMPARE_ONLY</b> flag is not set, this parameter is an <b>LPDWORD</b> value that specifies the flags used to create the restricted token.
-     * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercomputetokenfromlevel
+     * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safercomputetokenfromlevel
      * @since windows5.1.2600
      */
     static SaferComputeTokenFromLevel(LevelHandle, InAccessToken, OutAccessToken, dwFlags, lpReserved) {
@@ -730,8 +730,8 @@ class AppLocker {
      * @param {Integer} dwInBufferSize The size of the <i>lpQueryBuffer</i> parameter in bytes.
      * @param {Pointer<UInt32>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safergetlevelinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safergetlevelinformation
      * @since windows5.1.2600
      */
     static SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize, lpdwOutBufferSize) {
@@ -810,8 +810,8 @@ class AppLocker {
      * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size, in bytes, of the <i>lpQueryBuffer</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetlevelinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safersetlevelinformation
      * @since windows5.1.2600
      */
     static SaferSetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize) {
@@ -826,13 +826,11 @@ class AppLocker {
 
     /**
      * Saves messages to an event log.
-     * @remarks
-     * If <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-saferidentifylevel">SaferIdentifyLevel</a> returns a SAFER_LEVEL_HANDLE with a LevelId that is anything other than SAFER_LEVELID_FULLYTRUSTED (0x40000), <b>SaferRecordEventLogEntry</b> can be called to facilitate troubleshooting. For example, clicking a button in excel.exe might attempt to launch another process that is not fully trusted. This might display an obscure error message because the program remapped the error returned from CreateProcess. To ease troubleshooting, some Safer functions call <b>SaferRecordEventLogEntry</b> to send an event to the event log.
      * @param {Pointer<Void>} hLevel SAFER_LEVEL_HANDLE that contains the details of the rule to send to the event log.
      * @param {Pointer<Char>} szTargetPath Path of the file that attempted to run.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferrecordeventlogentry
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-saferrecordeventlogentry
      * @since windows5.1.2600
      */
     static SaferRecordEventLogEntry(hLevel, szTargetPath) {
@@ -851,38 +849,12 @@ class AppLocker {
 
     /**
      * Determines whether a specified file is an executable file.
-     * @remarks
-     * The following file name extensions are examples of executable file types.  This is not a complete list.
-     * 
-     * <ul>
-     * <li>.bat</li>
-     * <li>.cmd</li>
-     * <li>.com</li>
-     * <li>.exe</li>
-     * <li>.js</li>
-     * <li>.lnk</li>
-     * <li>.pif</li>
-     * <li>.pl</li>
-     * <li>.shs</li>
-     * <li>.url</li>
-     * <li>.vbs</li>
-     * </ul>
-     * The security policy Microsoft Management Console (MMC) snap-in (Secpol.msc) controls which extensions are considered executable file types.
-     * 
-     * <p class="proch"><b>To view or modify the extensions that are considered executable file types</b>
-     * 
-     * <ol>
-     * <li>Run Secpol.msc.</li>
-     * <li>Expand  <b>Software Restriction Policies</b>, and then double-click <b>Designated File Types</b>.</li>
-     * </ol>
-     * <div class="alert"><b>Note</b>  To view the <b>Designated File Types</b> property page, you may need to create  the <b>Software Restriction Policies</b> node. To create  the <b>Software Restriction Policies</b> node, follow the instructions that appear when you expand <b>Software Restriction Policies</b>.</div>
-     * <div> </div>
      * @param {Pointer<Char>} szFullPathname Pointer to a <b>null</b>-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character string for the name of the file. The path is optional because only the file name extension is evaluated. The evaluation of the file name extension is not case-sensitive. This parameter cannot be <b>NULL</b> or an empty string, and the specified file must include a file name extension.
      * @param {Integer} bFromShellExecute Boolean value that determines whether .exe files are treated as executable files for the file type evaluation. Set this value to <b>TRUE</b> to omit .exe files from the evaluation or to <b>FALSE</b> to include them.
      * @returns {Integer} If the function  successfully recognizes the file name's extension as an executable file type, the return value is <b>TRUE</b>.
      * 
      * If the function fails, or if <i>szFullPath</i> identifies a file name with a nonexecutable extension, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferiisexecutablefiletype
+     * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-saferiisexecutablefiletype
      * @since windows5.1.2600
      */
     static SaferiIsExecutableFileType(szFullPathname, bFromShellExecute) {

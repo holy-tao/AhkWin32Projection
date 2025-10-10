@@ -4,7 +4,8 @@
 /**
  * Contains information about a logical volume.
  * @remarks
- * Although the <b>dbcv_unitmask</b> member may specify more than one volume in any message, 
+ * 
+  * Although the <b>dbcv_unitmask</b> member may specify more than one volume in any message, 
   *     this does not guarantee that only one message is generated for a specified event. Multiple system features may 
   *     independently generate messages for logical volumes at the same time.
   * 
@@ -13,7 +14,9 @@
   * 
   * Messages for network drive arrival and removal are not sent whenever network commands are issued, but rather 
   *     when network connections will disappear as the result of a hardware event.
- * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_volume
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//dbt/ns-dbt-dev_broadcast_volume
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

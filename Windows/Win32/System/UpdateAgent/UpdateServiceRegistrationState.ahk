@@ -2,7 +2,7 @@
 
 /**
  * Defines the possible states for an update service.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateserviceregistrationstate
+ * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-updateserviceregistrationstate
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

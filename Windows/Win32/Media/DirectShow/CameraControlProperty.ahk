@@ -3,8 +3,11 @@
 /**
  * The CameraControlProperty enumeration specifies a setting on a camera.
  * @remarks
- * For a given property, a particular device might implement only a subset of the listed range.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-cameracontrolproperty
+ * 
+  * For a given property, a particular device might implement only a subset of the listed range.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-cameracontrolproperty
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * Represents the action to be taken by an application in response to ISyncCallback::OnFullEnumerationNeeded.
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_full_enumeration_action
+ * @see https://docs.microsoft.com/windows/win32/api//winsync/ne-winsync-sync_full_enumeration_action
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

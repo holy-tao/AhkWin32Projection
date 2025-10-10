@@ -2,7 +2,7 @@
 
 /**
  * Specifies how the desktop wallpaper should be displayed.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position
+ * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

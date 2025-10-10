@@ -2,7 +2,7 @@
 
 /**
  * Used by IQueryParserManager::SetOption to set parsing options. This can be used to specify schemas and localization options.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-query_parser_manager_option
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

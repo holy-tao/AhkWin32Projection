@@ -2,9 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes an exception. (EXCEPTION_RECORD)
+ * Describes an exception.
  * @remarks
- * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
+ * 
+  * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
   * 
   * 
   * ```cpp
@@ -27,7 +28,9 @@
   *     DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
   * } EXCEPTION_RECORD64, *PEXCEPTION_RECORD64;
   * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_record
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-exception_record
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -260,34 +263,7 @@ class EXCEPTION_RECORD extends Win32Struct
     }
 
     /**
-     * This member contains zero or more exception flags. The following table describes some of the commonly seen exception flags. Exception flags not present in the following table should be treated as reserved for system use.
-     * 
-     * <table>
-     * <tr>
-     * <th>Exception flag</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="EXCEPTION_NONCONTINUABLE"></a><a id="exception_noncontinuable"></a><dl>
-     * <dt><b>EXCEPTION_NONCONTINUABLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The presence of this flag indicates that the exception is a noncontinuable exception, whereas the absence of this flag indicates that the exception is a continuable exception.
-     * Any attempt to continue execution after a noncontinuable exception causes the <b>EXCEPTION_NONCONTINUABLE_EXCEPTION</b> exception.
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="EXCEPTION_SOFTWARE_ORIGINATE"></a><a id="exception_software_originate"></a><dl>
-     * <dt><b>EXCEPTION_SOFTWARE_ORIGINATE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This flag is reserved for system use.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * The exception flags. This member can be either zero, indicating a continuable exception, or <b>EXCEPTION_NONCONTINUABLE</b> indicating a noncontinuable exception. Any attempt to continue execution after a noncontinuable exception causes the <b>EXCEPTION_NONCONTINUABLE_EXCEPTION</b> exception.
      * @type {Integer}
      */
     ExceptionFlags {
@@ -343,7 +319,7 @@ class EXCEPTION_RECORD extends Win32Struct
      * The first element of the array contains a read-write flag that indicates the type of operation that caused the access violation. If this value is zero, the thread attempted to read the inaccessible data. If this value is 1, the thread attempted to write to an inaccessible address. 
      * 
      * 
-     * If this value is 8, the thread caused a user-mode data execution prevention (DEP) violation.
+     * If this value is 8, the thread causes a user-mode data execution prevention (DEP) violation.
      * 
      * The second array element specifies the virtual address of the inaccessible data.
      * 
@@ -358,7 +334,7 @@ class EXCEPTION_RECORD extends Win32Struct
      * The first element of the array contains a read-write flag that indicates the type of operation that caused the access violation. If this value is zero, the thread attempted to read the inaccessible data. If this value is 1, the thread attempted to write to an inaccessible address. 
      * 
      * 
-     * If this value is 8, the thread caused a user-mode data execution prevention (DEP) violation.
+     * If this value is 8, the thread causes a user-mode data execution prevention (DEP) violation.
      * 
      * The second array element specifies the virtual address of the inaccessible data.
      * 

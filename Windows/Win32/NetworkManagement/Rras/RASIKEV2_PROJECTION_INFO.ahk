@@ -5,7 +5,7 @@
 
 /**
  * Contains projection information obtained during Internet Key Exchange (IKE) negotiation.
- * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasikev2_projection_info
+ * @see https://docs.microsoft.com/windows/win32/api//ras/ns-ras-rasikev2_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

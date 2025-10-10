@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a window station or desktop handle.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-userobjectflags
+ * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-userobjectflags
  * @namespace Windows.Win32.System.StationsAndDesktops
  * @version v4.0.30319
  */

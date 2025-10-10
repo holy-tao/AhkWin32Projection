@@ -2,7 +2,7 @@
 
 /**
  * Specifies the Portable Network Graphics (PNG) filters available for compression optimization.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngfilteroption
+ * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngfilteroption
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

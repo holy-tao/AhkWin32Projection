@@ -3,7 +3,8 @@
 /**
  * Defines event types for the IMFPMediaPlayerCallback interface.
  * @remarks
- * For each event type, the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a> callback receives a pointer to a data structure. The first part of the data structure is always an <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure. The following table lists the data structure for each event type.
+ * 
+  * For each event type, the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a> callback receives a pointer to a data structure. The first part of the data structure is always an <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure. The following table lists the data structure for each event type.
   * 
   * In your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">OnMediaPlayerEvent</a>, you must cast the <i>pEventHeader</i> parameter to the correct structure type. A set of macros is defined for this purpose. These macros check the value of the event type and return <b>NULL</b> if there is a mismatch; otherwise they return a pointer to the correct structure type.
   * 
@@ -187,7 +188,9 @@
   * </td>
   * </tr>
   * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_event_type
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-mfp_event_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

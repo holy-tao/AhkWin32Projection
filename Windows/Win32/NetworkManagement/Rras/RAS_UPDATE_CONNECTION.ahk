@@ -4,7 +4,7 @@
 
 /**
  * Used to update an active RAS connection.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_update_connection
+ * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_update_connection
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

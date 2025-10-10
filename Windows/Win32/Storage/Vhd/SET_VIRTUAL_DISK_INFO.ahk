@@ -3,7 +3,7 @@
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-set_virtual_disk_info
+ * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-set_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

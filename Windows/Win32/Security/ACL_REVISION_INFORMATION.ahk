@@ -3,7 +3,7 @@
 
 /**
  * Contains revision information about an ACL structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl_revision_information
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-acl_revision_information
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

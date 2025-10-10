@@ -3,7 +3,7 @@
 
 /**
  * The DHCPAPI_PARAMS structure is used to request DHCP parameters.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpapi_params
+ * @see https://docs.microsoft.com/windows/win32/api//dhcpcsdk/ns-dhcpcsdk-dhcpapi_params
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

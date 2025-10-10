@@ -2,7 +2,7 @@
 
 /**
  * Specifies a type.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-typekind
+ * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-typekind
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

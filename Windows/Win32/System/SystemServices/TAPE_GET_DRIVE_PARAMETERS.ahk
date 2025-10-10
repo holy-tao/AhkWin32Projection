@@ -3,7 +3,7 @@
 
 /**
  * Describes the tape drive. It is used by the GetTapeParameters function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_drive_parameters
+ * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_get_drive_parameters
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

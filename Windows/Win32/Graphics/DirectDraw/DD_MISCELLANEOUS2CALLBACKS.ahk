@@ -3,7 +3,7 @@
 
 /**
  * The DD_MISCELLANEOUS2CALLBACKS structure is used to return the addresses of miscellaneous callback routines.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_miscellaneous2callbacks
+ * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_miscellaneous2callbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

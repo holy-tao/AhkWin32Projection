@@ -6,7 +6,7 @@
 
 /**
  * The CERT_SIGNED_CONTENT_INFO structure contains encoded content to be signed and a BLOB to hold the signature. The ToBeSigned member is an encoded CERT_INFO, CRL_INFO, CTL_INFO or CERT_REQUEST_INFO.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_signed_content_info
+ * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_signed_content_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * The MBN_SMS_CAPS enumerated type contains bitfield values that specify SMS capabilities.
- * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_caps
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_sms_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

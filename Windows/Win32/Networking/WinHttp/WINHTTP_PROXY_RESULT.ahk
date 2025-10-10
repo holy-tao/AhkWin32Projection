@@ -3,7 +3,7 @@
 
 /**
  * The WINHTTP_PROXY_RESULT structure contains collection of proxy result entries provided by WinHttpGetProxyResult.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_result
+ * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_proxy_result
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

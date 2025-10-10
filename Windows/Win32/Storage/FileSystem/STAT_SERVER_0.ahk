@@ -3,7 +3,7 @@
 
 /**
  * Contains statistical information about the server.
- * @see https://learn.microsoft.com/windows/win32/api/lmstats/ns-lmstats-stat_server_0
+ * @see https://docs.microsoft.com/windows/win32/api//lmstats/ns-lmstats-stat_server_0
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

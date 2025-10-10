@@ -2,7 +2,7 @@
 
 /**
  * Indicates whether the storage device or network share can be used as a File History backup target.
- * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_device_validation_result
+ * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_device_validation_result
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains information about a condition used to find UI Automation elements that have a matching property.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiapropertycondition
+ * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiapropertycondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

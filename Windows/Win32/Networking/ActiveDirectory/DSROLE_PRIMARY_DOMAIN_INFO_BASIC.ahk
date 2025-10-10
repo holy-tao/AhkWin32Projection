@@ -3,7 +3,7 @@
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to contain domain data.
- * @see https://learn.microsoft.com/windows/win32/api/dsrole/ns-dsrole-dsrole_primary_domain_info_basic
+ * @see https://docs.microsoft.com/windows/win32/api//dsrole/ns-dsrole-dsrole_primary_domain_info_basic
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

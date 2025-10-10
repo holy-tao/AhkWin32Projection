@@ -3,7 +3,7 @@
 
 /**
  * A generic container for a connection within a graph of DirectML operators defined by [DML_GRAPH_DESC](/windows/win32/api/directml/ns-directml-dml_graph_desc) and passed to [IDMLDevice1::CompileGraph](/windows/desktop/api/directml/nf-directml-idmldevice1-compilegraph).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_graph_edge_desc
+ * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_graph_edge_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

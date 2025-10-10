@@ -3,7 +3,7 @@
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-proxy_info
+ * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-proxy_info
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

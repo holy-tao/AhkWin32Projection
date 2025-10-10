@@ -2,7 +2,7 @@
 
 /**
  * Specifies the type of voice activity detection (VAD) for the voice capture DSP. This enumeration is used with the MFPKEY_WMAAECMA_FEATR_VAD property.
- * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-aec_vad_mode
+ * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ne-wmcodecdsp-aec_vad_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

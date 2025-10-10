@@ -4,8 +4,11 @@
 /**
  * Specifies motor speed levels for the vibration function of a controller.
  * @remarks
- * The left motor is the low-frequency rumble motor. The right motor is the high-frequency rumble motor. The two motors are not the same, and they create different vibration effects.
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_vibration
+ * 
+  * The left motor is the low-frequency rumble motor. The right motor is the high-frequency rumble motor. The two motors are not the same, and they create different vibration effects.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xinput/ns-xinput-xinput_vibration
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

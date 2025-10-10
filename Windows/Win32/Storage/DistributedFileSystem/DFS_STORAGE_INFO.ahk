@@ -4,11 +4,14 @@
 /**
  * Contains information about a DFS root or link target in a DFS namespace or from the cache maintained by the DFS client.
  * @remarks
- * The <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_3">DFS_INFO_3</a> and 
+ * 
+  * The <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_3">DFS_INFO_3</a> and 
   *     <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_4">DFS_INFO_4</a> structures each contain one or more 
   *     <b>DFS_STORAGE_INFO</b> structures, one for each DFS target. 
   *     Only one target can be marked as the active target. It is possible that no targets will be marked active.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_storage_info
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_storage_info
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

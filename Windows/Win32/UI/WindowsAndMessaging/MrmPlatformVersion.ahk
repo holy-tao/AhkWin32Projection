@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
- * Defines constants that specify a platform version. For more info, and scenario-based walkthroughs of how to use these APIs, see Package resource indexing (PRI) APIs and custom build systems.
- * @see https://learn.microsoft.com/windows/win32/menurc/mrmplatformversion
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

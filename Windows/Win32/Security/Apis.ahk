@@ -351,17 +351,7 @@ class Security {
 
 ;@region Methods
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token. (AccessCheck)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheck</b> function compares the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> with the specified access token and indicates, in the <i>AccessStatus</i> parameter, whether access is granted or denied. If access is granted, the requested <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> becomes the object's granted access mask.
-     * 
-     * If the security descriptor's DACL is <b>NULL</b>, the <i>AccessStatus</i> parameter returns <b>TRUE</b>, which indicates that the client has the requested access.
-     * 
-     * The <b>AccessCheck</b> function fails with ERROR_INVALID_SECURITY_DESCR if the security descriptor does not contain owner and group SIDs.
-     * 
-     * The <b>AccessCheck</b> function does not generate an audit. If your application  requires audits for access checks, use functions such as  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckbytypeandauditalarma">AccessCheckByTypeAndAuditAlarm</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma">AccessCheckByTypeResultListAndAuditAlarm</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarmbyhandlea">AccessCheckByTypeResultListAndAuditAlarmByHandle</a>, instead of  <b>AccessCheck</b>.
+     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Pointer<Void>} ClientToken A handle to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> that represents the client that is attempting to gain access. The handle must have TOKEN_QUERY access to the token; otherwise, the function fails with ERROR_ACCESS_DENIED.
@@ -384,8 +374,8 @@ class Security {
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheck
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheck
      * @since windows5.1.2600
      */
     static AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
@@ -400,12 +390,6 @@ class Security {
 
     /**
      * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckAndAuditAlarm</b> function requires the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread.
-     * 
-     * The <b>AccessCheckAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Char>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -424,8 +408,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw
      */
     static AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -437,22 +421,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token. (AccessCheckByType)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckByType</b> function compares the specified security descriptor with the specified access token and indicates, in the <i>AccessStatus</i> parameter, whether access is granted or denied.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByType</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array. Thus, the results returned in the <i>AccessStatus</i> parameter indicate the access allowed to the subset of the object defined by the <i>ObjectTypeList</i> parameter, not to the entire object.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * If the security descriptor's DACL is <b>NULL</b>, the <i>AccessStatus</i> parameter returns <b>TRUE</b>, indicating that the client has the requested access.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByType</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Pointer<Void>} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a>  containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>. 
@@ -492,8 +461,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytype
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckbytype
      * @since windows5.1.2600
      */
     static AccessCheckByType(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
@@ -507,22 +476,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token. (AccessCheckByTypeResultList)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckByTypeResultList</b> function compares the specified security descriptor with the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> and indicates, in the <i>AccessStatusList</i> parameter, whether access is granted or denied for each of the elements in the object types list.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeResultList</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array. Thus, the results returned for element zero in the <i>AccessStatusList</i> parameter indicate the access allowed to the subset of the object defined by the <i>ObjectTypeList</i> parameter, not to the entire object.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * If the security descriptor's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) is <b>NULL</b>, the function grants the requested access to all of the elements in the object type list.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeResultList</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client identified by an access token.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Pointer<Void>} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entry</a> (ACE) that contains the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>. 
@@ -558,8 +512,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultList(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccessList, AccessStatusList) {
@@ -573,23 +527,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. (AccessCheckByTypeAndAuditAlarmW)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * If the <i>PrincipalSelfSid</i> and <i>ObjectTypeList</i> parameters are <b>NULL</b>, the <i>AuditType</i> parameter is <i>AuditEventObjectAccess</i>, and the <i>Flags</i> parameter is zero, <b>AccessCheckByTypeAndAuditAlarm</b> performs in the same way as the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> function.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeAndAuditAlarm</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array. Thus, the results returned in the <i>AccessStatus</i> parameter indicate the access allowed to the subset of the object defined by the <i>ObjectTypeList</i> parameter, not to the entire object.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeAndAuditAlarm</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Char>} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -615,8 +553,8 @@ class Security {
      * @param {Pointer<Int32>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectcloseauditalarma">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytypeandauditalarmw
+     * If the function fails, it returns zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckbytypeandauditalarmw
      */
     static AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -628,26 +566,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. (AccessCheckByTypeResultListAndAuditAlarmW)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function is a combination of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist">AccessCheckByTypeResultList</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> functions.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeResultListAndAuditAlarm</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Char>} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -678,8 +597,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw
      */
     static AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -691,25 +610,7 @@ class Security {
     }
 
     /**
-     * The AccessCheckByTypeResultListAndAuditAlarmByHandleW (Unicode) function (securitybaseapi.h) determines whether a security descriptor grants access rights to the client that the calling thread is impersonating.
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * Like <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw">AccessCheckByTypeResultListAndAuditAlarm</a>, the <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function is a combination of the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist">AccessCheckByTypeResultList</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> functions. However, <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> also requires a client token handle to provide security information on the client.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client that the calling thread is impersonating.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Void>} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
@@ -737,8 +638,8 @@ class Security {
      * @param {Pointer<Int32>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmbyhandlew
+     * If the function fails, it returns zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmbyhandlew
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -751,13 +652,6 @@ class Security {
 
     /**
      * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
-     * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds an access-allowed ACE to the end of this ACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure.
@@ -771,7 +665,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -834,7 +728,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessallowedace
      * @since windows5.1.2600
      */
     static AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, pSid) {
@@ -848,10 +742,7 @@ class Security {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to the end of a discretionary access control list (DACL). (AddAccessAllowedAceEx)
-     * @remarks
-     * The caller must ensure that ACEs are added to the DACL in the correct order. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
+     * Adds an access-allowed access control entry (ACE) to the end of a discretionary access control list (DACL).
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessAllowedAceEx</b> function adds an access-allowed ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
@@ -863,7 +754,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -937,7 +828,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessallowedaceex
      * @since windows5.1.2600
      */
     static AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
@@ -951,15 +842,7 @@ class Security {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to the end of a discretionary access control list (DACL). (AddAccessAllowedObjectAce)
-     * @remarks
-     * If both <i>ObjectTypeGuid</i> and <i>InheritedObjectTypeGuid</i> are <b>NULL</b>, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex">AddAccessAllowedAceEx</a> function rather than <b>AddAccessAllowedObjectAce</b>. This is suggested because an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> is smaller and more efficient than an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_object_ace">ACCESS_ALLOWED_OBJECT_ACE</a>.
-     * 
-     * The caller must ensure that ACEs are added to the DACL in the correct order. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
+     * Adds an access-allowed access control entry (ACE) to the end of a discretionary access control list (DACL).
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessAllowedObjectAce</b> function adds an access-allowed ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_object_ace">ACCESS_ALLOWED_OBJECT_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
@@ -974,7 +857,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1048,7 +931,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedobjectace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessallowedobjectace
      * @since windows5.1.2600
      */
     static AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid) {
@@ -1063,14 +946,6 @@ class Security {
 
     /**
      * Adds an access-denied access control entry (ACE) to an access control list (ACL). The access is denied to a specified security identifier (SID).
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace">AddAccessAllowedAce</a> and <b>AddAccessDeniedAce</b> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessDeniedAce</b> function specifies a type and size, but provides no ACE flags.
-     * 
-     * The ACE added by <b>AddAccessDeniedAce</b> is not inheritable.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL . This function adds an access-denied ACE to the end of this ACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> structure.
@@ -1083,7 +958,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1146,7 +1021,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessdeniedace
      * @since windows5.1.2600
      */
     static AddAccessDeniedAce(pAcl, dwAceRevision, AccessMask, pSid) {
@@ -1161,9 +1036,6 @@ class Security {
 
     /**
      * Adds an access-denied access control entry (ACE) to the end of a discretionary access control list (DACL).
-     * @remarks
-     * Although the <b>AddAccessDeniedAceEx</b> function adds the new ACE to the end of the DACL, access-denied ACEs should appear at the beginning of a DACL. The caller must ensure that ACEs are added to the DACL in the correct order. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessDeniedAceEx</b> function adds an access-denied ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
@@ -1175,7 +1047,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1249,7 +1121,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedaceex
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessdeniedaceex
      * @since windows5.1.2600
      */
     static AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
@@ -1264,14 +1136,6 @@ class Security {
 
     /**
      * Adds an access-denied access control entry (ACE) to the end of a discretionary access control list (DACL). The new ACE can deny access to an object, or to a property set or property on an object.
-     * @remarks
-     * If both <i>ObjectTypeGuid</i> and <i>InheritedObjectTypeGuid</i> are <b>NULL</b>, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedaceex">AddAccessDeniedAceEx</a> function rather than <b>AddAccessDeniedObjectAce</b>. This is suggested because an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> is smaller and more efficient than an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_object_ace">ACCESS_DENIED_OBJECT_ACE</a>.
-     * 
-     * Although the <b>AddAccessDeniedObjectAce</b> function adds the new ACE to the end of the ACL, access-denied ACEs should appear at the beginning of an ACL. The caller must ensure that ACEs are added to the DACL in the correct order. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessDeniedObjectAce</b> function adds an access-denied ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_object_ace">ACCESS_DENIED_OBJECT_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
@@ -1286,7 +1150,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1360,7 +1224,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedobjectace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addaccessdeniedobjectace
      * @since windows5.1.2600
      */
     static AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid) {
@@ -1375,12 +1239,6 @@ class Security {
 
     /**
      * Adds one or more access control entries (ACEs) to a specified access control list (ACL).
-     * @remarks
-     * Applications frequently use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-findfirstfreeace">FindFirstFreeAce</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> functions when using the <b>AddAce</b> function to manipulate an ACL. In addition, the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function contains the size of the ACL and the number of ACEs it contains.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds an ACE to this ACL.
      * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. 
@@ -1394,7 +1252,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1435,7 +1293,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addace
      * @since windows5.1.2600
      */
     static AddAce(pAcl, dwAceRevision, dwStartingAceIndex, pAceList, nAceListLength) {
@@ -1450,9 +1308,6 @@ class Security {
 
     /**
      * Adds a system-audit access control entry (ACE) to a system access control list (ACL). The access of a specified security identifier (SID) is audited.
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAuditAccessAce</b> function specifies a type and size, but provides no ACE flags.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds a system-audit ACE to this ACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure.
@@ -1468,7 +1323,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1531,7 +1386,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addauditaccessace
      * @since windows5.1.2600
      */
     static AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, pSid, bAuditSuccess, bAuditFailure) {
@@ -1545,7 +1400,7 @@ class Security {
     }
 
     /**
-     * Adds a system-audit access control entry (ACE) to the end of a system access control list (SACL). (AddAuditAccessAceEx)
+     * Adds a system-audit access control entry (ACE) to the end of a system access control list (SACL).
      * @param {Pointer<ACL>} pAcl A pointer to a SACL. The <b>AddAuditAccessAceEx</b> function adds a system-audit ACE to this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the SACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the SACL contains object-specific ACEs.
@@ -1559,7 +1414,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1633,7 +1488,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessaceex
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addauditaccessaceex
      * @since windows5.1.2600
      */
     static AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, pSid, bAuditSuccess, bAuditFailure) {
@@ -1647,12 +1502,7 @@ class Security {
     }
 
     /**
-     * Adds a system-audit access control entry (ACE) to the end of a system access control list (SACL). (AddAuditAccessObjectAce)
-     * @remarks
-     * If both <i>ObjectTypeGuid</i> and <i>InheritedObjectTypeGuid</i> are <b>NULL</b>, use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addauditaccessaceex">AddAuditAccessAceEx</a> function rather than <b>AddAuditAccessObjectAce</b>. This is suggested because a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> is smaller and more efficient than a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_object_ace">SYSTEM_AUDIT_OBJECT_ACE</a>.
+     * Adds a system-audit access control entry (ACE) to the end of a system access control list (SACL).
      * @param {Pointer<ACL>} pAcl A pointer to a SACL. The <b>AddAuditAccessObjectAce</b> function adds a system-audit ACE to the end of this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_object_ace">SYSTEM_AUDIT_OBJECT_ACE</a> structure.
      * @param {Integer} dwAceRevision Specifies the revision level of the SACL being modified. This value must be ACL_REVISION_DS. If the SACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
@@ -1669,7 +1519,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1743,7 +1593,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessobjectace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addauditaccessobjectace
      * @since windows5.1.2600
      */
     static AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid, bAuditSuccess, bAuditFailure) {
@@ -1758,9 +1608,6 @@ class Security {
 
     /**
      * Adds a SYSTEM_MANDATORY_LABEL_ACE access control entry (ACE) to the specified system access control list (SACL).
-     * @remarks
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      *  SACL. This function adds a mandatory ACE to the end of this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_mandatory_label_ace">SYSTEM_MANDATORY_LABEL_ACE</a> structure.
@@ -1812,7 +1659,7 @@ class Security {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -1832,7 +1679,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addmandatoryace
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addmandatoryace
      * @since windows6.0.6000
      */
     static AddMandatoryAce(pAcl, dwAceRevision, AceFlags, MandatoryPolicy, pLabelSid) {
@@ -1859,8 +1706,8 @@ class Security {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addresourceattributeace
+     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addresourceattributeace
      * @since windows8.0
      */
     static AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid, pAttributeInfo, pReturnLength) {
@@ -1885,8 +1732,8 @@ class Security {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addscopedpolicyidace
+     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addscopedpolicyidace
      * @since windows8.0
      */
     static AddScopedPolicyIDAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
@@ -1901,15 +1748,6 @@ class Security {
 
     /**
      * Enables or disables groups already present in the specified access token. Access to TOKEN_ADJUST_GROUPS is required to enable or disable groups in an access token.
-     * @remarks
-     * The information retrieved in the <i>PreviousState</i> parameter is formatted as a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure. This means a pointer to the buffer can be passed as the <i>NewState</i> parameter in a subsequent call to the <b>AdjustTokenGroups</b> function, restoring the original state of the groups.
-     * 
-     * The <i>NewState</i> parameter can list groups to be changed that are not present in the access token. This does not affect the successful modification of the groups in the token.
-     * 
-     * The <b>AdjustTokenGroups</b> function cannot disable groups with the SE_GROUP_MANDATORY attribute in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure. Use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a> instead.
-     * 
-     * You cannot enable a group that has the SE_GROUP_USE_FOR_DENY_ONLY attribute.
      * @param {Pointer<Void>} TokenHandle A handle to the access token that contains the groups to be enabled or disabled. The handle must have TOKEN_ADJUST_GROUPS access to the token. If the <i>PreviousState</i> parameter is not <b>NULL</b>, the handle must also have TOKEN_QUERY access.
      * @param {Integer} ResetToDefault Boolean value that indicates whether the groups are to be set to their default enabled and disabled states. If this value is <b>TRUE</b>, the groups are set to their default states and the <i>NewState</i> parameter is ignored. If this value is <b>FALSE</b>, the groups are set according to the information pointed to by the <i>NewState</i> parameter.
      * @param {Pointer<TOKEN_GROUPS>} NewState A pointer to a 
@@ -1926,8 +1764,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-adjusttokengroups
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-adjusttokengroups
      * @since windows5.1.2600
      */
     static AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, PreviousState, ReturnLength) {
@@ -1942,14 +1780,6 @@ class Security {
 
     /**
      * Enables or disables privileges in the specified access token. Enabling or disabling privileges in an access token requires TOKEN_ADJUST_PRIVILEGES access.
-     * @remarks
-     * The <b>AdjustTokenPrivileges</b> function cannot add new privileges to the access token. It can only enable or disable the token's existing privileges. To determine the token's privileges, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function.
-     * 
-     * The <i>NewState</i> parameter can specify privileges that the token does not have, without causing the function to fail. In this case, the function adjusts the privileges that the token does have and ignores the other privileges so that the function succeeds. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine whether the function adjusted all of the specified privileges. The <i>PreviousState</i> parameter indicates the privileges that were adjusted.
-     * 
-     * The <i>PreviousState</i> parameter retrieves a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_privileges">TOKEN_PRIVILEGES</a> structure that contains the original state of the adjusted privileges. To restore the original state, pass the <i>PreviousState</i> pointer as the <i>NewState</i> parameter in a subsequent call to the <b>AdjustTokenPrivileges</b> function.
      * @param {Pointer<Void>} TokenHandle A handle to the access token that contains the privileges to be modified. The handle must have TOKEN_ADJUST_PRIVILEGES access to the token. If the <i>PreviousState</i> parameter is not <b>NULL</b>, the handle must also have TOKEN_QUERY access.
      * @param {Integer} DisableAllPrivileges Specifies whether the function disables all of the token's privileges. If this value is <b>TRUE</b>, the function disables all privileges and ignores the <i>NewState</i> parameter. If it is <b>FALSE</b>, the function modifies privileges based on the information pointed to by the <i>NewState</i> parameter.
      * @param {Pointer<TOKEN_PRIVILEGES>} NewState A pointer to a 
@@ -2016,7 +1846,7 @@ class Security {
      * If you specify a buffer that is too small to receive the complete list of modified privileges, the function fails and does not adjust any privileges. In this case, the function sets the variable pointed to by the <i>ReturnLength</i> parameter to the number of bytes required to hold the complete list of modified privileges.
      * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the required size, in bytes, of the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be <b>NULL</b> if <i>PreviousState</i> is <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero. To determine whether the function adjusted all of the specified privileges, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following values when the function succeeds:
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following values when the function succeeds:
      * 
      * <table>
      * <tr>
@@ -2048,8 +1878,8 @@ class Security {
      * </table>
      *  
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-adjusttokenprivileges
      * @since windows5.1.2600
      */
     static AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, BufferLength, PreviousState, ReturnLength) {
@@ -2064,11 +1894,6 @@ class Security {
 
     /**
      * Allocates and initializes a security identifier (SID) with up to eight subauthorities.
-     * @remarks
-     * A SID allocated with the <b>AllocateAndInitializeSid</b> function must be freed by using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * 
-     * This function creates a SID with a 32-bit RID value. For applications that require longer RID values, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a>.
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} pIdentifierAuthority A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure. This structure provides the top-level identifier authority value to set in the SID.
      * @param {Integer} nSubAuthorityCount Specifies the number of subauthorities to place in the SID. This parameter also identifies how many of the subauthority parameters have meaningful values. This parameter must contain a value from 1 to 8. 
@@ -2090,8 +1915,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-allocateandinitializesid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-allocateandinitializesid
      * @since windows5.1.2600
      */
     static AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid) {
@@ -2106,16 +1931,12 @@ class Security {
 
     /**
      * Allocates a locally unique identifier (LUID).
-     * @remarks
-     * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is unique to the local system only, and uniqueness is guaranteed only until the system is next restarted.
-     * 
-     * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is guaranteed  to be nonzero if this function succeeds.
      * @param {Pointer<LUID>} Luid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that receives the allocated LUID.
      * @returns {Integer} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-allocatelocallyuniqueid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-allocatelocallyuniqueid
      * @since windows5.1.2600
      */
     static AllocateLocallyUniqueId(Luid) {
@@ -2130,15 +1951,13 @@ class Security {
 
     /**
      * Checks whether a set of requested access rights has been granted. The access rights are represented as bit flags in an access mask.
-     * @remarks
-     * The <b>AreAllAccessesGranted</b> function is commonly used by a server application to check the access rights of a client attempting to gain access to an object. When the bits set in the <i>DesiredAccess</i> parameter match the bits set in the <i>GrantedAccess</i> parameter, all requested rights have been granted.
      * @param {Integer} GrantedAccess An access mask that specifies the access rights that have been granted.
      * @param {Integer} DesiredAccess An access mask that specifies the access rights that have been requested. This mask must have been mapped from generic to specific and standard access rights, usually by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function.
      * @returns {Integer} If all requested access rights have been granted, the return value is nonzero.
      * 
      * If not all requested access rights have been granted, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-areallaccessesgranted
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-areallaccessesgranted
      * @since windows5.1.2600
      */
     static AreAllAccessesGranted(GrantedAccess, DesiredAccess) {
@@ -2148,15 +1967,13 @@ class Security {
 
     /**
      * Tests whether any of a set of requested access rights has been granted. The access rights are represented as bit flags in an access mask.
-     * @remarks
-     * The <b>AreAnyAccessesGranted</b> function is often used by a server application to check the access rights of a client attempting to gain access to an object. When any of the bits set in the <i>DesiredAccess</i> parameter match the bits set in the <i>GrantedAccess</i> parameter, at least one of the requested access rights has been granted.
      * @param {Integer} GrantedAccess Specifies the granted access mask.
      * @param {Integer} DesiredAccess Specifies the access mask to be requested. This mask must have been mapped from generic to specific and standard access rights, usually by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function.
      * @returns {Integer} If any of the requested access rights have been granted, the return value is nonzero.
      * 
      * If none of the requested access rights have been granted, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-areanyaccessesgranted
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-areanyaccessesgranted
      * @since windows5.1.2600
      */
     static AreAnyAccessesGranted(GrantedAccess, DesiredAccess) {
@@ -2166,13 +1983,6 @@ class Security {
 
     /**
      * Determines whether a specified security identifier (SID) is enabled in an access token.
-     * @remarks
-     * The <b>CheckTokenMembership</b> function simplifies the process of determining whether a SID is both present and enabled in an access token.
-     * 
-     * Even if a SID is present in the token, the system may not use the SID in an access check. The SID may be disabled or have the <b>SE_GROUP_USE_FOR_DENY_ONLY</b> attribute. The system uses only enabled SIDs to grant access when performing an access check. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-attributes-in-an-access-token">SID Attributes in an Access Token</a>.
-     * 
-     * If <i>TokenHandle</i> is a restricted token, or if <i>TokenHandle</i> is <b>NULL</b> and the current effective token of the calling thread is a restricted token, <b>CheckTokenMembership</b> also checks whether the SID is present in the list of restricting SIDs.
      * @param {Pointer<Void>} TokenHandle A handle to an access token. The handle must have TOKEN_QUERY access to the token. The token must be an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>. 
      * 
      * 
@@ -2185,8 +1995,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokenmembership
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-checktokenmembership
      * @since windows5.1.2600
      */
     static CheckTokenMembership(TokenHandle, SidToCheck, IsMember) {
@@ -2209,8 +2019,8 @@ class Security {
      * @param {Pointer<Int32>} HasCapability Receives the results of the check. If the access token has the capability, it returns <b>TRUE</b>, otherwise, it returns <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokencapability
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-checktokencapability
      * @since windows8.0
      */
     static CheckTokenCapability(TokenHandle, CapabilitySidToCheck, HasCapability) {
@@ -2224,15 +2034,12 @@ class Security {
     }
 
     /**
-     * Retrieves a value that indicates whether a package or capability SID is present.
-     * @param {Pointer<ACL>} Acl A pointer to an [ACL](/windows/desktop/api/winnt/ns-winnt-acl) structure.
-     * @param {Integer} StartingAceIndex Specifies the position in the ACL's list of ACEs at which to add new ACEs. A value of zero inserts the ACEs at the beginning of the list. A value of MAXDWORD appends the ACEs to the end of the list.
-     * @param {Pointer<Void>} AppContainerAce Pointer to an AppContainerAce object.
-     * @param {Pointer<UInt32>} AppContainerAceIndex The position in the ACL's list of ACEs.
-     * @returns {Integer} If the function succeeds, it returns **TRUE**.
      * 
-     * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getappcontainerace
+     * @param {Pointer<ACL>} Acl 
+     * @param {Integer} StartingAceIndex 
+     * @param {Pointer<Void>} AppContainerAce 
+     * @param {Pointer<UInt32>} AppContainerAceIndex 
+     * @returns {Integer} 
      */
     static GetAppContainerAce(Acl, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
         result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, "ptr", AppContainerAce, "uint*", AppContainerAceIndex, "int")
@@ -2247,8 +2054,8 @@ class Security {
      * @param {Pointer<Int32>} IsMember <b>TRUE</b> if the SID is enabled in the token; otherwise, <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
-     * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokenmembershipex
+     * If the function fails, it returns zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-checktokenmembershipex
      * @since windows8.0
      */
     static CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember) {
@@ -2263,26 +2070,6 @@ class Security {
 
     /**
      * Converts a security descriptor and its access control lists (ACLs) to a format that supports automatic propagation of inheritable access control entries (ACEs).
-     * @remarks
-     * The <b>ConvertToAutoInheritPrivateObjectSecurity</b> function attempts to determine whether the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the current security descriptor were inherited from the parent security descriptor. The function passes the <i>ParentDescriptor</i> parameter to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex">CreatePrivateObjectSecurityEx</a> function to get ACLs that contain only inherited ACEs. Then it compares these ACEs to the ACEs in the original security descriptor to determine which of the original ACEs were inherited. The ACEs do not need to match one-to-one. For instance, an ACE that allows read and write access to a trustee can be equivalent to two ACEs: an ACE that allows read access and an ACE that allows write access.
-     * 
-     * Any ACEs in the original security descriptor that are equivalent to the ACEs inherited from the parent security descriptor are marked with the INHERITED_ACE flag and added to the new security descriptor. All other ACEs in the original security descriptor are added to the new security descriptor as noninherited ACEs.
-     * 
-     * If the original DACL does not have any inherited ACEs, the function sets the SE_DACL_PROTECTED flag in the control bits of the new security descriptor. Similarly, the SE_SACL_PROTECTED flag is set if none of the ACEs in the SACL is inherited.
-     * 
-     * For DACLs that have inherited ACEs, the function reorders the ACEs into two groups. The first group has ACEs that were directly applied to the object. The second group has inherited ACEs. This ordering ensures that noninherited ACEs have precedence over inherited ACEs. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
-     * 
-     * The function sets the SE_DACL_AUTO_INHERITED and SE_SACL_AUTO_INHERITED flags in the control bits of the new security descriptor.
-     * 
-     * The function does not change the ordering of access-allowed ACEs in relation to access-denied ACEs in the DACL because to do so would change the semantics of the resulting security descriptor. If the function cannot convert the DACL without changing the semantics, it leaves the DACL unchanged and sets the SE_DACL_PROTECTED flag.
-     * 
-     * The new security descriptor has the same owner and primary group as the original security descriptor.
-     * 
-     * The new security descriptor is equivalent to the original security descriptor, so the caller needs no access rights or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> to update the security descriptor to the new format.
-     * 
-     * This function works with ACL_REVISION and ACL_REVISION_DS ACLs.
      * @param {Pointer<Void>} ParentDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> for the parent container of the object. If there is no parent container, this parameter is <b>NULL</b>.
      * @param {Pointer<Void>} CurrentSecurityDescriptor A pointer to the current security descriptor of the object.
      * @param {Pointer<Void>} NewSecurityDescriptor A pointer to a variable that receives a pointer to the newly allocated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a>. It is the caller's responsibility to call the 
@@ -2295,8 +2082,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-converttoautoinheritprivateobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-converttoautoinheritprivateobjectsecurity
      * @since windows5.1.2600
      */
     static ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor, CurrentSecurityDescriptor, NewSecurityDescriptor, ObjectType, IsDirectoryObject, GenericMapping) {
@@ -2311,8 +2098,6 @@ class Security {
 
     /**
      * Copies a security identifier (SID) to a buffer.
-     * @remarks
-     * An application can use the <b>CopySid</b> function to make a copy of a SID in an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> (for example, in a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure) to use in an access control entry (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ACE</a>).
      * @param {Integer} nDestinationSidLength Specifies the length, in bytes, of the buffer receiving the copy of the SID.
      * @param {Pointer} pDestinationSid A pointer to a buffer that receives a copy of the source 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
@@ -2320,8 +2105,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-copysid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-copysid
      * @since windows5.1.2600
      */
     static CopySid(nDestinationSidLength, pDestinationSid, pSourceSid) {
@@ -2336,9 +2121,6 @@ class Security {
 
     /**
      * Allocates and initializes a self-relative security descriptor for a new private object. A protected server calls this function when it creates a new private object.
-     * @remarks
-     * If a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) is specified in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> specified by the <i>CreatorDescriptor</i> parameter, the <i>Token</i> parameter must have the SE_SECURITY_NAME privilege enabled. The <b>CreatePrivateObjectSecurity</b> function checks this privilege and may generate audits during the process.
      * @param {Pointer<Void>} ParentDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> for the parent directory in which a new object is being created. If there is no parent directory, this parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter is intended to be <b>NULL</b>.
      * @param {Pointer<Void>} NewDescriptor A pointer to a variable that receives a pointer to the newly allocated self-relative security descriptor. The caller must call the 
@@ -2366,8 +2148,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity
      * @since windows5.1.2600
      */
     static CreatePrivateObjectSecurity(ParentDescriptor, CreatorDescriptor, NewDescriptor, IsDirectoryObject, Token, GenericMapping) {
@@ -2381,52 +2163,7 @@ class Security {
     }
 
     /**
-     * Allocates and initializes a self-relative security descriptor for a new private object created by the resource manager calling this function. (CreatePrivateObjectSecurityEx)
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity">CreatePrivateObjectSecurity</a> function is identical to calling the <b>CreatePrivateObjectSecurityEx</b> function with <i>ObjectType</i> set to <b>NULL</b> and <i>AutoInheritFlags</i> set to zero.
-     * 
-     * The <i>AutoInheritFlags</i> parameter is distinct from the similarly named bits in the <b>Control</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. For an explanation of the control bits, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a>.
-     * 
-     * If <i>AutoInheritFlags</i> specifies the SEF_DACL_AUTO_INHERIT bit, the function applies the following rules to the DACL in the new security descriptor:
-     * 
-     * <ul>
-     * <li>The SE_DACL_AUTO_INHERITED flag is set in the <b>Control</b> member of the new security descriptor.</li>
-     * <li>The DACL of the new security descriptor inherits ACEs from the <i>ParentDescriptor</i> regardless of whether <i>CreatorDescriptor</i> is the default security descriptor or was explicitly specified by the creator. The new DACL is a combination of the parent and creator DACLs as defined by the rules of inheritance.</li>
-     * <li>Inherited ACEs are marked as INHERITED_ACE.</li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> specifies the SEF_SACL_AUTO_INHERIT bit, the function applies similar rules to the new SACL.
-     * 
-     * For both DACLs and SACLs, certain types of ACEs in <i>ParentDescriptor</i> and <i>CreatorDescriptor</i> will be manipulated and possibly replaced by two ACEs in <i>NewDescriptor</i>. Specifically, an inheritable ACE that contains at least one of the following mappable elements may result in two ACEs in the output security descriptor. Mappable elements include:
-     * 
-     * <ul>
-     * <li>Generic access rights in the ACCESS_MASK</li>
-     * <li>Creator Owner SID or Creator Group SID as the ACE subject identifier</li>
-     * </ul>
-     * ACEs with either of the mappable elements mentioned previously will result in the following ACEs in <i>NewDescriptor</i>:
-     * 
-     * <ul>
-     * <li>An ACE that is a copy of the original, but with the INHERIT_ONLY flag set. However, this ACE will not be created if either of the following two conditions exist:<ul>
-     * <li>The <i>IsContainerObject</i> parameter is <b>FALSE</b>. Inheritable ACEs are meaningless on noncontainer objects.</li>
-     * <li>The original ACE contains the NO_PROPAGATE_INHERIT flag. The original ACE is intended to be inherited as an effective ACE on children, but not inheritable below those children.</li>
-     * </ul>
-     * </li>
-     * <li>An effective ACE in which the INHERITED_ACE bit is turned on and the generic elements are mapped to specific elements, including:<ul>
-     * <li>Generic access rights are replaced by the corresponding standard and specific access rights indicated in the input <i>GenericMapping</i>.</li>
-     * <li>Creator Owner SID is replaced with the Owner in the resultant <i>NewDescriptor</i></li>
-     * <li>Creator Group SID is replaced with the Group in the resultant <i>NewDescriptor</i></li>
-     * </ul>
-     * </li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> does not specify the SEF_AVOID_OWNER_CHECK bit, owner validity checking is performed. The Owner in the resultant <i>NewDescriptor</i> must be a legally formed SID, and either must match the TokenUser in <i>Token</i> or match a group in the TokenGroups in <i>Token</i> where the attributes on the group must include SE_GROUP_OWNER, and must not include SE_GROUP_USE_FOR_DENY_ONLY.
-     * 
-     * Callers that do not have access to the token of the client that will ultimately be setting the owner may choose to skip owner validation checking.
-     * 
-     * To create a security descriptor for a new object, call <b>CreatePrivateObjectSecurityEx</b> with <i>ParentDescriptor</i> set to the security descriptor of the parent container and <i>CreatorDescriptor</i> set to the security descriptor proposed by the creator of the object.
-     * 
-     * If the <i>CreatorDescriptor</i> security descriptor contains a SACL, <i>Token</i> must have the SE_SECURITY_NAME privilege enabled or the caller must specify the SEF_AVOID_PRIVILEGE_CHECK flag in <i>AutoInheritFlags</i>.
+     * Allocates and initializes a self-relative security descriptor for a new private object created by the resource manager calling this function.
      * @param {Pointer<Void>} ParentDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> for the parent container of the object. If there is no parent container, this parameter is <b>NULL</b>.
      * @param {Pointer<Void>} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter can be <b>NULL</b>. Alternatively, this parameter can point to a default security descriptor.
      * @param {Pointer<Void>} NewDescriptor A pointer to a variable that receives a pointer to the newly allocated self-relative security descriptor. When you have finished using the security descriptor, free it by calling the  
@@ -2456,7 +2193,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Some of the extended error codes and their meanings are listed in the following table.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Some of the extended error codes and their meanings are listed in the following table.
      * 
      * <table>
      * <tr>
@@ -2508,7 +2245,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex
      * @since windows5.1.2600
      */
     static CreatePrivateObjectSecurityEx(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectType, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
@@ -2522,66 +2259,8 @@ class Security {
     }
 
     /**
-     * Allocates and initializes a self-relative security descriptor for a new private object created by the resource manager calling this function. (CreatePrivateObjectSecurityWithMultipleInheritance)
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex">CreatePrivateObjectSecurityEx</a> function is identical to calling the 
-     * <b>CreatePrivateObjectSecurityWithMultipleInheritance</b> function with a single GUID in <i>ObjectTypes</i>.
-     * 
-     * The <i>AutoInheritFlags</i> are distinct from the similarly named bits in the <b>Control</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. For an explanation of the control bits, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a>.
-     * 
-     * If <i>AutoInheritFlags</i> specifies the SEF_DACL_AUTO_INHERIT bit, the function applies the following rules to the DACL in the new security descriptor:
-     * 
-     * <ul>
-     * <li>The SE_DACL_AUTO_INHERITED flag is set in the <b>Control</b> member of the new security descriptor.</li>
-     * <li>The DACL of the new security descriptor inherits ACEs from <i>ParentDescriptor</i> regardless of whether <i>CreatorDescriptor</i> is the default security descriptor or was explicitly specified by the creator. The new DACL is a combination of the parent and creator DACLs as defined by the rules of inheritance. Specifically, any ACEs in <i>ParentDescriptor</i> that are inheritable either to all child objects or to any object class listed in <i>ObjectTypes</i> will be applied to the new DACL.</li>
-     * <li>Inherited ACEs are marked as INHERITED_ACE.</li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> specifies the SEF_SACL_AUTO_INHERIT bit, the function applies similar rules to the new SACL.
-     * 
-     * For both DACLs and SACLs, certain types of ACEs in <i>ParentDescriptor</i> and <i>CreatorDescriptor</i> will be manipulated and possibly replaced by two ACEs in <i>NewDescriptor</i>. Specifically, an inheritable ACE that contains at least one of the following mappable elements may result in two ACEs in the output security descriptor. Mappable elements include:
-     * 
-     * <ul>
-     * <li>Generic access rights in the ACCESS_MASK</li>
-     * <li>Creator Owner SID or Creator Group SID as the ACE subject identifier</li>
-     * </ul>
-     * ACEs with any of these mappable elements will result in the following two ACEs in <i>NewDescriptor</i>:
-     * 
-     * <ul>
-     * <li>An ACE that is a copy of the original, but with the INHERIT_ONLY flag set. However, this ACE will not be created if either of the following two conditions exist: 
-     * 
-     * 
-     * <ul>
-     * <li>The <i>IsContainerObject</i> parameter is <b>FALSE</b>. Inheritable ACEs are meaningless on noncontainer objects.</li>
-     * <li>The original ACE contains the NO_PROPAGATE_INHERIT flag. The original ACE is intended to be inherited as an effective ACE on children, but not inheritable below those children.</li>
-     * </ul>
-     * </li>
-     * <li>An effective ACE in which the INHERITED_ACE bit is turned on and the generic elements are mapped to specific elements: 
-     * 
-     * 
-     * <ul>
-     * <li>Generic access rights are replaced by the corresponding standard and specific access rights indicated in the input <i>GenericMapping</i>.</li>
-     * <li>Creator Owner SID is replaced with the Owner in the resultant <i>NewDescriptor</i></li>
-     * <li>Creator Group SID is replaced with the Group in the resultant <i>NewDescriptor</i></li>
-     * </ul>
-     * </li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> does not specify the SEF_AVOID_OWNER_CHECK bit, owner validity checking is performed according to the following rules. The Owner in the resultant <i>NewDescriptor</i> must be a legally formed SID, and either must match the TokenUser in <i>Token</i> or must match a group in the TokenGroups in <i>Token</i>. The attributes on the group:
-     * 
-     * <ul>
-     * <li>Must include SE_GROUP_OWNER</li>
-     * <li>Must not include SE_GROUP_USE_FOR_DENY_ONLY</li>
-     * </ul>
-     * Callers that do not have access to the token of the client that will ultimately be setting the owner may choose to skip owner validation checking.
-     * 
-     * To create a security descriptor for a new object, call <b>CreatePrivateObjectSecurityWithMultipleInheritance</b> with <i>ParentDescriptor</i> set to the security descriptor of the parent container and <i>CreatorDescriptor</i> set to the security descriptor proposed by the creator of the object.
-     * 
-     * To verify the current security descriptor on an object, call <b>CreatePrivateObjectSecurityWithMultipleInheritance</b> with <i>ParentDescriptor</i> set to the security descriptor of the parent container and <i>CreatorDescriptor</i> set to the current security descriptor of the object. This call ensures that the ACEs are appropriately inherited from parent to child security descriptors.
-     * 
-     * If the <i>CreatorDescriptor</i> security descriptor contains a SACL, <i>Token</i> must have the SE_SECURITY_NAME privilege enabled or the caller must specify the SEF_AVOID_PRIVILEGE_CHECK flag in <i>AutoInheritFlags</i>.
-     * @param {Pointer<Void>} ParentDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> for the parent container of the object. If there is no parent container, this parameter is <b>NULL</b>.
+     * Allocates and initializes a self-relative security descriptor for a new private object created by the resource manager calling this function.
+     * @param {Pointer<Void>} ParentDescriptor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>for the parent container of the object. If there is no parent container, this parameter is <b>NULL</b>.
      * @param {Pointer<Void>} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter can be <b>NULL</b>. Alternatively, this parameter can point to a default security descriptor.
      * @param {Pointer<Void>} NewDescriptor A pointer to a variable to receive a pointer to the newly allocated self-relative security descriptor. When you have finished using the security descriptor, free it by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function.
@@ -2610,7 +2289,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns a nonzero value. 
      * 
      * If the function fails, it returns zero. Call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information. Some extended error codes and their meanings are listed in the following table.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information. Some extended error codes and their meanings are listed in the following table.
      * 
      * <table>
      * <tr>
@@ -2635,7 +2314,7 @@ class Security {
      * </dl>
      * </td>
      * <td width="60%">
-     * The function cannot retrieve an owner for the new security descriptor or the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) cannot be assigned as an owner. This occurs when validating the owner SID against the passed-in token.
+     * The function cannot retrieve an owner for the new security descriptor or the <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) cannot be assigned as an owner. This occurs when validating the owner SID against the passed-in token.
      * 
      * </td>
      * </tr>
@@ -2646,7 +2325,7 @@ class Security {
      * </dl>
      * </td>
      * <td width="60%">
-     * The function received <b>NULL</b> instead of a token for owner validation or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privilege</a> checking.
+     * The function received <b>NULL</b> instead of a token for owner validation or <a href="/windows/desktop/SecGloss/p-gly">privilege</a> checking.
      * 
      * </td>
      * </tr>
@@ -2662,7 +2341,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecuritywithmultipleinheritance
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-createprivateobjectsecuritywithmultipleinheritance
      * @since windows5.1.2600
      */
     static CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectTypes, GuidCount, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
@@ -2677,24 +2356,6 @@ class Security {
 
     /**
      * Creates a new access token that is a restricted version of an existing access token. The restricted token can have disabled security identifiers (SIDs), deleted privileges, and a list of restricting SIDs.
-     * @remarks
-     * The <b>CreateRestrictedToken</b> function can restrict the token in the following ways:
-     * 
-     * <ul>
-     * <li>Apply the deny-only attribute to SIDs in the token so they cannot be used to access secured objects. For more information about the deny-only attribute, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-attributes-in-an-access-token">SID Attributes in an Access Token</a>.</li>
-     * <li>Remove 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">privileges</a> from the token.</li>
-     * <li>Specify a list of restricting SIDs, which the system uses when it checks the token's access to a securable object. The system performs two access checks: one using the token's enabled SIDs, and another using the list of restricting SIDs. Access is granted only if both access checks allow the requested access rights.</li>
-     * </ul>
-     * You can use the restricted token in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function to create a process that has restricted access rights and privileges. If a process calls <b>CreateProcessAsUser</b> using a restricted version of its own token, the calling process does not need to have the SE_ASSIGNPRIMARYTOKEN_NAME privilege.
-     * 
-     * You can use the restricted token in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a> function.
-     * 
-     * <div class="alert"><b>Caution</b>  Applications that use restricted tokens should run the restricted application on desktops other than the default desktop. This is necessary to prevent an attack by a restricted application, using <b>SendMessage</b> or <b>PostMessage</b>, to unrestricted applications on the default desktop. If necessary, switch between desktops for your application purposes.</div>
-     * <div> </div>
      * @param {Pointer<Void>} ExistingTokenHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>. The token can also be a restricted token. The handle must have TOKEN_DUPLICATE access to the token.
      * @param {Integer} Flags 
      * @param {Integer} DisableSidCount Specifies the number of entries in the <i>SidsToDisable</i> array.
@@ -2740,8 +2401,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-createrestrictedtoken
      * @since windows5.1.2600
      */
     static CreateRestrictedToken(ExistingTokenHandle, Flags, DisableSidCount, SidsToDisable, DeletePrivilegeCount, PrivilegesToDelete, RestrictedSidCount, SidsToRestrict, NewTokenHandle) {
@@ -2763,8 +2424,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createwellknownsid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-createwellknownsid
      * @since windows5.1.2600
      */
     static CreateWellKnownSid(WellKnownSidType, DomainSid, pSid, cbSid) {
@@ -2784,8 +2445,8 @@ class Security {
      * @param {Pointer<Int32>} pfEqual A pointer to a BOOL that <b>EqualDomainSid</b> sets to <b>TRUE</b> if the domains of the two SIDs are equal or <b>FALSE</b> if they are not equal. This value cannot be <b>NULL</b>.
      * @returns {Integer} If both SIDs are  account domain SIDs and/or BUILTIN SIDs, the return value is nonzero. In addition, *<i>pfEqual</i> is set to <b>TRUE</b> if the domains of the two SIDs are equal; otherwise  *<i>pfEqual</i> is set to <b>FALSE</b>.
      * 
-     * If one or more of the SIDS is neither an account domain SID nor a BUILTIN SID, then the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> returns ERROR_NON_DOMAIN_SID if either SID is not an account domain SID or BUILTIN SID.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equaldomainsid
+     * If one or more of the SIDS is neither an account domain SID nor a BUILTIN SID, then the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> returns ERROR_NON_DOMAIN_SID if either SID is not an account domain SID or BUILTIN SID.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-equaldomainsid
      * @since windows5.1.2600
      */
     static EqualDomainSid(pSid1, pSid2, pfEqual) {
@@ -2800,19 +2461,14 @@ class Security {
 
     /**
      * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. The ACE specified by the <i>dwAceIndex</i> parameter is removed from this ACL.
      * @param {Integer} dwAceIndex The ACE to delete. A value of zero corresponds to the first ACE in the ACL, a value of one to the second ACE, and so on.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-deleteace
      * @since windows5.1.2600
      */
     static DeleteAce(pAcl, dwAceIndex) {
@@ -2833,8 +2489,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity
      * @since windows5.1.2600
      */
     static DestroyPrivateObjectSecurity(ObjectDescriptor) {
@@ -2849,8 +2505,6 @@ class Security {
 
     /**
      * Creates a new access token that duplicates one already in existence.
-     * @remarks
-     * The <b>DuplicateToken</b> function creates an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, which you can use in functions such as <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadtoken">SetThreadToken</a> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a>. The token created by <b>DuplicateToken</b> cannot be used in the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, which requires a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a>. To create a token that you can pass to <b>CreateProcessAsUser</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function.
      * @param {Pointer<Void>} ExistingTokenHandle A handle to an access token opened with TOKEN_DUPLICATE access.
      * @param {Integer} ImpersonationLevel Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type that supplies the impersonation level of the new token.
@@ -2860,8 +2514,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-duplicatetoken
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-duplicatetoken
      * @since windows5.1.2600
      */
     static DuplicateToken(ExistingTokenHandle, ImpersonationLevel, DuplicateTokenHandle) {
@@ -2876,13 +2530,6 @@ class Security {
 
     /**
      * Creates a new access token that duplicates an existing token. This function can create either a primary token or an impersonation token.
-     * @remarks
-     * The <b>DuplicateTokenEx</b> function allows you to create a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> that you can use in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function. This allows a server application that is impersonating a client to create a process that has the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> of the client. Note that the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a> function can create only impersonation tokens, which are not valid for <b>CreateProcessAsUser</b>.
-     * 
-     * The following is a typical scenario for using <b>DuplicateTokenEx</b> to create a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a>. A server application creates a thread that calls one of the impersonation functions, such as 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-impersonatenamedpipeclient">ImpersonateNamedPipeClient</a>, to impersonate a client. The impersonating thread then calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function to get its own token, which is an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> that has the security context of the client. The thread specifies this impersonation token in a call to <b>DuplicateTokenEx</b>, specifying the TokenPrimary flag. The <b>DuplicateTokenEx</b> function creates a <i>primary token</i> that has the security context of the client.
      * @param {Pointer<Void>} hExistingToken A handle to an access token opened with TOKEN_DUPLICATE access.
      * @param {Integer} dwDesiredAccess Specifies the requested access rights for the new token. The <b>DuplicateTokenEx</b> function compares the requested access rights with the existing token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which rights are granted or denied. To request the same access rights as the existing token, specify zero. To request all access rights that are valid for the caller, specify MAXIMUM_ALLOWED. 
      * 
@@ -2904,8 +2551,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-duplicatetokenex
      * @since windows5.1.2600
      */
     static DuplicateTokenEx(hExistingToken, dwDesiredAccess, lpTokenAttributes, ImpersonationLevel, TokenType, phNewToken) {
@@ -2920,20 +2567,14 @@ class Security {
 
     /**
      * Tests two security-identifier (SID) prefix values for equality. A SID prefix is the entire SID except for the last subauthority value.
-     * @remarks
-     * The <b>EqualPrefixSid</b> function enables a server application in one domain to verify an attempt by a user to log on to another domain. For example, if a user attempts to log on to RemoteDomain from a workstation in LocalDomain, the server for LocalDomain can request the SIDs for the user and the user's groups from RemoteDomain. The domain controller for RemoteDomain responds with the relevant SIDs.
-     * 
-     * All SIDs for a specified domain have the same prefix. When the server receives the user's SIDs, the server can call the <b>EqualPrefixSid</b> function for each SID, comparing the user or group SID against the SID for RemoteDomain. If any of the SID prefixes are not equal, the server refuses the logon attempt.
-     * 
-     * It is advisable to modify the SID for a domain before comparing it with a group or user SID. If the SID for RemoteDomain is S-1–1234–8, each group or user SID for that domain has S-1–1234–8 as its prefix. To compare the SIDs by using the <b>EqualPrefixSid</b> function, an application copies the domain SID and adds any subauthority (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RID</a>) value to the copy, thereby creating a SID in the form S-1–1234–8–0. The application then uses the modified domain SID as a template against which the group and user SIDs are compared.
      * @param {Pointer<Void>} pSid1 A pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to compare. This structure is assumed to be valid.
      * @param {Pointer<Void>} pSid2 A pointer to the second <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to compare. This structure is assumed to be valid.
      * @returns {Integer} If the SID prefixes are equal, the return value is nonzero.
      * 
      * If the SID prefixes are not equal, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equalprefixsid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-equalprefixsid
      * @since windows5.1.2600
      */
     static EqualPrefixSid(pSid1, pSid2) {
@@ -2952,13 +2593,13 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to compare. This structure is assumed to be valid.
      * @param {Pointer<Void>} pSid2 A pointer to the second <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to compare. This structure is assumed to be valid.
      * @returns {Integer} If the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures are equal, the return value is nonzero.
+     * <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures are equal, the return value is nonzero.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures are not equal, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * If the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures are not equal, the return value is zero. To get extended error information, call 
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * If either <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equalsid
+     * If either <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-equalsid
      * @since windows5.1.2600
      */
     static EqualSid(pSid1, pSid2) {
@@ -2980,8 +2621,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-findfirstfreeace
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-findfirstfreeace
      * @since windows5.1.2600
      */
     static FindFirstFreeAce(pAcl, pAce) {
@@ -3000,8 +2641,8 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to free.
      * @returns {Pointer<Void>} If the function succeeds, the function returns <b>NULL</b>.
      * 
-     * If the function fails, it returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure represented by the <i>pSid</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-freesid
+     * If the function fails, it returns a pointer to the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure represented by the <i>pSid</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-freesid
      * @since windows5.1.2600
      */
     static FreeSid(pSid) {
@@ -3018,8 +2659,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getace
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getace
      * @since windows5.1.2600
      */
     static GetAce(pAcl, dwAceIndex, pAce) {
@@ -3051,8 +2692,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getaclinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getaclinformation
      * @since windows5.1.2600
      */
     static GetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
@@ -3066,11 +2707,7 @@ class Security {
     }
 
     /**
-     * Obtains specified information about the security of a file or directory. The information obtained is constrained by the caller's access rights and privileges. (GetFileSecurityW)
-     * @remarks
-     * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">DACL</a> from the security descriptor for the specified file or directory, the DACL for the file or directory must grant READ_CONTROL access to the caller, or the caller must be the owner of the file or directory.
-     * 
-     * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SACL</a> of a file or directory, the SE_SECURITY_NAME privilege must be enabled for the calling process.
+     * Obtains specified information about the security of a file or directory. The information obtained is constrained by the caller's access rights and privileges.
      * @param {Pointer<Char>} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security information is retrieved.
      * @param {Integer} RequestedInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
@@ -3081,8 +2718,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getfilesecurityw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getfilesecurityw
      */
     static GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
@@ -3093,10 +2730,6 @@ class Security {
 
     /**
      * Retrieves a copy of the security descriptor that protects a kernel object.
-     * @remarks
-     * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">DACL</a> from the kernel object's security descriptor, the calling process must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the object or the object's DACL must grant the access.
-     * 
-     * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SACL</a> from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The proper way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
      * @param {Pointer<Void>} Handle A handle to a kernel object.
      * @param {Integer} RequestedInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
@@ -3107,8 +2740,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getkernelobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getkernelobjectsecurity
      * @since windows5.1.2600
      */
     static GetKernelObjectSecurity(Handle, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -3125,11 +2758,11 @@ class Security {
      * Returns the length, in bytes, of a valid security identifier (SID).
      * @param {Pointer<Void>} pSid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure whose length is returned. The structure is assumed to be valid.
-     * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
+     * @returns {Integer} If the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
+     * If the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
+     * <a href="/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getlengthsid
      * @since windows5.1.2600
      */
     static GetLengthSid(pSid) {
@@ -3139,15 +2772,6 @@ class Security {
 
     /**
      * Retrieves information from a private object's security descriptor.
-     * @remarks
-     * This function is intended for use by resource managers only. To implement the standard access control semantics for updating security descriptors, a resource manager should verify that the following conditions are met before calling <b>GetPrivateObjectSecurity</b>:
-     * 
-     * <ul>
-     * <li>If the object's owner is being set, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have either WRITE_OWNER permission or be the object's owner.</li>
-     * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> is being set, the calling process must have either WRITE_DAC permission or be the object's owner.</li>
-     * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
-     * </ul>
-     * If the preceding conditions are not met, a call to this function does not fail, however, standard access policy is not enforced.
      * @param {Pointer<Void>} ObjectDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. This is the security descriptor to be queried.
      * @param {Integer} SecurityInformation A set of bit flags that indicate the parts of the security descriptor to retrieve. This parameter can be a combination of the 
@@ -3159,8 +2783,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getprivateobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getprivateobjectsecurity
      * @since windows5.1.2600
      */
     static GetPrivateObjectSecurity(ObjectDescriptor, SecurityInformation, ResultantDescriptor, DescriptorLength, ReturnLength) {
@@ -3183,8 +2807,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorcontrol
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorcontrol
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorControl(pSecurityDescriptor, pControl, lpdwRevision) {
@@ -3218,8 +2842,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorDacl(pSecurityDescriptor, lpbDaclPresent, pDacl, lpbDaclDefaulted) {
@@ -3243,8 +2867,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorgroup
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorgroup
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, lpbGroupDefaulted) {
@@ -3259,16 +2883,12 @@ class Security {
 
     /**
      * Returns the length, in bytes, of a structurally valid security descriptor. The length includes the length of all associated structures.
-     * @remarks
-     * The minimum length of a security descriptor is SECURITY_DESCRIPTOR_MIN_LENGTH. A security descriptor of this length has no associated 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifiers</a> (SIDs) or 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control lists</a> (ACLs).
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure whose length the function returns. The pointer is assumed to be valid.
-     * @returns {Integer} If the function succeeds, the function returns the length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
+     * @returns {Integer} If the function succeeds, the function returns the length, in bytes, of the <a href="/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorlength
+     * If the <a href="/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is not valid, the return value is undefined.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorlength
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorLength(pSecurityDescriptor) {
@@ -3288,8 +2908,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorowner
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorowner
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, lpbOwnerDefaulted) {
@@ -3304,9 +2924,6 @@ class Security {
 
     /**
      * Retrieves the resource manager control bits.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits are eight bits in the <b>Sbz1</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the <b>GetSecurityDescriptorRMControl</b> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol">SetSecurityDescriptorRMControl</a> functions.
      * @param {Pointer<Void>} SecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits. The value of the <b>Control</b> member is set to SE_RM_CONTROL_VALID.
      * @param {Pointer<Byte>} RMControl A pointer to a buffer that receives the resource manager control bits.
@@ -3327,12 +2944,12 @@ class Security {
      * </td>
      * <td width="60%">
      * The SE_RM_CONTROL_VALID bit flag is not set in the specified 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
+     * <a href="/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorRMControl(SecurityDescriptor, RMControl) {
@@ -3358,8 +2975,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorSacl(pSecurityDescriptor, lpbSaclPresent, pSacl, lpbSaclDefaulted) {
@@ -3374,20 +2991,17 @@ class Security {
 
     /**
      * Returns a pointer to the SID_IDENTIFIER_AUTHORITY structure in a specified security identifier (SID).
-     * @remarks
-     * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
      * @param {Pointer<Void>} pSid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure for which a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure is returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
-     * @returns {Pointer<SID_IDENTIFIER_AUTHORITY>} If the function succeeds, the return value is a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure for the specified 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
+     * @returns {Pointer<SID_IDENTIFIER_AUTHORITY>} If the function succeeds, the return value is a pointer to the <a href="/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure for the specified 
+     * <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * 
-     * If the function fails, the return value is undefined. The function fails if the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure pointed to by the <i>pSid</i> parameter is not valid. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsididentifierauthority
+     * If the function fails, the return value is undefined. The function fails if the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure pointed to by the <i>pSid</i> parameter is not valid. To get extended error information, call 
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsididentifierauthority
      * @since windows5.1.2600
      */
     static GetSidIdentifierAuthority(pSid) {
@@ -3402,13 +3016,10 @@ class Security {
 
     /**
      * Returns the length, in bytes, of the buffer required to store a SID with a specified number of subauthorities.
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <i>nSubAuthorityCount</i> uses a 32-bit RID value. For applications that require longer RID values, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
      * @param {Integer} nSubAuthorityCount Specifies the number of subauthorities to be stored in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
-     * @returns {Integer} The return value is the length, in bytes, of the buffer required to store the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure. This function cannot fail.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidlengthrequired
+     * @returns {Integer} The return value is the length, in bytes, of the buffer required to store the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure. This function cannot fail.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsidlengthrequired
      * @since windows5.1.2600
      */
     static GetSidLengthRequired(nSubAuthorityCount) {
@@ -3418,19 +3029,16 @@ class Security {
 
     /**
      * Returns a pointer to a specified subauthority in a security identifier (SID). The subauthority value is a relative identifier (RID).
-     * @remarks
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <i>pSid</i> uses a 32-bit RID value. For applications that require longer RID values, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
      * @param {Pointer<Void>} pSid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to a subauthority is to be returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
      * @param {Integer} nSubAuthority Specifies an index value identifying the subauthority array element whose address the function will return. The function performs no validation tests on this value. An application can call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount">GetSidSubAuthorityCount</a> function to discover the range of acceptable values.
-     * @returns {Pointer<UInt32>} If the function succeeds, the return value is a pointer to the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> subauthority. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Pointer<UInt32>} If the function succeeds, the return value is a pointer to the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> subauthority. To get extended error information, call 
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * If the function fails, the return value is undefined. The function fails if the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid or if the index value specified by the <i>nSubAuthority</i> parameter is out of bounds.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidsubauthority
+     * If the function fails, the return value is undefined. The function fails if the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid or if the index value specified by the <i>nSubAuthority</i> parameter is out of bounds.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsidsubauthority
      * @since windows5.1.2600
      */
     static GetSidSubAuthority(pSid, nSubAuthority) {
@@ -3445,18 +3053,15 @@ class Security {
 
     /**
      * Returns a pointer to the member in a security identifier (SID) structure that contains the subauthority count.
-     * @remarks
-     * The SID structure specified in <i>pSid</i> uses a 32-bit value. For applications that require longer RID values, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
      * @param {Pointer<Void>} pSid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to the subauthority count is returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the subauthority count for the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
+     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the subauthority count for the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * 
-     * If the function fails, the return value is undefined. The function fails if the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount
+     * If the function fails, the return value is undefined. The function fails if the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid. To get extended error information, call 
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount
      * @since windows5.1.2600
      */
     static GetSidSubAuthorityCount(pSid) {
@@ -3482,8 +3087,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-gettokeninformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-gettokeninformation
      * @since windows5.1.2600
      */
     static GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength, ReturnLength) {
@@ -3504,8 +3109,8 @@ class Security {
      * @returns {Integer} Returns <b>TRUE</b> if successful.
      * 
      * Otherwise, returns <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getwindowsaccountdomainsid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-getwindowsaccountdomainsid
      * @since windows5.1.2600
      */
     static GetWindowsAccountDomainSid(pSid, pDomainSid, cbDomainSid) {
@@ -3520,21 +3125,16 @@ class Security {
 
     /**
      * Enables the specified thread to impersonate the system's anonymous logon token.
-     * @remarks
-     * Anonymous tokens do not include the "Everyone" Group SID unless the system default has been overridden by setting the HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\EveryoneIncludesAnonymous registry value to DWORD=1.
-     * 
-     * To cancel the impersonation, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-reverttoself">RevertToSelf</a>.
      * @param {Pointer<Void>} ThreadHandle A handle to the thread to impersonate the system's anonymous logon token. The thread handle must have the THREAD_IMPERSONATE access right in order for the thread to impersonate the system's anonymous logon token.
      * 
      * To grant such access, the thread must be opened by calling <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthread">OpenThread</a> with the desired access right to THREAD_IMPERSONATE.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * An error of ACCESS_DENIED might indicate that the token is for a restricted process. Use [OpenProcessToken](/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocesstoken) and [IsTokenRestricted](/windows/win32/api/securitybaseapi/nf-securitybaseapi-istokenrestricted) to check if the process is restricted. ACCESS_DENIED is also returned if the thread handle lacks right access to THREAD_IMPERSONATE.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateanonymoustoken
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-impersonateanonymoustoken
      * @since windows5.1.2600
      */
     static ImpersonateAnonymousToken(ThreadHandle) {
@@ -3549,28 +3149,6 @@ class Security {
 
     /**
      * Lets the calling thread impersonate the security context of a logged-on user. The user is represented by a token handle.
-     * @remarks
-     * The impersonation lasts until the thread exits or until it calls 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-reverttoself">RevertToSelf</a>.
-     * 
-     * The calling thread does not need to have any particular <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> to call <b>ImpersonateLoggedOnUser</b>.
-     * 
-     * If the call to <b>ImpersonateLoggedOnUser</b> fails, the client connection is not impersonated and the client request is made in the security context of the process. If the process is running as a highly privileged account, such as LocalSystem, or as a member of an administrative group, the user may be able to perform actions they would otherwise be disallowed. Therefore, it is important to always check the return value of the call, and if it fails, raise an error; do not continue execution of the client request.
-     * 
-     * All impersonate functions, including <b>ImpersonateLoggedOnUser</b> allow the requested impersonation if one of the following is true: 
-     * 
-     * 
-     * 
-     * <ul>
-     * <li>The requested impersonation level of the token is less than <b>SecurityImpersonation</b>, such as <b>SecurityIdentification</b> or <b>SecurityAnonymous</b>.</li>
-     * <li>The caller has the <b>SeImpersonatePrivilege</b> privilege.</li>
-     * <li>A process (or another process in the caller's logon session) created the token using explicit credentials through <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> function.</li>
-     * <li>The authenticated identity is same as the caller.</li>
-     * </ul>
-     * <b>Windows XP with SP1 and earlier:  </b>The <b>SeImpersonatePrivilege</b> privilege is not supported.
-     * 
-     * For more information about impersonation, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/client-impersonation">Client Impersonation</a>.
      * @param {Pointer<Void>} hToken A handle to a primary or impersonation <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> that represents a logged-on user. This can be a token handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
@@ -3581,8 +3159,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-impersonateloggedonuser
      * @since windows5.1.2600
      */
     static ImpersonateLoggedOnUser(hToken) {
@@ -3597,20 +3175,13 @@ class Security {
 
     /**
      * Obtains an access token that impersonates the security context of the calling process. The token is assigned to the calling thread.
-     * @remarks
-     * The <b>ImpersonateSelf</b> function is used for tasks such as enabling a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privilege</a> for a single thread rather than for the entire process or for changing the default <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) for a single thread.
-     * 
-     * The server can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-reverttoself">RevertToSelf</a> function when the impersonation is complete.
-     * 
-     * For this function to succeed, the DACL protecting the process token must grant the TOKEN_DUPLICATE right to itself.
      * @param {Integer} ImpersonationLevel Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type that supplies the impersonation level of the new token.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateself
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-impersonateself
      * @since windows5.1.2600
      */
     static ImpersonateSelf(ImpersonationLevel) {
@@ -3625,18 +3196,6 @@ class Security {
 
     /**
      * Initializes a new ACL structure.
-     * @remarks
-     * The <b>InitializeAcl</b> function creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure; the <b>ACL</b> contains no <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACEs</a>. Applying an empty <b>ACL</b> to an object denies all access to that object.
-     * 
-     * The initial size of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> depends on the number of <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACEs</a> you plan to add to the <b>ACL</b> before you use it. For example, if the <b>ACL</b> is to contain an ACE for a user and group, you would initialize the <b>ACL</b> based on two ACEs. For details about modifying an existing <b>ACL</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/modifying-the-acls-of-an-object-in-c--">Modifying the ACLs of an Object</a>.
-     * 
-     * To calculate the initial size of an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a>, add the following together, and then align the result to the nearest <b>DWORD</b>:
-     * 
-     * <ul>
-     * <li>Size of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.</li>
-     * <li>Size of each <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure that the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is to contain minus the <b>SidStart</b> member (<b>DWORD</b>) of the ACE.</li>
-     * <li>Length of the SID that each <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> is to contain.</li>
-     * </ul>
      * @param {Pointer} pAcl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure  to be initialized by this function. Allocate memory for <i>pAcl</i> before calling this function.
      * @param {Integer} nAclLength The length, in bytes, of the buffer pointed to by the <i>pAcl</i> parameter. This value must be large enough to contain the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> header and all of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) to be stored in the <b>ACL</b>. In addition, this value must be <b>DWORD</b>-aligned. For more information about calculating the size of an <b>ACL</b>, see Remarks.
@@ -3648,8 +3207,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializeacl
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-initializeacl
      * @since windows5.1.2600
      */
     static InitializeAcl(pAcl, nAclLength, dwAclRevision) {
@@ -3664,10 +3223,6 @@ class Security {
 
     /**
      * Initializes a new security descriptor.
-     * @remarks
-     * The <b>InitializeSecurityDescriptor</b> function initializes a security descriptor in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute</a> format, rather than <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
-     * 
-     * The <b>InitializeSecurityDescriptor</b> function initializes a security descriptor to have no <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), no <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL), no owner, no primary group, and all control flags set to <b>FALSE</b> (<b>NULL</b>). Thus, except for its revision level, it is empty.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that the function initializes.
      * @param {Integer} dwRevision The revision level to assign to the security descriptor. This parameter must be SECURITY_DESCRIPTOR_REVISION.
@@ -3675,8 +3230,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializesecuritydescriptor
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-initializesecuritydescriptor
      * @since windows5.1.2600
      */
     static InitializeSecurityDescriptor(pSecurityDescriptor, dwRevision) {
@@ -3691,13 +3246,6 @@ class Security {
 
     /**
      * Initializes a security identifier (SID).
-     * @remarks
-     * Although the <b>InitializeSid</b> function sets the number of subauthorities for the SID, it does not set the subauthority values. This must be done separately, using functions such as <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsidsubauthority">GetSidSubAuthority</a>.
-     * 
-     * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-allocateandinitializesid">AllocateAndInitializeSid</a> function to initialize a SID and set its subauthority values.
-     * 
-     * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a>.
      * @param {Pointer<Void>} Sid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be initialized.
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} pIdentifierAuthority A pointer to a 
@@ -3707,8 +3255,8 @@ class Security {
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializesid
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-initializesid
      * @since windows5.1.2600
      */
     static InitializeSid(Sid, pIdentifierAuthority, nSubAuthorityCount) {
@@ -3723,17 +3271,14 @@ class Security {
 
     /**
      * Indicates whether a token contains a list of restricted security identifiers (SIDs).
-     * @remarks
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a> function can restrict a token by disabling SIDs, deleting privileges, and specifying a list of restricting SIDs. The <b>IsTokenRestricted</b> function checks only for the list of restricting SIDs. If a token does not have any restricting SIDs, <b>IsTokenRestricted</b> returns <b>FALSE</b>, even though the token was created by a call to <b>CreateRestrictedToken</b>.
      * @param {Pointer<Void>} TokenHandle A handle to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> to test.
      * @returns {Integer} If the token contains a list of restricting SIDs, the return value is nonzero.
      * 
      * If the token does not contain a list of restricting SIDs, the return value is zero.
      * 
      * If an error occurs, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-istokenrestricted
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-istokenrestricted
      * @since windows5.1.2600
      */
     static IsTokenRestricted(TokenHandle) {
@@ -3748,17 +3293,13 @@ class Security {
 
     /**
      * Validates an access control list (ACL).
-     * @remarks
-     * This function checks the revision level of the ACL and verifies that the number of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) specified in the <b>AceCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure fits the space specified by the <b>AclSize</b> member of the <b>ACL</b> structure.
-     * 
-     * If <i>pAcl</i> is <b>NULL</b>, the application will fail with an access violation.
      * @param {Pointer<ACL>} pAcl A pointer to an
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure validated by this function. This value must not be <b>NULL</b>.
      * @returns {Integer} If the ACL is valid, the function returns nonzero.
      *       
      * 
-     * If the ACL is not valid, the function returns zero. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidacl
+     * If the ACL is not valid, the function returns zero. There is no extended error information for this function; do not call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-isvalidacl
      * @since windows5.1.2600
      */
     static IsValidAcl(pAcl) {
@@ -3768,15 +3309,13 @@ class Security {
 
     /**
      * Determines whether the components of a security descriptor are valid.
-     * @remarks
-     * The <b>IsValidSecurityDescriptor</b> function checks the validity of the components that are present in the security descriptor. It does not verify whether certain components are present nor does it verify the contents of the individual ACE or ACL.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that the function validates.
      * @returns {Integer} If the components of the security descriptor are valid, the return value is nonzero.
      * 
      * If any of the components of the security descriptor are not valid, the return value is zero. There is no extended error information for this function; do not call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidsecuritydescriptor
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-isvalidsecuritydescriptor
      * @since windows5.1.2600
      */
     static IsValidSecurityDescriptor(pSecurityDescriptor) {
@@ -3786,14 +3325,12 @@ class Security {
 
     /**
      * Validates a security identifier (SID) by verifying that the revision number is within a known range, and that the number of subauthorities is less than the maximum.
-     * @remarks
-     * If <i>pSid</i> is <b>NULL</b>, the application will fail with an access violation.
      * @param {Pointer<Void>} pSid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to validate. This parameter cannot be <b>NULL</b>.
-     * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is nonzero.
+     * @returns {Integer} If the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is nonzero.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is zero. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidsid
+     * If the <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is zero. There is no extended error information for this function; do not call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-isvalidsid
      * @since windows5.1.2600
      */
     static IsValidSid(pSid) {
@@ -3809,7 +3346,7 @@ class Security {
      * @returns {Integer} Returns <b>TRUE</b> if the SID at <i>pSid</i> matches the well-known SID indicated by <i>WellKnownSidType</i>.
      * 
      * Otherwise, returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-iswellknownsid
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-iswellknownsid
      * @since windows5.1.2600
      */
     static IsWellKnownSid(pSid, WellKnownSidType) {
@@ -3819,12 +3356,6 @@ class Security {
 
     /**
      * Creates a security descriptor in absolute format by using a security descriptor in self-relative format as a template.
-     * @remarks
-     * A security descriptor in absolute format contains pointers to the information it contains, rather than the information itself. A security descriptor in self-relative format contains the information in a contiguous block of memory. In a self-relative security descriptor, a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure always starts the information, but the security descriptor's other components can follow the structure in any order. Instead of using memory addresses, the components of the self-relative security descriptor are identified by offsets from the beginning of the security descriptor. This format is useful when a security descriptor must be stored on a floppy disk or transmitted by means of a communications protocol.
-     * 
-     * A server that copies secured objects to various media can use the <b>MakeAbsoluteSD</b> function to create an absolute security descriptor from a self-relative security descriptor and the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeselfrelativesd">MakeSelfRelativeSD</a> function to create a self-relative security descriptor from an absolute security descriptor.
      * @param {Pointer<Void>} pSelfRelativeSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in self-relative format. The function creates an absolute-format version of this security descriptor without modifying the original security descriptor.
      * @param {Pointer} pAbsoluteSecurityDescriptor A pointer to a buffer that the function fills with the main body of an absolute-format security descriptor. This information is formatted as a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
@@ -3840,7 +3371,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible return codes include, but are not limited to, the following.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible return codes include, but are not limited to, the following.
      * 
      * 
      * 
@@ -3862,7 +3393,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-makeabsolutesd
      * @since windows5.1.2600
      */
     static MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSize, pDacl, lpdwDaclSize, pSacl, lpdwSaclSize, pOwner, lpdwOwnerSize, pPrimaryGroup, lpdwPrimaryGroupSize) {
@@ -3877,12 +3408,6 @@ class Security {
 
     /**
      * Creates a security descriptor in self-relative format by using a security descriptor in absolute format as a template.
-     * @remarks
-     * A security descriptor in absolute format contains pointers to the information it contains, rather than containing the information itself. A security descriptor in self-relative format contains the information in a contiguous block of memory. In a self-relative security descriptor, a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure always starts the information, but the security descriptor's other components can follow the structure in any order. Instead of using memory addresses, the components of the security descriptor are identified by offsets from the beginning of the security descriptor. This format is useful when a security descriptor must be stored on a floppy disk or transmitted by means of a communications protocol.
-     * 
-     * A server that copies secured objects to various media can use the <b>MakeSelfRelativeSD</b> function to create a self-relative security descriptor from an absolute security descriptor and the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function to create an absolute security descriptor from a self-relative security descriptor.
      * @param {Pointer<Void>} pAbsoluteSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in absolute format. The function creates a version of this security descriptor in self-relative format without modifying the original.
      * @param {Pointer} pSelfRelativeSecurityDescriptor A pointer to a buffer the function fills with a security descriptor in self-relative format.
@@ -3890,7 +3415,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.  Possible return codes include, but are not limited to, the following.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.  Possible return codes include, but are not limited to, the following.
      * 
      * 
      * 
@@ -3912,7 +3437,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-makeselfrelativesd
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-makeselfrelativesd
      * @since windows5.1.2600
      */
     static MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptor, lpdwBufferLength) {
@@ -3928,12 +3453,16 @@ class Security {
     /**
      * Maps the generic access rights in an access mask to specific and standard access rights. The function applies a mapping supplied in a GENERIC_MAPPING structure.
      * @remarks
+     * 
      * After calling the <b>MapGenericMask</b> function, the access mask pointed to by the <i>AccessMask</i> parameter has none of its generic bits (GenericRead, GenericWrite, GenericExecute, or GenericAll) or undefined bits set, although it can have other bits set. If bits other than the generic bits are provided on input, this function does not clear them.
+     * 
+     * 
+     * 
      * @param {Pointer<UInt32>} AccessMask A pointer to an access mask.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure specifying a mapping of generic access types to specific and standard access types.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-mapgenericmask
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-mapgenericmask
      * @since windows5.1.2600
      */
     static MapGenericMask(AccessMask, GenericMapping) {
@@ -3941,16 +3470,14 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log when a handle to a private object is deleted. (ObjectCloseAuditAlarmW)
-     * @remarks
-     * The <b>ObjectCloseAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, allowing the calling process to impersonate a client
+     * Generates an audit message in the security event log when a handle to a private object is deleted.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A unique value representing the client's handle to the object. This should be the same value that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> or <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw">ObjectOpenAuditAlarm</a> function.
      * @param {Integer} GenerateOnClose Specifies a flag set by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> or <b>ObjectCloseAuditAlarm</b> function when the object handle is created. If this flag is <b>TRUE</b>, the function generates an audit message. If it is <b>FALSE</b>, the function does not generate an audit message.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw
      */
     static ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -3960,17 +3487,15 @@ class Security {
     }
 
     /**
-     * The ObjectDeleteAuditAlarmW (Unicode) function (securitybaseapi.h) generates audit messages when an object is deleted.
-     * @remarks
-     * The <b>ObjectDeleteAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, allowing the calling process to impersonate a client.
+     * Generates audit messages when an object is deleted.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId Specifies a unique value representing the client's handle to the object. This must be the same value that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> or <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw">ObjectOpenAuditAlarm</a> function.
      * @param {Integer} GenerateOnClose Specifies a flag set by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw">AccessCheckAndAuditAlarm</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw">ObjectOpenAuditAlarm</a> function when the object handle is created.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectdeleteauditalarmw
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-objectdeleteauditalarmw
      */
     static ObjectDeleteAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -3980,9 +3505,7 @@ class Security {
     }
 
     /**
-     * Generates audit messages when a client application attempts to gain access to an object or to create a new one. (ObjectOpenAuditAlarmW)
-     * @remarks
-     * The <b>ObjectOpenAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. This allows the calling process to impersonate a client during the call.
+     * Generates audit messages when a client application attempts to gain access to an object or to create a new one.
      * @param {Pointer<Char>} SubsystemName A pointer to a <b>null</b>-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, this parameter is ignored.  
      * 
@@ -4001,8 +3524,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-objectopenauditalarmw
      */
     static ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -4014,11 +3537,7 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log.  (ObjectPrivilegeAuditAlarmW)
-     * @remarks
-     * The <b>ObjectPrivilegeAuditAlarm</b> function does not check the client's access to the object or check the client's access token to determine whether the privileges are held or enabled. Typically, you call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-privilegecheck">PrivilegeCheck</a> function to determine whether the specified privileges are enabled in the access token, call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheck">AccessCheck</a> function to check the client's access to the object, and then call <b>ObjectPrivilegeAuditAlarm</b> to log the results.
-     * 
-     * The <b>ObjectPrivilegeAuditAlarm</b> function requires the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> to have SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. This allows the calling process to impersonate a client during the call.
+     * Generates an audit message in the security event log.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in the audit message.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object.
      * @param {Pointer<Void>} ClientToken Identifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> representing the client that requested the operation. This handle must have been obtained by opening the token of a thread impersonating the client. The token must be open for TOKEN_QUERY access. The function uses this token to get the identity of the client for the audit message.
@@ -4027,8 +3546,8 @@ class Security {
      * @param {Integer} AccessGranted Indicates whether the client's attempt to use the privileges was successful. If this value is <b>TRUE</b>, the audit message indicates success. If this value is <b>FALSE</b>, the audit message indicates failure.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectprivilegeauditalarmw
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-objectprivilegeauditalarmw
      */
     static ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -4039,10 +3558,6 @@ class Security {
 
     /**
      * Determines whether a specified set of privileges are enabled in an access token.
-     * @remarks
-     * An access token contains a list of the privileges held by the account associated with the token. These privileges can be enabled or disabled; most are disabled by default. The <b>PrivilegeCheck</b> function checks only for enabled privileges. To get a list of all the enabled and disabled privileges held by an access token, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function. To enable or disable a set of privileges in an access token, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function.
      * @param {Pointer<Void>} ClientToken A handle to an access token representing a client <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>. This handle must have been obtained by opening the token of a thread impersonating the client. The token must be open for TOKEN_QUERY access.
      * @param {Pointer<PRIVILEGE_SET>} RequiredPrivileges A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure. The <b>Privilege</b> member of this structure is an array of 
@@ -4056,8 +3571,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-privilegecheck
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-privilegecheck
      * @since windows5.1.2600
      */
     static PrivilegeCheck(ClientToken, RequiredPrivileges, pfResult) {
@@ -4071,11 +3586,7 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log.  (PrivilegedServiceAuditAlarmW)
-     * @remarks
-     * The <b>PrivilegedServiceAuditAlarm</b> function does not check the client's access token to determine whether the privileges are held or enabled. Typically, you first call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-privilegecheck">PrivilegeCheck</a> function to determine whether the specified privileges are enabled in the access token, and then call <b>PrivilegedServiceAuditAlarm</b> to log the results.
-     * 
-     * The <b>PrivilegedServiceAuditAlarm</b> function requires the calling process to have SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process. This allows the calling process to impersonate a client during the call.
+     * Generates an audit message in the security event log.
      * @param {Pointer<Char>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This information appears in the security event log record.
      * @param {Pointer<Char>} ServiceName A pointer to a null-terminated string specifying the name of the privileged subsystem service. This information appears in the security event log record.
      * @param {Pointer<Void>} ClientToken Identifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> representing the client that requested the operation. This handle must have been obtained by opening the token of a thread impersonating the client. The token must be open for TOKEN_QUERY access. The function uses this token to get the identity of the client for the security event log record.
@@ -4084,8 +3595,8 @@ class Security {
      * @param {Integer} AccessGranted Indicates whether the client's attempt to use the privileges was successful. If this value is <b>TRUE</b>, the security event log record indicates success. If this value is <b>FALSE</b>, the security event log record indicates failure.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-privilegedserviceauditalarmw
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-privilegedserviceauditalarmw
      */
     static PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
         SubsystemName := SubsystemName is String? StrPtr(SubsystemName) : SubsystemName
@@ -4100,7 +3611,7 @@ class Security {
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
      * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
      * @since windows6.0.6000
      */
     static QuerySecurityAccessMask(SecurityInformation, DesiredAccess) {
@@ -4109,21 +3620,12 @@ class Security {
 
     /**
      * Terminates the impersonation of a client application.
-     * @remarks
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> should call the <b>RevertToSelf</b> function after finishing any impersonation begun by using the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeimpersonateclient">DdeImpersonateClient</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-impersonateddeclientwindow">ImpersonateDdeClientWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-impersonatenamedpipeclient">ImpersonateNamedPipeClient</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateself">ImpersonateSelf</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateanonymoustoken">ImpersonateAnonymousToken</a> or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadtoken">SetThreadToken</a> function.
-     * 
-     * An RPC server that used the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcimpersonateclient">RpcImpersonateClient</a> function to impersonate a client must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcreverttoself">RpcRevertToSelf</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcreverttoselfex">RpcRevertToSelfEx</a> to end the impersonation.
-     * 
-     * If <b>RevertToSelf</b> fails, your application continues to run in the context of the client, which is not appropriate. You should shut down the process if <b>RevertToSelf</b> fails.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-reverttoself
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-reverttoself
      * @since windows5.1.2600
      */
     static RevertToSelf() {
@@ -4155,8 +3657,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setaclinformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setaclinformation
      * @since windows5.1.2600
      */
     static SetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
@@ -4170,15 +3672,7 @@ class Security {
     }
 
     /**
-     * The SetFileSecurityW (Unicode) function (securitybaseapi.h) sets the security of a file or directory object.
-     * @remarks
-     * The <b>SetFileSecurity</b> function is successful only if the following conditions are met:
-     * 
-     * <ul>
-     * <li>If the owner of the object is being set, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have either WRITE_OWNER permission or be the owner of the object.</li>
-     * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the object is being set, the calling process must have either WRITE_DAC permission or be the owner of the object.</li>
-     * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the object is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
-     * </ul>
+     * Sets the security of a file or directory object.
      * @param {Pointer<Char>} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security is set. Note that security applied to a directory is not inherited by its children.
      * @param {Integer} SecurityInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that identifies the contents of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> pointed to by the <i>pSecurityDescriptor</i> parameter.
@@ -4186,8 +3680,8 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setfilesecurityw
+     * If the function fails, it returns zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setfilesecurityw
      */
     static SetFileSecurityW(lpFileName, SecurityInformation, pSecurityDescriptor) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
@@ -4208,8 +3702,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setkernelobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setkernelobjectsecurity
      * @since windows5.1.2600
      */
     static SetKernelObjectSecurity(Handle, SecurityInformation, SecurityDescriptor) {
@@ -4224,17 +3718,6 @@ class Security {
 
     /**
      * Modifies a private object's security descriptor.
-     * @remarks
-     * This function is intended for use by resource managers only. To implement the standard access control semantics for updating security descriptors, a resource manager should verify that the following conditions are met before calling <b>SetPrivateObjectSecurity</b>:
-     * 
-     * <ul>
-     * <li>If the object's owner is being set, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have either WRITE_OWNER permission or be the object's owner.</li>
-     * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) is being set, the calling process must have either WRITE_DAC permission or be the object's owner.</li>
-     * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
-     * </ul>
-     * If the preceding conditions are not met, a call to this function does not fail; however, standard access policy is not enforced.
-     * 
-     * The process calling this function should not be impersonating a client because clients do not typically have appropriate privileges required for underlying token operations.
      * @param {Integer} SecurityInformation Indicates the parts of the security descriptor to set. This value can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<Void>} ModificationDescriptor A pointer to a 
@@ -4251,8 +3734,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setprivateobjectsecurity
      * @since windows5.1.2600
      */
     static SetPrivateObjectSecurity(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, GenericMapping, Token) {
@@ -4267,88 +3750,6 @@ class Security {
 
     /**
      * Modifies the security descriptor of a private object maintained by the resource manager calling this function.
-     * @remarks
-     * If the <i>AutoInheritFlags</i> parameter is zero, <b>SetPrivateObjectSecurityEx</b> is identical to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurity">SetPrivateObjectSecurity</a> function.
-     * 
-     * This function is intended for use by resource managers only. To implement the standard Windows access control semantics for updating security descriptors, a resource manager should verify that the following conditions are met before calling <b>SetPrivateObjectSecurityEx</b>:
-     * 
-     * <ul>
-     * <li>If the object's owner is being set, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have either WRITE_OWNER permission or be the object's owner.</li>
-     * <li>If the object's DACL is being set, the calling process must have either WRITE_DAC permission or be the object's owner.</li>
-     * <li>If the object's SACL is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
-     * </ul>
-     * If the preceding conditions are not met, a call to this function does not fail, however, standard Windows access policy is not enforced.
-     * 
-     * The process calling this function should not be impersonating a client because clients do not typically have appropriate privileges required for underlying token operations.
-     * 
-     * If <i>AutoInheritFlags</i> specifies the SEF_DACL_AUTO_INHERIT bit, the function applies the following rules to the DACL to create the new security descriptor from the current descriptor:
-     * 
-     * <ul>
-     * <li>If the SE_DACL_PROTECTED flag is not set in the control bits of  either the current security descriptor or the <i>ModificationDescriptor</i>, the function constructs the output security descriptor from the inherited ACEs of the current security descriptor and noninherited ACEs of <i>ModificationDescriptor</i>. That is, it is impossible to change an inherited ACE by changing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) on an object. This behavior preserves the inherited ACEs as they were inherited from the parent container. 
-     * 
-     * 
-     * An ACL editor should make inherited ACEs unavailable to prevent them from being modified.
-     * 
-     * </li>
-     * <li>If SE_DACL_PROTECTED is set in 
-     *       <i>ModificationDescriptor</i>, the current security descriptor is ignored. The output security descriptor is built as a copy of 
-     *       <i>ModificationDescriptor</i> with any INHERITED_ACE bits turned off. 
-     * 
-     * 
-     * Ideally an ACL editor should turn off the INHERITED_ACE bits that indicate to its caller that the ACEs inherited from the object's parent are now being explicitly set on the object.
-     * 
-     * </li>
-     * <li>If SE_DACL_PROTECTED is set in the current security descriptor and not in 
-     *       <i>ModificationDescriptor</i>, the current security descriptor is ignored. The output security descriptor is built as a copy of 
-     *       <i>ModificationDescriptor</i>. It is the caller's responsibility to ensure that the correct ACEs have the INHERITED_ACE bit turned on.</li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> specifies the SEF_SACL_AUTO_INHERIT bit, the function applies similar rules to the new SACL.
-     * 
-     * For both DACLs and SACLs, certain types of ACEs in the input <i>ObjectsSecurityDescriptor</i> and in <i>ModificationDescriptor</i> will be replaced by two ACEs in the output <i>ObjectsSecurityDescriptor</i>. Specifically, an inheritable ACE that contains at least one of the following mappable elements will result in two ACEs in the output <i>ObjectsSecurityDescriptor</i>. Mappable elements include:
-     * 
-     * <ul>
-     * <li>Generic access rights in the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure</li>
-     * <li>Creator Owner SID or Creator Group SID as the ACE subject identifier</li>
-     * </ul>
-     * ACEs with any of these mappable elements will result in the following two ACEs in the output <i>ObjectsSecurityDescriptor</i>:
-     * 
-     * <ul>
-     * <li>An ACE that is a copy of the original, but with the INHERIT_ONLY flag set</li>
-     * <li>An ACE in which the INHERITED_ACE bit is turned on and the generic elements are mapped to specific elements: 
-     * 
-     * 
-     * <ul>
-     * <li>Generic access rights are replaced by the corresponding standard and specific access rights indicated in the input <i>GenericMapping</i>.</li>
-     * <li>Creator Owner SID is replaced with the Owner in the output <i>SecurityDescriptor</i></li>
-     * <li>Creator Group SID is replaced with the Group in the output <i>SecurityDescriptor</i></li>
-     * </ul>
-     * </li>
-     * </ul>
-     * If <i>AutoInheritFlags</i> does not specify the SEF_AVOID_PRIVILEGE_CHECK bit, owner validity checking is performed according to the following rules. The Owner in <i>ModificationDescriptor</i>:
-     * 
-     * <ul>
-     * <li>Must be a legally formed SID</li>
-     * <li>Must match the TokenUser in <i>Token</i></li>
-     * </ul>
-     * Or
-     * 
-     * <ul>
-     * <li>Must match a group in the TokenGroups in <i>Token</i> where the attributes on the group: 
-     * 
-     * 
-     * <ul>
-     * <li>Include SE_GROUP_OWNER</li>
-     * <li>Include SE_GROUP_USE_FOR_DENY_ONLY</li>
-     * </ul>
-     * </li>
-     * </ul>
-     * A resource manager that is setting the Owner on a subtree of objects can avoid the overhead of redundant owner validity checking. If the Owner in <i>ModificationDescriptor</i> and <i>Token</i> remain the same for iterative calls to this function, the SEF_AVOID_PRIVILEGE_CHECK bit may be set in <i>AutoInheritFlags</i> for calls subsequent to an initial call in which owner validity checking is performed. Callers that do not have access to the token of the client that will ultimately be setting the owner should also choose to skip owner validation checking.
-     * 
-     * <div class="alert"><b>Note</b>  The SEF_AVOID_PRIVILEGE_CHECK bit as used in the 
-     * <b>SetPrivateObjectSecurityEx</b> function is equivalent to the SEF_AVOID_OWNER_CHECK bit used in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex">CreatePrivateObjectSecurityEx</a> function.</div>
-     * <div> </div>
      * @param {Integer} SecurityInformation The parts of the security descriptor to set. This value can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<Void>} ModificationDescriptor A pointer to a 
@@ -4367,8 +3768,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurityex
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setprivateobjectsecurityex
      * @since windows5.1.2600
      */
     static SetPrivateObjectSecurityEx(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, AutoInheritFlags, GenericMapping, Token) {
@@ -4386,7 +3787,7 @@ class Security {
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
      * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
      * @since windows6.0.6000
      */
     static SetSecurityAccessMask(SecurityInformation, DesiredAccess) {
@@ -4395,8 +3796,6 @@ class Security {
 
     /**
      * Sets the control bits of a security descriptor. The function can set only the control bits that relate to automatic inheritance of ACEs.
-     * @remarks
-     * The <b>SetSecurityDescriptorControl</b> function specifies the control bit or bits to modify, and whether the bits are on or off.
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure whose control and revision information are set.
      * @param {Integer} ControlBitsOfInterest A 
@@ -4405,8 +3804,8 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a> mask that indicates the new values for the control bits specified by the <i>ControlBitsOfInterest</i> mask.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorcontrol
+     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorcontrol
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorControl(pSecurityDescriptor, ControlBitsOfInterest, ControlBitsToSet) {
@@ -4421,18 +3820,6 @@ class Security {
 
     /**
      * Sets information in a discretionary access control list (DACL). If a DACL is already present in the security descriptor, the DACL is replaced.
-     * @remarks
-     * There is an important difference between an empty and a nonexistent DACL. When a DACL is empty, it contains no <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs); therefore, no access rights are explicitly granted. As a result, access to the object is implicitly denied.
-     * 
-     * When an object has no DACL (when the <i>pDacl</i> parameter is <b>NULL</b>), no protection is assigned to the object, and all access requests are granted. To help maintain security, restrict access by using a DACL.
-     * 
-     * There are three possible outcomes in different configurations of the <i>bDaclPresent</i> flag and the <i>pDacl</i> parameter:
-     * 
-     * <ul>
-     * <li>When the <i>pDacl</i> parameter points to a DACL and the <i>bDaclPresent</i> flag is <b>TRUE</b>, a DACL is specified and it must contain access-allowed ACEs to allow access to the object.</li>
-     * <li>When the <i>pDacl</i> parameter does not point to a DACL and the <i>bDaclPresent</i> flag is <b>TRUE</b>, a <b>NULL</b> DACL is specified. All access is allowed. You should not use a <b>NULL</b> DACL with an object because any user can change the DACL and owner of the security descriptor. This will interfere with use of the object.</li>
-     * <li>When the <i>pDacl</i> parameter does not point to a DACL and the <i>bDaclPresent</i> flag is <b>FALSE</b>, a DACL can be provided for the object through an inheritance or default mechanism.</li>
-     * </ul>
      * @param {Pointer<Void>} pSecurityDescriptor A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure to which the function adds the DACL. This security descriptor must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute</a> format, meaning that its members must be pointers to other structures, rather than offsets to contiguous data.
      * @param {Integer} bDaclPresent A flag that indicates the presence of a DACL in the security descriptor. If this parameter is <b>TRUE</b>, the function sets the SE_DACL_PRESENT flag in the 
@@ -4443,8 +3830,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptordacl
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptordacl
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorDacl(pSecurityDescriptor, bDaclPresent, pDacl, bDaclDefaulted) {
@@ -4468,8 +3855,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorgroup
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorgroup
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, bGroupDefaulted) {
@@ -4493,8 +3880,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorowner
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorowner
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, bOwnerDefaulted) {
@@ -4509,15 +3896,11 @@ class Security {
 
     /**
      * Sets the resource manager control bits in the SECURITY_DESCRIPTOR structure.
-     * @remarks
-     * The resource manager control bits are eight bits in the <b>Sbz1</b> member of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol">GetSecurityDescriptorRMControl</a> and <b>SetSecurityDescriptorRMControl</b> functions.
      * @param {Pointer<Void>} SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits.
      * @param {Pointer<Byte>} RMControl A pointer to the bitfield value that the resource manager control bits in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure will be set to. If the value of this parameter is <b>NULL</b>, the resource manager control bits will be cleared.
      * @returns {Integer} The return value is ERROR_SUCCESS.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorRMControl(SecurityDescriptor, RMControl) {
@@ -4537,8 +3920,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorsacl
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorsacl
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorSacl(pSecurityDescriptor, bSaclPresent, pSacl, bSaclDefaulted) {
@@ -4553,10 +3936,6 @@ class Security {
 
     /**
      * Sets various types of information for a specified access token.
-     * @remarks
-     * To set privilege information, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function. To set a token's groups, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokengroups">AdjustTokenGroups</a> function.
-     * 
-     * Token-type information can be set only when an access token is created.
      * @param {Pointer<Void>} TokenHandle A handle to the access token for which information is to be set.
      * @param {Integer} TokenInformationClass A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_information_class">TOKEN_INFORMATION_CLASS</a> enumerated type that identifies the type of information the function sets. The valid values from <b>TOKEN_INFORMATION_CLASS</b> are described in the <i>TokenInformation</i> parameter.
@@ -4565,8 +3944,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-settokeninformation
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-settokeninformation
      * @since windows5.1.2600
      */
     static SetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength) {
@@ -4580,22 +3959,12 @@ class Security {
     }
 
     /**
-     * Sets the cached signing level.
-     * @param {Pointer<Void>} SourceFiles Pointer to a set of source file handles.
-     * @param {Integer} SourceFileCount The source file count.
-     * @param {Integer} Flags The flags set for the file. The following *Flags* are supported:
      * 
-     * | Flag | Value |
-     * |--------|--------|
-     * | **SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED** | `0x01` |
-     * | **SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY** | `0x04` |
-     * 
-     * Using these flags together (**SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED \| SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY**) indicates that the file should be validated.
-     * @param {Pointer<Void>} TargetFile The target file.
-     * @returns {Integer} If the function succeeds, it returns **TRUE**.
-     * 
-     * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
+     * @param {Pointer<Void>} SourceFiles 
+     * @param {Integer} SourceFileCount 
+     * @param {Integer} Flags 
+     * @param {Pointer<Void>} TargetFile 
+     * @returns {Integer} 
      */
     static SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
         result := DllCall("KERNEL32.dll\SetCachedSigningLevel", "ptr", SourceFiles, "uint", SourceFileCount, "uint", Flags, "ptr", TargetFile, "int")
@@ -4603,24 +3972,14 @@ class Security {
     }
 
     /**
-     * Retrieves the cached signing level.
-     * @param {Pointer<Void>} File Handle to a file.
-     * @param {Pointer<UInt32>} Flags Pointer to the flags set on the file. The following *Flags* are supported:
      * 
-     * | Flag | Value |
-     * |--------|--------|
-     * | **SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED** | `0x01` |
-     * | **SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY** | `0x04` |
-     * 
-     * Using these flags together (**SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED \| SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY**) indicates that the file was validated.
-     * @param {Pointer<UInt32>} SigningLevel Pointer to the signing level.
-     * @param {Pointer} Thumbprint Pointer to the thumbprint.
-     * @param {Pointer<UInt32>} ThumbprintSize Pointer to the thumbprint size.
-     * @param {Pointer<UInt32>} ThumbprintAlgorithm Pointer to the thumbprint algorithm.
-     * @returns {Integer} If the function succeeds, it returns **TRUE**.
-     * 
-     * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getcachedsigninglevel
+     * @param {Pointer<Void>} File 
+     * @param {Pointer<UInt32>} Flags 
+     * @param {Pointer<UInt32>} SigningLevel 
+     * @param {Pointer} Thumbprint 
+     * @param {Pointer<UInt32>} ThumbprintSize 
+     * @param {Pointer<UInt32>} ThumbprintAlgorithm 
+     * @returns {Integer} 
      */
     static GetCachedSigningLevel(File, Flags, SigningLevel, Thumbprint, ThumbprintSize, ThumbprintAlgorithm) {
         result := DllCall("KERNEL32.dll\GetCachedSigningLevel", "ptr", File, "uint*", Flags, "uint*", SigningLevel, "ptr", Thumbprint, "uint*", ThumbprintSize, "uint*", ThumbprintAlgorithm, "int")
@@ -4629,10 +3988,6 @@ class Security {
 
     /**
      * This function constructs two arrays of SIDs out of a capability name. One is an array group SID with NT Authority, and the other is an array of capability SIDs with AppAuthority.
-     * @remarks
-     * The caller is expected to free the individual SIDs returned in each array by calling `LocalFree`, as well as memory allocated for the array itself.
-     * 
-     * The SID computed for the application capability of legacy capabilities (published prior to Win10) will be the same as the published SIDs but the SID for the service group capability SID will be hash based.
      * @param {Pointer<Char>} CapName Name of the capability in string form.
      * @param {Pointer<Void>} CapabilityGroupSids The GroupSids with NTAuthority.
      * @param {Pointer<UInt32>} CapabilityGroupSidCount The count of GroupSids in the array.
@@ -4641,8 +3996,8 @@ class Security {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-derivecapabilitysidsfromname
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-derivecapabilitysidsfromname
      */
     static DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGroupSidCount, CapabilitySids, CapabilitySidCount) {
         CapName := CapName is String? StrPtr(CapName) : CapName
@@ -4672,8 +4027,6 @@ class Security {
 
     /**
      * Sets the security of a user object. This can be, for example, a window or a DDE conversation.
-     * @remarks
-     * The <b>SetUserObjectSecurity</b> function applies changes specified in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> to the security descriptor assigned to a user object. The security descriptor of the object must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> form. If necessary, this function allocates additional memory to increase the size of the security descriptor.
      * @param {Pointer<Void>} hObj A handle to a user object for which security information is set.
      * @param {Pointer<UInt32>} pSIRequested 
      * @param {Pointer<Void>} pSID A pointer to a 
@@ -4686,8 +4039,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setuserobjectsecurity
      * @since windows5.1.2600
      */
     static SetUserObjectSecurity(hObj, pSIRequested, pSID) {
@@ -4702,10 +4055,6 @@ class Security {
 
     /**
      * Retrieves security information for the specified user object.
-     * @remarks
-     * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) from the user object's security descriptor, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have been granted READ_CONTROL access when the handle was opened.
-     * 
-     * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The correct way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
      * @param {Pointer<Void>} hObj A handle to the user object for which to return security information.
      * @param {Pointer<UInt32>} pSIRequested A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information being requested.
@@ -4717,8 +4066,8 @@ class Security {
      * 						
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getuserobjectsecurity
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getuserobjectsecurity
      * @since windows5.1.2600
      */
     static GetUserObjectSecurity(hObj, pSIRequested, pSID, nLength, lpnLengthNeeded) {
@@ -4732,13 +4081,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. (AccessCheckAndAuditAlarmA)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckAndAuditAlarm</b> function requires the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread.
-     * 
-     * The <b>AccessCheckAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
+     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Byte>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -4762,8 +4105,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckandauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-accesscheckandauditalarma
      * @since windows5.1.2600
      */
     static AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
@@ -4781,25 +4124,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. (AccessCheckByTypeAndAuditAlarmA)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * If the <i>PrincipalSelfSid</i> and <i>ObjectTypeList</i> parameters are <b>NULL</b>, the <i>AuditType</i> parameter is <i>AuditEventObjectAccess</i>, and the <i>Flags</i> parameter is zero, <b>AccessCheckByTypeAndAuditAlarm</b> performs in the same way as the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a> function.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeAndAuditAlarm</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array. Thus, the results returned in the <i>AccessStatus</i> parameter indicate the access allowed to the subset of the object defined by the <i>ObjectTypeList</i> parameter, not to the entire object.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeAndAuditAlarm</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Byte>} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -4843,8 +4168,8 @@ class Security {
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytypeandauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-accesscheckbytypeandauditalarma
      * @since windows5.1.2600
      */
     static AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
@@ -4862,26 +4187,7 @@ class Security {
     }
 
     /**
-     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread. (AccessCheckByTypeResultListAndAuditAlarmA)
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function is a combination of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist">AccessCheckByTypeResultList</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a> functions.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarm</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeResultListAndAuditAlarm</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client being impersonated by the calling thread.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Byte>} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
@@ -4914,8 +4220,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
@@ -4933,27 +4239,7 @@ class Security {
     }
 
     /**
-     * The AccessCheckByTypeResultListAndAuditAlarmByHandleA (ANSI) function (winbase.h) determines whether a security descriptor grants a specified set of access rights to the client that the calling thread is impersonating.
-     * @remarks
-     * For more information, see the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How AccessCheck Works</a> overview.
-     * 
-     * Like 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma">AccessCheckByTypeResultListAndAuditAlarm</a>, the <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function is a combination of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist">AccessCheckByTypeResultList</a> and 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a> functions. However, <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> also requires a client token handle to provide security information on the client.
-     * 
-     * The <i>ObjectTypeList</i> array does not necessarily represent the entire defined object. Rather, it represents that subset of the object for which to check access. For instance, to check access to two properties in a property set, specify an object type list with four elements: the object itself at level zero, the property set at level 1, and the two properties at level 2.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function evaluates ACEs that apply to the object itself and object-specific ACEs for the object types listed in the <i>ObjectTypeList</i> array. The function ignores object-specific ACEs for object types not listed in the <i>ObjectTypeList</i> array.
-     * 
-     * For more information about how a hierarchy of ACEs controls access to an object and its subobjects, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/aces-to-control-access-to-an-object-s-properties">ACEs to Control Access to an Object's Properties</a>.
-     * 
-     * To generate audit messages in the security event log, the calling process must have the SE_AUDIT_NAME privilege enabled. The system checks for this privilege in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. If the <i>Flags</i> parameter includes the AUDIT_ALLOW_NO_PRIVILEGE flag, the function performs the access check without generating audit messages when the privilege is not enabled.
-     * 
-     * The <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> function fails if the calling thread is not impersonating a client.
-     * 
-     * If the security descriptor does not contain owner and group SIDs, <b>AccessCheckByTypeResultListAndAuditAlarmByHandle</b> fails with ERROR_INVALID_SECURITY_DESCR.
+     * Determines whether a security descriptor grants a specified set of access rights to the client that the calling thread is impersonating.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string that specifies the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {Pointer<Void>} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
@@ -4987,8 +4273,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarmbyhandlea
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-accesscheckbytyperesultlistandauditalarmbyhandlea
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
@@ -5006,9 +4292,7 @@ class Security {
     }
 
     /**
-     * Generates audit messages when a client application attempts to gain access to an object or to create a new one. (ObjectOpenAuditAlarmA)
-     * @remarks
-     * The <b>ObjectOpenAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. This allows the calling process to impersonate a client during the call.
+     * Generates audit messages when a client application attempts to gain access to an object or to create a new one.
      * @param {Pointer<Byte>} SubsystemName A pointer to a <b>null</b>-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, this parameter is ignored.  
      * 
@@ -5032,8 +4316,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectopenauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-objectopenauditalarma
      * @since windows5.1.2600
      */
     static ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
@@ -5051,13 +4335,7 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log. (ObjectPrivilegeAuditAlarmA)
-     * @remarks
-     * The <b>ObjectPrivilegeAuditAlarm</b> function does not check the client's access to the object or check the client's access token to determine whether the privileges are held or enabled. Typically, you call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-privilegecheck">PrivilegeCheck</a> function to determine whether the specified privileges are enabled in the access token, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheck">AccessCheck</a> function to check the client's access to the object, and then call <b>ObjectPrivilegeAuditAlarm</b> to log the results.
-     * 
-     * The <b>ObjectPrivilegeAuditAlarm</b> function requires the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> to have SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process, not the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> of the thread. This allows the calling process to impersonate a client during the call.
+     * Generates an audit message in the security event log.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in the audit message.
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object.
      * @param {Pointer<Void>} ClientToken Identifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> representing the client that requested the operation. This handle must have been obtained by opening the token of a thread impersonating the client. The token must be open for TOKEN_QUERY access. The function uses this token to get the identity of the client for the audit message.
@@ -5069,8 +4347,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectprivilegeauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-objectprivilegeauditalarma
      * @since windows5.1.2600
      */
     static ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
@@ -5086,9 +4364,7 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log when a handle to a private object is deleted. (ObjectCloseAuditAlarmA)
-     * @remarks
-     * The <b>ObjectCloseAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, allowing the calling process to impersonate a client.
+     * Generates an audit message in the security event log when a handle to a private object is deleted.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId A unique value representing the client's handle to the object. This should be the same value that was passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectopenauditalarma">ObjectOpenAuditAlarm</a> function.
@@ -5096,8 +4372,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectcloseauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-objectcloseauditalarma
      * @since windows5.1.2600
      */
     static ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
@@ -5113,9 +4389,7 @@ class Security {
     }
 
     /**
-     * The ObjectDeleteAuditAlarmA (ANSI) function (winbase.h) generates audit messages when an object is deleted.
-     * @remarks
-     * The <b>ObjectDeleteAuditAlarm</b> function requires the calling application to have the SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>, allowing the calling process to impersonate a client.
+     * Generates audit messages when an object is deleted.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This string appears in any audit message that the function generates.
      * @param {Pointer<Void>} HandleId Specifies a unique value representing the client's handle to the object. This must be the same value that was passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-accesscheckandauditalarma">AccessCheckAndAuditAlarm</a> or 
@@ -5126,8 +4400,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectdeleteauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-objectdeleteauditalarma
      * @since windows5.1.2600
      */
     static ObjectDeleteAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
@@ -5143,12 +4417,7 @@ class Security {
     }
 
     /**
-     * Generates an audit message in the security event log. (PrivilegedServiceAuditAlarmA)
-     * @remarks
-     * The <b>PrivilegedServiceAuditAlarm</b> function does not check the client's access token to determine whether the privileges are held or enabled. Typically, you first call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-privilegecheck">PrivilegeCheck</a> function to determine whether the specified privileges are enabled in the access token, and then call <b>PrivilegedServiceAuditAlarm</b> to log the results.
-     * 
-     * The <b>PrivilegedServiceAuditAlarm</b> function requires the calling process to have SE_AUDIT_NAME privilege enabled. The test for this privilege is always performed against the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a> of the calling process. This allows the calling process to impersonate a client during the call.
+     * Generates an audit message in the security event log.
      * @param {Pointer<Byte>} SubsystemName A pointer to a null-terminated string specifying the name of the subsystem calling the function. This information appears in the security event log record.
      * @param {Pointer<Byte>} ServiceName A pointer to a null-terminated string specifying the name of the privileged subsystem service. This information appears in the security event log record.
      * @param {Pointer<Void>} ClientToken Identifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> representing the client that requested the operation. This handle must have been obtained by opening the token of a thread impersonating the client. The token must be open for TOKEN_QUERY access. The function uses this token to get the identity of the client for the security event log record.
@@ -5158,8 +4427,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-privilegedserviceauditalarma
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-privilegedserviceauditalarma
      * @since windows5.1.2600
      */
     static PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
@@ -5193,7 +4462,7 @@ class Security {
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -5212,7 +4481,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addconditionalace
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-addconditionalace
      * @since windows6.1
      */
     static AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, pSid, ConditionStr, ReturnLength) {
@@ -5228,15 +4497,7 @@ class Security {
     }
 
     /**
-     * The SetFileSecurityA (ANSI) function (winbase.h) sets the security of a file or directory object.
-     * @remarks
-     * The <b>SetFileSecurity</b> function is successful only if the following conditions are met:
-     * 
-     * <ul>
-     * <li>If the owner of the object is being set, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have either WRITE_OWNER permission or be the owner of the object.</li>
-     * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the object is being set, the calling process must have either WRITE_DAC permission or be the owner of the object.</li>
-     * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the object is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
-     * </ul>
+     * Sets the security of a file or directory object.
      * @param {Pointer<Byte>} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security is set. Note that security applied to a directory is not inherited by its children.
      * @param {Integer} SecurityInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that identifies the contents of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> pointed to by the <i>pSecurityDescriptor</i> parameter.
@@ -5245,8 +4506,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfilesecuritya
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setfilesecuritya
      * @since windows5.1.2600
      */
     static SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor) {
@@ -5262,11 +4523,7 @@ class Security {
     }
 
     /**
-     * Obtains specified information about the security of a file or directory. The information obtained is constrained by the caller's access rights and privileges. (GetFileSecurityA)
-     * @remarks
-     * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">DACL</a> from the security descriptor for the specified file or directory, the DACL for the file or directory must grant READ_CONTROL access to the caller, or the caller must be the owner of the file or directory.
-     * 
-     * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SACL</a> of a file or directory, the SE_SECURITY_NAME privilege must be enabled for the calling process.
+     * Obtains specified information about the security of a file or directory. The information obtained is constrained by the caller's access rights and privileges.
      * @param {Pointer<Byte>} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security information is retrieved.
      * @param {Integer} RequestedInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
@@ -5277,8 +4534,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfilesecuritya
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getfilesecuritya
      * @since windows5.1.2600
      */
     static GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -5294,13 +4551,7 @@ class Security {
     }
 
     /**
-     * Accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found. (ANSI)
-     * @remarks
-     * The <b>LookupAccountSid</b> function attempts to find a name for the specified SID by first checking a list of well-known SIDs. If the supplied SID does not correspond to a well-known SID, the function checks built-in and administratively defined local accounts. Next, the function checks the primary domain. <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Security identifiers</a> not recognized by the primary domain are checked against the trusted domains that correspond to their SID prefixes.
-     * 
-     * If the function cannot find an account name for the SID, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NONE_MAPPED. This can occur if a network time-out prevents the function from finding the name. It also occurs for SIDs that have no corresponding account name, such as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon SID</a> that identifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.
-     * 
-     * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
+     * Accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found.
      * @param {Pointer<Byte>} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
      * @param {Pointer<Void>} Sid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
@@ -5320,8 +4571,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountsida
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupaccountsida
      * @since windows5.1.2600
      */
     static LookupAccountSidA(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
@@ -5339,13 +4590,7 @@ class Security {
     }
 
     /**
-     * Accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found. (Unicode)
-     * @remarks
-     * The <b>LookupAccountSid</b> function attempts to find a name for the specified SID by first checking a list of well-known SIDs. If the supplied SID does not correspond to a well-known SID, the function checks built-in and administratively defined local accounts. Next, the function checks the primary domain. <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Security identifiers</a> not recognized by the primary domain are checked against the trusted domains that correspond to their SID prefixes.
-     * 
-     * If the function cannot find an account name for the SID, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NONE_MAPPED. This can occur if a network time-out prevents the function from finding the name. It also occurs for SIDs that have no corresponding account name, such as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon SID</a> that identifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.
-     * 
-     * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
+     * Accepts a security identifier (SID) as input. It retrieves the name of the account for this SID and the name of the first domain on which this SID is found.
      * @param {Pointer<Char>} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
      * @param {Pointer<Void>} Sid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
@@ -5365,8 +4610,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountsidw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupaccountsidw
      * @since windows5.1.2600
      */
     static LookupAccountSidW(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
@@ -5384,20 +4629,7 @@ class Security {
     }
 
     /**
-     * Accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found. (ANSI)
-     * @remarks
-     * The <b>LookupAccountName</b> function attempts to find a SID for the specified name by first checking a list of well-known SIDs. If the name does not correspond to a well-known SID, the function checks built-in and administratively defined local accounts. Next, the function checks the primary domain. If the name is not found there, trusted domains are checked.
-     * 
-     * Use fully qualified account names (for example, domain_name\user_name) instead of isolated names (for example, user_name). Fully qualified names are unambiguous and provide better performance when the lookup is performed. This function also supports fully qualified DNS names (for example, example.example.com\user_name) and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal names</a> (UPN) (for example, someone@example.com).
-     * 
-     * In addition to looking up local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountName</b> can look up the name for any account in any domain in the forest.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupAccountName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found.
      * @param {Pointer<Byte>} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the name of the system. This string can be the name of a remote computer. If this string is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
      * @param {Pointer<Byte>} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
@@ -5412,8 +4644,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountnamea
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupaccountnamea
      * @since windows5.1.2600
      */
     static LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
@@ -5431,20 +4663,7 @@ class Security {
     }
 
     /**
-     * Accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found. (Unicode)
-     * @remarks
-     * The <b>LookupAccountName</b> function attempts to find a SID for the specified name by first checking a list of well-known SIDs. If the name does not correspond to a well-known SID, the function checks built-in and administratively defined local accounts. Next, the function checks the primary domain. If the name is not found there, trusted domains are checked.
-     * 
-     * Use fully qualified account names (for example, domain_name\user_name) instead of isolated names (for example, user_name). Fully qualified names are unambiguous and provide better performance when the lookup is performed. This function also supports fully qualified DNS names (for example, example.example.com\user_name) and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal names</a> (UPN) (for example, someone@example.com).
-     * 
-     * In addition to looking up local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountName</b> can look up the name for any account in any domain in the forest.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupAccountName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Accepts the name of a system and an account as input. It retrieves a security identifier (SID) for the account and the name of the domain on which the account was found.
      * @param {Pointer<Char>} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the name of the system. This string can be the name of a remote computer. If this string is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
      * @param {Pointer<Char>} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
@@ -5459,8 +4678,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. For extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountnamew
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupaccountnamew
      * @since windows5.1.2600
      */
     static LookupAccountNameW(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
@@ -5478,9 +4697,7 @@ class Security {
     }
 
     /**
-     * Retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name. (ANSI)
-     * @remarks
-     * The <b>LookupPrivilegeValue</b> function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
+     * Retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name.
      * @param {Pointer<Byte>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<Byte>} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant, SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".
      * @param {Pointer<LUID>} lpLuid A pointer to a variable that receives the LUID by which the privilege is known on the system specified by the <i>lpSystemName</i> parameter.
@@ -5488,8 +4705,8 @@ class Security {
      * 						
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegevaluea
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegevaluea
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueA(lpSystemName, lpName, lpLuid) {
@@ -5506,9 +4723,7 @@ class Security {
     }
 
     /**
-     * Retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name. (Unicode)
-     * @remarks
-     * The <b>LookupPrivilegeValue</b> function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
+     * Retrieves the locally unique identifier (LUID) used on a specified system to locally represent the specified privilege name.
      * @param {Pointer<Char>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<Char>} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in the Winnt.h header file. For example, this parameter could specify the constant, SE_SECURITY_NAME, or its corresponding string, "SeSecurityPrivilege".
      * @param {Pointer<LUID>} lpLuid A pointer to a variable that receives the LUID by which the privilege is known on the system specified by the <i>lpSystemName</i> parameter.
@@ -5516,8 +4731,8 @@ class Security {
      * 						
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegevaluew
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegevaluew
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueW(lpSystemName, lpName, lpLuid) {
@@ -5534,16 +4749,7 @@ class Security {
     }
 
     /**
-     * Retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID). (ANSI)
-     * @remarks
-     * The <b>LookupPrivilegeName</b> function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupPrivilegeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID).
      * @param {Pointer<Byte>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<LUID>} lpLuid A pointer to the LUID by which the privilege is known on the target system.
      * @param {Pointer<Byte>} lpName A pointer to a buffer that receives a null-terminated string that represents the privilege name. For example, this string could be "SeSecurityPrivilege".
@@ -5552,8 +4758,8 @@ class Security {
      * 						
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegenamea
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegenamea
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cchName) {
@@ -5570,16 +4776,7 @@ class Security {
     }
 
     /**
-     * Retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID). (Unicode)
-     * @remarks
-     * The <b>LookupPrivilegeName</b> function supports only the privileges specified in the Defined Privileges section of Winnt.h. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupPrivilegeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the name that corresponds to the privilege represented on a specific system by a specified locally unique identifier (LUID).
      * @param {Pointer<Char>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<LUID>} lpLuid A pointer to the LUID by which the privilege is known on the target system.
      * @param {Pointer<Char>} lpName A pointer to a buffer that receives a null-terminated string that represents the privilege name. For example, this string could be "SeSecurityPrivilege".
@@ -5588,8 +4785,8 @@ class Security {
      * 						
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegenamew
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegenamew
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cchName) {
@@ -5606,16 +4803,7 @@ class Security {
     }
 
     /**
-     * Retrieves the display name that represents a specified privilege. (ANSI)
-     * @remarks
-     * The <b>LookupPrivilegeDisplayName</b> function retrieves display names only for the privileges specified in the Defined Privileges section of Winnt.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupPrivilegeDisplayName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the display name that represents a specified privilege.
      * @param {Pointer<Byte>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the  privilege name is retrieved. If a null string is specified, the function attempts to find the display name on the local system.
      * @param {Pointer<Byte>} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * @param {Pointer<Byte>} lpDisplayName A pointer to a buffer that receives a null-terminated string that specifies the privilege display name. For example, if the <i>lpName</i> parameter is SE_REMOTE_SHUTDOWN_NAME, the privilege display name is "Force shutdown from a remote system."
@@ -5625,8 +4813,8 @@ class Security {
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegedisplaynamea
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegedisplaynamea
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
@@ -5644,16 +4832,7 @@ class Security {
     }
 
     /**
-     * Retrieves the display name that represents a specified privilege. (Unicode)
-     * @remarks
-     * The <b>LookupPrivilegeDisplayName</b> function retrieves display names only for the privileges specified in the Defined Privileges section of Winnt.h.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LookupPrivilegeDisplayName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * Retrieves the display name that represents a specified privilege.
      * @param {Pointer<Char>} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the  privilege name is retrieved. If a null string is specified, the function attempts to find the display name on the local system.
      * @param {Pointer<Char>} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * @param {Pointer<Char>} lpDisplayName A pointer to a buffer that receives a null-terminated string that specifies the privilege display name. For example, if the <i>lpName</i> parameter is SE_REMOTE_SHUTDOWN_NAME, the privilege display name is "Force shutdown from a remote system."
@@ -5663,8 +4842,8 @@ class Security {
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegedisplaynamew
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-lookupprivilegedisplaynamew
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
@@ -5682,27 +4861,7 @@ class Security {
     }
 
     /**
-     * The Win32 LogonUser function attempts to log a user on to the local computer. LogonUser returns a handle to a user token that you can use to impersonate user. (ANSI)
-     * @remarks
-     * The LOGON32_LOGON_NETWORK logon type is fastest, but it has the following limitations:
-     * 
-     * <ul>
-     * <li>The function returns an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, not a primary token. You cannot use this token directly in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function. However, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function to convert the token to a primary token, and then use it in <b>CreateProcessAsUser</b>.</li>
-     * <li>If you convert the token to a primary token and use it in <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> to start a process, the new process cannot access other network resources, such as remote servers or printers, through the redirector. An exception is that if the network resource is not access controlled, then the new process will be able to access it.</li>
-     * </ul>
-     * 
-     * 
-     * The SE_TCB_NAME privilege is not required for this function unless you are logging onto a Passport account.
-     * 
-     * The account specified by <i>lpszUsername</i>, must have the necessary account rights. For example, to log on a user with the LOGON32_LOGON_INTERACTIVE flag, the user (or a group to which the user belongs) must have the SE_INTERACTIVE_LOGON_NAME account right. For a list of the account rights that affect the various logon operations, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/account-rights-constants">Account Rights Constants</a>.
-     * 
-     * A user is considered logged on if at least one token exists. If you call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> and then close the token, the system considers the user as still logged on until the process (and all child processes) have ended.
-     * 
-     * If the <b>LogonUser</b> call is successful, the system notifies network providers that the logon occurred by calling the provider's <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-nplogonnotify">NPLogonNotify</a> entry-point function.
+     * The Win32 LogonUser function attempts to log a user on to the local computer. LogonUser returns a handle to a user token that you can use to impersonate user.
      * @param {Pointer<Byte>} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, <i>User</i><b>@</b><i>DNSDomainName</i>, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {Pointer<Byte>} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {Pointer<Byte>} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -5721,8 +4880,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonusera
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-logonusera
      * @since windows5.1.2600
      */
     static LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
@@ -5740,27 +4899,7 @@ class Security {
     }
 
     /**
-     * The Win32 LogonUser function attempts to log a user on to the local computer. LogonUser returns a handle to a user token that you can use to impersonate user. (Unicode)
-     * @remarks
-     * The LOGON32_LOGON_NETWORK logon type is fastest, but it has the following limitations:
-     * 
-     * <ul>
-     * <li>The function returns an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, not a primary token. You cannot use this token directly in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function. However, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function to convert the token to a primary token, and then use it in <b>CreateProcessAsUser</b>.</li>
-     * <li>If you convert the token to a primary token and use it in <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> to start a process, the new process cannot access other network resources, such as remote servers or printers, through the redirector. An exception is that if the network resource is not access controlled, then the new process will be able to access it.</li>
-     * </ul>
-     * 
-     * 
-     * The SE_TCB_NAME privilege is not required for this function unless you are logging onto a Passport account.
-     * 
-     * The account specified by <i>lpszUsername</i>, must have the necessary account rights. For example, to log on a user with the LOGON32_LOGON_INTERACTIVE flag, the user (or a group to which the user belongs) must have the SE_INTERACTIVE_LOGON_NAME account right. For a list of the account rights that affect the various logon operations, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/account-rights-constants">Account Rights Constants</a>.
-     * 
-     * A user is considered logged on if at least one token exists. If you call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> and then close the token, the system considers the user as still logged on until the process (and all child processes) have ended.
-     * 
-     * If the <b>LogonUser</b> call is successful, the system notifies network providers that the logon occurred by calling the provider's <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-nplogonnotify">NPLogonNotify</a> entry-point function.
+     * The Win32 LogonUser function attempts to log a user on to the local computer. LogonUser returns a handle to a user token that you can use to impersonate user.
      * @param {Pointer<Char>} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, <i>User</i><b>@</b><i>DNSDomainName</i>, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {Pointer<Char>} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {Pointer<Char>} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -5779,8 +4918,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-logonuserw
      * @since windows5.1.2600
      */
     static LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
@@ -5798,34 +4937,7 @@ class Security {
     }
 
     /**
-     * The LogonUserEx function attempts to log a user on to the local computer. (ANSI)
-     * @remarks
-     * The LOGON32_LOGON_NETWORK logon type is fastest, but it has the following limitations:
-     * 
-     * <ul>
-     * <li>The function returns an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, not a primary token. You cannot use this token directly in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function. However, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function to convert the token to a primary token, and then use it in <b>CreateProcessAsUser</b>.</li>
-     * <li>If you convert the token to a primary token and use it in <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> to start a process, the new process cannot access other network resources, such as remote servers or printers, through the redirector. An exception is that if the network resource is not access controlled, then the new process will be able to access it.</li>
-     * </ul>
-     * 
-     * 
-     * The SE_TCB_NAME privilege is not required for this function unless you are logging onto a Passport account.
-     * 
-     * The account specified by <i>lpszUsername</i> must have the necessary account rights. For example, to log on a user with the LOGON32_LOGON_INTERACTIVE flag, the user (or a group to which the user belongs) must have the SE_INTERACTIVE_LOGON_NAME account right. For a list of the account rights that affect the various logon operations, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/account-object-access-rights">Account Object Access Rights</a>.
-     * 
-     * A user is considered logged on if at least one token exists. If you call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> and then close the token, the user is still logged on until the process (and all child processes) have ended.
-     * 
-     * If the <b>LogonUserEx</b> call is successful, the system notifies network providers that the logon occurred by calling the provider's <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-nplogonnotify">NPLogonNotify</a> entry-point function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LogonUserEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The LogonUserEx function attempts to log a user on to the local computer.
      * @param {Pointer<Byte>} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, user@DNS_domain_name, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {Pointer<Byte>} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {Pointer<Byte>} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -5850,8 +4962,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns  nonzero.
      * 
      * If the function fails, it returns  zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserexa
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-logonuserexa
      * @since windows5.1.2600
      */
     static LogonUserExA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
@@ -5869,34 +4981,7 @@ class Security {
     }
 
     /**
-     * The LogonUserEx function attempts to log a user on to the local computer. (Unicode)
-     * @remarks
-     * The LOGON32_LOGON_NETWORK logon type is fastest, but it has the following limitations:
-     * 
-     * <ul>
-     * <li>The function returns an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, not a primary token. You cannot use this token directly in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function. However, you can call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function to convert the token to a primary token, and then use it in <b>CreateProcessAsUser</b>.</li>
-     * <li>If you convert the token to a primary token and use it in <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> to start a process, the new process cannot access other network resources, such as remote servers or printers, through the redirector. An exception is that if the network resource is not access controlled, then the new process will be able to access it.</li>
-     * </ul>
-     * 
-     * 
-     * The SE_TCB_NAME privilege is not required for this function unless you are logging onto a Passport account.
-     * 
-     * The account specified by <i>lpszUsername</i> must have the necessary account rights. For example, to log on a user with the LOGON32_LOGON_INTERACTIVE flag, the user (or a group to which the user belongs) must have the SE_INTERACTIVE_LOGON_NAME account right. For a list of the account rights that affect the various logon operations, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/account-object-access-rights">Account Object Access Rights</a>.
-     * 
-     * A user is considered logged on if at least one token exists. If you call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> and then close the token, the user is still logged on until the process (and all child processes) have ended.
-     * 
-     * If the <b>LogonUserEx</b> call is successful, the system notifies network providers that the logon occurred by calling the provider's <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-nplogonnotify">NPLogonNotify</a> entry-point function.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines LogonUserEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * The LogonUserEx function attempts to log a user on to the local computer.
      * @param {Pointer<Char>} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, user@DNS_domain_name, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {Pointer<Char>} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {Pointer<Char>} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -5921,8 +5006,8 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns  nonzero.
      * 
      * If the function fails, it returns  zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserexw
+     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-logonuserexw
      * @since windows5.1.2600
      */
     static LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
@@ -5945,7 +5030,7 @@ class Security {
      * @param {Pointer<Void>} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the security identifier.
      * @param {Integer} AllocateDestinationString If <b>TRUE</b>, then  <i>UnicodeString</i> is allocated on behalf of the caller, and it is the caller's responsibility to free the allocated memory by calling the <b>RtlFreeUnicodeString</b> function. If <b>FALSE</b>, the caller is responsible for allocating and freeing  <i>UnicodeString</i>.
      * @returns {Integer} The return value is an  NTSTATUS code. A value of STATUS_SUCCESS (0x00000000L) is returned if the function succeeds.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlconvertsidtounicodestring
+     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlconvertsidtounicodestring
      * @since windows5.1.2600
      */
     static RtlConvertSidToUnicodeString(UnicodeString, Sid, AllocateDestinationString) {

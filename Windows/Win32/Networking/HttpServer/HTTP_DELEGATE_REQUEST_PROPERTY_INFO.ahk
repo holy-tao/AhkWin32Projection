@@ -5,7 +5,8 @@
  * Describes additional property information when delegating a request.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_delegate_request_property_info
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_delegate_request_property_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

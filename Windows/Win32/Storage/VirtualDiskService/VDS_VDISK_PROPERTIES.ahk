@@ -4,7 +4,7 @@
 
 /**
  * Defines the properties of a virtual disk.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_vdisk_properties
+ * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_vdisk_properties
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies information about the list of nodes sufficient to establish quorum in a majority-of-nodes cluster.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_force_quorum_info
+ * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_force_quorum_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

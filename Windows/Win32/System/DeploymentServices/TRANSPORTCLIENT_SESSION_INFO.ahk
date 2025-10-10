@@ -3,7 +3,7 @@
 
 /**
  * This structure is used by the PFN_WdsTransportClientSessionStartEx callback function.
- * @see https://learn.microsoft.com/windows/win32/api/wdstci/ns-wdstci-transportclient_session_info
+ * @see https://docs.microsoft.com/windows/win32/api//wdstci/ns-wdstci-transportclient_session_info
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 
 /**
  * These values are returned by IInterval::GetLimits as pairs to specify a range with an upper and lower limit.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind
+ * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-interval_limit_kind
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

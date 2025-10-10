@@ -3,7 +3,7 @@
 
 /**
  * Contains the basic record information.
- * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_log_record_base
+ * @see https://docs.microsoft.com/windows/win32/api//txfw32/ns-txfw32-txf_log_record_base
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

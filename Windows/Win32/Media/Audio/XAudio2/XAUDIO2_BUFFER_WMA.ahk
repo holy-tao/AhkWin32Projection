@@ -4,7 +4,8 @@
 /**
  * Used with IXAudio2SourceVoice::SubmitSourceBuffer when submitting xWMA data.
  * @remarks
- * When streaming an xWMA file a few packets at a time, XAUDIO2_END_OF_STREAM should be specified on the last packet. Alternatively, the application may call <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-discontinuity">IXAudio2SourceVoice::Discontinuity</a> after submitting the last packet.
+ * 
+  * When streaming an xWMA file a few packets at a time, XAUDIO2_END_OF_STREAM should be specified on the last packet. Alternatively, the application may call <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-discontinuity">IXAudio2SourceVoice::Discontinuity</a> after submitting the last packet.
   * 
   * 
   * 
@@ -25,7 +26,9 @@
   * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
   * Windows 10 (XAudio2.9); 
   *             Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_buffer_wma
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_buffer_wma
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

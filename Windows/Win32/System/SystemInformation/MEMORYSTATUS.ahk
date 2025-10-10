@@ -4,13 +4,17 @@
 /**
  * Contains information about the current state of both physical and virtual memory.
  * @remarks
- * <b>MEMORYSTATUS</b> reflects the state of memory at the time of the call. It also reflects the size of the paging file at that time. The operating system can enlarge the paging file up to the maximum size set by the administrator.
+ * 
+  * <b>MEMORYSTATUS</b> reflects the state of memory at the time of the call. It also reflects the size of the paging file at that time. The operating system can enlarge the paging file up to the maximum size set by the administrator.
   * 
   * On computers with more than 4 GB of memory, the 
   * <b>MEMORYSTATUS</b> structure can return incorrect information, reporting a value of –1 to indicate an overflow. If your application is at risk for this behavior, use the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex">GlobalMemoryStatusEx</a> function instead of the 
   * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalmemorystatus">GlobalMemoryStatus</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-memorystatus
+  * 
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-memorystatus
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

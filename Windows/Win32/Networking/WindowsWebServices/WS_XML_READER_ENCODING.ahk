@@ -3,7 +3,7 @@
 
 /**
  * This structure is the base type for all the different kinds of reader encodings.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_encoding
+ * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_reader_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
