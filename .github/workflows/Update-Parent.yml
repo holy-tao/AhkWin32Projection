@@ -1,0 +1,30 @@
+# Advance the generator's pointer 
+name: Update Parent
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-parent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout parent repository
+        uses: actions/checkout@v4
+        with:
+          repository: holy-tao/AhkWin32Structs-Generator
+          ssh-key: ${{ secrets.GENERATOR_DEPLOY_KEY }}
+          submodules: recursive
+
+      - name: Update submodule
+        run: |
+          git submodule update --remote --init --recursive
+
+      - name: Commit and push changes in parent
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: Update submodule pointer to latest commit" || echo "No changes to commit"
+          git push
