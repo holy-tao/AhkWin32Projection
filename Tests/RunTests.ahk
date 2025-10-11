@@ -12,6 +12,7 @@
 #Include ./GeneratedApiSmokeTests.ahk
 #Include ./CStyleArrayTests.ahk
 #Include ./Win32Handle.test.ahk
+#Include ./GuidTest.ahk
 #Include ./generator-extensions/RectExtensions.test.ahk
 #Include ./generator-extensions/ColorrrefExtensions.test.ahk
 #Include ./generator-extensions/BstrExtensions.test.ahk
@@ -24,6 +25,7 @@ tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     Win32HandleTests,
     RectExtensionTests,
     COLROREFExtensionTests,
-    BSTRExtensionTests)
+    BSTRExtensionTests,
+    GuidTests)
 
 ExitApp(YunitResultCounter.failures == 0? 0 : 1)
