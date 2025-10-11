@@ -11,8 +11,9 @@
 #Include ./GeneratedStructSmokeTests.ahk
 #Include ./GeneratedApiSmokeTests.ahk
 #Include ./CStyleArrayTests.ahk
+#Include ./GuidTest.ahk
 
 tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter)
-tester.Test(Win32StructTest, GeneratedStructSmokeTests, GeneratedApiSmokeTests, CStyleArrayListTests)
+tester.Test(Win32StructTest, GeneratedStructSmokeTests, GeneratedApiSmokeTests, CStyleArrayListTests, GuidTests)
 
 ExitApp(YunitResultCounter.failures == 0? 0 : 1)
