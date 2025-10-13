@@ -205,7 +205,7 @@ class Win32StructTest {
     FromObject_WithEmbeddedStruct_PopulatesValues(){
         test := NMCHAR.FromObject({
             hdr: {
-                hwndFrom: 0xFF00FFAA,
+                hwndFrom: { value: 0xFF00FFAA },
                 idFrom: 0x1A2B3C4D,
                 code: 0xABCD
             },
@@ -216,7 +216,7 @@ class Win32StructTest {
 
         dump := "`n" . test.HexDump()
 
-        Yunit.Assert(test.hdr.hwndFrom == 0xFF00FFAA, dump)
+        Yunit.Assert(test.hdr.hwndFrom.value == 0xFF00FFAA, dump)
         Yunit.Assert(test.hdr.idFrom == 0x1A2B3C4D, dump)
         Yunit.Assert(test.hdr.code == 0xABCD, dump)
         Yunit.Assert(test.ch = Ord("A"), dump)
@@ -229,15 +229,15 @@ class Win32StructTest {
         Hdr2 := "Accept: application/json"
         headers := HTTP_REQUEST_HEADERS.FromObject({
             KnownHeaders: [
-                { RawValueLength: StrLen(Hdr1), pRawValue: StrPtr(Hdr1) },
-                { RawValueLength: StrLen(Hdr2), pRawValue: StrPtr(Hdr2) }
+                { RawValueLength: StrLen(Hdr1), pRawValue: { value: StrPtr(Hdr1) } },
+                { RawValueLength: StrLen(Hdr2), pRawValue: { value: StrPtr(Hdr2) } }
             ]
         })
 
         Yunit.Assert(headers.KnownHeaders[1].RawValueLength == StrLen(Hdr1))
-        Yunit.Assert(headers.KnownHeaders[1].pRawValue == StrPtr(Hdr1))
+        Yunit.Assert(headers.KnownHeaders[1].pRawValue.Value == StrPtr(Hdr1))
         Yunit.Assert(headers.KnownHeaders[2].RawValueLength == StrLen(Hdr2))
-        Yunit.Assert(headers.KnownHeaders[2].pRawValue == StrPtr(Hdr2))
+        Yunit.Assert(headers.KnownHeaders[2].pRawValue.Value == StrPtr(Hdr2))
     }
 
     FromObject_WithUnknownValue_ThrowsPropertyError(){
