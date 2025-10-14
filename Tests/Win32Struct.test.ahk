@@ -193,6 +193,53 @@ class Win32StructTest {
         Yunit.Assert(actual == expected, "HexDump is incorect. Expected `n'" . expected . "'but got `n'" . actual . "'")
     }
 
+    New_WithObject_WithNoEmbeddedElements_PopulatesValues(){
+        test := RECT({ top: 0, bottom: 100, left: 0, right: 100 })
+
+        Yunit.Assert(test.top == 0)
+        Yunit.Assert(test.bottom == 100)
+        Yunit.Assert(test.left == 0)
+        Yunit.Assert(test.right == 100)
+    }
+
+    New_WithObject_WithEmbeddedStruct_PopulatesValues(){
+        test := NMCHAR({
+            hdr: {
+                hwndFrom: { value: 0xFF00FFAA },
+                idFrom: 0x1A2B3C4D,
+                code: 0xABCD
+            },
+            ch: Ord("A"),
+            dwItemPrev: 42,
+            dwItemNext: 43
+        })
+
+        dump := "`n" . test.HexDump()
+
+        Yunit.Assert(test.hdr.hwndFrom.value == 0xFF00FFAA, dump)
+        Yunit.Assert(test.hdr.idFrom == 0x1A2B3C4D, dump)
+        Yunit.Assert(test.hdr.code == 0xABCD, dump)
+        Yunit.Assert(test.ch = Ord("A"), dump)
+        Yunit.Assert(test.dwItemPrev == 42, dump)
+        Yunit.Assert(test.dwItemNext == 43, dump)
+    }
+
+    New_WithObject_WithArrays_PopulatesValues(){
+        Hdr1 := "Content-Type: application/json"
+        Hdr2 := "Accept: application/json"
+        headers := HTTP_REQUEST_HEADERS({
+            KnownHeaders: [
+                { RawValueLength: StrLen(Hdr1), pRawValue: { value: StrPtr(Hdr1) } },
+                { RawValueLength: StrLen(Hdr2), pRawValue: { value: StrPtr(Hdr2) } }
+            ]
+        })
+
+        Yunit.Assert(headers.KnownHeaders[1].RawValueLength == StrLen(Hdr1))
+        Yunit.Assert(headers.KnownHeaders[1].pRawValue.Value == StrPtr(Hdr1))
+        Yunit.Assert(headers.KnownHeaders[2].RawValueLength == StrLen(Hdr2))
+        Yunit.Assert(headers.KnownHeaders[2].pRawValue.Value == StrPtr(Hdr2))
+    }
+
     FromObject_WithNoEmbeddedElements_PopulatesValues(){
         test := RECT.FromObject({ top: 0, bottom: 100, left: 0, right: 100 })
 

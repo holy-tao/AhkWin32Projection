@@ -44,15 +44,18 @@ class Win32Handle extends Win32Struct {
     }
 
     /**
-     * Initializes a new `Win32Handle` from a pointer.
+     * Initializes a new `Win32Handle`. Pass either a pointer to the memory address at which
+     * to intialize the handle struct, or an object with a `Value` property to initialize a
+     * new handle with its value:
      * 
-     * @param {Integer} ptr pointer to the memory location at which to create the struct,
-     *          or 0 to create a new one
+     *      myHandle := HANDLE({Value: 0xFFFFFFFF})
+     * 
+     * @param {Integer} ptrOrObj pointer or object with which to initialize the struct
      * @param {Boolean} owned true if this handle is owned by the script and must be freed
      *          by it, false otherwise 
      */
-    __New(ptr := 0, owned := true){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, owned := true){
+        super.__New(ptrOrObj)
         this.owned := owned
     }
 }

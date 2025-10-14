@@ -47,17 +47,23 @@ class Win32Struct extends Object{
      * Initializes a new `Win32Struct` object at the given memory location. Classes extending `Struct`
      * must contain a static member called `sizeof`, which is taken to be the size of the struct.
      * 
-     * @param {Integer} ptr Pointer to the memory location at which to create the struct, or
-     *      0 to use a new `Buffer`.
+     * The constructor can also accept an object, in which case a new `Buffer` is allocated and the
+     * object is used to initialize the struct's members
+     * 
+     * @param {Integer} ptrOrObj Pointer to the memory location at which to create the struct -
+     *      0 to use a new `Buffer` - or an object from which to initialize the values of a new struct
      */
-    __New(ptr := 0){
+    __New(ptrOrObj := 0){
         size := Win32Struct.ResolveClassName(this.__Class).sizeof
 
-        if(ptr == 0){
-            this.__buf := Buffer(size, 0)
+        if(IsInteger(ptrOrObj) && ptrOrObj != 0){
+            this.__buf := {ptr: ptrOrObj, size: size}
+            return
         }
-        else{
-            this.__buf := {ptr: ptr, size: size}
+        
+        this.__buf := Buffer(size, 0)
+        if(IsObject(ptrOrObj)){
+            Win32Struct._InitFromObject(this, ptrOrObj)
         }
     }
 
@@ -274,79 +280,84 @@ class Win32Struct extends Object{
         if (ObjGetBase(this) == Object) {
             throw TypeError("This method cannot be used by 'Win32Struct' directly", -2)
         }
-        return Init(this(), Obj)
+        return Win32Struct._InitFromObject(this(), Obj)
+    }
 
-        static Init(Target, Obj) {
-            if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
-                throw TypeError("Expected an Object literal", -2, Type(Obj))
+    /**
+     * Initializes a struct by copying the keys of an object
+     */
+    static _InitFromObject(Target, Obj) {
+        if (!IsObject(Obj) || (ObjGetBase(Obj) != Object.Prototype)) {
+            throw TypeError("Expected an Object literal", -2, Type(Obj))
+        }
+
+        targetBase := ObjGetBase(Target)
+
+        for PropertyName in ObjOwnProps(Obj) {
+            if (PropertyName == "__Class") {
+                throw PropertyError('"__Class" is not a valid struct member', -2)
+            }
+            if (!ObjHasOwnProp(targetBase, PropertyName)) {
+                throw PropertyError(Format('struct "{1}" has no member "{2}"', Type(Target), PropertyName), -2)
             }
 
-            for PropertyName in ObjOwnProps(Obj) {
-                if (PropertyName == "__Class") {
-                    throw PropertyError('"__Class" is not a valid struct member', -2)
-                }
-                if (!ObjHasOwnProp(ObjGetBase(Target), PropertyName)) {
-                    throw PropertyError(Format('struct "{1}" has no member "{2}"', Type(Target), PropertyName), -2)
-                }
+            ; alternatively: Obj.GetOwnPropDesc(PropertyName).Value
+            Value := Obj.%PropertyName%
 
-                ; alternatively: Obj.GetOwnPropDesc(PropertyName).Value
-                Value := Obj.%PropertyName%
+            PropDesc := targetBase.GetOwnPropDesc(PropertyName)
+            Inner := (PropDesc.Get)(Target)
 
-                PropDesc := ObjGetBase(Target).GetOwnPropDesc(PropertyName)
-                Inner := (PropDesc.Get)(Target)
+            ; ==------------- regular struct member -------------== ;
+            if (!IsObject(Inner)) {
+                (PropDesc.Set)(Target, Value)
+                continue
+            }
 
-                ; ==------------- regular struct member -------------== ;
-                if (!IsObject(Inner)) {
-                    (PropDesc.Set)(Target, Value)
+            ; ==-------- nested struct or struct pointer --------== ;
+            if (Inner is Win32Struct) {
+                if (!(Value is Win32Struct)) {
+                    Win32Struct._InitFromObject(Inner, Value)
                     continue
                 }
-
-                ; ==-------- nested struct or struct pointer --------== ;
-                if (Inner is Win32Struct) {
-                    if (!(Value is Win32Struct)) {
-                        Init(Inner, Value)
-                        continue
-                    }
-                    ; ensure structs are the same type
-                    if (ObjGetBase(Inner) != ObjGetBase(Value)) {
-                        Msg := Format("Invalid struct type for member {1}; expected a(n) {2}",
-                                PropertyName, Type(Inner))
-                        throw TypeError(Msg, -2, Type(Value))
-                    }
-                    ; copy to our new struct
-                    Value.CopyTo(Inner)
-                    continue
-                }
-
-                ; ==------------------ fixed array ------------------== ;
-                if (Value is Win32FixedArray) {
-                    Loop (Value.Length) {
-                        Inner[A_Index] := Value[A_Index]
-                    }
-                    continue
-                }
-
-                if (!(Value is Array)) {
-                    Msg := Format('Expected a Win32FixedArray or an Array for member "{1}"', PropertyName)
+                ; ensure structs are the same type
+                if (ObjGetBase(Inner) != ObjGetBase(Value)) {
+                    Msg := Format("Invalid struct type for member {1}; expected a(n) {2}",
+                            PropertyName, Type(Inner))
                     throw TypeError(Msg, -2, Type(Value))
                 }
-
-                if (Inner.ElementType == Primitive) {
-                    Loop (Value.Length) {
-                        Inner[A_Index] := Value[A_Index]
-                    }
-                    continue
-                }
-
-                Loop (Value.Length) {
-                    Element := Value[A_Index]
-                    Inner[A_Index] := (Element is Win32Struct)
-                            ? Element
-                            : Inner.ElementType.FromObject(Element)
-                }
+                ; copy to our new struct
+                Value.CopyTo(Inner)
+                continue
             }
-            return Target
+
+            ; ==------------------ fixed array ------------------== ;
+            if (Value is Win32FixedArray) {
+                Loop (Value.Length) {
+                    Inner[A_Index] := Value[A_Index]
+                }
+                continue
+            }
+
+            if (!(Value is Array)) {
+                Msg := Format('Expected a Win32FixedArray or an Array for member "{1}"', PropertyName)
+                throw TypeError(Msg, -2, Type(Value))
+            }
+
+            if (Inner.ElementType == Primitive) {
+                Loop (Value.Length) {
+                    Inner[A_Index] := Value[A_Index]
+                }
+                continue
+            }
+
+            Loop (Value.Length) {
+                Element := Value[A_Index]
+                Inner[A_Index] := (Element is Win32Struct)
+                        ? Element
+                        : Inner.ElementType.FromObject(Element)
+            }
         }
+        return Target
     }
 
     /**
