@@ -23,7 +23,7 @@ class Assert {
                 return
             }
 
-            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", errType.Prototype.__Class, Type(thrown)))
+            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}: {3}", errType.Prototype.__Class, Type(thrown), thrown.Message))
         }
 
         throw Error(Format("Expeted {1} to throw a(n) {2}, but nothing was thrown", 

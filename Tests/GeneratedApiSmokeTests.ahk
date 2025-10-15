@@ -166,6 +166,37 @@ class GeneratedApiSmokeTests {
                 Format("Expected Shell32.dll to be loaded at 0x{1:0X}, but it exists at 0x{1:0X}", hModuleBefore, hModuleAfter))
         }
     }
+
+    /**
+     * Some tests for handles. Requirements:
+     *  - Apis that accept handles should automatically dereference them and accept raw pointers as well
+     *  - Apis which return handles should always wrap them in the appropriate type
+     */
+    class Handles{
+        HandleReturningApis_Always_WrapReturnValues(){
+            nonNullTest := Foundation.SysAllocString("Test string")
+            nullTest := Foundation.SysAllocString(0)
+
+            Assert.IsType(nonNullTest, BSTR)
+            Yunit.Assert(nonNullTest.Value != 0, nonNullTest.Value)
+            Yunit.Assert(nonNullTest.ptr != 0, nonNullTest.ptr)
+
+            Assert.IsType(nullTest, BSTR)
+            Yunit.Assert(nullTest.Value == 0, nullTest.Value)
+            Yunit.Assert(nullTest.ptr != 0, nullTest.ptr)
+        }
+
+        ApisWithHandleParams_Always_AcceptAndDereferenceHandles(){
+            str := Foundation.SysAllocString("Test")
+            Foundation.SysFreeString(str)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
+        }
+
+        ApisWithHandleParams_Always_AcceptRawIntegers(){
+            str := Foundation.SysAllocString("Test")
+            handleRaw := str.Value
+            Foundation.SysFreeString(handleRaw)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
+        }
+    }
 }
 
 /**

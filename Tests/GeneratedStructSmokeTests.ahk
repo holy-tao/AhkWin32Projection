@@ -15,6 +15,8 @@
 #Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
 #Include ../Windows/Win32/System/Kernel/SLIST_HEADER.ahk
 #Include ../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk
+#Include ../Windows/Win32/Foundation/Apis.ahk
+#Include ../Windows/Win32/System/Memory/Apis.ahk
 
 /**
  * Tests of generated source code
